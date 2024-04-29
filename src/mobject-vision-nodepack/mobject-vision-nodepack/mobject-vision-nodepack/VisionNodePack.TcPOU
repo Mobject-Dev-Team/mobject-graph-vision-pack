@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="VisionNodePack" Id="{bf74fd0b-f83d-00e3-12d8-ee6600881b1f}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK VisionNodePack IMPLEMENTS I_NodePack
+VAR
+	//node : Node;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RegisterWithNodeFactory" Id="{04d10a43-cd37-0f83-11e4-4e8e1f28f56c}">
+      <Declaration><![CDATA[METHOD PUBLIC RegisterWithNodeFactory
+VAR_INPUT
+	NodeFactory : I_NodeFactory;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//NodeFactory.AddNodeAsPrototype('Vision.Node',Node);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
