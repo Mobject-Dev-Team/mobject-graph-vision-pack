@@ -19,7 +19,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[//NodeFactory.AddNodeAsPrototype('Vision.Node',Node);]]></ST>
+        <ST><![CDATA[//NodeFactory.AddNodeAsPrototype('Vision/Node',Node);]]></ST>
       </Implementation>
     </Method>
   </POU>

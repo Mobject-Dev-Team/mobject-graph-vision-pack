@@ -36,10 +36,7 @@
     <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
-    <LibraryReference Include="mobject-basic-datatypes,0.2.0,mobject">
-      <Namespace>mobject_basic_datatypes</Namespace>
-    </LibraryReference>
-    <LibraryReference Include="mobject-graph,0.2.0,mobject">
+    <LibraryReference Include="mobject-graph,0.3.0,mobject">
       <Namespace>mobject_graph</Namespace>
     </LibraryReference>
     <LibraryReference Include="mobject-vision-datatypes,0.1.0,mobject">
