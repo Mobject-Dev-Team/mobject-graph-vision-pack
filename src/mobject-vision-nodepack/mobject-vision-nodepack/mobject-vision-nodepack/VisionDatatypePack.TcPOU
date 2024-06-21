@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="VisionDatatypePack" Id="{dba1a8ea-4f57-4eff-a31a-fcd586f86c14}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK VisionDatatypePack IMPLEMENTS I_DatatypePack
+VAR
+	// alias
+	
+	// enums
+	_eTcVn2dCodeSearchStrategy : _ETcVn2dCodeSearchStrategy(ETcVn2dCodeSearchStrategy.TCVN_CSS_DEFAULT);
+	
+	// structures
+	_tcVnImageInfo : _TcVnImageInfo;
+	_tcVnPixelFormat : _TcVnPixelFormat;
+	
+	// interface
+	_iTcVnImage : _ITcVnImage;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RegisterWith" Id="{c1f04cb0-cd52-4c16-bfbe-05ff911cce45}">
+      <Declaration><![CDATA[METHOD RegisterWith
+VAR_INPUT
+	Datatypes : I_Datatypes;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// enums
+Datatypes.RegisterDatatype(_eTcVn2dCodeSearchStrategy);
+
+// structures
+Datatypes.RegisterDatatype(_tcVnImageInfo);
+Datatypes.RegisterDatatype(_tcVnPixelFormat);
+
+// interfaces
+Datatypes.RegisterDatatype(_iTcVnImage);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

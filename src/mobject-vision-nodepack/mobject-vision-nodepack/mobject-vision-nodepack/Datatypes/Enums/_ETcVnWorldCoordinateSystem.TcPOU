@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="_ETcVnWorldCoordinateSystem" Id="{b9555fcc-5c32-4f56-91fc-eff87f56d8ff}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnWorldCoordinateSystem EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnWorldCoordinateSystem;
+	activeData : REFERENCE TO ETcVnWorldCoordinateSystem;
+	enumBaseDatatype : _DINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{219a23c3-3551-488d-9144-89699bffa0ca}" />
+    <Folder Name="Private" Id="{3b331669-d13b-48a0-8815-e2f386674136}" />
+    <Folder Name="Protected" Id="{ba533ce6-b0da-47aa-bd9b-c56f581d15d9}" />
+    <Method Name="AddLocalEnumeration" Id="{c68d9cfb-31c9-48ef-8164-eb78c937f600}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnWorldCoordinateSystem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{00f644a5-12c8-46ba-afaf-3acda6e07a80}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{9b9f8320-018c-44c5-a703-9bab69d6ee8f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{0cb4aaa0-5ce4-4c58-8766-3f07cfd9ba01}">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{ec77ca23-3104-4557-9859-3acc97934c9c}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnWorldCoordinateSystem;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnWorldCoordinateSystem(InitialValue := Value));
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{98080a7c-18af-45c3-a09b-2ea83fd30255}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnWorldCoordinateSystem;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_WCS_X_RIGHT_Y_DOWN' , ETcVnWorldCoordinateSystem.TCVN_WCS_X_RIGHT_Y_DOWN);
+AddLocalEnumeration('TCVN_WCS_X_DOWN_Y_RIGHT', ETcVnWorldCoordinateSystem.TCVN_WCS_X_DOWN_Y_RIGHT);
+AddLocalEnumeration('TCVN_WCS_X_LEFT_Y_DOWN', ETcVnWorldCoordinateSystem.TCVN_WCS_X_LEFT_Y_DOWN);
+AddLocalEnumeration('TCVN_WCS_X_UP_Y_RIGHT', ETcVnWorldCoordinateSystem.TCVN_WCS_X_UP_Y_RIGHT);
+AddLocalEnumeration('TCVN_WCS_X_RIGHT_Y_UP', ETcVnWorldCoordinateSystem.TCVN_WCS_X_RIGHT_Y_UP);
+AddLocalEnumeration('TCVN_WCS_X_DOWN_Y_LEFT', ETcVnWorldCoordinateSystem.TCVN_WCS_X_DOWN_Y_LEFT);
+AddLocalEnumeration('TCVN_WCS_X_LEFT_Y_UP', ETcVnWorldCoordinateSystem.TCVN_WCS_X_LEFT_Y_UP);
+AddLocalEnumeration('TCVN_WCS_X_UP_Y_LEFT', ETcVnWorldCoordinateSystem.TCVN_WCS_X_UP_Y_LEFT);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{4f086ef5-e84a-4395-a154-0cfbb4afaa62}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{060a16cb-07ab-4ab1-bcab-e3546739f1ad}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnWorldCoordinateSystem';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{149af81d-cfae-4c31-8455-8fe5b66752c7}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnWorldCoordinateSystem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{8e5ca91e-cfd5-4bce-a48c-8a7eda602ae8}">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnWorldCoordinateSystem;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{1e24873b-1ffa-4d16-871c-7f19388891ed}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{207aaef5-e904-4512-bb0f-60bb6c8f06e8}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{f850f05a-c697-473f-9c60-8a3690219baf}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{5d5e98c5-b889-4e52-a6f5-701e866a33ef}">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	targetAsEnum : I_EnumDatatype;
+	pTargetData : POINTER TO ETcVnWorldCoordinateSystem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Target.TryResolveAsEnumDatatype(targetAsEnum) THEN
+	RETURN;
+END_IF
+
+IF targetAsEnum.Identifier <> Identifier THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{fb6b69be-b93d-49cd-abf2-92f398ab6539}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnWorldCoordinateSystem]]></Declaration>
+      <Get Name="Get" Id="{866f19c4-0271-4861-8b36-1078af4936e4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c9aa0a9c-21eb-4194-b69d-775c418720ff}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

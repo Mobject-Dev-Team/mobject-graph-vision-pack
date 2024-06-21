@@ -36,14 +36,254 @@
     <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
-    <LibraryReference Include="mobject-graph,0.3.0,mobject">
-      <Namespace>mobject_graph</Namespace>
+    <LibraryReference Include="mobject-core,0.1.0,mobject">
+      <Namespace>mobject_core</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-vision-datatypes,0.1.0,mobject">
-      <Namespace>mobject_vision_datatypes</Namespace>
+    <LibraryReference Include="mobject-graph,0.7.0,mobject">
+      <Namespace>mobject_graph</Namespace>
     </LibraryReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datatypes\Enums\_ETcVn2dCodeSearchStrategy.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnAdaptiveThresholdMethod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnBarcodeSearchDirection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnBarcodeType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnBlobCombination.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnBorderInterpolationMethod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnCalibrationPattern.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnCalibrationPatternOrigin.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnCameraState.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnClusteringAlgorithm.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnColorMap.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnColorMapSize.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnColorSpaceTransform.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnColorTrainingMethod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnConnectedComponentsAlgorithm.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnContainerExportFormat.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnContourApproximationMethod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnContourRetrievalMode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnContoursMatchComparisonMethod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnDiffusivityTypeKAZE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnDistanceTransformationLabel.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnDistanceTransformationMask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnDistanceType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnDrawMatchesFlags.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnDrawShape.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnEdgeDetectionAlgorithm.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnEdgeDirection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnElementType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnEstimationAlgorithm.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnExtremePointDirection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnFeatureDescriptorTypeAKAZE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnFeatureScalingType.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnFeatureScoreTypeORB.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnFilterDirection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnFlipAxis.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnFontType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnHoughMethod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnInitializableFunction.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnInterpolationType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnKeypointDetectionTypeAGAST.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnKeypointDetectionTypeFAST.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnKnn.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnLineType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnMorphologicalOperator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnNbc.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnNormalizationType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnOcrModelType.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnOcrOptions.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnOrientationMethod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnPaddingMode.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnPixelConnectivity.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnPixelEncoding.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnPixelPackMode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnPrototypeClusterer.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnRectangleIntersection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnRotationAngle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnRTrees.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnSignedNormalization.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnSolvePnPMethod.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnSta.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnStructuringElementShape.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnSvm.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnSvmKernelType.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnSvmSgdClassifierMarginType.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnSvmSgdClassifierType.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnTemplateMatchMethod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnThresholdType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnVectorCompareMethod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnWorldCoordinateSystem.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcWatchdogAccumulationType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_GEV_CAMERA_STATE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Interface\_ITcVnImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnImageInfo.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnPixelFormat.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VisionDatatypePack.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="VisionNodePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -52,6 +292,33 @@
     <None Include="mobject-vision-nodepack.tmc">
       <SubType>Content</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Datatypes" />
+    <Folder Include="Datatypes\Aliases" />
+    <Folder Include="Datatypes\Arrays" />
+    <Folder Include="Datatypes\Enums" />
+    <Folder Include="Datatypes\Interface" />
+    <Folder Include="Datatypes\Structs" />
+    <Folder Include="Nodes" />
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderReference Include="Tc2_Standard">
+      <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Standard</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_System">
+      <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_System</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_Module">
+      <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_Module</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_Vision">
+      <DefaultResolution>Tc3_Vision, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_Vision</Namespace>
+    </PlaceholderReference>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

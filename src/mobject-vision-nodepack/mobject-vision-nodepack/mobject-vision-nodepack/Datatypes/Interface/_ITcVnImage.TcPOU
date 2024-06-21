@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="_ITcVnImage" Id="{7e911c69-cf0c-4045-9c3b-aadcb39505f3}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ITcVnImage EXTENDS InterfaceDatatypeBase
+VAR
+	localData : ITcVnImage;
+	activeData : REFERENCE TO ITcVnImage REF= localData;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Private" Id="{f0cdabd0-f3ff-04e6-3d41-ad3907eb65c2}" />
+    <Property Name="Address" Id="{bca6c850-5690-4107-b708-3be03aa43431}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{8711d9ca-0228-4ac9-81bc-accafbdb28a0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{3f62d9aa-a523-490d-8aa7-2a23825e516b}">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{29485d6c-db02-43da-9d0d-e8817fcc3722}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ITcVnImage;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ITcVnImage);
+Clone := pClone^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{97e9c86f-b541-4e4f-a3ab-4fba37f2dbd0}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{76280b1a-05d3-4fcb-8307-ce0e185c8430}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ITcVnImage';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{6c29cbc3-6e45-4e1c-a591-4142f4aa0906}">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ITcVnImage;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SerializeWith" Id="{420e04da-2fac-06b6-1ad9-550a8acc4ce3}">
+      <Declaration><![CDATA[METHOD PUBLIC SerializeWith
+VAR_INPUT
+	Serializer : I_Serializer;
+END_VAR
+VAR
+	result: HRESULT;
+	exportImageSize: ULINT;
+	buffer : POINTER TO BYTE;
+	imageInfo : _TcVnImageInfo;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT (activeData <> 0) THEN
+	// no image available, so drop out.. need to add serialization?
+	Serializer.AddNull();
+	RETURN;
+END_IF
+
+result := F_VN_ExportImageSize(ipImage:=activeData, nBufferSize:=exportImageSize, hrPrev:=result);
+
+IF FAILED(result) THEN
+	// export to bmp size failed, so drop out.. need to add serialization?
+	Serializer.AddNull();
+	RETURN;
+END_IF
+
+IF exportImageSize > DatatypeLimits.UDINT_MAX_VALUE THEN
+	// export is too big for __NEW, so drop out..
+	Serializer.AddNull();
+	RETURN;
+END_IF
+
+IF exportImageSize <= 0 THEN
+	// export is zero size, so drop out.. 
+	Serializer.AddNull();
+	RETURN;
+END_IF
+	
+buffer := __NEW(BYTE,ULINT_TO_UDINT(exportImageSize));
+result := F_VN_ExportImage(ipImage:=activeData, pBuffer:=buffer, nBufferSize:=exportImageSize, hrPrev:=result);
+
+IF FAILED(result) THEN
+	// export to bmp failed, so drop out.. 
+	Serializer.AddNull();
+	__DELETE(buffer);
+	RETURN;
+END_IF
+
+activeData.GetImageInfo(imageInfo.value);
+
+Serializer.StartObject();
+Serializer.AddKeyObject('imageInfo',imageInfo);
+Serializer.AddKey('imageData');
+Serializer.AddBase64(buffer,ULINT_TO_DINT(exportImageSize));
+Serializer.EndObject();
+
+__DELETE(buffer);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{1bedb4cf-c8d7-4446-b034-d5a6382263d5}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{66735de4-c6c4-47fa-88af-47ff228f3552}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryDeserializeFrom" Id="{09cc7510-7b5b-0d20-0baf-f66d8076937f}">
+      <Declaration><![CDATA[METHOD TryDeserializeFrom : BOOL
+VAR_INPUT
+	Deserializer : I_Deserializer;
+	Feedback : I_DeserializerFeedback;
+END_VAR
+VAR
+	imageInfo : _TcVnImageInfo;
+	imageSizeInBytes : UDINT;
+	buffer : POINTER TO BYTE;
+	hr : HRESULT;
+	elementType : ETcVnElementType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Deserializer.TryDeserializeKeyToObject('imageInfo', imageInfo, Feedback) THEN
+	RETURN;
+END_IF
+
+imageSizeInBytes := ULINT_TO_UDINT(imageInfo.nImageSize.Value);
+
+IF imageSizeInBytes = 0 THEN
+	TryDeserializeFrom := TRUE;
+	RETURN;
+END_IF
+
+buffer := __NEW(BYTE, imageSizeInBytes);
+
+IF NOT Deserializer.TryGetKeyBase64('imageData', buffer, imageSizeInBytes, Feedback) THEN
+	__DELETE(buffer);
+	RETURN;
+END_IF
+
+TryGetElementTypeFromInfo(imageInfo.Value, elementType);
+
+hr := F_VN_CreateImageFromArray(
+	pData := buffer,
+	ipImage := activeData,
+	nWidth := imageInfo.nWidth.Value,
+	nHeight :=  imageInfo.nHeight.Value,
+	ePixelType := elementType,
+	nChannelNum := imageInfo.stPixelFormat.nChannels.Value, 
+	hrPrev := hr);
+
+__DELETE(buffer);
+
+TryDeserializeFrom := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetElementTypeFromInfo" Id="{bc9d6887-38e8-0265-09a0-c7390855a4ce}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE TryGetElementTypeFromInfo : BOOL;
+VAR_INPUT
+	ImageInfo : TcVnImageInfo;
+	Destination : REFERENCE TO ETcVnElementType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE ImageInfo.stPixelFormat.nElementSize OF
+	
+	8 : // 8bit
+	
+		IF ImageInfo.stPixelFormat.bSigned THEN
+			Destination := ETcVnElementType.TCVN_ET_SINT;
+		ELSE	
+			Destination := ETcVnElementType.TCVN_ET_USINT;
+		END_IF
+		TryGetElementTypeFromInfo := TRUE;
+	
+	16 : // 16bit
+	
+		IF ImageInfo.stPixelFormat.bSigned THEN
+			Destination := ETcVnElementType.TCVN_ET_INT;
+		ELSE	
+			Destination := ETcVnElementType.TCVN_ET_UINT;
+		END_IF
+		TryGetElementTypeFromInfo := TRUE;
+	
+	32 : // 32bit
+	
+		IF ImageInfo.stPixelFormat.bSigned AND NOT ImageInfo.stPixelFormat.bFloat THEN
+			Destination := ETcVnElementType.TCVN_ET_DINT;
+			TryGetElementTypeFromInfo := TRUE;
+		END_IF
+		
+		IF ImageInfo.stPixelFormat.bFloat THEN
+			Destination := ETcVnElementType.TCVN_ET_REAL;
+			TryGetElementTypeFromInfo := TRUE;
+		END_IF
+		
+	64 : // 64bit
+	
+		IF ImageInfo.stPixelFormat.bFloat THEN
+			Destination := ETcVnElementType.TCVN_ET_LREAL;
+			TryGetElementTypeFromInfo := TRUE;
+		END_IF
+		
+ELSE
+	
+	RETURN;
+
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryMakeReferenceTo" Id="{e776882b-371c-4c76-a181-0220473e819b}">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	targetAsInterface : I_InterfaceDatatype;
+	pTargetData : POINTER TO ITcVnImage;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Target.TryResolveAsInterfaceDatatype(targetAsInterface) THEN
+	RETURN;
+END_IF
+
+IF targetAsInterface.Identifier <> Identifier THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{9e635f89-cb26-414d-b6f8-867bb945d322}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO ITcVnImage]]></Declaration>
+      <Get Name="Get" Id="{0a076365-f184-41f6-ba25-7c4c04f91749}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

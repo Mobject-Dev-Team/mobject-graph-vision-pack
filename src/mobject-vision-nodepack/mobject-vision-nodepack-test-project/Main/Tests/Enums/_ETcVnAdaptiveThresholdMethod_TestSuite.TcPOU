@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="_ETcVnAdaptiveThresholdMethod_TestSuite" Id="{bf80acc3-7411-03f5-22cb-0dac53d021c9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK _ETcVnAdaptiveThresholdMethod_TestSuite EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TestAddress();
+TestClearReference();
+TestClone();
+TestTypeNameReturnsExpected();
+TestIdentifierReturnsExpected();
+TestMakeReferenceToFollowsReference();
+TestMakeReferenceToUpdatesReference();
+TestSize();
+TestValueReturnsExpectedAfterInit();
+TestValueReturnsExpectedAfterChange();
+TestSerializeTypeWith();
+TestSerializeWith();
+TestTryDeserializeFrom();
+TestTryMakeReferenceToFollowsReference();
+TestTryMakeReferenceToUpdatesReference();
+]]></ST>
+    </Implementation>
+    <Method Name="TestAddress" Id="{a0d7609d-ccc5-03dc-2628-244b0d722135}">
+      <Declaration><![CDATA[METHOD PUBLIC TestAddress
+VAR
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+    notExpected : PVOID := 0;
+    actual : PVOID;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestAddress');
+
+actual := _type.Address;
+
+AssertFalse(
+    Condition := (notExpected = actual),
+    Message := 'Type did not return a valid address.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestClearReference" Id="{a621399b-f1b9-0977-39e6-3eb23ae2be12}">
+      <Declaration><![CDATA[METHOD PUBLIC TestClearReference
+VAR
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+	target : ETcVnAdaptiveThresholdMethod := ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN;
+    expected : ETcVnAdaptiveThresholdMethod := ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN;
+    actual : ETcVnAdaptiveThresholdMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestClearReference');
+
+_type.MakeReferenceTo(target);
+_type.ClearReference();
+target := ETcVnAdaptiveThresholdMethod.TCVN_ATM_GAUSSIAN;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value continued to follow target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestClone" Id="{b3e1c5a1-c4f4-08f7-0c5f-fa731353c77e}">
+      <Declaration><![CDATA[METHOD PUBLIC TestClone
+VAR
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+	clone : I_Datatype;
+	isValidClone : BOOL;
+	compareResult : DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestClone');
+
+clone := _type.Clone();
+
+isValidClone := clone <> 0;
+
+IF isValidClone THEN
+	compareResult := memcmp(_type.Address, clone.Address, clone.Size);
+END_IF
+
+AssertTrue(
+	Condition := isValidClone,
+	Message := 'Clone did not produce a clone'
+);
+
+AssertEquals_DINT(
+	Expected := 0,
+    Actual := compareResult,
+    Message := 'Clone did not return a valid clone.'
+);
+
+clone.Dispose();
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestIdentifierReturnsExpected" Id="{158d5ad7-1161-0eb5-0d38-b227708813ae}">
+      <Declaration><![CDATA[METHOD PUBLIC TestIdentifierReturnsExpected
+VAR
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+    expected : STRING := 'ETcVnAdaptiveThresholdMethod';
+    actual : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestIdentifierReturnsExpected');
+
+actual := _type.Identifier;
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not return correct iec type.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMakeReferenceToFollowsReference" Id="{6548553c-08ad-07b9-1358-087de763591d}">
+      <Declaration><![CDATA[METHOD PUBLIC TestMakeReferenceToFollowsReference
+VAR
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+	target : ETcVnAdaptiveThresholdMethod := ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN;
+    expected : ETcVnAdaptiveThresholdMethod := ETcVnAdaptiveThresholdMethod.TCVN_ATM_GAUSSIAN;
+    actual : ETcVnAdaptiveThresholdMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestMakeReferenceToFollowsReference');
+
+_type.MakeReferenceTo(target);
+target := ETcVnAdaptiveThresholdMethod.TCVN_ATM_GAUSSIAN;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not follow target change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMakeReferenceToUpdatesReference" Id="{1fec39d9-6cb4-01b7-0d62-fd69e7d986b9}">
+      <Declaration><![CDATA[METHOD PUBLIC TestMakeReferenceToUpdatesReference
+VAR
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+	target : ETcVnAdaptiveThresholdMethod := ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN;
+    expected : ETcVnAdaptiveThresholdMethod := ETcVnAdaptiveThresholdMethod.TCVN_ATM_GAUSSIAN;
+    actual : ETcVnAdaptiveThresholdMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestMakeReferenceToUpdatesReference');
+
+_type.MakeReferenceTo(target);
+_type.Value := ETcVnAdaptiveThresholdMethod.TCVN_ATM_GAUSSIAN;
+
+actual := target;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not update target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeTypeWith" Id="{386d9414-8ce5-0830-3592-76cf1708119f}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeTypeWith
+VAR
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+    serializer : JsonSerializer;
+    expected : STRING(500) := '{"typeName":"ENUM","identifier":"ETcVnAdaptiveThresholdMethod","enumerations":["TCVN_ATM_MEAN","TCVN_ATM_GAUSSIAN"],"baseType":{"typeName":"DINT","minValue":-2147483648,"maxValue":2147483647,"isSigned":true,"isFloat":false}}'; 
+    actual : STRING(500);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeTypeWith');
+
+serializer.Reset();
+_type.SerializeTypeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeWith" Id="{45eced59-b346-0514-1540-789b2a193a88}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeWith
+VAR
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+    serializer : JsonSerializer;
+    expected : STRING := '"TCVN_ATM_MEAN"';
+    actual : STRING(500);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeWith');
+
+serializer.Reset();
+_type.SerializeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type data did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSize" Id="{c51a2c03-945a-0ba3-0c51-7a5c4e4486a9}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSize
+VAR
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+    expected : UDINT := SIZEOF(ETcVnAdaptiveThresholdMethod);
+    actual : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSize');
+
+actual := _type.Size;
+
+AssertEquals_UDINT(
+    Expected := Expected,
+    Actual := actual,
+    Message := 'Type did not return the correct size.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryDeserializeFrom" Id="{6d2091e5-ebd6-0b3c-39fb-1565679af9e1}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryDeserializeFrom
+VAR
+    deserializer : JsonDeserializer;
+    feedback : DeserializerFeedback;
+    json : STRING := '"TCVN_ATM_MEAN"';
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+    expected : ETcVnAdaptiveThresholdMethod := ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN;
+    actual : ETcVnAdaptiveThresholdMethod;
+ END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryDeserializeFrom');
+
+deserializer.Reset();
+deserializer.TryLoad(json);
+_type.TryDeserializeFrom(Deserializer, Feedback);
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not deserialize correctly.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryMakeReferenceToFollowsReference" Id="{efb2083f-adea-0996-0e6b-ecced7422b08}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryMakeReferenceToFollowsReference
+VAR
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+	target : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+    expected : ETcVnAdaptiveThresholdMethod := ETcVnAdaptiveThresholdMethod.TCVN_ATM_GAUSSIAN;
+    actual : ETcVnAdaptiveThresholdMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryMakeReferenceToFollowsReference');
+
+_type.TryMakeReferenceTo(target);
+target.Value := ETcVnAdaptiveThresholdMethod.TCVN_ATM_GAUSSIAN;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not follow target change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryMakeReferenceToUpdatesReference" Id="{07edac6f-a210-07b8-3cc0-d69657cade2c}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryMakeReferenceToUpdatesReference
+VAR
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+	target : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+    expected : ETcVnAdaptiveThresholdMethod := ETcVnAdaptiveThresholdMethod.TCVN_ATM_GAUSSIAN;
+    actual : ETcVnAdaptiveThresholdMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryMakeReferenceToUpdatesReference');
+
+_type.TryMakeReferenceTo(target);
+_type.Value := ETcVnAdaptiveThresholdMethod.TCVN_ATM_GAUSSIAN;
+
+actual := target.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not update target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTypeNameReturnsExpected" Id="{b852c888-65ab-0163-00f6-9039b3480fbf}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTypeNameReturnsExpected
+VAR
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+    expected : STRING := 'ENUM';
+    actual : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTypeNameReturnsExpected');
+
+actual := _type.TypeName;
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not return correct iec type.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValueReturnsExpectedAfterChange" Id="{81f9aeac-6d42-0d27-0573-1ec1cbea35d1}">
+      <Declaration><![CDATA[METHOD PUBLIC TestValueReturnsExpectedAfterChange
+VAR
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+    expected : ETcVnAdaptiveThresholdMethod := ETcVnAdaptiveThresholdMethod.TCVN_ATM_GAUSSIAN;
+    actual : ETcVnAdaptiveThresholdMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestValueReturnsExpectedAfterChange');
+
+_type.Value := ETcVnAdaptiveThresholdMethod.TCVN_ATM_GAUSSIAN;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Expected value not returned after change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValueReturnsExpectedAfterInit" Id="{9d913e4d-5666-007c-2fd3-3155023074f7}">
+      <Declaration><![CDATA[METHOD PUBLIC TestValueReturnsExpectedAfterInit
+VAR
+    _type : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+    expected : ETcVnAdaptiveThresholdMethod := ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN;
+    actual : ETcVnAdaptiveThresholdMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestValueReturnsExpectedAfterInit');
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Expected value not returned after Init.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

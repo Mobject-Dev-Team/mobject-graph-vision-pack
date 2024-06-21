@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="_ETcVnBlobCombination_TestSuite" Id="{3b35a715-61ef-0a44-32d1-ba6a7793038c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK _ETcVnBlobCombination_TestSuite EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TestAddress();
+TestClearReference();
+TestClone();
+TestTypeNameReturnsExpected();
+TestIdentifierReturnsExpected();
+TestMakeReferenceToFollowsReference();
+TestMakeReferenceToUpdatesReference();
+TestSize();
+TestValueReturnsExpectedAfterInit();
+TestValueReturnsExpectedAfterChange();
+TestSerializeTypeWith();
+TestSerializeWith();
+TestTryDeserializeFrom();
+TestTryMakeReferenceToFollowsReference();
+TestTryMakeReferenceToUpdatesReference();
+]]></ST>
+    </Implementation>
+    <Method Name="TestAddress" Id="{2824494b-f8b0-07dd-1061-035304bff81a}">
+      <Declaration><![CDATA[METHOD PUBLIC TestAddress
+VAR
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+    notExpected : PVOID := 0;
+    actual : PVOID;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestAddress');
+
+actual := _type.Address;
+
+AssertFalse(
+    Condition := (notExpected = actual),
+    Message := 'Type did not return a valid address.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestClearReference" Id="{a682f1b8-3241-0fce-35fd-090db364af3f}">
+      <Declaration><![CDATA[METHOD PUBLIC TestClearReference
+VAR
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+	target : ETcVnBlobCombination := ETcVnBlobCombination.TCVN_BC_SMALLEST;
+    expected : ETcVnBlobCombination := ETcVnBlobCombination.TCVN_BC_SMALLEST;
+    actual : ETcVnBlobCombination;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestClearReference');
+
+_type.MakeReferenceTo(target);
+_type.ClearReference();
+target := ETcVnBlobCombination.TCVN_BC_LARGEST;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value continued to follow target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestClone" Id="{1ad030ce-932e-0057-3c7c-a938b31f1b9f}">
+      <Declaration><![CDATA[METHOD PUBLIC TestClone
+VAR
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+	clone : I_Datatype;
+	isValidClone : BOOL;
+	compareResult : DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestClone');
+
+clone := _type.Clone();
+
+isValidClone := clone <> 0;
+
+IF isValidClone THEN
+	compareResult := memcmp(_type.Address, clone.Address, clone.Size);
+END_IF
+
+AssertTrue(
+	Condition := isValidClone,
+	Message := 'Clone did not produce a clone'
+);
+
+AssertEquals_DINT(
+	Expected := 0,
+    Actual := compareResult,
+    Message := 'Clone did not return a valid clone.'
+);
+
+clone.Dispose();
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestIdentifierReturnsExpected" Id="{68d709bb-2abe-080d-252a-70b017ceb00c}">
+      <Declaration><![CDATA[METHOD PUBLIC TestIdentifierReturnsExpected
+VAR
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+    expected : STRING := 'ETcVnBlobCombination';
+    actual : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestIdentifierReturnsExpected');
+
+actual := _type.Identifier;
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not return correct iec type.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMakeReferenceToFollowsReference" Id="{2276bbcb-cb01-0997-3d55-7e4474039bca}">
+      <Declaration><![CDATA[METHOD PUBLIC TestMakeReferenceToFollowsReference
+VAR
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+	target : ETcVnBlobCombination := ETcVnBlobCombination.TCVN_BC_SMALLEST;
+    expected : ETcVnBlobCombination := ETcVnBlobCombination.TCVN_BC_LARGEST;
+    actual : ETcVnBlobCombination;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestMakeReferenceToFollowsReference');
+
+_type.MakeReferenceTo(target);
+target := ETcVnBlobCombination.TCVN_BC_LARGEST;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not follow target change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMakeReferenceToUpdatesReference" Id="{76067fc5-3b0c-093b-2146-0f9a96c575f2}">
+      <Declaration><![CDATA[METHOD PUBLIC TestMakeReferenceToUpdatesReference
+VAR
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+	target : ETcVnBlobCombination := ETcVnBlobCombination.TCVN_BC_SMALLEST;
+    expected : ETcVnBlobCombination := ETcVnBlobCombination.TCVN_BC_LARGEST;
+    actual : ETcVnBlobCombination;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestMakeReferenceToUpdatesReference');
+
+_type.MakeReferenceTo(target);
+_type.Value := ETcVnBlobCombination.TCVN_BC_LARGEST;
+
+actual := target;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not update target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeTypeWith" Id="{1d851fc2-bc88-0cf9-3ef0-cf96c6528f18}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeTypeWith
+VAR
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+    serializer : JsonSerializer;
+    expected : STRING(500) := '{"typeName":"ENUM","identifier":"ETcVnBlobCombination","enumerations":["TCVN_BC_SMALLEST","TCVN_BC_LARGEST","TCVN_BC_MIN_THRESHOLD","TCVN_BC_MAX_THRESHOLD","TCVN_BC_MEDIAN_THRESHOLD"],"baseType":{"typeName":"DINT","minValue":-2147483648,"maxValue":2147483647,"isSigned":true,"isFloat":false}}';
+    actual : STRING(500);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeTypeWith');
+
+serializer.Reset();
+_type.SerializeTypeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeWith" Id="{c3060a3b-0bbb-0aa3-3bd7-df7719c678b1}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeWith
+VAR
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+    serializer : JsonSerializer;
+    expected : STRING := '"TCVN_BC_SMALLEST"';
+    actual : STRING(500);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeWith');
+
+serializer.Reset();
+_type.SerializeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type data did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSize" Id="{fe0e1501-c144-087d-26d2-2ba9fe009f83}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSize
+VAR
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+    expected : UDINT := SIZEOF(ETcVnBlobCombination);
+    actual : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSize');
+
+actual := _type.Size;
+
+AssertEquals_UDINT(
+    Expected := Expected,
+    Actual := actual,
+    Message := 'Type did not return the correct size.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryDeserializeFrom" Id="{ca129795-2186-075d-2ab8-84286182e6e8}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryDeserializeFrom
+VAR
+    deserializer : JsonDeserializer;
+    feedback : DeserializerFeedback;
+    json : STRING := '"TCVN_BC_SMALLEST"';
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+    expected : ETcVnBlobCombination := ETcVnBlobCombination.TCVN_BC_SMALLEST;
+    actual : ETcVnBlobCombination;
+ END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryDeserializeFrom');
+
+deserializer.Reset();
+deserializer.TryLoad(json);
+_type.TryDeserializeFrom(Deserializer, Feedback);
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not deserialize correctly.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryMakeReferenceToFollowsReference" Id="{a7336547-7f47-0b8c-2b8b-8daa3a1a9695}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryMakeReferenceToFollowsReference
+VAR
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+	target : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+    expected : ETcVnBlobCombination := ETcVnBlobCombination.TCVN_BC_LARGEST;
+    actual : ETcVnBlobCombination;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryMakeReferenceToFollowsReference');
+
+_type.TryMakeReferenceTo(target);
+target.Value := ETcVnBlobCombination.TCVN_BC_LARGEST;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not follow target change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryMakeReferenceToUpdatesReference" Id="{3c7c1309-48eb-000d-260a-e304a58cdf72}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryMakeReferenceToUpdatesReference
+VAR
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+	target : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+    expected : ETcVnBlobCombination := ETcVnBlobCombination.TCVN_BC_LARGEST;
+    actual : ETcVnBlobCombination;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryMakeReferenceToUpdatesReference');
+
+_type.TryMakeReferenceTo(target);
+_type.Value := ETcVnBlobCombination.TCVN_BC_LARGEST;
+
+actual := target.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not update target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTypeNameReturnsExpected" Id="{1ccd7cc7-cdec-0a50-1ec6-9ba0b13ce923}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTypeNameReturnsExpected
+VAR
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+    expected : STRING := 'ENUM';
+    actual : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTypeNameReturnsExpected');
+
+actual := _type.TypeName;
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not return correct iec type.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValueReturnsExpectedAfterChange" Id="{8ea96c4d-c494-00c6-0651-e58f424db14f}">
+      <Declaration><![CDATA[METHOD PUBLIC TestValueReturnsExpectedAfterChange
+VAR
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+    expected : ETcVnBlobCombination := ETcVnBlobCombination.TCVN_BC_LARGEST;
+    actual : ETcVnBlobCombination;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestValueReturnsExpectedAfterChange');
+
+_type.Value := ETcVnBlobCombination.TCVN_BC_LARGEST;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Expected value not returned after change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValueReturnsExpectedAfterInit" Id="{eb6d082e-ec53-0bc6-266d-9c5d7025320b}">
+      <Declaration><![CDATA[METHOD PUBLIC TestValueReturnsExpectedAfterInit
+VAR
+    _type : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+    expected : ETcVnBlobCombination := ETcVnBlobCombination.TCVN_BC_SMALLEST;
+    actual : ETcVnBlobCombination;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestValueReturnsExpectedAfterInit');
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Expected value not returned after Init.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="_ETcVnThresholdType" Id="{3c02b2a1-5711-4245-855c-28d089dc75a4}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnThresholdType EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnThresholdType;
+	activeData : REFERENCE TO ETcVnThresholdType;
+	enumBaseDatatype : _DINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{05c68e85-bc90-41ab-a1a3-a9647d8900c3}" />
+    <Folder Name="Private" Id="{9c65102f-e144-4440-b23e-864efa59b690}" />
+    <Folder Name="Protected" Id="{5a4e4a88-7f3c-411a-b931-9e94c159b496}" />
+    <Method Name="AddLocalEnumeration" Id="{e81fdc11-fd5a-49dc-aa0e-58a9952ad376}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnThresholdType;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{64ed416e-13a7-4ac1-8053-a2c7da87bfbf}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{4a43ec49-6ae6-476a-a779-155c3495c1c8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{8cb437cb-983d-43aa-b3a6-837bfd1da693}">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{a2661334-fd41-4d1b-b42a-4b1fd2625487}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnThresholdType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnThresholdType(InitialValue := Value));
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{78d0a69d-cd06-47e4-9007-216a8e85ca16}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnThresholdType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_TT_BINARY', ETcVnThresholdType.TCVN_TT_BINARY);
+AddLocalEnumeration('TCVN_TT_BINARY_INV', ETcVnThresholdType.TCVN_TT_BINARY_INV);
+AddLocalEnumeration('TCVN_TT_TRUNC', ETcVnThresholdType.TCVN_TT_TRUNC);
+AddLocalEnumeration('TCVN_TT_TOZERO', ETcVnThresholdType.TCVN_TT_TOZERO);
+AddLocalEnumeration('TCVN_TT_TOZERO_INV', ETcVnThresholdType.TCVN_TT_TOZERO_INV);
+AddLocalEnumeration('TCVN_TT_OTSU_BINARY', ETcVnThresholdType.TCVN_TT_OTSU_BINARY);
+AddLocalEnumeration('TCVN_TT_OTSU_BINARY_INV', ETcVnThresholdType.TCVN_TT_OTSU_BINARY_INV);
+AddLocalEnumeration('TCVN_TT_OTSU_TRUNC', ETcVnThresholdType.TCVN_TT_OTSU_TRUNC);
+AddLocalEnumeration('TCVN_TT_OTSU_TOZERO', ETcVnThresholdType.TCVN_TT_OTSU_TOZERO);
+AddLocalEnumeration('TCVN_TT_OTSU_TOZERO_INV', ETcVnThresholdType.TCVN_TT_OTSU_TOZERO_INV);
+AddLocalEnumeration('TCVN_TT_TRIANGLE_BINARY', ETcVnThresholdType.TCVN_TT_TRIANGLE_BINARY);
+AddLocalEnumeration('TCVN_TT_TRIANGLE_BINARY_INV', ETcVnThresholdType.TCVN_TT_TRIANGLE_BINARY_INV);
+AddLocalEnumeration('TCVN_TT_TRIANGLE_TRUNC', ETcVnThresholdType.TCVN_TT_TRIANGLE_TRUNC);
+AddLocalEnumeration('TCVN_TT_TRIANGLE_TOZERO', ETcVnThresholdType.TCVN_TT_TRIANGLE_TOZERO);
+AddLocalEnumeration('TCVN_TT_TRIANGLE_TOZERO_INV', ETcVnThresholdType.TCVN_TT_TRIANGLE_TOZERO_INV);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{232d988c-82e0-49b4-a335-44bf86145329}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{226105f4-d7a0-4415-a06b-96df721e16b2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnThresholdType';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{58f2193b-284e-45b3-a395-e6e7e7b230e9}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnThresholdType;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{e5682200-c176-4d6c-9cde-b60452b7f925}">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnThresholdType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{cb57aa3a-f109-49c2-af6f-512c9aa6cdea}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{91402fc5-4fcb-4ddc-a904-dc271269cead}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{6472788f-42bc-494d-90f9-477be4d30406}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{ce974a0c-abd2-4410-84fc-97ff96dbc8ed}">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	targetAsEnum : I_EnumDatatype;
+	pTargetData : POINTER TO ETcVnThresholdType;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Target.TryResolveAsEnumDatatype(targetAsEnum) THEN
+	RETURN;
+END_IF
+
+IF targetAsEnum.Identifier <> Identifier THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{98a0466a-1334-4d20-8592-5936241277e7}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnThresholdType]]></Declaration>
+      <Get Name="Get" Id="{d2f9ecd9-76cd-4093-a137-f4088b4f16ca}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{a5f0a2f3-4a1f-4663-99fb-b24c399d0e43}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>
