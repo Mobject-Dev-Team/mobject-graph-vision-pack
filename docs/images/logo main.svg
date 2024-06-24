@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    data-v-fde0c5aa=""
-   viewBox="0 0 471 53"
+   viewBox="0 0 495 53"
    class="iconAboveSlogan"
    version="1.1"
    id="svg26"
    sodipodi:docname="logo main.svg"
-   width="471"
+   width="495"
    height="53"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -31,7 +31,7 @@
      inkscape:window-width="3440"
      inkscape:window-height="1369"
      inkscape:window-x="1072"
-     inkscape:window-y="655"
+     inkscape:window-y="759"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg26"
      width="251px">
@@ -119,7 +119,7 @@
      id="d198cab2-8cfc-4285-8167-c466766b5eca"
      stroke="none"
      fill="url(#0a8ec2f5-8e4c-49ea-94d9-1aa2e987f009)"
-     transform="matrix(0.16670394,0,0,0.16670394,146.65681,6.1371532)"
+     transform="matrix(0.16670394,0,0,0.16670394,256.65681,6.1371532)"
      style="fill:url(#linearGradient28185)">
     <path
        d="M 113.793,8.536 4.978,66.264 V 185.806 L 111.75,243.535 217.5,185.806 V 66.264 Z M 98.467,190.569 50.446,164.209 V 89.046 L 98.467,117.35 Z M 109.58488,103.23669 67.931491,79.310509 114.248,56.229 156.285,79.897 Z M 173.055,162.006 116.645,191.381 V 117.35 L 144.62135,103.62058 173.055,89.339 Z"
@@ -142,16 +142,16 @@
        x="5.8419356"
        y="38.187279"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;font-family:'Futura Lt BT';-inkscape-font-specification:'Futura Lt BT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
-       id="tspan26453">mobject</tspan></text>
+       id="tspan26453">mobject-graph</tspan></text>
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Futura Lt BT';-inkscape-font-specification:'Futura Lt BT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none"
-     x="190.43094"
+     x="300.43094"
      y="38.18676"
      id="text13650-6"><tspan
        sodipodi:role="line"
-       x="190.43094"
+       x="300.43094"
        y="38.18676"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;font-family:'Futura Lt BT';-inkscape-font-specification:'Futura Lt BT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
-       id="tspan26453-3">vision-nodepack</tspan></text>
+       id="tspan26453-3">vision-pack</tspan></text>
 </svg>

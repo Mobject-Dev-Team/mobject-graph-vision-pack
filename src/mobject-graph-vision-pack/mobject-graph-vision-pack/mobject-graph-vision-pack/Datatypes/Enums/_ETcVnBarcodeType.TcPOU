@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="_ETcVnBarcodeType" Id="{7a3e74bc-ac60-444c-92ad-a9f581cd30af}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnBarcodeType EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnBarcodeType;
+	activeData : REFERENCE TO ETcVnBarcodeType;
+	enumBaseDatatype : _UDINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{f33d2166-2ee1-489a-b415-e146babb8ee2}" />
+    <Folder Name="Private" Id="{1316053d-d1f5-46b2-9db7-c78d9e73026a}" />
+    <Folder Name="Protected" Id="{07784be0-eda4-433f-a31d-9ffffb062de4}" />
+    <Method Name="AddLocalEnumeration" Id="{fc2bcb12-f417-4bee-ae26-0036007422f1}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnBarcodeType;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{15181977-3029-4248-a068-a937bb8acdce}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{ee57b3da-866b-4352-ac20-51b055f66448}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{297b5d7e-24d1-4f52-af62-4e0e9da17709}">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{cf0d44a2-0a15-4260-93c5-731ac9834afb}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnBarcodeType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnBarcodeType(InitialValue := Value));
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{a4678cee-fbfd-418c-9b3c-3aff4f842516}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnBarcodeType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_BT_CODABAR', ETcVnBarcodeType.TCVN_BT_CODABAR);
+AddLocalEnumeration('TCVN_BT_CODE39', ETcVnBarcodeType.TCVN_BT_CODE39);
+AddLocalEnumeration('TCVN_BT_CODE93', ETcVnBarcodeType.TCVN_BT_CODE93);
+AddLocalEnumeration('TCVN_BT_CODE128', ETcVnBarcodeType.TCVN_BT_CODE128);
+AddLocalEnumeration('TCVN_BT_EAN8', ETcVnBarcodeType.TCVN_BT_EAN8);
+AddLocalEnumeration('TCVN_BT_EAN13', ETcVnBarcodeType.TCVN_BT_EAN13);
+AddLocalEnumeration('TCVN_BT_ITF', ETcVnBarcodeType.TCVN_BT_ITF);
+AddLocalEnumeration('TCVN_BT_UPCA', ETcVnBarcodeType.TCVN_BT_UPCA);
+AddLocalEnumeration('TCVN_BT_UPCE', ETcVnBarcodeType.TCVN_BT_UPCE);
+AddLocalEnumeration('TCVN_BT_ANY', ETcVnBarcodeType.TCVN_BT_ANY);
+AddLocalEnumeration('TCVN_BT_CODE39EXTENDED', ETcVnBarcodeType.TCVN_BT_CODE39EXTENDED);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{d22256cd-c98c-486e-9fe4-d8801a3b7fd0}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{0c2dc1d3-9639-400e-a40e-f77764a61f6f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnBarcodeType';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{62b17a6d-c020-42b0-8569-d9056dfde073}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnBarcodeType;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{4f8e3114-2194-4fcc-8b7d-936efc562493}">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnBarcodeType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{fe358199-7cc7-4fd5-898b-d6923785bc3d}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{edb30e62-d999-4a85-9669-64fd659534e8}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{f9d89638-54c8-44e0-b666-5733c6affdd2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{8e1d0dd2-5f5f-4200-a9f1-d1d872ff3e82}">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	targetAsEnum : I_EnumDatatype;
+	pTargetData : POINTER TO ETcVnBarcodeType;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Target.TryResolveAsEnumDatatype(targetAsEnum) THEN
+	RETURN;
+END_IF
+
+IF targetAsEnum.Identifier <> Identifier THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{65d59710-47eb-41ad-8288-452b4b5617d3}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnBarcodeType]]></Declaration>
+      <Get Name="Get" Id="{5910f5b0-24a4-4661-aaf3-166bb13f57a8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{22736f2a-79f2-4b5e-9495-667987906689}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

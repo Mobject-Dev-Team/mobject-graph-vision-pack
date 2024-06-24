@@ -2,9 +2,7 @@
 
   - [Welcome](/)
 
-- mobject-vision-nodepack
-
-  - [Included Datatypes](includedDatatypes.md)
+- mobject-graph-vision-pack
 
 - Guides
 

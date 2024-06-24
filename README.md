@@ -8,7 +8,7 @@
 
 ## The mobject-vision-nodepack Library
 
-This is an extension to [mobject-graph](https://graph.mobject.org) library. This library contains nodes designed for TwinCAT Vision.
+This is an extension to [mobject-graph](https://graph.mobject.org) library. This library contains nodes and datatypes designed for TwinCAT Vision.
 
 ## What is mobject?
 
@@ -20,7 +20,7 @@ mobject's goal is to be a lightweight solution to typical oop problems.
 
 ## Documentation
 
-The documentation for this project can be found [here](http://vision-nodepack.mobject.org/#/).
+The documentation for this project can be found [here](http://vision-pack.mobject.org/#/).
 
 ## Versions
 

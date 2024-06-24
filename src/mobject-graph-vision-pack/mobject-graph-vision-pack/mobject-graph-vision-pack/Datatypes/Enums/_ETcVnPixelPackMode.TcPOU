@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="_ETcVnPixelPackMode" Id="{d993a433-f6a2-41d8-9e7b-d4c38c49b5db}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnPixelPackMode EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnPixelPackMode;
+	activeData : REFERENCE TO ETcVnPixelPackMode;
+	enumBaseDatatype : _BYTE(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{7b682f34-d669-4140-bb67-c6ff01de5e56}" />
+    <Folder Name="Private" Id="{6addf33c-582e-4555-b87b-f3eb8e51fc21}" />
+    <Folder Name="Protected" Id="{f2040aaf-28c8-40da-83ac-de62342aea23}" />
+    <Method Name="AddLocalEnumeration" Id="{20e09289-cd5b-4d32-b698-c4dc2e1e1079}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnPixelPackMode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{47581fed-df8a-4161-95fa-22c2a36e8b88}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{6184ded8-16b5-4d50-bdd8-6839b492f1a9}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{7a98cc2b-51ec-4e33-97a4-cd95542eae28}">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{4f57a0f2-2730-4ffd-879a-3fb75b664491}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnPixelPackMode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnPixelPackMode(InitialValue := Value));
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{e3b69484-84bb-47d6-8959-6fb3c14caba4}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnPixelPackMode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_PPM_NONE', ETcVnPixelPackMode.TCVN_PPM_NONE);
+AddLocalEnumeration('TCVN_PPM_MONO1P', ETcVnPixelPackMode.TCVN_PPM_MONO1P);
+AddLocalEnumeration('TCVN_PPM_MONO2P', ETcVnPixelPackMode.TCVN_PPM_MONO2P);
+AddLocalEnumeration('TCVN_PPM_MONO4P', ETcVnPixelPackMode.TCVN_PPM_MONO4P);
+AddLocalEnumeration('TCVN_PPM_MONO10PACKED', ETcVnPixelPackMode.TCVN_PPM_MONO10PACKED);
+AddLocalEnumeration('TCVN_PPM_MONO12PACKED', ETcVnPixelPackMode.TCVN_PPM_MONO12PACKED);
+AddLocalEnumeration('TCVN_PPM_RGB10V1PACKED', ETcVnPixelPackMode.TCVN_PPM_RGB10V1PACKED);
+AddLocalEnumeration('TCVN_PPM_RGB10P32', ETcVnPixelPackMode.TCVN_PPM_RGB10P32);
+AddLocalEnumeration('TCVN_PPM_RGB12V1PACKED', ETcVnPixelPackMode.TCVN_PPM_RGB12V1PACKED);
+AddLocalEnumeration('TCVN_PPM_RGB565P', ETcVnPixelPackMode.TCVN_PPM_RGB565P);
+AddLocalEnumeration('TCVN_PPM_BGR565P', ETcVnPixelPackMode.TCVN_PPM_BGR565P);
+AddLocalEnumeration('TCVN_PPM_MONO10P', ETcVnPixelPackMode.TCVN_PPM_MONO10P);
+AddLocalEnumeration('TCVN_PPM_MONO12P', ETcVnPixelPackMode.TCVN_PPM_MONO12P);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{a68ec017-631f-4d64-a70a-61caa7666f18}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{c1c6cc72-b54e-4059-9e42-916fddf1e598}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnPixelPackMode';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{a477fdc4-8b1e-4267-bc01-b44814d306fa}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnPixelPackMode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{064f95b9-4036-477e-a1fa-35659ca9107d}">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnPixelPackMode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{4b7feb5a-cade-410d-8550-29aa5f780426}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{1c5cbdec-23d5-45da-8723-dd9cccc8be4a}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{c45463ff-eb90-4dcb-9631-5dbdefd94d87}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{08b15d71-a9b3-41f5-a1c3-124f0b463897}">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	targetAsEnum : I_EnumDatatype;
+	pTargetData : POINTER TO ETcVnPixelPackMode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Target.TryResolveAsEnumDatatype(targetAsEnum) THEN
+	RETURN;
+END_IF
+
+IF targetAsEnum.Identifier <> Identifier THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{e8ec1d8b-5777-478d-bcc6-936369d97c71}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnPixelPackMode]]></Declaration>
+      <Get Name="Get" Id="{89208553-e249-4602-bee2-300f45fd10e2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{3743eb1f-2f45-47df-a180-99b520edaf62}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="_ETcVnBorderInterpolationMethod" Id="{0cb2776b-3fd6-4868-8627-c717ad33cae1}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnBorderInterpolationMethod EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnBorderInterpolationMethod;
+	activeData : REFERENCE TO ETcVnBorderInterpolationMethod;
+	enumBaseDatatype : _DINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{fc51c54b-d9f3-4f87-acf0-02f60cc271a1}" />
+    <Folder Name="Private" Id="{5a14e1f2-0b2a-4ea3-b139-2ce03e7b4a8b}" />
+    <Folder Name="Protected" Id="{c53f1e99-7a09-40de-a834-425a12b672c0}" />
+    <Method Name="AddLocalEnumeration" Id="{7f73779e-6ef6-45bc-83f0-c146700fce05}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnBorderInterpolationMethod;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{aaa4979b-e603-4832-90fb-393d0a1f074a}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{9318a44b-65a6-4909-b1a7-66a23da7e9a1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{cc8aefe2-dfe0-42be-922b-b8deac400303}">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{16646000-fb57-4a7e-b571-d03ffad8bbdd}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnBorderInterpolationMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnBorderInterpolationMethod(InitialValue := Value));
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{7d82cf3b-d344-48c5-b15f-768fee5a5a3e}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnBorderInterpolationMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_BIM_CONSTANT', ETcVnBorderInterpolationMethod.TCVN_BIM_CONSTANT);
+AddLocalEnumeration('TCVN_BIM_REPLICATE', ETcVnBorderInterpolationMethod.TCVN_BIM_REPLICATE);
+AddLocalEnumeration('TCVN_BIM_REFLECT', ETcVnBorderInterpolationMethod.TCVN_BIM_REFLECT);
+AddLocalEnumeration('TCVN_BIM_WRAP', ETcVnBorderInterpolationMethod.TCVN_BIM_WRAP);
+AddLocalEnumeration('TCVN_BIM_REFLECT_101', ETcVnBorderInterpolationMethod.TCVN_BIM_REFLECT_101);
+AddLocalEnumeration('TCVN_BIM_DEFAULT', ETcVnBorderInterpolationMethod.TCVN_BIM_DEFAULT);
+AddLocalEnumeration('TCVN_BIM_TRANSPARENT', ETcVnBorderInterpolationMethod.TCVN_BIM_TRANSPARENT);
+AddLocalEnumeration('TCVN_BIM_ISOLATED_CONSTANT', ETcVnBorderInterpolationMethod.TCVN_BIM_ISOLATED_CONSTANT);
+AddLocalEnumeration('TCVN_BIM_ISOLATED_REPLICATE', ETcVnBorderInterpolationMethod.TCVN_BIM_ISOLATED_REPLICATE);
+AddLocalEnumeration('TCVN_BIM_ISOLATED_REFLECT', ETcVnBorderInterpolationMethod.TCVN_BIM_ISOLATED_REFLECT);
+AddLocalEnumeration('TCVN_BIM_ISOLATED_WRAP', ETcVnBorderInterpolationMethod.TCVN_BIM_ISOLATED_WRAP);
+AddLocalEnumeration('TCVN_BIM_ISOLATED_REFLECT_101', ETcVnBorderInterpolationMethod.TCVN_BIM_ISOLATED_REFLECT_101);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{dd6cd104-b4d1-407d-94ca-c4c8d266aae2}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{23df3589-1fa5-4eae-bcfe-04b3f9796e2a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnBorderInterpolationMethod';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{9d06e305-bb16-49c3-8d9e-6f24c5fae3f7}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnBorderInterpolationMethod;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{859a5dfb-39b4-4b61-8a3f-fec71cc79ceb}">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnBorderInterpolationMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{9c93dce0-5e53-47da-b6f7-7a5ed3d89fd8}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{13b3af60-e13a-429f-a5da-06657e6068b6}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{61c71252-c543-48e4-9407-68fdc1ef1ddc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{9b9ce214-95a2-47b2-b8aa-a37c0a0ea0b9}">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	targetAsEnum : I_EnumDatatype;
+	pTargetData : POINTER TO ETcVnBorderInterpolationMethod;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Target.TryResolveAsEnumDatatype(targetAsEnum) THEN
+	RETURN;
+END_IF
+
+IF targetAsEnum.Identifier <> Identifier THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{b9bd6223-e1da-4e6f-8751-50c1bef71c79}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnBorderInterpolationMethod]]></Declaration>
+      <Get Name="Get" Id="{d5fa5e93-b39b-4e27-aac1-293c68aff6e7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{cc15d6da-de1e-41dc-9271-322d307d2790}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

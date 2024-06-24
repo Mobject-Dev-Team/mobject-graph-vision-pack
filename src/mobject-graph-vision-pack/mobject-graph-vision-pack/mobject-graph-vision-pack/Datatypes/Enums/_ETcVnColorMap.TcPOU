@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="_ETcVnColorMap" Id="{d4923803-87f5-4d27-b72d-f78d9f26e1af}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnColorMap EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnColorMap;
+	activeData : REFERENCE TO ETcVnColorMap;
+	enumBaseDatatype : _DINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{d86f1c77-0201-407d-b50a-f7babb61e1d6}" />
+    <Folder Name="Private" Id="{7ba94f0d-3c2a-49f8-a025-01b10924f029}" />
+    <Folder Name="Protected" Id="{53a2da42-de1f-4d98-9da4-2cb6d5e42ee7}" />
+    <Method Name="AddLocalEnumeration" Id="{35e12852-77f5-4525-bc94-b448015aa85b}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnColorMap;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{121527a2-68f5-4dff-98b4-04d80ce689ce}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{345dc010-c1eb-4577-a57d-2ca71bf841c9}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{f6d78ee1-1f68-4118-b348-9ca21400a076}">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{e39b8e4d-d6b6-44e1-8272-d40707f99662}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnColorMap;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnColorMap(InitialValue := Value));
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{e5c46fe8-67b9-4893-a5ed-d9dbf4991312}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnColorMap;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_CM_AUTUMN', ETcVnColorMap.TCVN_CM_AUTUMN);
+AddLocalEnumeration('TCVN_CM_BONE', ETcVnColorMap.TCVN_CM_BONE);
+AddLocalEnumeration('TCVN_CM_JET', ETcVnColorMap.TCVN_CM_JET);
+AddLocalEnumeration('TCVN_CM_WINTER', ETcVnColorMap.TCVN_CM_WINTER);
+AddLocalEnumeration('TCVN_CM_RAINBOW', ETcVnColorMap.TCVN_CM_RAINBOW);
+AddLocalEnumeration('TCVN_CM_OCEAN', ETcVnColorMap.TCVN_CM_OCEAN);
+AddLocalEnumeration('TCVN_CM_SUMMER', ETcVnColorMap.TCVN_CM_SUMMER);
+AddLocalEnumeration('TCVN_CM_SPRING', ETcVnColorMap.TCVN_CM_SPRING);
+AddLocalEnumeration('TCVN_CM_COOL', ETcVnColorMap.TCVN_CM_COOL);
+AddLocalEnumeration('TCVN_CM_HSV', ETcVnColorMap.TCVN_CM_HSV);
+AddLocalEnumeration('TCVN_CM_PINK', ETcVnColorMap.TCVN_CM_PINK);
+AddLocalEnumeration('TCVN_CM_HOT', ETcVnColorMap.TCVN_CM_HOT);
+AddLocalEnumeration('TCVN_CM_PARULA', ETcVnColorMap.TCVN_CM_PARULA);
+AddLocalEnumeration('TCVN_CM_MAGMA', ETcVnColorMap.TCVN_CM_MAGMA);
+AddLocalEnumeration('TCVN_CM_INFERNO', ETcVnColorMap.TCVN_CM_INFERNO);
+AddLocalEnumeration('TCVN_CM_PLASMA', ETcVnColorMap.TCVN_CM_PLASMA);
+AddLocalEnumeration('TCVN_CM_VIRIDIS', ETcVnColorMap.TCVN_CM_VIRIDIS);
+AddLocalEnumeration('TCVN_CM_CIVIDIS', ETcVnColorMap.TCVN_CM_CIVIDIS);
+AddLocalEnumeration('TCVN_CM_TWILIGHT', ETcVnColorMap.TCVN_CM_TWILIGHT);
+AddLocalEnumeration('TCVN_CM_TWILIGHT_SHIFTED', ETcVnColorMap.TCVN_CM_TWILIGHT_SHIFTED);
+AddLocalEnumeration('TCVN_CM_TURBO', ETcVnColorMap.TCVN_CM_TURBO);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{d366e823-23eb-41f1-9d06-be63a0c771d9}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{1eef65f1-2948-4666-b117-72e101aaf70e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnColorMap';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{22549c1d-af2f-428b-9b76-d9508aa61d2e}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnColorMap;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{80f48b1b-120d-4e8d-bd97-f220a72431a7}">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnCalibrationPatternOrigin;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{7bb85b3d-0e96-4149-9b82-9295bfc0eedb}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{2d88f96f-6b85-460c-978c-c2f3a04cb6fb}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{59027889-7ccc-427e-8175-4d61d3c70625}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{46bbab5b-ca17-4539-a080-d8f2b0a01a04}">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	targetAsEnum : I_EnumDatatype;
+	pTargetData : POINTER TO ETcVnColorMap;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Target.TryResolveAsEnumDatatype(targetAsEnum) THEN
+	RETURN;
+END_IF
+
+IF targetAsEnum.Identifier <> Identifier THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{0f3fe0fc-5400-4935-ace1-5df977634add}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnColorMap]]></Declaration>
+      <Get Name="Get" Id="{09fa91a5-82dc-42a0-9661-94b78a22f930}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{4229cfa2-9a37-40f9-a4cd-da65fef853e0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

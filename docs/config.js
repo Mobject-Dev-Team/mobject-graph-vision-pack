@@ -1,3 +1,3 @@
 window.$docsify = window.$docsify || {};
 window.$docsify.repo =
-  "https://github.com/Mobject-Dev-Team/mobject-vision-nodepack";
+  "https://github.com/Mobject-Dev-Team/mobject-graph-vision-pack";
