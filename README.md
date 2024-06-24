@@ -20,7 +20,7 @@ mobject's goal is to be a lightweight solution to typical oop problems.
 
 ## Documentation
 
-The documentation for this project can be found [here](http://vision-pack.mobject.org/#/).
+The documentation for this project can be found [here](http://graph-vision-pack.mobject.org/#/).
 
 ## Versions
 
