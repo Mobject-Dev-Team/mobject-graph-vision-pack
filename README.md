@@ -6,7 +6,7 @@
   </picture>
 </p>
 
-## The mobject-vision-nodepack Library
+## The mobject-graph-vision-pack Library
 
 This is an extension to [mobject-graph](https://graph.mobject.org) library. This library contains nodes and datatypes designed for TwinCAT Vision.
 
