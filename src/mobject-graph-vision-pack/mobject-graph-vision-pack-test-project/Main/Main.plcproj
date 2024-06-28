@@ -80,10 +80,10 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <LibraryReference Include="mobject-core,0.1.0,mobject">
+    <LibraryReference Include="mobject-core,0.3.0,mobject">
       <Namespace>mobject_core</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph-vision-pack,0.2.0,mobject">
+    <LibraryReference Include="mobject-graph-vision-pack,0.3.0,mobject">
       <Namespace>mobject_graph_vision_pack</Namespace>
     </LibraryReference>
   </ItemGroup>
