@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Node_F_VN_GaussianFilter" Id="{d97ed0c2-f8f6-0041-3003-3e3836b2a419}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_GaussianFilter EXTENDS Node
+VAR
+	ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    nFilterWidth : _UDINT(1);
+    nFilterHeight : _UDINT(1);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{9720be69-c526-083c-3bb4-2f50b478001a}" />
+    <Method Name="Clone" Id="{1eb2c151-3ad2-08c9-20c2-8e966c0897e6}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_GaussianFilter;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_GaussianFilter);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{9520eb36-65a5-0311-008e-d8ed11dd7d06}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+AddParameter('nFilterWidth', nFilterWidth);
+AddParameter('nFilterHeight', nFilterHeight);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{44457520-db85-0ad6-003f-a500edf9da17}">
+      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_GaussianFilter(
+	ipSrcImage:= ipSrcImage.Value, 
+	ipDestImage:= ipDestImage.Value, 
+	nFilterWidth:= nFilterWidth.Value, 
+	nFilterHeight:= nFilterHeight.Value, 
+	hrPrev:= hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

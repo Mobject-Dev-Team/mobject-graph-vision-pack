@@ -19,7 +19,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-graph-vision-pack</Title>
-    <ProjectVersion>0.3.0</ProjectVersion>
+    <ProjectVersion>0.4.0</ProjectVersion>
     <DefaultNamespace>mobject-graph-vision-pack</DefaultNamespace>
     <Placeholder>mobject-graph-vision-pack</Placeholder>
     <Author>mobject dev team</Author>
@@ -40,8 +40,11 @@
     <LibraryReference Include="mobject-core,0.3.0,mobject">
       <Namespace>mobject_core</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph,0.9.0,mobject">
+    <LibraryReference Include="mobject-graph,0.10.0,mobject">
       <Namespace>mobject_graph</Namespace>
+    </LibraryReference>
+    <LibraryReference Include="mobject-graph-plc-pack,0.11.0,mobject">
+      <Namespace>mobject_graph_plc_pack</Namespace>
     </LibraryReference>
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +73,7 @@
     <Folder Include="Datatypes\Interface" />
     <Folder Include="Datatypes\Structs" />
     <Folder Include="Nodes" />
+    <Folder Include="Nodes\Image Filtering" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Datatypes\Enums\_ETcVn2dCodeSearchStrategy.TcPOU">
@@ -312,6 +316,9 @@
     <Compile Include="Datatypes\VisionDatatypePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_GaussianFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\VisionNodePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -327,8 +334,8 @@
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-  <Data>
-    <o xml:space="preserve" t="OptionKey">
+        <Data>
+          <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>
@@ -349,13 +356,13 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-  </Data>
-  <TypeList>
-    <Type n="Hashtable">System.Collections.Hashtable</Type>
-    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-    <Type n="String">System.String</Type>
-  </TypeList>
-</XmlArchive>
+        </Data>
+        <TypeList>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+          <Type n="String">System.String</Type>
+        </TypeList>
+      </XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>
