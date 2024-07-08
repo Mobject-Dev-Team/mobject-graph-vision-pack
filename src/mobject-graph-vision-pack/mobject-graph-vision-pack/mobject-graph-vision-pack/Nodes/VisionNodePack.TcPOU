@@ -6,7 +6,7 @@
 {attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK VisionNodePack IMPLEMENTS I_NodePack
 VAR
-	//node : Node;
+	node_F_VN_GaussianFilter : Node_F_VN_GaussianFilter;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -19,7 +19,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[//NodeFactory.AddNodeAsPrototype('Vision/Node',Node);]]></ST>
+        <ST><![CDATA[NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_GaussianFilter', node_F_VN_GaussianFilter);]]></ST>
       </Implementation>
     </Method>
   </POU>
