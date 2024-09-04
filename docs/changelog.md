@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.5.0-alpha
+
+- added support for mobject-graph v0.11.0
+- added support for mobject-graph-plc-pack v0.12.0
+
 ## v0.4.0-alpha
 
 - added support for mobject-graph v0.10.0
