@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="_ITcVnImage" Id="{e49a2247-ce03-0b2f-2be9-ad1a10990618}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -115,7 +115,7 @@ IF FAILED(result) THEN
 	RETURN;
 END_IF
 
-activeData.GetImageInfo(imageInfo.value);
+activeData.GetImageInfo(imageInfo.Value);
 
 Serializer.StartObject();
 Serializer.AddKeyObject('imageInfo',imageInfo);
