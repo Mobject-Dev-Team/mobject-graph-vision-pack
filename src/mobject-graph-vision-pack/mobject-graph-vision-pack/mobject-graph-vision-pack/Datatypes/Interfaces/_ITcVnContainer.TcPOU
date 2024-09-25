@@ -108,7 +108,7 @@ IF exportContainerSize <= 0 THEN
 	RETURN;
 END_IF
 	
-buffer := __NEW(BYTE,ULINT_TO_UDINT(exportContainerSize));
+buffer := __NEW(BYTE, ULINT_TO_UDINT(exportContainerSize));
 result := F_VN_ExportContainer(ipContainer := activeData, pBuffer := buffer, nBufferSize := exportContainerSize, hrPrev := result);
 
 IF FAILED(result) THEN
@@ -152,10 +152,10 @@ VAR_INPUT
 	Feedback : I_DeserializerFeedback;
 END_VAR
 VAR
+    elementGuid : GUID;
 	elementType : _STRING('');
     elementNum : _ULINT(0);
     elementSize : _ULINT(0);
-    elementGuid : GUID;
 	containerSizeInBytes : UDINT;
 	buffer : POINTER TO BYTE;
 	hr : HRESULT;

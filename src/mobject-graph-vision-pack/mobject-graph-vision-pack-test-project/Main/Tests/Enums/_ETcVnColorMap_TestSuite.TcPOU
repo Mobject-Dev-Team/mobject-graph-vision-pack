@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_ETcVnColorMap_TestSuite" Id="{c9e7b97d-1488-0b16-0134-22bd9a6cd07b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK _ETcVnColorMap_TestSuite EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TestAddress();
+TestClearReference();
+TestClone();
+TestTypeNameReturnsExpected();
+TestIdentifierReturnsExpected();
+TestMakeReferenceToFollowsReference();
+TestMakeReferenceToUpdatesReference();
+TestSize();
+TestValueReturnsExpectedAfterInit();
+TestValueReturnsExpectedAfterChange();
+TestSerializeTypeWith();
+TestSerializeWith();
+TestTryDeserializeFrom();
+TestTryMakeReferenceToFollowsReference();
+TestTryMakeReferenceToUpdatesReference();
+]]></ST>
+    </Implementation>
+    <Method Name="TestAddress" Id="{f7f574ca-9e26-0a4e-14e9-f3b4a730de6e}">
+      <Declaration><![CDATA[METHOD PUBLIC TestAddress
+VAR
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+    notExpected : PVOID := 0;
+    actual : PVOID;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestAddress');
+
+actual := _type.Address;
+
+AssertFalse(
+    Condition := (notExpected = actual),
+    Message := 'Type did not return a valid address.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestClearReference" Id="{97a27019-9018-044e-281b-7c3564372365}">
+      <Declaration><![CDATA[METHOD PUBLIC TestClearReference
+VAR
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+	target : ETcVnColorMap := ETcVnColorMap.TCVN_CM_AUTUMN;
+    expected : ETcVnColorMap := ETcVnColorMap.TCVN_CM_AUTUMN;
+    actual : ETcVnColorMap;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestClearReference');
+
+_type.MakeReferenceTo(target);
+_type.ClearReference();
+target := ETcVnColorMap.TCVN_CM_BONE;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value continued to follow target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestClone" Id="{abbf8260-ab38-030b-308b-294628ea58cd}">
+      <Declaration><![CDATA[METHOD PUBLIC TestClone
+VAR
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+	clone : I_Datatype;
+	isValidClone : BOOL;
+	compareResult : DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestClone');
+
+clone := _type.Clone();
+
+isValidClone := clone <> 0;
+
+IF isValidClone THEN
+	compareResult := memcmp(_type.Address, clone.Address, clone.Size);
+END_IF
+
+AssertTrue(
+	Condition := isValidClone,
+	Message := 'Clone did not produce a clone'
+);
+
+AssertEquals_DINT(
+	Expected := 0,
+    Actual := compareResult,
+    Message := 'Clone did not return a valid clone.'
+);
+
+clone.Dispose();
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestIdentifierReturnsExpected" Id="{8db86134-47e9-0aef-3d61-75023e28df1c}">
+      <Declaration><![CDATA[METHOD PUBLIC TestIdentifierReturnsExpected
+VAR
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+    expected : STRING := 'ETcVnColorMap';
+    actual : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestIdentifierReturnsExpected');
+
+actual := _type.Identifier;
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not return correct iec type.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMakeReferenceToFollowsReference" Id="{fe0513c3-85ae-082d-3210-04c87e87138a}">
+      <Declaration><![CDATA[METHOD PUBLIC TestMakeReferenceToFollowsReference
+VAR
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+	target : ETcVnColorMap := ETcVnColorMap.TCVN_CM_AUTUMN;
+    expected : ETcVnColorMap := ETcVnColorMap.TCVN_CM_BONE;
+    actual : ETcVnColorMap;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestMakeReferenceToFollowsReference');
+
+_type.MakeReferenceTo(target);
+target := ETcVnColorMap.TCVN_CM_BONE;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not follow target change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMakeReferenceToUpdatesReference" Id="{e17ccb94-4aff-0d05-0e61-6c76c20ce968}">
+      <Declaration><![CDATA[METHOD PUBLIC TestMakeReferenceToUpdatesReference
+VAR
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+	target : ETcVnColorMap := ETcVnColorMap.TCVN_CM_AUTUMN;
+    expected : ETcVnColorMap := ETcVnColorMap.TCVN_CM_BONE;
+    actual : ETcVnColorMap;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestMakeReferenceToUpdatesReference');
+
+_type.MakeReferenceTo(target);
+_type.Value := ETcVnColorMap.TCVN_CM_BONE;
+
+actual := target;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not update target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeTypeWith" Id="{f8a9e224-52dc-05cf-1265-8f0485167612}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeTypeWith
+VAR
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+    serializer : JsonSerializer;
+    expected : STRING(600) := '{"typeName":"ENUM","identifier":"ETcVnColorMap","enumerations":["TCVN_CM_AUTUMN","TCVN_CM_BONE","TCVN_CM_JET","TCVN_CM_WINTER","TCVN_CM_RAINBOW","TCVN_CM_OCEAN","TCVN_CM_SUMMER","TCVN_CM_SPRING","TCVN_CM_COOL","TCVN_CM_HSV","TCVN_CM_PINK","TCVN_CM_HOT","TCVN_CM_PARULA","TCVN_CM_MAGMA","TCVN_CM_INFERNO","TCVN_CM_PLASMA","TCVN_CM_VIRIDIS","TCVN_CM_CIVIDIS","TCVN_CM_TWILIGHT","TCVN_CM_TWILIGHT_SHIFTED","TCVN_CM_TURBO"],"baseType":{"typeName":"DINT","minValue":-2147483648,"maxValue":2147483647,"isSigned":true,"isFloat":false}}';
+    actual : STRING(600);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeTypeWith');
+
+serializer.Reset();
+_type.SerializeTypeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeWith" Id="{e59fa72d-caa5-0cc5-266e-fcb71f47ef35}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeWith
+VAR
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+    serializer : JsonSerializer;
+    expected : STRING := '"TCVN_CM_AUTUMN"';
+    actual : STRING(500);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeWith');
+
+serializer.Reset();
+_type.SerializeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type data did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSize" Id="{74954f14-665e-0183-2776-89346aa048d1}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSize
+VAR
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+    expected : UDINT := SIZEOF(ETcVnColorSpaceTransform);
+    actual : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSize');
+
+actual := _type.Size;
+
+AssertEquals_UDINT(
+    Expected := Expected,
+    Actual := actual,
+    Message := 'Type did not return the correct size.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryDeserializeFrom" Id="{2fdb75d5-391b-0d65-3d23-6b00af961bc4}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryDeserializeFrom
+VAR
+    deserializer : JsonDeserializer;
+    feedback : DeserializerFeedback;
+    json : STRING := '"TCVN_CM_AUTUMN"';
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+    expected : ETcVnColorMap := ETcVnColorMap.TCVN_CM_AUTUMN;
+    actual : ETcVnColorMap;
+ END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryDeserializeFrom');
+
+deserializer.Reset();
+deserializer.TryLoad(json);
+_type.TryDeserializeFrom(Deserializer, Feedback);
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not deserialize correctly.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryMakeReferenceToFollowsReference" Id="{6be87626-841c-057e-1cac-75499c87d0ec}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryMakeReferenceToFollowsReference
+VAR
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+	target : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+    expected : ETcVnColorMap := ETcVnColorMap.TCVN_CM_BONE;
+    actual : ETcVnColorMap;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryMakeReferenceToFollowsReference');
+
+_type.TryMakeReferenceTo(target);
+target.Value := ETcVnColorMap.TCVN_CM_BONE;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not follow target change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryMakeReferenceToUpdatesReference" Id="{70ca5a6b-fff6-08dc-34d3-832ef4b0d93d}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryMakeReferenceToUpdatesReference
+VAR
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+	target : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+    expected : ETcVnColorMap := ETcVnColorMap.TCVN_CM_BONE;
+    actual : ETcVnColorMap;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryMakeReferenceToUpdatesReference');
+
+_type.TryMakeReferenceTo(target);
+_type.Value := ETcVnColorMap.TCVN_CM_BONE;
+
+actual := target.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not update target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTypeNameReturnsExpected" Id="{91e28502-a2f4-0870-3cef-40856217059b}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTypeNameReturnsExpected
+VAR
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+    expected : STRING := 'ENUM';
+    actual : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTypeNameReturnsExpected');
+
+actual := _type.TypeName;
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not return correct iec type.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValueReturnsExpectedAfterChange" Id="{2e27f228-a2f5-01ce-35ad-0296fd31f58d}">
+      <Declaration><![CDATA[METHOD PUBLIC TestValueReturnsExpectedAfterChange
+VAR
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+    expected : ETcVnColorMap := ETcVnColorMap.TCVN_CM_BONE;
+    actual : ETcVnColorMap;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestValueReturnsExpectedAfterChange');
+
+_type.Value := ETcVnColorMap.TCVN_CM_BONE;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Expected value not returned after change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValueReturnsExpectedAfterInit" Id="{c2fe1adc-0dec-0f50-2db5-de7b976fa65c}">
+      <Declaration><![CDATA[METHOD PUBLIC TestValueReturnsExpectedAfterInit
+VAR
+    _type : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+    expected : ETcVnColorMap := ETcVnColorMap.TCVN_CM_AUTUMN;
+    actual : ETcVnColorMap;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestValueReturnsExpectedAfterInit');
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Expected value not returned after Init.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

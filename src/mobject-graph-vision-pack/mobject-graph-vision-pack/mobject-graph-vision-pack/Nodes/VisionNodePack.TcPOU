@@ -53,8 +53,8 @@ VAR
     
     // Image Color and Contrast Processing
     node_F_VN_ConvertColorSpace : Node_F_VN_ConvertColorSpace;
-    //node_F_VN_ApplyColorMap : Node_F_VN_ApplyColorMap;
-    //node_F_VN_GenerateColorMap : Node_F_VN_GenerateColorMap;
+    node_F_VN_ApplyColorMap : Node_F_VN_ApplyColorMap;
+    node_F_VN_GenerateColorMap : Node_F_VN_GenerateColorMap;
     
     // Image Filtering
     node_F_VN_BoxFilter : Node_F_VN_BoxFilter;
@@ -122,8 +122,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_Dete
 
 // Image Color and Contrast Processing
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ConvertColorSpace', node_F_VN_ConvertColorSpace);
-//NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ApplyColorMap', node_F_VN_ApplyColorMap);
-//NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_GenerateColorMap', node_F_VN_GenerateColorMap);
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ApplyColorMap', node_F_VN_ApplyColorMap);
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_GenerateColorMap', node_F_VN_GenerateColorMap);
 
 // Image Filtering
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BoxFilter', node_F_VN_BoxFilter);

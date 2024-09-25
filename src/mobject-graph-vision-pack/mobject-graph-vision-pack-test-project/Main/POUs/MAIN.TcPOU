@@ -14,7 +14,7 @@ VAR
     //_ETcVnCalibrationPatternOrigin_TestSuite : _ETcVnCalibrationPatternOrigin_TestSuite;
     //_ETcVnCameraState_TestSuite : _ETcVnCameraState_TestSuite;
     //_ETcVnClusteringAlgorithm_TestSuite : _ETcVnClusteringAlgorithm_TestSuite;
-    //_ETcVnColorMap_TestSuite : _ETcVnColorMap_TestSuite;
+    _ETcVnColorMap_TestSuite : _ETcVnColorMap_TestSuite;
     //_ETcVnColorMapSize_TestSuite : _ETcVnColorMapSize_TestSuite;
     _ETcVnColorSpaceTransform_TestSuite : _ETcVnColorSpaceTransform_TestSuite;
     //_ETcVnColorTrainingMethod_TestSuite : _ETcVnColorTrainingMethod_TestSuite;
