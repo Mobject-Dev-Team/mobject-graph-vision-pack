@@ -129,6 +129,7 @@
     <Folder Include="Datatypes\Interfaces" />
     <Folder Include="Datatypes\Structs" />
     <Folder Include="Nodes" />
+    <Folder Include="Nodes\Basic Container Operations\F_VN_AppendToContainer" />
     <Folder Include="Nodes\Image Analysis\Object Detection" />
     <Folder Include="Nodes\Image Filtering" />
     <Folder Include="Nodes\Drawing" />
@@ -409,6 +410,12 @@
     <Compile Include="Datatypes\VisionDatatypePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Operations\F_VN_AppendToContainer\Node_F_VN_AppendToContainer_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\F_VN_AppendToContainer\Node_F_VN_AppendToContainer_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Image Operations\Node_F_VN_CopyImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -422,6 +429,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawLine.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_PutText.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coordinate Transformations\Node_F_VN_FlipImage.TcPOU">

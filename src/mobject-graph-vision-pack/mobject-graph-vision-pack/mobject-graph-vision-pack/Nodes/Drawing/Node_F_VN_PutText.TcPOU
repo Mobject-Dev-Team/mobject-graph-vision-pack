@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
-  <POU Name="Node_F_VN_DrawLine" Id="{dc653c7a-2933-0576-2626-1faa874c03b0}" SpecialFunc="None">
+  <POU Name="Node_F_VN_PutText" Id="{dbb9b54a-920b-09ce-09c9-bd4922723564}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_DrawLine EXTENDS Node
+FUNCTION_BLOCK Node_F_VN_PutText EXTENDS Node
 VAR
-    nX1 : _UDINT(0);
-    nY1 : _UDINT(0);
-    nX2 : _UDINT(0);
-    nY2 : _UDINT(0);
+    sText : _STRING('');
     ipDestImage : _ITcVnImage;
-    //aColor _TcVnVector4_LREAL;
-    nThickness : _DINT(1);
+    nX : _UDINT(1);
+    nY : _UDINT(1);
+    eFontType : _ETcVnFontType(ETcVnFontType.TCVN_FT_HERSHEY_SIMPLEX);
+    fFontScale : _LREAL(1.0);
+    //aColor : _TcVnVector4_LREAL;
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -20,18 +20,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{a5913828-a77a-0588-0b42-01dc512a4cf4}" />
-    <Method Name="Clone" Id="{d264fbd2-1fc9-0a2c-339a-46b0e119c9a0}">
+    <Folder Name="Constructor" Id="{f9149f9f-7d0d-0ca9-09ed-43ae7099623a}" />
+    <Method Name="Clone" Id="{6a37ce67-8e32-091e-0319-f3cb46f59737}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_DrawLine;
+	pNode : POINTER TO Node_F_VN_PutText;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawLine);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_PutText);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{ce37e974-3225-0748-34f6-48f40a96ea5a}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{d08bfaae-dec8-03bc-0cdc-1a00485cdea4}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -39,36 +39,36 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('nX1', nX1);
-AddInput('nY1', nY1);
-AddInput('nX2', nX2);
-AddInput('nY2', nY2);
+        <ST><![CDATA[AddInput('sText', sText);
 AddInput('ipDestImage', ipDestImage);
 //AddInput('aColor', aColor);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
-AddParameter('nThickness', nThickness);
+AddParameter('nX', nX);
+AddParameter('nY', nY);
+AddParameter('eFontType', eFontType);
+AddParameter('fFontScale', fFontScale);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{40947ae6-2476-0427-1850-8226b5b7e1bd}">
+    <Method Name="OnExecute" Id="{a44f2922-7f9d-0a5f-0dfa-fd8ca1736e22}">
       <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
 
 //REMOVE
 VAR
-    aColor_Green : TcVnVector4_LREAL := [0, 255, 0, 0];
+    aColor_Green : TcVnVector4_LREAL := [0, 255, 0];
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_DrawLine(
-    nX1 := nX1.Value,
-    nY1 := nY1.Value,
-    nX2 := nX2.Value,
-	nY2 := nY2.Value,
+        <ST><![CDATA[hresult.Value := F_VN_PutText(
+    sText := sText.Value,
 	ipDestImage := ipDestImage.Value,
+	nX:= nX.Value,
+	nY:= nY.Value,
+    eFontType := eFontType.Value,
+    fFontScale := fFontScale.Value,
     //aColor := aColor.Value,
     aColor := aColor_Green,
-    nThickness := nThickness.Value,
 	hrPrev:= hrPrev.Value);
 ]]></ST>
       </Implementation>
