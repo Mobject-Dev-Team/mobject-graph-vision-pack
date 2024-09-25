@@ -24,4 +24,5 @@ The documentation for this project can be found [here](http://graph-vision-pack.
 
 ## Versions
 
-- TcXaeShell 3.1.4024.55
+- TcXaeShell 3.1.4024.62
+- Tc3_Vision 4.0.3.5
