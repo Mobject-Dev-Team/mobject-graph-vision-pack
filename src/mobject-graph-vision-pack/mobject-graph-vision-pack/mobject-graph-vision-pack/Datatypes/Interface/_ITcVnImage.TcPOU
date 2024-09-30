@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="_ITcVnImage" Id="{e49a2247-ce03-0b2f-2be9-ad1a10990618}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -54,6 +54,27 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[Identifier := 'ITcVnImage';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsPixelValueCompatible" Id="{4a26373c-f2a9-0d81-1cf3-d6596eb691aa}">
+      <Declaration><![CDATA[METHOD PUBLIC IsPixelValueCompatible : BOOL
+VAR_INPUT
+	PixelValue : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="IsValid" Id="{b5701dc4-a730-0ca2-3386-3c315f28f8f4}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsValid : BOOL]]></Declaration>
+      <Get Name="Get" Id="{470abd33-b541-097b-3d2f-e6054eb7ffeb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsValid := activeData <> 0;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -240,6 +261,133 @@ ELSE
 END_CASE]]></ST>
       </Implementation>
     </Method>
+    <Method Name="TryGetHeight" Id="{18b16c03-7a0b-0a56-034a-0af280a9f298}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetHeight : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetHeight := SUCCEEDED(activeData.GetHeight(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetImageData" Id="{ee8223fb-c232-0959-332d-3c24168a228d}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetImageData : BOOL
+VAR_INPUT
+	Destination : POINTER TO ITcVnData;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetImageData := SUCCEEDED(activeData.GetImageData(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetImageInfo" Id="{f541461c-4118-0048-11f1-7ee2478c8c70}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetImageInfo : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO  TcVnImageInfo;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetImageInfo := SUCCEEDED(activeData.GetImageInfo(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetImageSize" Id="{8e7924da-0426-04c5-0fbe-9489b7ebc267}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetImageSize : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO ULINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetImageSize := SUCCEEDED(activeData.GetImageSize(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetPixelFormat" Id="{fc0232a2-bfb3-07ca-21a1-37687ca2844d}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetPixelFormat : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO  TcVnPixelFormat;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetPixelFormat := SUCCEEDED(activeData.GetPixelFormat(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetRowPointer" Id="{13c3de14-191b-04c9-110a-c2b0137959ec}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetRowPointer : BOOL
+VAR_INPUT
+	RowIndex : UDINT;
+	Destination : POINTER TO PVOID;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetRowPointer := SUCCEEDED(activeData.GetRowPointer(RowIndex, Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetWidth" Id="{3f18708e-4cf5-0cf2-0181-44b1b02b4fb1}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetWidth : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetWidth := SUCCEEDED(activeData.GetWidth(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetXPadding" Id="{633baea0-e650-0656-2433-1801ca7d9dfe}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetXPadding : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetXPadding := SUCCEEDED(activeData.GetXPadding(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetYPadding" Id="{63aecabe-4fef-0d89-317b-10cc3cc8cc85}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetYPadding : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetYPadding := SUCCEEDED(activeData.GetYPadding(Destination));]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TryMakeReferenceTo" Id="{7d7db605-3613-071c-1653-05e6e4328270}">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
@@ -261,6 +409,20 @@ END_IF
 pTargetData := Target.Address;
 activeData REF= pTargetData^;
 TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryReleaseRowPointer" Id="{ee92e295-0f9a-09f7-0aab-880611e45b36}">
+      <Declaration><![CDATA[METHOD PUBLIC TryReleaseRowPointer : BOOL
+VAR_INPUT
+	ppRow : POINTER TO PVOID;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryReleaseRowPointer := SUCCEEDED(activeData.ReleaseRowPointer(ppRow));]]></ST>
       </Implementation>
     </Method>
     <Property Name="Value" Id="{046861a7-ca29-0a27-012a-81bd1a49d0c9}">
