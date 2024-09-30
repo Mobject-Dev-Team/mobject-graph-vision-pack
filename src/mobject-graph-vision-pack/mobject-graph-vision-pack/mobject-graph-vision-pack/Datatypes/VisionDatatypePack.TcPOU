@@ -1,21 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="VisionDatatypePack" Id="{41aa96c4-4e58-0595-14c8-fb1325f46fff}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK VisionDatatypePack IMPLEMENTS I_DatatypePack
 VAR
-	// alias
+    // aliases
+    //_gVCP_REGISTER_ADDRESS : _GVCP_REGISTER_ADDRESS;
+    //_tcVnPoint : _TcVnPoint;
+    //_tcVnPoint2_DINT : _TcVnPoint2_DINT;
+    //_tcVnPoint2_LREAL : _TcVnPoint2_LREAL;
+    //_tcVnPoint2_REAL : _TcVnPoint2_REAL;
+    //_tcVnPoint3_LREAL : _TcVnPoint3_LREAL;
+    //_tcVnPoint3_REAL : _TcVnPoint3_REAL;
+    _tcVnRectangle : _TcVnRectangle;
+    
+    // constants
+    
+    // arrays
 	
-	// enums
+    // enums
 	_eTcVn2dCodeSearchStrategy : _ETcVn2dCodeSearchStrategy(ETcVn2dCodeSearchStrategy.TCVN_CSS_DEFAULT);
 	
-	// structures
+    // structs
 	_tcVnImageInfo : _TcVnImageInfo;
-	_tcVnPixelFormat : _TcVnPixelFormat;
+    _tcVnParamsBlobDetection : _TcVnParamsBlobDetection;
+    _tcVnPixelFormat : _TcVnPixelFormat;
+	_tcVnRectangle_DINT : _TcVnRectangle_DINT;
+    _tcVnRectangle_UDINT : _TcVnRectangle_UDINT;
 	
-	// interface
+	// interfaces
 	_iTcVnImage : _ITcVnImage;
 	
 END_VAR
@@ -30,12 +45,29 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[// enums
+        <ST><![CDATA[// aliases
+//Datatypes.RegisterDatatype(_GVCP_REGISTER_ADDRESS);
+//Datatypes.RegisterDatatype(_TcVnPoint);
+//Datatypes.RegisterDatatype(_TcVnPoint2_DINT);
+//Datatypes.RegisterDatatype(_TcVnPoint2_LREAL);
+//Datatypes.RegisterDatatype(_TcVnPoint2_REAL);
+//Datatypes.RegisterDatatype(_TcVnPoint3_LREAL);
+//Datatypes.RegisterDatatype(_TcVnPoint3_REAL);
+Datatypes.RegisterDatatype(_TcVnRectangle);
+
+// constants
+
+// arrays
+
+// enums
 Datatypes.RegisterDatatype(_eTcVn2dCodeSearchStrategy);
 
-// structures
+// structs
 Datatypes.RegisterDatatype(_tcVnImageInfo);
+Datatypes.RegisterDatatype(_tcVnParamsBlobDetection);
 Datatypes.RegisterDatatype(_tcVnPixelFormat);
+Datatypes.RegisterDatatype(_tcVnRectangle_DINT);
+Datatypes.RegisterDatatype(_tcVnRectangle_UDINT);
 
 // interfaces
 Datatypes.RegisterDatatype(_iTcVnImage);]]></ST>

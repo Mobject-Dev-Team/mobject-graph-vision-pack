@@ -6,7 +6,79 @@
 {attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK VisionNodePack IMPLEMENTS I_NodePack
 VAR
-	node_F_VN_GaussianFilter : Node_F_VN_GaussianFilter;
+    // Algebraic Container Operations
+    
+    // Algebraic Image Operations
+        
+    // Basic Container Operations
+    node_F_VN_AppendToContainer_DINT : Node_F_VN_AppendToContainer_DINT;
+    node_F_VN_AppendToContainer_INT : Node_F_VN_AppendToContainer_INT;
+    
+    // Basic Image Operations
+    node_F_VN_CopyImage : Node_F_VN_CopyImage;
+    node_F_VN_GetImageInfo : Node_F_VN_GetImageInfo;
+    
+    // Code Quality
+    
+    // Code Reading
+    // node_F_VN_ReadBarcode : Node_F_VN_ReadBarcode
+    // node_F_VN_ReadBarcodeExp : Node_F_VN_ReadBarcodeExp
+    // node_F_VN_ReadBarcodeExp2 : Node_F_VN_ReadBarcodeExp2
+    // node_F_VN_ReadDataMatrixCode : Node_F_VN_ReadDataMatrixCode
+    // node_F_VN_ReadDataMatrixCodeExp : Node_F_VN_ReadDataMatrixCodeExp
+    // node_F_VN_ReadDataMatrixCodeExp2 : Node_F_VN_ReadDataMatrixCodeExp2
+    // node_F_VN_ReadPharmaCode : Node_F_VN_ReadPharmaCode
+    // node_F_VN_ReadPharmaCodeExp : Node_F_VN_ReadPharmaCodeExp
+    // node_F_VN_ReadPharmaCodeExp2 : Node_F_VN_ReadPharmaCodeExp2
+    // node_F_VN_ReadQRCode : Node_F_VN_ReadQRCode
+    // node_F_VN_ReadQRCodeExp : Node_F_VN_ReadQRCodeExp
+    // node_F_VN_ReadQRCodeExp2 : Node_F_VN_ReadQRCodeExp2
+    
+    // Container Statistics
+    
+    // Contour Analysis
+    
+    // Control Functions
+    
+    // Drawing
+    node_F_VN_DrawContours : Node_F_VN_DrawContours;
+    node_F_VN_DrawLine : Node_F_VN_DrawLine;
+    node_F_VN_PutLabel : Node_F_VN_PutLabel;
+    node_F_VN_PutText : Node_F_VN_PutText;
+    
+    // Fourier Analysis
+    
+    // Geometric and Coordinate Transformations
+    node_F_VN_FlipImage : Node_F_VN_FlipImage;
+    
+    // Image Analysis
+    node_F_VN_DetectBlobs : Node_F_VN_DetectBlobs;
+    
+    // Image Color and Contrast Processing
+    node_F_VN_ConvertColorSpace : Node_F_VN_ConvertColorSpace;
+    node_F_VN_ApplyColorMap : Node_F_VN_ApplyColorMap;
+    node_F_VN_GenerateColorMap : Node_F_VN_GenerateColorMap;
+    
+    // Image Filtering
+    node_F_VN_BoxFilter : Node_F_VN_BoxFilter;
+    node_F_VN_GaussianFilter : Node_F_VN_GaussianFilter;
+    node_F_VN_LaplacianFilter : Node_F_VN_LaplacianFilter;
+    
+    // Image Segmentation
+    node_F_VN_Threshold : Node_F_VN_Threshold;
+    
+    // Keypoint Features
+    
+    // Machine Learning
+    
+    // Measurement
+    
+    // Miscellaneous
+    
+    // OCR
+    
+    // Texture Analysis
+ 
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -19,7 +91,67 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_GaussianFilter', node_F_VN_GaussianFilter);]]></ST>
+        <ST><![CDATA[// Algebraic Container Operations
+
+// Algebraic Image Operations
+
+// Basic Container Operations
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_DINT', node_F_VN_AppendToContainer_DINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_INT', node_F_VN_AppendToContainer_INT);
+
+// Basic Image Operations
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CopyImage', node_F_VN_CopyImage);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetImageInfo', node_F_VN_GetImageInfo);
+    
+// Code Quality
+
+// Code Reading
+
+// Container Statistics
+
+// Contour Analysis
+
+// Control Functions
+    
+// Drawing
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawContours', node_F_VN_DrawContours);
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLine', node_F_VN_DrawLine);
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PutLabel', node_F_VN_PutLabel);
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PutText', node_F_VN_PutText);
+
+// Fourier Analysis
+
+// Geometric and Coordinate Transformations
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_FlipImage', node_F_VN_FlipImage);
+
+// Image Analysis
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_DetectBlobs', node_F_VN_DetectBlobs);
+
+// Image Color and Contrast Processing
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ConvertColorSpace', node_F_VN_ConvertColorSpace);
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ApplyColorMap', node_F_VN_ApplyColorMap);
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_GenerateColorMap', node_F_VN_GenerateColorMap);
+
+// Image Filtering
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BoxFilter', node_F_VN_BoxFilter);
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_GaussianFilter', node_F_VN_GaussianFilter);
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LaplacianFilter', node_F_VN_LaplacianFilter);
+    
+// Image Segmentation
+NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_Threshold', node_F_VN_Threshold);
+
+// Keypoint Features
+
+// Machine Learning
+
+// Measurement
+
+// Miscellaneous
+
+// OCR
+
+// Texture Analysis
+]]></ST>
       </Implementation>
     </Method>
   </POU>

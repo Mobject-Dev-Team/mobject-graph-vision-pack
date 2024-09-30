@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_ITcVnContainer" Id="{48dfc53e-0fa0-08cf-2bc3-a7006e9bded6}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ITcVnContainer EXTENDS InterfaceDatatypeBase
+VAR
+	localData : ITcVnContainer;
+	activeData : REFERENCE TO ITcVnContainer REF= localData;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Address" Id="{0d1d9ecc-86c8-04cc-0061-b1800192f3b4}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{0116cfa6-1760-0b24-1330-c9d65411c492}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{f02d91a5-3953-01db-3aaf-64fff24e0f06}">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{50051f1c-cf1b-0740-31dc-1c3a40b2888d}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ITcVnContainer;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ITcVnContainer);
+Clone := pClone^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{135f45ca-b070-0af5-3022-2a12c62aba78}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{8a9e5bb7-5e05-0f0c-1a1e-8404a38a582d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ITcVnContainer';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{43bef498-17ae-0018-1c1f-8fb5f952e51c}">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ITcVnContainer;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SerializeWith" Id="{8c39171b-b6bc-0e1b-005c-9497fee68eef}">
+      <Declaration><![CDATA[METHOD PUBLIC SerializeWith
+VAR_INPUT
+	Serializer : I_Serializer;
+END_VAR
+VAR
+	result: HRESULT;
+	exportContainerSize: ULINT;
+	buffer : POINTER TO BYTE;
+    elementGuid : GUID;
+    elementType : _STRING('');
+    elementNum : _ULINT(0);
+    elementSize : _ULINT(0);
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT (activeData <> 0) THEN
+	// no container available, so drop out.. need to add serialization?
+	Serializer.AddNull();
+	RETURN;
+END_IF
+
+//result := F_VN_ExportImageSize(ipImage := activeData, nBufferSize := exportImageSize, hrPrev  :=result);
+result := F_VN_ExportContainerSize(ipContainer := activeData, nBufferSize := exportContainerSize, hrPrev := result);
+
+IF FAILED(result) THEN
+	// export container size failed, so drop out.. need to add serialization?
+	Serializer.AddNull();
+	RETURN;
+END_IF
+
+IF exportContainerSize > DatatypeLimits.UDINT_MAX_VALUE THEN
+	// export is too big for __NEW, so drop out..
+	Serializer.AddNull();
+	RETURN;
+END_IF
+
+IF exportContainerSize <= 0 THEN
+	// export is zero size, so drop out.. 
+	Serializer.AddNull();
+	RETURN;
+END_IF
+	
+buffer := __NEW(BYTE, ULINT_TO_UDINT(exportContainerSize));
+result := F_VN_ExportContainer(ipContainer := activeData, pBuffer := buffer, nBufferSize := exportContainerSize, hrPrev := result);
+
+IF FAILED(result) THEN
+	// export to container failed, so drop out.. 
+	Serializer.AddNull();
+	__DELETE(buffer);
+	RETURN;
+END_IF
+
+activeData.GetElementTypeGuid(elementGuid);
+elementType.Value := GUID_TO_STRING(elementGuid);
+activeData.GetElementNum(elementNum.Value);
+activeData.GetElementSize(elementSize.Value);
+
+Serializer.StartObject();
+Serializer.AddKeyObject('elementType', elementType);
+Serializer.AddKeyObject('elementNum', elementNum);
+Serializer.AddKeyObject('elementSize', elementSize);
+Serializer.AddKey('containerData');
+Serializer.AddBase64(buffer, ULINT_TO_DINT(exportContainerSize));
+Serializer.EndObject();
+
+__DELETE(buffer);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{cb5b28c4-0220-08c3-1792-c22c57905b5d}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{ce11f86a-46dc-0215-1656-0a3c050f3ac5}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryDeserializeFrom" Id="{0b0f32ca-3c06-0d78-39fb-8c8d3ba75da5}">
+      <Declaration><![CDATA[METHOD TryDeserializeFrom : BOOL
+VAR_INPUT
+	Deserializer : I_Deserializer;
+	Feedback : I_DeserializerFeedback;
+END_VAR
+VAR
+    elementGuid : GUID;
+	elementType : _STRING('');
+    elementNum : _ULINT(0);
+    elementSize : _ULINT(0);
+	containerSizeInBytes : UDINT;
+	buffer : POINTER TO BYTE;
+	hr : HRESULT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Deserializer.TryDeserializeKeyToObject('elementType', elementType, Feedback) THEN
+	RETURN;
+END_IF
+
+IF NOT Deserializer.TryDeserializeKeyToObject('elementNum', elementNum, Feedback) THEN
+	RETURN;
+END_IF
+
+IF NOT Deserializer.TryDeserializeKeyToObject('elementSize', elementSize, Feedback) THEN
+	RETURN;
+END_IF
+
+elementGuid := STRING_TO_GUID(elementType.Value);
+containerSizeInBytes := ULINT_TO_UDINT(elementNum.Value * elementSize.Value);
+
+IF containerSizeInBytes = 0 THEN
+	TryDeserializeFrom := TRUE;
+	RETURN;
+END_IF
+
+buffer := __NEW(BYTE, containerSizeInBytes);
+
+IF NOT Deserializer.TryGetKeyBase64('containerData', buffer, containerSizeInBytes, Feedback) THEN
+	__DELETE(buffer);
+	RETURN;
+END_IF
+
+hr := F_VN_CreateContainerFromArray(
+	pData := buffer,
+	ipContainer := activeData,
+	nTypeGuid := elementGuid,
+    nElementNum := elementNum.Value,
+	hrPrev := hr);
+
+__DELETE(buffer);
+
+TryDeserializeFrom := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryMakeReferenceTo" Id="{273ebff0-3c8f-09f4-18a3-7e76d9dfa55d}">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	targetAsInterface : I_InterfaceDatatype;
+	pTargetData : POINTER TO ITcVnContainer;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Target.TryResolveAsInterfaceDatatype(targetAsInterface) THEN
+	RETURN;
+END_IF
+
+IF targetAsInterface.Identifier <> Identifier THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{416ebca8-5790-08c7-2a74-c6278fa1367b}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO ITcVnContainer]]></Declaration>
+      <Get Name="Get" Id="{9f4e4494-6e38-0cd9-1968-aee37a5d347b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

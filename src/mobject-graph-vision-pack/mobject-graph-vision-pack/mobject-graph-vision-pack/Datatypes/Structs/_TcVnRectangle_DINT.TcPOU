@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_TcVnRectangle_DINT" Id="{3ca0b904-c59f-0e94-3333-d42f0831b594}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _TcVnRectangle_DINT EXTENDS StructuredDatatypeBase
+VAR
+	localData : TcVnRectangle_DINT;
+	activeData : REFERENCE TO TcVnRectangle_DINT REF= localData;
+	_nX : _DINT(localData.nX);
+	_nY : _DINT(localData.nY);
+    _nWidth : _DINT(localData.nWidth);
+	_nHeight : _DINT(localData.nHeight);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{95e10b9e-86a5-0970-3d8f-27b2b3b12c0d}" />
+    <Folder Name="Protected" Id="{edd2a2dc-5a0c-0697-13a3-e302a13daa19}" />
+    <Property Name="Address" Id="{58d38feb-44a5-07f0-26aa-15ea57315367}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{d8777cb8-e1fd-07a5-389c-9d4db206f201}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{24a48758-8b7d-0165-3c4c-c9a286d657d6}">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{348f7a38-f503-0292-21c1-c93dba95eb8a}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _TcVnRectangle_DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_TcVnRectangle_DINT());
+pClone^.Value := Value;
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{e0ba2884-9f47-0df5-188d-ca70bc9d4ae8}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetMemberReference();
+AddMember('nX',_nX);
+AddMember('nY',_nY);
+AddMember('nWidth',_nWidth);
+AddMember('nHeight',_nHeight);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{4984899f-e331-0f86-2b66-e5347065a358}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{766c954a-6002-0c48-37bf-373dd989d68e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'TcVnRectangle_DINT';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{290d5b35-2e28-0755-1c88-b8fa5e076da5}">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO TcVnRectangle_DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nHeight" Id="{cdc73b3f-36a0-0319-3782-1fdcfa145e5f}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nHeight : REFERENCE TO _DINT]]></Declaration>
+      <Get Name="Get" Id="{1f82ce09-8032-02f7-020f-2c9c5cd13be4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nHeight REF= _nHeight;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nWidth" Id="{8601aa17-6ebc-0132-3308-4b93d0acb078}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nWidth : REFERENCE TO _DINT]]></Declaration>
+      <Get Name="Get" Id="{8330d8ae-a546-0cbe-08a5-24b5aed9610e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nWidth REF= _nWidth;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nX" Id="{6ea5cba2-6b3e-06e5-2d8c-fdbef3d02940}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nX : REFERENCE TO _DINT]]></Declaration>
+      <Get Name="Get" Id="{f89e643b-4f6b-06fd-372e-d8de1dea8280}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nX REF= _nX;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nY" Id="{2b7fdd00-13bf-0fec-2323-86e1c6d802c0}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nY : REFERENCE TO _DINT]]></Declaration>
+      <Get Name="Get" Id="{85171e6e-adfb-0bc2-39b8-2a374f53c330}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nY REF= _nY;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetMemberReference" Id="{5c99d35d-0153-0b0a-14d6-cb7cc2a42480}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_nX.MakeReferenceTo(activeData.nX);
+_nY.MakeReferenceTo(activeData.nY);
+_nWidth.MakeReferenceTo(activeData.nWidth);
+_nHeight.MakeReferenceTo(activeData.nHeight);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{bc97b1c1-00f1-074e-01a5-88c95d018dfa}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{960ec335-8590-0529-0678-3afee61124da}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{26eecf6e-dff7-0609-1ee5-d42bc3e6aa2c}">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	targetAsStruct : I_StructuredDatatype;
+	pTargetData : POINTER TO TcVnRectangle_DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Target.TryResolveAsStructuredDatatype(targetAsStruct) THEN
+	RETURN;
+END_IF
+
+IF NOT (targetAsStruct.Identifier = Identifier) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetMemberReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{3c49b5ed-d289-03a1-2016-5083665b03d0}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnRectangle_DINT]]></Declaration>
+      <Get Name="Get" Id="{8bd9156a-7689-07f1-0c0a-3b991fe5fbba}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

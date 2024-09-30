@@ -82,6 +82,36 @@
         </Parameter>
       </Parameters>
     </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Utilities">
+      <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Parameters>
+        <Parameter ListName="PARAMETERLIST" xmlns="">
+          <Key>NMAXLICENSES</Key>
+          <Value>50</Value>
+        </Parameter>
+        <Parameter ListName="PARAMETERLIST" xmlns="">
+          <Key>NMAXLICENSEDEVICES</Key>
+          <Value>16</Value>
+        </Parameter>
+        <Parameter ListName="PARAMETERLIST" xmlns="">
+          <Key>NMAXCPUCOUNT</Key>
+          <Value>64</Value>
+        </Parameter>
+        <Parameter ListName="PARAMETERLIST" xmlns="">
+          <Key>CMAXCHARACTERS</Key>
+          <Value>16#FFFFFFF0</Value>
+        </Parameter>
+        <Parameter ListName="PARAMETERLIST" xmlns="">
+          <Key>NMAXFILESONDONGLE</Key>
+          <Value>20</Value>
+        </Parameter>
+        <Parameter ListName="PARAMETERLIST" xmlns="">
+          <Key>CMAXCSVFIELDVALUESIZE</Key>
+          <Value>255</Value>
+        </Parameter>
+      </Parameters>
+      <Namespace>Tc2_Utilities</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
@@ -96,14 +126,38 @@
     <Folder Include="Datatypes\Aliases" />
     <Folder Include="Datatypes\Arrays" />
     <Folder Include="Datatypes\Enums" />
-    <Folder Include="Datatypes\Interface" />
+    <Folder Include="Datatypes\Interfaces" />
     <Folder Include="Datatypes\Structs" />
     <Folder Include="Nodes" />
+    <Folder Include="Nodes\Algebraic Container Operations" />
+    <Folder Include="Nodes\Algebraic Image Operations" />
+    <Folder Include="Nodes\Basic Container Operations" />
+    <Folder Include="Nodes\Basic Image Operations" />
+    <Folder Include="Nodes\Code Quality" />
+    <Folder Include="Nodes\Code Reading" />
+    <Folder Include="Nodes\Container Statistics" />
+    <Folder Include="Nodes\Contour Analysis" />
+    <Folder Include="Nodes\Control Functions" />
+    <Folder Include="Nodes\Drawing" />
+    <Folder Include="Nodes\Fourier Analysis" />
+    <Folder Include="Nodes\Geometric and Coordinate Transformations" />
+    <Folder Include="Nodes\Image Analysis" />
+    <Folder Include="Nodes\Image Analysis\Object Detection" />
+    <Folder Include="Nodes\Image Color and Contrast Processing" />
     <Folder Include="Nodes\Image Filtering" />
     <Folder Include="Nodes\Image Segmentation" />
+    <Folder Include="Nodes\Keypoint Features" />
+    <Folder Include="Nodes\Machine Learning" />
+    <Folder Include="Nodes\Measurement" />
+    <Folder Include="Nodes\Miscellaneous" />
+    <Folder Include="Nodes\OCR" />
+    <Folder Include="Nodes\Texture Analysis" />
     <Folder Include="Nodes\VisionNode" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datatypes\Aliases\_TcVnRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Enums\_ETcVn2dCodeSearchStrategy.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -332,19 +386,76 @@
     <Compile Include="Datatypes\Enums\_GEV_CAMERA_STATE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Datatypes\Interface\_ITcVnImage.TcPOU">
+    <Compile Include="Datatypes\Interfaces\_ITcVnContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Interfaces\_ITcVnImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnImageInfo.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnParamsBlobDetection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Structs\_TcVnPixelFormat.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnRectangle_UDINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\VisionDatatypePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Operations\Node_F_VN_CopyImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Operations\Node_F_VN_GetImageInfo.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawContours.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawLine.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_PutLabel.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_PutText.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coordinate Transformations\Node_F_VN_FlipImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_DetectBlobs.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ApplyColorMap.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ConvertColorSpace.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_GenerateColorMap.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_BoxFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_GaussianFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_LaplacianFilter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Segmentation\Node_F_VN_Threshold.TcPOU">
