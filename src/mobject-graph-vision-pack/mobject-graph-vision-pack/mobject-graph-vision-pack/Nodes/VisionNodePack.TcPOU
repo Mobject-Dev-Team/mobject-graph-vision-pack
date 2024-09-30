@@ -65,6 +65,7 @@ VAR
     node_F_VN_LaplacianFilter : Node_F_VN_LaplacianFilter;
     
     // Image Segmentation
+    node_F_VN_Threshold : Node_F_VN_Threshold;
     
     // Keypoint Features
     
@@ -137,6 +138,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_GaussianFilter', nod
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LaplacianFilter', node_F_VN_LaplacianFilter);
     
 // Image Segmentation
+NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_Threshold', node_F_VN_Threshold);
 
 // Keypoint Features
 

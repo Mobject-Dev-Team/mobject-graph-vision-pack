@@ -458,6 +458,9 @@
     <Compile Include="Nodes\Image Filtering\Node_F_VN_LaplacianFilter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Segmentation\Node_F_VN_Threshold.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\VisionNodePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
