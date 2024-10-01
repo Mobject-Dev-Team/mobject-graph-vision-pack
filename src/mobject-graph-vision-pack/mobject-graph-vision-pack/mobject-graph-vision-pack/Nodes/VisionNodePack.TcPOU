@@ -9,6 +9,7 @@ VAR
     // Algebraic Container Operations
     
     // Algebraic Image Operations
+    node_F_VN_BitwiseNotImage : Node_F_VN_BitwiseNotImage;
         
     // Basic Container Operations
     node_F_VN_AppendToContainer_DINT : Node_F_VN_AppendToContainer_DINT;
@@ -16,6 +17,7 @@ VAR
     
     // Basic Image Operations
     node_F_VN_CopyImage : Node_F_VN_CopyImage;
+    node_F_VN_GetImageChannel : Node_F_VN_GetImageChannel;
     node_F_VN_GetImageInfo : Node_F_VN_GetImageInfo;
     
     // Code Quality
@@ -94,6 +96,7 @@ END_VAR
         <ST><![CDATA[// Algebraic Container Operations
 
 // Algebraic Image Operations
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_BitwiseNotImage', node_F_VN_BitwiseNotImage);
 
 // Basic Container Operations
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_DINT', node_F_VN_AppendToContainer_DINT);
@@ -101,6 +104,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToC
 
 // Basic Image Operations
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CopyImage', node_F_VN_CopyImage);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetImageChannel', node_F_VN_GetImageChannel);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetImageInfo', node_F_VN_GetImageInfo);
     
 // Code Quality

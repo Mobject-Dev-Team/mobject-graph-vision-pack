@@ -410,6 +410,9 @@
     <Compile Include="Datatypes\VisionDatatypePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_BitwiseNotImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -417,6 +420,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Image Operations\Node_F_VN_CopyImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Operations\Node_F_VN_GetImageChannel.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Image Operations\Node_F_VN_GetImageInfo.TcPOU">
