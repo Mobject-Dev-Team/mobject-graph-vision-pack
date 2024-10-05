@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="_ETcVnNbc" Id="{3c4ecedc-ffab-0c5a-37fe-33dc50e95fe3}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -14,10 +14,15 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{9126b519-868a-073f-228c-f24a21d47e23}" />
-    <Folder Name="Private" Id="{aa84247b-2521-0411-3cff-0c74634d696f}" />
-    <Folder Name="Protected" Id="{4fd3b047-5877-032d-1053-1426449ac904}" />
-    <Method Name="AddLocalEnumeration" Id="{678128e1-72fe-0c8a-2a91-c55347d4c561}" FolderPath="Private\">
+    <Folder Name="Core" Id="{c97c4960-bbae-0a45-0f77-a8b2679e2330}">
+      <Folder Name="Protected" Id="{6855edcd-605f-021c-0dd3-b2c27bcb10dd}" />
+    </Folder>
+    <Folder Name="Customize" Id="{76544a9d-5bc1-0fe2-1fad-ac0a66db4ee5}">
+      <Folder Name="Constructor" Id="{9126b519-868a-073f-228c-f24a21d47e23}" />
+      <Folder Name="Private" Id="{aa84247b-2521-0411-3cff-0c74634d696f}" />
+      <Folder Name="Protected" Id="{4fd3b047-5877-032d-1053-1426449ac904}" />
+    </Folder>
+    <Method Name="AddLocalEnumeration" Id="{678128e1-72fe-0c8a-2a91-c55347d4c561}" FolderPath="Customize\Private\">
       <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
 VAR_INPUT
 	Enumeration : T_MAXSTRING;
@@ -27,9 +32,9 @@ END_VAR]]></Declaration>
         <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Address" Id="{2bd74b5a-2746-0127-0670-1ed8ff487b1f}">
+    <Property Name="Address" Id="{0ee6304a-717f-0a94-1b63-34b3bd832e2b}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
-      <Get Name="Get" Id="{62f94aa8-2c22-0abf-38aa-8ad8b46e461b}">
+      <Get Name="Get" Id="{12e14f02-1d90-08ad-28fd-8279874a0ba6}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -38,7 +43,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="ClearReference" Id="{9a0df9e4-a661-0bff-1c62-6356515aeb15}">
+    <Method Name="ClearReference" Id="{9c52d057-604a-0e9b-0dcc-f8a44be9c0fe}" FolderPath="Core\">
       <Declaration><![CDATA[METHOD PUBLIC ClearReference
 VAR_INPUT
 END_VAR
@@ -48,7 +53,7 @@ END_VAR
 SetBaseDatatypeReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Clone" Id="{7b87e092-37c7-0391-129a-c7ad51b6a317}">
+    <Method Name="Clone" Id="{7b87e092-37c7-0391-129a-c7ad51b6a317}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
 VAR
     pClone : POINTER TO _ETcVnNbc;
@@ -59,7 +64,7 @@ END_VAR
 Clone := pClone^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{7818b4f0-34a3-0f75-0f17-22099a2a8062}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{7818b4f0-34a3-0f75-0f17-22099a2a8062}" FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -77,7 +82,7 @@ AddLocalEnumeration('TCVN_NBC_NOVELTY_DETECTOR', ETcVnNbc.TCVN_NBC_NOVELTY_DETEC
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Identifier" Id="{37907f33-f708-023b-1e46-8e4b37454c04}">
+    <Property Name="Identifier" Id="{37907f33-f708-023b-1e46-8e4b37454c04}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
       <Get Name="Get" Id="{419bdfca-9d62-0322-1bc2-a5a5e9a3fcb3}">
         <Declaration><![CDATA[VAR
@@ -88,7 +93,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="IsEnumeratorValueEqual" Id="{09ceb3f4-e357-0d84-385c-62d38860bd8e}" FolderPath="Protected\">
+    <Method Name="IsEnumeratorValueEqual" Id="{09ceb3f4-e357-0d84-385c-62d38860bd8e}" FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
 VAR_INPUT
 	Enumerator : I_KeyValueForwardEnumerator;
@@ -104,7 +109,7 @@ END_IF
 IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="MakeReferenceTo" Id="{9a5f3503-da7c-029f-0808-3b9d7a44863e}">
+    <Method Name="MakeReferenceTo" Id="{9a5f3503-da7c-029f-0808-3b9d7a44863e}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO ETcVnNbc;
@@ -115,7 +120,7 @@ END_VAR
 SetBaseDatatypeReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetBaseDatatypeReference" Id="{aac468f9-b243-06ac-2808-a7494278f98b}" FolderPath="Protected\">
+    <Method Name="SetBaseDatatypeReference" Id="{ffeba7cf-c93a-0806-003b-36d44a8326fd}" FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
 VAR_INPUT
 END_VAR
@@ -124,9 +129,9 @@ END_VAR
         <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Size" Id="{122b3e7a-a8e5-0322-36e5-02d0554c7874}">
+    <Property Name="Size" Id="{88e4abba-612b-03ed-1842-ba2c23bcca9c}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
-      <Get Name="Get" Id="{40e905a0-0f38-0dc9-2458-d0fd23da6693}">
+      <Get Name="Get" Id="{12bfc0d2-b106-091e-369f-eabbe51d0571}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -135,7 +140,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{64fec48a-be99-01de-07c4-bbe607e5c578}">
+    <Method Name="TryMakeReferenceTo" Id="{64fec48a-be99-01de-07c4-bbe607e5c578}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
@@ -159,7 +164,7 @@ SetBaseDatatypeReference();
 TryMakeReferenceTo := TRUE;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Value" Id="{8b82242c-239c-0f89-3eba-ad3e05692aef}">
+    <Property Name="Value" Id="{8b82242c-239c-0f89-3eba-ad3e05692aef}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnNbc]]></Declaration>
       <Get Name="Get" Id="{22fd280c-a6b9-07f3-3de9-dd9bcaa13e25}">
         <Declaration><![CDATA[VAR

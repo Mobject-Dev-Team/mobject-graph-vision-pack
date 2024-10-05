@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_ITcVnContainer_TestSuite" Id="{1e4049d5-5f40-4abd-9904-57a2d5afa742}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK _ITcVnContainer_TestSuite EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TestSerializeTypeWith();
+TestSerializeWith_Empty();
+TestSerializeWith_Vector_REAL();
+TestTryDeserializeFrom();]]></ST>
+    </Implementation>
+    <Method Name="TestSerializeTypeWith" Id="{0a66d2f4-2d79-4286-a913-9e8c64e470c0}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeTypeWith
+VAR
+    _type : _ITcVnContainer;
+    serializer : JsonSerializer;
+    expected : STRING(500) := '{"typeName":"INTERFACE","identifier":"ITcVnContainer"}';
+    actual : STRING(500);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeTypeWith');
+
+serializer.Reset();
+_type.SerializeTypeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeWith_Empty" Id="{3f0d82d6-4257-4974-a7ff-1e5356b1c237}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeWith_Empty
+VAR
+    _type : _ITcVnContainer;
+    serializer : JsonSerializer;
+    expected : STRING := 'null';
+    actual : STRING(500);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeWith');
+
+serializer.Reset();
+_type.SerializeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type data did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeWith_Vector_REAL" Id="{a74eaf66-c9a6-0a63-1515-b4680cf5c680}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeWith_Vector_REAL
+VAR
+    _type : _ITcVnContainer;
+	data : ARRAY [0..4] OF REAL := [0.0, 1.1, 2.2, 3.3, 4.4];
+    serializer : JsonSerializer;
+    expected : STRING := '';
+    actual : STRING(500);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeWith');
+
+F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 5, hrPrev := S_OK);
+
+serializer.Reset();
+_type.SerializeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type data did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryDeserializeFrom" Id="{5be8ee3a-e230-4f18-891f-7b24b67d0252}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryDeserializeFrom
+VAR
+    deserializer : JsonDeserializer;
+    feedback : DeserializerFeedback;
+    json : STRING := '';
+    _type : _ITcVnContainer;
+    expected : HRESULT;
+    actual : HRESULT;
+ END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryDeserializeFrom');
+
+deserializer.Reset();
+deserializer.TryLoad(json);
+_type.TryDeserializeFrom(Deserializer, Feedback);
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not deserialize correctly.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

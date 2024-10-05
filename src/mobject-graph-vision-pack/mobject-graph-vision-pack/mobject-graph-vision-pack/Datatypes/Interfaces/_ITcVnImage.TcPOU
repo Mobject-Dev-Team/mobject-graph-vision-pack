@@ -13,9 +13,12 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Destructor" Id="{ca1c631f-f54c-0a2a-0226-64f42c3ebde8}" />
-    <Folder Name="Private" Id="{6ac695fe-f2f0-4f8c-8a93-aaffa4e76629}" />
-    <Property Name="Address" Id="{26adf67e-579f-0a6d-00da-3c2699a837da}">
+    <Folder Name="Core" Id="{54b3347f-9780-0ef8-23a4-8790080c1b8f}" />
+    <Folder Name="Customize" Id="{1331b21c-0b52-0dca-38d4-3a2cd67105e0}">
+      <Folder Name="Destructor" Id="{ca1c631f-f54c-0a2a-0226-64f42c3ebde8}" />
+      <Folder Name="Private" Id="{6ac695fe-f2f0-4f8c-8a93-aaffa4e76629}" />
+    </Folder>
+    <Property Name="Address" Id="{26adf67e-579f-0a6d-00da-3c2699a837da}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
       <Get Name="Get" Id="{1d1ae7e4-0327-01a3-366e-ab0c58d72b4b}">
         <Declaration><![CDATA[VAR
@@ -26,7 +29,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="ClearReference" Id="{a569e784-a42c-0267-3d75-2de521525280}">
+    <Method Name="ClearReference" Id="{a569e784-a42c-0267-3d75-2de521525280}" FolderPath="Core\">
       <Declaration><![CDATA[METHOD PUBLIC ClearReference
 VAR_INPUT
 END_VAR
@@ -35,7 +38,7 @@ END_VAR
         <ST><![CDATA[activeData REF= localData;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Clone" Id="{b3436342-da0d-08b0-2adf-ef47dcc034c9}">
+    <Method Name="Clone" Id="{b3436342-da0d-08b0-2adf-ef47dcc034c9}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
 VAR
     pClone : POINTER TO _ITcVnImage;
@@ -47,7 +50,7 @@ Clone := pClone^;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_exit" Id="{98d3cdf8-8305-028d-39a2-732081720afe}" FolderPath="Destructor\">
+    <Method Name="FB_exit" Id="{98d3cdf8-8305-028d-39a2-732081720afe}" FolderPath="Customize\Destructor\">
       <Declaration><![CDATA[METHOD FB_exit : BOOL
 VAR_INPUT
 	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
@@ -61,7 +64,7 @@ END_IF
 ReleaseActiveImage();]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Identifier" Id="{0de2f641-b44e-0525-1479-487c94fed83b}">
+    <Property Name="Identifier" Id="{0de2f641-b44e-0525-1479-487c94fed83b}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
       <Get Name="Get" Id="{ec233534-04dc-04a1-34d5-c9c8bb5087db}">
         <Declaration><![CDATA[VAR
@@ -93,18 +96,18 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="MakeReferenceTo" Id="{f622f5ed-6f4a-0576-1243-468457a60aed}">
+    <Method Name="MakeReferenceTo" Id="{f622f5ed-6f4a-0576-1243-468457a60aed}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO ITcVnImage;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[ReleaseLocalImage();
+        <ST><![CDATA[ReleaseActiveImage();
 activeData REF= ReferenceTarget;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ReleaseActiveImage" Id="{ddfd52a7-f6fd-037b-1df1-cc611b6d0c67}" FolderPath="Private\">
+    <Method Name="ReleaseActiveImage" Id="{ddfd52a7-f6fd-037b-1df1-cc611b6d0c67}" FolderPath="Customize\Private\">
       <Declaration><![CDATA[METHOD PRIVATE ReleaseActiveImage
 VAR_INPUT
 END_VAR
@@ -118,21 +121,7 @@ activeData.TcRelease();
 activeData := 0;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ReleaseLocalImage" Id="{8bf225d8-012a-0958-052f-044837afc5b9}" FolderPath="Private\">
-      <Declaration><![CDATA[METHOD PRIVATE ReleaseLocalImage
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF localData = 0 THEN
-	RETURN;
-END_IF
-
-localData.TcRelease();
-localData := 0;]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="SerializeWith" Id="{d8053af4-2ea3-4ddc-ad0b-52cc29c04f08}">
+    <Method Name="SerializeWith" Id="{d8053af4-2ea3-4ddc-ad0b-52cc29c04f08}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC SerializeWith
 VAR_INPUT
 	Serializer : I_Serializer;
@@ -191,7 +180,7 @@ Serializer.EndObject();
 __DELETE(buffer);]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Size" Id="{81e68ae1-c9d8-0f2c-07e6-d2609b2e603e}">
+    <Property Name="Size" Id="{81e68ae1-c9d8-0f2c-07e6-d2609b2e603e}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
       <Get Name="Get" Id="{fc7863ca-c7cb-0c90-3f7d-4039818336b9}">
         <Declaration><![CDATA[VAR
@@ -251,7 +240,7 @@ __DELETE(buffer);
 TryDeserializeFrom := TRUE;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TryGetElementTypeFromInfo" Id="{269656a9-39e7-490f-be72-c0ffab59a725}" FolderPath="Private\">
+    <Method Name="TryGetElementTypeFromInfo" Id="{269656a9-39e7-490f-be72-c0ffab59a725}" FolderPath="Customize\Private\">
       <Declaration><![CDATA[METHOD PRIVATE TryGetElementTypeFromInfo : BOOL;
 VAR_INPUT
 	ImageInfo : TcVnImageInfo;
@@ -432,7 +421,7 @@ END_IF
 TryGetYPadding := SUCCEEDED(activeData.GetYPadding(Destination));]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TryMakeReferenceTo" Id="{7d7db605-3613-071c-1653-05e6e4328270}">
+    <Method Name="TryMakeReferenceTo" Id="{7d7db605-3613-071c-1653-05e6e4328270}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
@@ -450,6 +439,7 @@ IF targetAsInterface.Identifier <> Identifier THEN
 	RETURN;
 END_IF
 
+ReleaseActiveImage();
 pTargetData := Target.Address;
 activeData REF= pTargetData^;
 TryMakeReferenceTo := TRUE;]]></ST>
@@ -469,7 +459,7 @@ END_IF
 TryReleaseRowPointer := SUCCEEDED(activeData.ReleaseRowPointer(ppRow));]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Value" Id="{046861a7-ca29-0a27-012a-81bd1a49d0c9}">
+    <Property Name="Value" Id="{046861a7-ca29-0a27-012a-81bd1a49d0c9}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO ITcVnImage]]></Declaration>
       <Get Name="Get" Id="{900c5d4b-f08b-0a9c-0df7-7b8aa7f514a2}">
         <Declaration><![CDATA[VAR

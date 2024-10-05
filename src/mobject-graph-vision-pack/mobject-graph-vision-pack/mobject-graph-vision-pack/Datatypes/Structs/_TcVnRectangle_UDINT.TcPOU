@@ -17,9 +17,12 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{29961a28-1344-0e01-1ee5-c229689c503c}" />
-    <Folder Name="Protected" Id="{156ea891-6f04-0017-27f1-edae151f3fa4}" />
-    <Property Name="Address" Id="{7f8ec411-722b-0b9e-1ab9-26c0e7c6e51a}">
+    <Folder Name="Core" Id="{89c3a4c6-f0d7-02ec-3fc8-bc4e6974736e}" />
+    <Folder Name="Customize" Id="{a6e28075-4929-0a7c-3b2d-c0a19dbbe905}">
+      <Folder Name="Constructor" Id="{29961a28-1344-0e01-1ee5-c229689c503c}" />
+      <Folder Name="Protected" Id="{156ea891-6f04-0017-27f1-edae151f3fa4}" />
+    </Folder>
+    <Property Name="Address" Id="{7f8ec411-722b-0b9e-1ab9-26c0e7c6e51a}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
       <Get Name="Get" Id="{723fe200-0f57-04eb-3a6a-bc4fc4b8415b}">
         <Declaration><![CDATA[VAR
@@ -30,7 +33,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="ClearReference" Id="{b195b2a2-e49d-067f-2fe9-7085ba06c3e5}">
+    <Method Name="ClearReference" Id="{b195b2a2-e49d-067f-2fe9-7085ba06c3e5}" FolderPath="Core\">
       <Declaration><![CDATA[METHOD PUBLIC ClearReference
 VAR_INPUT
 END_VAR
@@ -40,7 +43,7 @@ END_VAR
 SetMemberReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Clone" Id="{8d446ac8-7c0e-0358-1269-f1726982c1a3}">
+    <Method Name="Clone" Id="{8d446ac8-7c0e-0358-1269-f1726982c1a3}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
 VAR
     pClone : POINTER TO _TcVnRectangle_UDINT;
@@ -52,7 +55,7 @@ pClone^.Value := Value;
 Clone := pClone^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{f338fa0f-0d0c-0e71-1bb3-137942697624}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{f338fa0f-0d0c-0e71-1bb3-137942697624}" FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -68,7 +71,7 @@ AddMember('nHeight',_nHeight);
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Identifier" Id="{6642405d-5a55-0298-0c93-c13913b05b78}">
+    <Property Name="Identifier" Id="{6642405d-5a55-0298-0c93-c13913b05b78}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
       <Get Name="Get" Id="{7091bf0d-f789-02fa-195c-1f00a810f05f}">
         <Declaration><![CDATA[VAR
@@ -79,7 +82,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="MakeReferenceTo" Id="{cda2d74e-f744-0d3b-0b86-c64049a4456b}">
+    <Method Name="MakeReferenceTo" Id="{cda2d74e-f744-0d3b-0b86-c64049a4456b}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO TcVnRectangle_UDINT;
@@ -134,7 +137,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="SetMemberReference" Id="{720ee89a-c69a-0f02-0ce9-f4afa89c263f}" FolderPath="Protected\">
+    <Method Name="SetMemberReference" Id="{720ee89a-c69a-0f02-0ce9-f4afa89c263f}" FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
 VAR_INPUT
 END_VAR
@@ -147,7 +150,7 @@ _nHeight.MakeReferenceTo(activeData.nHeight);
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Size" Id="{9fa9bc5e-49cd-0d40-0e7b-f6e3cd5743c7}">
+    <Property Name="Size" Id="{9fa9bc5e-49cd-0d40-0e7b-f6e3cd5743c7}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
       <Get Name="Get" Id="{639c5eb6-8c69-0010-3972-40171f671f2e}">
         <Declaration><![CDATA[VAR
@@ -158,7 +161,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{3eabb449-60d2-0536-2b29-a42ec47a7873}">
+    <Method Name="TryMakeReferenceTo" Id="{3eabb449-60d2-0536-2b29-a42ec47a7873}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
@@ -182,7 +185,7 @@ SetMemberReference();
 TryMakeReferenceTo := TRUE;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Value" Id="{69a197b9-8563-0c51-14ac-ab01235dd639}">
+    <Property Name="Value" Id="{69a197b9-8563-0c51-14ac-ab01235dd639}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnRectangle_UDINT]]></Declaration>
       <Get Name="Get" Id="{e87649b0-64c8-0196-26e1-04bdfcc57b93}">
         <Declaration><![CDATA[VAR

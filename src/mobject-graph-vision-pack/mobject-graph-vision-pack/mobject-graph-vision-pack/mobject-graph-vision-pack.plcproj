@@ -155,8 +155,46 @@
     <Folder Include="Nodes\VisionNode" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datatypes\Aliases\_TcVnPoint.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnRectangle.TcPOU">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnPoint2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_ALIASTYP.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to1OfUSINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to1OfUINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to1OfSINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to1OfREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to1OfLREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to1OfINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to1OfDINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to1OfARRAYTYP.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVn2dCodeSearchStrategy.TcPOU">
       <SubType>Code</SubType>
@@ -388,6 +426,7 @@
     </Compile>
     <Compile Include="Datatypes\Interfaces\_ITcVnContainer.TcPOU">
       <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Interfaces\_ITcVnImage.TcPOU">
       <SubType>Code</SubType>

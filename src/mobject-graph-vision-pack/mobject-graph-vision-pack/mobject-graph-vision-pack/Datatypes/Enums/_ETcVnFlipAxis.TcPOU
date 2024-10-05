@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="_ETcVnFlipAxis" Id="{c6227475-ba2b-0f63-0fbd-5ef1b55e4837}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -14,10 +14,15 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{bec19af7-c488-0719-2170-996a781fda0a}" />
-    <Folder Name="Private" Id="{131cc083-1d16-0a99-2e6d-79f848b11990}" />
-    <Folder Name="Protected" Id="{4827eb1b-c1e4-0227-0866-ab2c04f0f9b0}" />
-    <Method Name="AddLocalEnumeration" Id="{89272682-ba9a-08e8-2754-b23b38576dbd}" FolderPath="Private\">
+    <Folder Name="Core" Id="{2dacf05a-9e40-02a1-0b75-53e809a2bc7f}">
+      <Folder Name="Protected" Id="{aa3498d0-4bab-0cdf-0d8f-d49760e04f83}" />
+    </Folder>
+    <Folder Name="Customize" Id="{4f340f77-6c96-0c1a-18e1-e52e49d53f82}">
+      <Folder Name="Constructor" Id="{bec19af7-c488-0719-2170-996a781fda0a}" />
+      <Folder Name="Private" Id="{131cc083-1d16-0a99-2e6d-79f848b11990}" />
+      <Folder Name="Protected" Id="{4827eb1b-c1e4-0227-0866-ab2c04f0f9b0}" />
+    </Folder>
+    <Method Name="AddLocalEnumeration" Id="{89272682-ba9a-08e8-2754-b23b38576dbd}" FolderPath="Customize\Private\">
       <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
 VAR_INPUT
 	Enumeration : T_MAXSTRING;
@@ -27,9 +32,9 @@ END_VAR]]></Declaration>
         <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Address" Id="{a6c5bebb-8d67-0b59-0c29-4ded7292d7d9}">
+    <Property Name="Address" Id="{be36fd88-f67a-06ee-1b54-e548aa32a7c1}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
-      <Get Name="Get" Id="{9f8172f2-a265-0d7a-2ac3-5b9d03fbc6ef}">
+      <Get Name="Get" Id="{5adae646-b680-07ec-26fc-e4f39076850b}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -38,7 +43,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="ClearReference" Id="{cffe9a52-1a19-0321-02d9-2989619ae05b}">
+    <Method Name="ClearReference" Id="{fcbe3941-3117-0bf2-3e1b-469e3a23304d}" FolderPath="Core\">
       <Declaration><![CDATA[METHOD PUBLIC ClearReference
 VAR_INPUT
 END_VAR
@@ -48,7 +53,7 @@ END_VAR
 SetBaseDatatypeReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Clone" Id="{2012daed-fc94-0cab-1572-b116514ab3a8}">
+    <Method Name="Clone" Id="{2012daed-fc94-0cab-1572-b116514ab3a8}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
 VAR
     pClone : POINTER TO _ETcVnFlipAxis;
@@ -59,7 +64,7 @@ END_VAR
 Clone := pClone^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{e4f8cdc1-0562-03cd-1db3-d66f79227dc6}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{e4f8cdc1-0562-03cd-1db3-d66f79227dc6}" FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -78,7 +83,7 @@ AddLocalEnumeration('TCVN_FA_Y', ETcVnFlipAxis.TCVN_FA_Y);
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Identifier" Id="{36bcd99c-fcc5-0ef5-1d70-bc23e43da643}">
+    <Property Name="Identifier" Id="{36bcd99c-fcc5-0ef5-1d70-bc23e43da643}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
       <Get Name="Get" Id="{4f13a932-dd36-0d6c-1445-d91b2e41b840}">
         <Declaration><![CDATA[VAR
@@ -89,7 +94,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="IsEnumeratorValueEqual" Id="{fd9dfd47-9297-0e9c-0600-4306d2618656}" FolderPath="Protected\">
+    <Method Name="IsEnumeratorValueEqual" Id="{fd9dfd47-9297-0e9c-0600-4306d2618656}" FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
 VAR_INPUT
 	Enumerator : I_KeyValueForwardEnumerator;
@@ -105,7 +110,7 @@ END_IF
 IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="MakeReferenceTo" Id="{6ed1c7e6-3825-0260-1ad3-af3236e7431b}">
+    <Method Name="MakeReferenceTo" Id="{6ed1c7e6-3825-0260-1ad3-af3236e7431b}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO ETcVnFlipAxis;
@@ -116,7 +121,7 @@ END_VAR
 SetBaseDatatypeReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetBaseDatatypeReference" Id="{56414470-879c-08da-287b-5a0973e1e693}" FolderPath="Protected\">
+    <Method Name="SetBaseDatatypeReference" Id="{fcc9df39-df24-0893-08ec-e648bc3464e6}" FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
 VAR_INPUT
 END_VAR
@@ -125,9 +130,9 @@ END_VAR
         <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Size" Id="{46134a94-2ce1-083e-19f9-d28e4b62f7af}">
+    <Property Name="Size" Id="{668bb414-cdf2-04c3-09ba-eb6e5ba74397}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
-      <Get Name="Get" Id="{1e1c2c64-1a28-0db0-3c4a-3810761cf147}">
+      <Get Name="Get" Id="{20429b4f-2e85-01e4-0311-f605d426665d}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -136,7 +141,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{19e87bd4-9061-0435-18f9-de75138a63cd}">
+    <Method Name="TryMakeReferenceTo" Id="{19e87bd4-9061-0435-18f9-de75138a63cd}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
@@ -160,7 +165,7 @@ SetBaseDatatypeReference();
 TryMakeReferenceTo := TRUE;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Value" Id="{fcec4666-6a55-0a48-19a9-e3b57def03fa}">
+    <Property Name="Value" Id="{fcec4666-6a55-0a48-19a9-e3b57def03fa}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnFlipAxis]]></Declaration>
       <Get Name="Get" Id="{96c19c76-66d5-08e5-3060-b04734c8ed48}">
         <Declaration><![CDATA[VAR

@@ -45,11 +45,15 @@
     <Compile Include="Tests\Enums\_ETcVnColorSpaceTransform_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Interfaces\_ITcVnContainer_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="POUs" />
     <Folder Include="Tests" />
     <Folder Include="Tests\Enums" />
+    <Folder Include="Tests\Interfaces" />
   </ItemGroup>
   <ItemGroup>
     <PlaceholderReference Include="Tc2_Standard">

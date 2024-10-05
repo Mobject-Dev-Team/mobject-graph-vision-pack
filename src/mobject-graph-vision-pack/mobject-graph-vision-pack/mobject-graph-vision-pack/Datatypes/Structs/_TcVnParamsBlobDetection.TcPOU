@@ -35,9 +35,12 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{741d1bfb-87a3-0e0d-2649-9eca8ba7d2d0}" />
-    <Folder Name="Protected" Id="{ca9f214e-3582-03f5-2d3d-4f2178ae766e}" />
-    <Property Name="Address" Id="{184a05e8-3b21-0d3a-1df5-4e560ead9efd}">
+    <Folder Name="Core" Id="{c1f62570-e884-0ae5-15cd-04be7d72b0ad}" />
+    <Folder Name="Customize" Id="{6b64b7f4-5191-0965-1b53-ddc9b1f78312}">
+      <Folder Name="Constructor" Id="{741d1bfb-87a3-0e0d-2649-9eca8ba7d2d0}" />
+      <Folder Name="Protected" Id="{ca9f214e-3582-03f5-2d3d-4f2178ae766e}" />
+    </Folder>
+    <Property Name="Address" Id="{184a05e8-3b21-0d3a-1df5-4e560ead9efd}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
       <Get Name="Get" Id="{7348c008-8788-08c2-3c69-ac48f5485ed7}">
         <Declaration><![CDATA[VAR
@@ -103,7 +106,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="ClearReference" Id="{f8faafdb-cfb6-0fc6-18a4-37f62efdc928}">
+    <Method Name="ClearReference" Id="{f8faafdb-cfb6-0fc6-18a4-37f62efdc928}" FolderPath="Core\">
       <Declaration><![CDATA[METHOD PUBLIC ClearReference
 VAR_INPUT
 END_VAR
@@ -113,7 +116,7 @@ END_VAR
 SetMemberReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Clone" Id="{a9ebd8fa-efe3-061a-2893-e668fd7e4bc8}">
+    <Method Name="Clone" Id="{a9ebd8fa-efe3-061a-2893-e668fd7e4bc8}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
 VAR
     pClone : POINTER TO _TcVnParamsBlobDetection;
@@ -147,7 +150,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="FB_init" Id="{5736f6eb-fbfe-0e84-1690-6469c73422fc}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{5736f6eb-fbfe-0e84-1690-6469c73422fc}" FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -335,7 +338,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Property Name="Identifier" Id="{8f6ce571-d797-0403-11f5-7e89f88c7208}">
+    <Property Name="Identifier" Id="{8f6ce571-d797-0403-11f5-7e89f88c7208}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
       <Get Name="Get" Id="{28864b14-4834-0e45-2223-4767383ccf25}">
         <Declaration><![CDATA[VAR
@@ -346,7 +349,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="MakeReferenceTo" Id="{cd282ba9-a074-0642-0f4f-8eb540da00c8}">
+    <Method Name="MakeReferenceTo" Id="{cd282ba9-a074-0642-0f4f-8eb540da00c8}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO TcVnParamsBlobDetection;
@@ -368,7 +371,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="SetMemberReference" Id="{71352f94-5833-092a-39f3-6c3646c4abe1}" FolderPath="Protected\">
+    <Method Name="SetMemberReference" Id="{71352f94-5833-092a-39f3-6c3646c4abe1}" FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
 VAR_INPUT
 END_VAR
@@ -399,7 +402,7 @@ _eBlobCombination.MakeReferenceTo(activeData.eBlobCombination);
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Size" Id="{127a3703-30ae-0b8b-3124-bc08cdc2d0ce}">
+    <Property Name="Size" Id="{127a3703-30ae-0b8b-3124-bc08cdc2d0ce}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
       <Get Name="Get" Id="{28596c9a-205f-0443-097d-f3dbb53698da}">
         <Declaration><![CDATA[VAR
@@ -410,7 +413,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{0549a965-8e82-01e5-3ebb-21fb6988c977}">
+    <Method Name="TryMakeReferenceTo" Id="{0549a965-8e82-01e5-3ebb-21fb6988c977}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
@@ -434,7 +437,7 @@ SetMemberReference();
 TryMakeReferenceTo := TRUE;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Value" Id="{eed2a5c5-89bd-02f8-2ec2-0dd6b5c38b54}">
+    <Property Name="Value" Id="{eed2a5c5-89bd-02f8-2ec2-0dd6b5c38b54}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnParamsBlobDetection]]></Declaration>
       <Get Name="Get" Id="{a101a024-fd33-098a-0448-ad07d108ae10}">
         <Declaration><![CDATA[VAR
