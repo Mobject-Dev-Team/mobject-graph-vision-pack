@@ -171,6 +171,15 @@
       <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to3OfLREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to2OfLREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to2OfINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Arrays\_Array0to1OfUSINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -195,6 +204,9 @@
     <Compile Include="Datatypes\Arrays\_Array0to1OfARRAYTYP.TcPOU">
       <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to3OfINT.TcPOU">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVn2dCodeSearchStrategy.TcPOU">
       <SubType>Code</SubType>
