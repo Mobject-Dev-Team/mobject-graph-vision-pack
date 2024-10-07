@@ -47,7 +47,7 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('TestSerializeWith');
+        <ST><![CDATA[TEST('TestSerializeWith_Empty');
 
 serializer.Reset();
 _type.SerializeWith(serializer);
@@ -74,7 +74,7 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('TestSerializeWith');
+        <ST><![CDATA[TEST('TestSerializeWith_Vector_REAL');
 
 F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 5, hrPrev := S_OK);
 
