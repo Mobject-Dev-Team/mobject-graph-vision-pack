@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_TcVnVector2_USINT" Id="{ada535f2-5aeb-0918-066d-69d2c2ac3135}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _TcVnVector2_USINT EXTENDS AliasDatatypeBase
+VAR
+	localData : TcVnVector2_USINT;
+	activeData : REFERENCE TO TcVnVector2_USINT REF= localData;
+	aliasBaseDatatype : _Array0to1OfUSINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{bf434c4d-4916-03fa-20fe-30378f6f9386}">
+      <Folder Name="Protected" Id="{9f0b1118-038f-0ce8-3637-5aecb7513676}" />
+    </Folder>
+    <Folder Name="Customize" Id="{8291e76a-f484-0e0b-143b-811ea509cc21}">
+      <Folder Name="Constructor" Id="{cf3f9585-640e-0ee8-1737-2c27429cce92}" />
+    </Folder>
+    <Property Name="Address" Id="{4a65ac9d-1407-0912-0e79-e67956729817}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{41b5389c-7409-0f0f-1872-aa80973d8daa}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{76b084ef-d8cc-057d-25ec-b591cc72c417}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{b49996b5-2309-047d-1a39-21bae1b2e2e6}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _TcVnVector2_USINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_TcVnVector2_USINT);
+Clone := pClone^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{e6d12f28-2437-0173-2b5b-5fc67ff59a20}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	//InitialValue : <type>; // if possible, not all values can be initialized
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//localData := InitialValue; // if possible, not all values can be initialized
+SetBaseDatatypeReference();
+AddBaseDatatype(aliasBaseDatatype);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{02d76903-a60f-02b6-3c32-baf6ad8cb7e9}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{ba2ada73-a2f5-0c73-32a1-265f82972279}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'TcVnVector2_USINT';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{52239def-dc5e-0bdb-2db5-c101a57bf8a4}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO TcVnVector2_USINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{a0e0c1bb-6c00-0a2c-0447-5c2e8dbf525b}" FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[aliasBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{40cd4906-18fb-03c7-2ed6-3c1659fb2252}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{cac087c7-c43e-0593-0a4b-3bb9042a745e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{4349d706-fab2-06ab-3a13-d7a4d7220e0f}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	targetAsAlias : I_AliasDatatype;
+	pTargetData : POINTER TO TcVnVector2_USINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Target.TryResolveAsAliasDatatype(targetAsAlias) THEN
+	RETURN;
+END_IF
+
+IF targetAsAlias.Identifier <> Identifier THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{91e43ae6-65e9-0f97-0c31-41fffdf29865}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnVector2_USINT]]></Declaration>
+      <Get Name="Get" Id="{5578d49a-d9f3-0e90-1fa7-911e8bebcc27}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

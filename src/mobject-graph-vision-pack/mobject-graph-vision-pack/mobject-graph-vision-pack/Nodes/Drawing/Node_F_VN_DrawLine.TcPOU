@@ -11,7 +11,7 @@ VAR
     nX2 : _UDINT(0);
     nY2 : _UDINT(0);
     ipDestImage : _ITcVnImage;
-    //aColor _TcVnVector4_LREAL;
+    aColor : _TcVnVector4_LREAL;
     nThickness : _DINT(1);
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
@@ -54,11 +54,7 @@ AddParameter('nThickness', nThickness);
     </Method>
     <Method Name="OnExecute" Id="{40947ae6-2476-0427-1850-8226b5b7e1bd}">
       <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
-
-//REMOVE
-VAR
-    aColor_Green : TcVnVector4_LREAL := [0, 255, 0, 0];
-END_VAR]]></Declaration>
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_DrawLine(
     nX1 := nX1.Value,
@@ -66,8 +62,7 @@ END_VAR]]></Declaration>
     nX2 := nX2.Value,
 	nY2 := nY2.Value,
 	ipDestImage := ipDestImage.Value,
-    //aColor := aColor.Value,
-    aColor := aColor_Green,
+    aColor := aColor.Value,
     nThickness := nThickness.Value,
 	hrPrev:= hrPrev.Value);
 ]]></ST>

@@ -128,6 +128,18 @@
     <Compile Include="Datatypes\Aliases\_TcVnPoint.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnPoint2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnPoint3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnPoint3_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnRectangle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -140,6 +152,60 @@
     <Compile Include="Datatypes\Aliases\_ALIASTYP.TcPOU">
       <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector2_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector2_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector2_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector2_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector3_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to3OfDINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to2OfUSINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to2OfUINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to2OfSINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to2OfREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to6OfLREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to3OfUSINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to3OfUINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to3OfSINT.TcPOU">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Arrays\_Array0to3OfLREAL.TcPOU">
       <SubType>Code</SubType>
@@ -176,6 +242,9 @@
       <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Arrays\_Array0to3OfINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to7OfLREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVn2dCodeSearchStrategy.TcPOU">

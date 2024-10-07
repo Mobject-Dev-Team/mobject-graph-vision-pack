@@ -12,7 +12,7 @@ VAR
     nY : _UDINT(1);
     eFontType : _ETcVnFontType(ETcVnFontType.TCVN_FT_HERSHEY_SIMPLEX);
     fFontScale : _LREAL(1.0);
-    //aColor : _TcVnVector4_LREAL;
+    aColor : _TcVnVector4_LREAL;
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -41,7 +41,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[AddInput('sText', sText);
 AddInput('ipDestImage', ipDestImage);
-//AddInput('aColor', aColor);
+AddInput('aColor', aColor);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
@@ -54,11 +54,7 @@ AddParameter('fFontScale', fFontScale);
     </Method>
     <Method Name="OnExecute" Id="{a44f2922-7f9d-0a5f-0dfa-fd8ca1736e22}">
       <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
-
-//REMOVE
-VAR
-    aColor_Green : TcVnVector4_LREAL := [0, 255, 0];
-END_VAR]]></Declaration>
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_PutText(
     sText := sText.Value,
@@ -67,8 +63,7 @@ END_VAR]]></Declaration>
 	nY:= nY.Value,
     eFontType := eFontType.Value,
     fFontScale := fFontScale.Value,
-    //aColor := aColor.Value,
-    aColor := aColor_Green,
+    aColor := aColor.Value,
 	hrPrev:= hrPrev.Value);
 ]]></ST>
       </Implementation>

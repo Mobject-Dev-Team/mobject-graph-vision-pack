@@ -8,18 +8,65 @@ FUNCTION_BLOCK VisionDatatypePack IMPLEMENTS I_DatatypePack
 VAR
     // aliases
     //_gVCP_REGISTER_ADDRESS : _GVCP_REGISTER_ADDRESS;
-    //_tcVnPoint : _TcVnPoint;
-    //_tcVnPoint2_DINT : _TcVnPoint2_DINT;
-    //_tcVnPoint2_LREAL : _TcVnPoint2_LREAL;
-    //_tcVnPoint2_REAL : _TcVnPoint2_REAL;
-    //_tcVnPoint3_LREAL : _TcVnPoint3_LREAL;
-    //_tcVnPoint3_REAL : _TcVnPoint3_REAL;
+    _tcVnPoint : _TcVnPoint;
+    _tcVnPoint2_DINT : _TcVnPoint2_DINT;
+    _tcVnPoint2_LREAL : _TcVnPoint2_LREAL;
+    _tcVnPoint2_REAL : _TcVnPoint2_REAL;
+    _tcVnPoint3_LREAL : _TcVnPoint3_LREAL;
+    _tcVnPoint3_REAL : _TcVnPoint3_REAL;
     _tcVnRectangle : _TcVnRectangle;
-    
+  
+//    _tcVnArray10_ITcVnImage : TcVnArray10_ITcVnImage;
+//    _tcVnArray3_Point2_REAL : TcVnArray3_Point2_REAL;
+//    _tcVnArray33_UDINT : TcVnArray33_UDINT;
+//    _tcVnArray4_LREAL : TcVnArray4_LREAL;
+//    _tcVnArray4_Point2_REAL : TcVnArray4_Point2_REAL;
+//    _tcVnArray7_LREAL : TcVnArray7_LREAL;
+//    _tcVnArray8_LREAL : TcVnArray8_LREAL;
+//    _tcVnMatrix2x3_LREAL : TcVnMatrix2x3_LREAL;
+//    _tcVnMatrix3x3_LREAL : TcVnMatrix3x3_LREAL;
+    _tcVnVector2_DINT : TcVnVector2_DINT;
+    _tcVnVector2_INT : TcVnVector2_INT;
+    _tcVnVector2_LREAL : TcVnVector2_LREAL;
+    _tcVnVector2_REAL : TcVnVector2_REAL;
+    _tcVnVector2_SINT : TcVnVector2_SINT;
+    _tcVnVector2_UINT : TcVnVector2_UINT;
+    _tcVnVector2_USINT : TcVnVector2_USINT;
+//    _tcVnVector3_INT : TcVnVector3_INT;
+    _tcVnVector3_LREAL : TcVnVector3_LREAL;
+    _tcVnVector3_REAL : TcVnVector3_REAL;
+//    _tcVnVector3_SINT : TcVnVector3_SINT;
+//    _tcVnVector3_UINT : TcVnVector3_UINT;
+//    _tcVnVector3_USINT : TcVnVector3_USINT;
+//    _tcVnVector4_DINT : TcVnVector4_DINT;
+//    _tcVnVector4_INT : TcVnVector4_INT;
+    _tcVnVector4_LREAL : _TcVnVector4_LREAL;
+//    _tcVnVector4_SINT : TcVnVector4_SINT;
+//    _tcVnVector4_UINT : TcVnVector4_UINT;
+//    _tcVnVector4_USINT : TcVnVector4_USINT;
+ 
     // constants
     
     // arrays
-	
+    _array0to1OfDINT : _Array0to1OfDINT;
+    _array0to1OfINT : _Array0to1OfINT;
+    _array0to1OfLREAL : _Array0to1OfLREAL;
+    _array0to1OfREAL : _Array0to1OfREAL;
+    _array0to1OfSINT : _Array0to1OfSINT;
+    _array0to1OfUINT : _Array0to1OfUINT;
+    _array0to1OfUSINT : _Array0to1OfUSINT;
+    _array0to2OfINT : _Array0to2OfINT;
+    _array0to2OfLREAL : _Array0to2OfLREAL;
+    _array0to2OfREAL : _Array0to2OfREAL;
+    _array0to2OfSINT : _Array0to2OfSINT;
+    _array0to2OfUINT : _Array0to2OfUINT;
+    _array0to2OfUSINT : _Array0to2OfUSINT;
+    _array0to3OfDINT : _Array0to3OfDINT;
+    _array0to3OfINT : _Array0to3OfINT;
+	_array0to3OfLREAL : _Array0to3OfLREAL;
+    _array0to6OfLREAL : _Array0to6OfLREAL;
+    _array0to7OfLREAL : _Array0to7OfLREAL;
+    
     // enums
 	_eTcVn2dCodeSearchStrategy : _ETcVn2dCodeSearchStrategy(ETcVn2dCodeSearchStrategy.TCVN_CSS_DEFAULT);
 	
@@ -47,17 +94,64 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// aliases
 //Datatypes.RegisterDatatype(_GVCP_REGISTER_ADDRESS);
-//Datatypes.RegisterDatatype(_TcVnPoint);
-//Datatypes.RegisterDatatype(_TcVnPoint2_DINT);
-//Datatypes.RegisterDatatype(_TcVnPoint2_LREAL);
-//Datatypes.RegisterDatatype(_TcVnPoint2_REAL);
-//Datatypes.RegisterDatatype(_TcVnPoint3_LREAL);
-//Datatypes.RegisterDatatype(_TcVnPoint3_REAL);
-Datatypes.RegisterDatatype(_TcVnRectangle);
+Datatypes.RegisterDatatype(_tcVnPoint);
+Datatypes.RegisterDatatype(_tcVnPoint2_DINT);
+Datatypes.RegisterDatatype(_tcVnPoint2_LREAL);
+Datatypes.RegisterDatatype(_tcVnPoint2_REAL);
+Datatypes.RegisterDatatype(_tcVnPoint3_LREAL);
+Datatypes.RegisterDatatype(_tcVnPoint3_REAL);
+Datatypes.RegisterDatatype(_tcVnRectangle);
+
+//Datatypes.RegisterDatatype(_tcVnArray10_ITcVnImage);
+//Datatypes.RegisterDatatype(_tcVnArray3_Point2_REAL);
+//Datatypes.RegisterDatatype(_tcVnArray33_UDINT);
+//Datatypes.RegisterDatatype(_tcVnArray4_LREAL);
+//Datatypes.RegisterDatatype(_tcVnArray4_Point2_REAL);
+//Datatypes.RegisterDatatype(_tcVnArray7_LREAL);
+//Datatypes.RegisterDatatype(_tcVnArray8_LREAL);
+//Datatypes.RegisterDatatype(_tcVnMatrix2x3_LREAL);
+//Datatypes.RegisterDatatype(_tcVnMatrix3x3_LREAL);
+Datatypes.RegisterDatatype(_tcVnVector2_DINT);
+Datatypes.RegisterDatatype(_tcVnVector2_INT);
+Datatypes.RegisterDatatype(_tcVnVector2_LREAL);
+Datatypes.RegisterDatatype(_tcVnVector2_REAL);
+Datatypes.RegisterDatatype(_tcVnVector2_SINT);
+Datatypes.RegisterDatatype(_tcVnVector2_UINT);
+Datatypes.RegisterDatatype(_tcVnVector2_USINT);
+//Datatypes.RegisterDatatype(_tcVnVector3_INT);
+Datatypes.RegisterDatatype(_tcVnVector3_LREAL);
+Datatypes.RegisterDatatype(_tcVnVector3_REAL);
+//Datatypes.RegisterDatatype(_tcVnVector3_SINT);
+//Datatypes.RegisterDatatype(_tcVnVector3_UINT);
+//Datatypes.RegisterDatatype(_tcVnVector3_USINT);
+//Datatypes.RegisterDatatype(_tcVnVector4_DINT);
+//Datatypes.RegisterDatatype(_tcVnVector4_INT);
+Datatypes.RegisterDatatype(_tcVnVector4_LREAL);
+//Datatypes.RegisterDatatype(_tcVnVector4_SINT);
+//Datatypes.RegisterDatatype(_tcVnVector4_UINT);
+//Datatypes.RegisterDatatype(_tcVnVector4_USINT);
 
 // constants
 
 // arrays
+Datatypes.RegisterDatatype(_array0to1OfDINT);
+Datatypes.RegisterDatatype(_array0to1OfINT);
+Datatypes.RegisterDatatype(_array0to1OfLREAL);
+Datatypes.RegisterDatatype(_array0to1OfREAL);
+Datatypes.RegisterDatatype(_array0to1OfSINT);
+Datatypes.RegisterDatatype(_array0to1OfUINT);
+Datatypes.RegisterDatatype(_array0to1OfUSINT);
+Datatypes.RegisterDatatype(_array0to2OfINT);
+Datatypes.RegisterDatatype(_array0to2OfLREAL);
+Datatypes.RegisterDatatype(_array0to2OfREAL);
+Datatypes.RegisterDatatype(_array0to2OfSINT);
+Datatypes.RegisterDatatype(_array0to2OfUINT);
+Datatypes.RegisterDatatype(_array0to2OfUSINT);
+Datatypes.RegisterDatatype(_array0to3OfDINT);
+Datatypes.RegisterDatatype(_array0to3OfINT);
+Datatypes.RegisterDatatype(_array0to3OfLREAL);
+Datatypes.RegisterDatatype(_array0to6OfLREAL);
+Datatypes.RegisterDatatype(_array0to7OfLREAL);
 
 // enums
 Datatypes.RegisterDatatype(_eTcVn2dCodeSearchStrategy);

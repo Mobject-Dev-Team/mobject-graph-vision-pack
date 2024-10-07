@@ -9,7 +9,7 @@ VAR
     ipContours : _ITcVnContainer;
     nContourIndex : _DINT(0);
     ipDestImage : _ITcVnImage;
-    //aColor _TcVnVector4_LREAL;
+    aColor : _TcVnVector4_LREAL;
     nThickness : _DINT(1);
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
@@ -26,8 +26,7 @@ VAR
 ;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawContours
-);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawContours);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
@@ -42,6 +41,7 @@ END_VAR
         <ST><![CDATA[AddInput('ipContours', ipContours);
 AddInput('nContourIndex', nContourIndex);
 AddInput('ipDestImage', ipDestImage);
+AddInput('aColor', aColor);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
@@ -51,17 +51,13 @@ AddParameter('nThickness', nThickness);
     </Method>
     <Method Name="OnExecute" Id="{ef1597a4-9cfe-058a-226a-4fbb85125199}">
       <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
-
-//REMOVE
-VAR
-    aColor_Green : TcVnVector4_LREAL := [0, 255, 0, 0];
-END_VAR]]></Declaration>
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_DrawContours(
     ipContours := ipContours.Value,
     nContourIndex := nContourIndex.Value,
 	ipDestImage := ipDestImage.Value,
-    aColor := aColor_Green,
+    aColor := aColor.Value,
     nThickness := nThickness.Value,
 	hrPrev:= hrPrev.Value);
 ]]></ST>
