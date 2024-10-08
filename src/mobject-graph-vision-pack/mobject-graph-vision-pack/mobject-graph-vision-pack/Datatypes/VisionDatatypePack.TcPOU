@@ -7,7 +7,7 @@
 FUNCTION_BLOCK VisionDatatypePack IMPLEMENTS I_DatatypePack
 VAR
     // aliases
-    //_gVCP_REGISTER_ADDRESS : _GVCP_REGISTER_ADDRESS;
+    _gVCP_REGISTER_ADDRESS : _GVCP_REGISTER_ADDRESS;
     _tcVnPoint : _TcVnPoint;
     _tcVnPoint2_DINT : _TcVnPoint2_DINT;
     _tcVnPoint2_LREAL : _TcVnPoint2_LREAL;
@@ -16,34 +16,34 @@ VAR
     _tcVnPoint3_REAL : _TcVnPoint3_REAL;
     _tcVnRectangle : _TcVnRectangle;
   
-//    _tcVnArray10_ITcVnImage : TcVnArray10_ITcVnImage;
-//    _tcVnArray3_Point2_REAL : TcVnArray3_Point2_REAL;
-//    _tcVnArray33_UDINT : TcVnArray33_UDINT;
-//    _tcVnArray4_LREAL : TcVnArray4_LREAL;
-//    _tcVnArray4_Point2_REAL : TcVnArray4_Point2_REAL;
-//    _tcVnArray7_LREAL : TcVnArray7_LREAL;
-//    _tcVnArray8_LREAL : TcVnArray8_LREAL;
-//    _tcVnMatrix2x3_LREAL : TcVnMatrix2x3_LREAL;
-//    _tcVnMatrix3x3_LREAL : TcVnMatrix3x3_LREAL;
-    _tcVnVector2_DINT : TcVnVector2_DINT;
-    _tcVnVector2_INT : TcVnVector2_INT;
-    _tcVnVector2_LREAL : TcVnVector2_LREAL;
-    _tcVnVector2_REAL : TcVnVector2_REAL;
-    _tcVnVector2_SINT : TcVnVector2_SINT;
-    _tcVnVector2_UINT : TcVnVector2_UINT;
-    _tcVnVector2_USINT : TcVnVector2_USINT;
-//    _tcVnVector3_INT : TcVnVector3_INT;
-    _tcVnVector3_LREAL : TcVnVector3_LREAL;
-    _tcVnVector3_REAL : TcVnVector3_REAL;
-//    _tcVnVector3_SINT : TcVnVector3_SINT;
-//    _tcVnVector3_UINT : TcVnVector3_UINT;
-//    _tcVnVector3_USINT : TcVnVector3_USINT;
-//    _tcVnVector4_DINT : TcVnVector4_DINT;
-//    _tcVnVector4_INT : TcVnVector4_INT;
+    _tcVnArray10_ITcVnImage : _TcVnArray10_ITcVnImage;
+    _tcVnArray3_Point2_REAL : _TcVnArray3_Point2_REAL;
+    _tcVnArray33_UDINT : _TcVnArray33_UDINT;
+    _tcVnArray4_LREAL : _TcVnArray4_LREAL;
+    _tcVnArray4_Point2_REAL : _TcVnArray4_Point2_REAL;
+    _tcVnArray7_LREAL : _TcVnArray7_LREAL;
+    _tcVnArray8_LREAL : _TcVnArray8_LREAL;
+//    _tcVnMatrix2x3_LREAL : _TcVnMatrix2x3_LREAL;
+//    _tcVnMatrix3x3_LREAL : _TcVnMatrix3x3_LREAL;
+    _tcVnVector2_DINT : _TcVnVector2_DINT;
+    _tcVnVector2_INT : _TcVnVector2_INT;
+    _tcVnVector2_LREAL : _TcVnVector2_LREAL;
+    _tcVnVector2_REAL : _TcVnVector2_REAL;
+    _tcVnVector2_SINT : _TcVnVector2_SINT;
+    _tcVnVector2_UINT : _TcVnVector2_UINT;
+    _tcVnVector2_USINT : _TcVnVector2_USINT;
+    _tcVnVector3_INT : _TcVnVector3_INT;
+    _tcVnVector3_LREAL : _TcVnVector3_LREAL;
+    _tcVnVector3_REAL : _TcVnVector3_REAL;
+    _tcVnVector3_SINT : _TcVnVector3_SINT;
+    _tcVnVector3_UINT : _TcVnVector3_UINT;
+    _tcVnVector3_USINT : _TcVnVector3_USINT;
+    _tcVnVector4_DINT : _TcVnVector4_DINT;
+    _tcVnVector4_INT : _TcVnVector4_INT;
     _tcVnVector4_LREAL : _TcVnVector4_LREAL;
-//    _tcVnVector4_SINT : TcVnVector4_SINT;
-//    _tcVnVector4_UINT : TcVnVector4_UINT;
-//    _tcVnVector4_USINT : TcVnVector4_USINT;
+    _tcVnVector4_SINT : _TcVnVector4_SINT;
+    _tcVnVector4_UINT : _TcVnVector4_UINT;
+    _tcVnVector4_USINT : _TcVnVector4_USINT;
  
     // constants
     

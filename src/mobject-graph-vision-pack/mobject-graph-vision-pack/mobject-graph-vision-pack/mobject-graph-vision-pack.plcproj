@@ -125,6 +125,32 @@
     <Folder Include="Nodes\VisionNode" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datatypes\Aliases\_GVCP_REGISTER_ADDRESS.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnArray4_Point2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnArray4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnArray33_UDINT.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnArray10_ITcVnImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnArray3_Point2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnArray7_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnArray8_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnPoint.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -156,6 +182,12 @@
     <Compile Include="Datatypes\Aliases\_TcVnVector2_INT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector3_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector3_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnVector2_SINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -168,6 +200,18 @@
     <Compile Include="Datatypes\Aliases\_TcVnVector2_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector3_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector3_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector4_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector4_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -178,6 +222,27 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnVector2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector4_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector4_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector4_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to2OfTcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to3OfTcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to9OfITcVnImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to32OfUDINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Arrays\_Array0to3OfDINT.TcPOU">
