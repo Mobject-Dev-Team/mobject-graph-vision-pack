@@ -18,7 +18,7 @@ VAR
   
     _tcVnArray10_ITcVnImage : _TcVnArray10_ITcVnImage;
     _tcVnArray3_Point2_REAL : _TcVnArray3_Point2_REAL;
-    _tcVnArray33_UDINT : _TcVnArray33_UDINT;
+    //_tcVnArray33_UDINT : _TcVnArray33_UDINT;
     _tcVnArray4_LREAL : _TcVnArray4_LREAL;
     _tcVnArray4_Point2_REAL : _TcVnArray4_Point2_REAL;
     _tcVnArray7_LREAL : _TcVnArray7_LREAL;
@@ -71,11 +71,34 @@ VAR
 	_eTcVn2dCodeSearchStrategy : _ETcVn2dCodeSearchStrategy(ETcVn2dCodeSearchStrategy.TCVN_CSS_DEFAULT);
 	
     // structs
+//   _gVSP_IMAGE_INFO : _GVSP_IMAGE_INFO;
+//   _gVSP_LEADER_PAYLOAD_IMAGE : _GVSP_LEADER_PAYLOAD_IMAGE;
+//  _gVSP_PIXEL_FORMAT : _GVSP_PIXEL_FORMAT;
+//  _tcVnCameraCalibrationOptions : _TcVnCameraCalibrationOptions;
+    _tcVnCircularArc : _TcVnCircularArc;
+//  _tcVnCodeGrades1D : _TcVnCodeGrades1D;
+//  _tcVnCodeGradesDM : _TcVnCodeGradesDM;
+//  _tcVnCodeGradesQR : _TcVnCodeGradesQR;
+//  _tcVnDMatch : _TcVnDMatch;
 	_tcVnImageInfo : _TcVnImageInfo;
+    _tcVnKeyPoint : _TcVnKeyPoint;
+//  _tcVnMatrix : _TcVnMatrix;
+//  _tcVnMoments : _TcVnMoments;
+//  _tcVnParamsAGAST : _TcVnParamsAGAST;
+//  _tcVnParamsAKAZE : _TcVnParamsAKAZE;
     _tcVnParamsBlobDetection : _TcVnParamsBlobDetection;
+//  _tcVnParamsBRISK : _TcVnParamsBRISK;
+//  _tcVnParamsFAST : _TcVnParamsFAST;
+//  _tcVnParamsGFTT : _TcVnParamsGFTT;
+//  _tcVnParamsKAZE : _TcVnParamsKAZE;
+//  _tcVnParamsMSER : _TcVnParamsMSER;
+//  _tcVnParamsORB : _TcVnParamsORB;
+//  _tcVnParamsSB : _TcVnParamsSB;
     _tcVnPixelFormat : _TcVnPixelFormat;
 	_tcVnRectangle_DINT : _TcVnRectangle_DINT;
     _tcVnRectangle_UDINT : _TcVnRectangle_UDINT;
+    _tcVnRotatedRectangle : _TcVnRotatedRectangle;
+    _tcVnSize2_REAL : _TcVnSize2_REAL;
 	
 	// interfaces
 	_iTcVnImage : _ITcVnImage;
@@ -93,7 +116,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// aliases
-//Datatypes.RegisterDatatype(_GVCP_REGISTER_ADDRESS);
+Datatypes.RegisterDatatype(_GVCP_REGISTER_ADDRESS);
 Datatypes.RegisterDatatype(_tcVnPoint);
 Datatypes.RegisterDatatype(_tcVnPoint2_DINT);
 Datatypes.RegisterDatatype(_tcVnPoint2_LREAL);
@@ -102,13 +125,13 @@ Datatypes.RegisterDatatype(_tcVnPoint3_LREAL);
 Datatypes.RegisterDatatype(_tcVnPoint3_REAL);
 Datatypes.RegisterDatatype(_tcVnRectangle);
 
-//Datatypes.RegisterDatatype(_tcVnArray10_ITcVnImage);
-//Datatypes.RegisterDatatype(_tcVnArray3_Point2_REAL);
+Datatypes.RegisterDatatype(_tcVnArray10_ITcVnImage);
+Datatypes.RegisterDatatype(_tcVnArray3_Point2_REAL);
 //Datatypes.RegisterDatatype(_tcVnArray33_UDINT);
-//Datatypes.RegisterDatatype(_tcVnArray4_LREAL);
-//Datatypes.RegisterDatatype(_tcVnArray4_Point2_REAL);
-//Datatypes.RegisterDatatype(_tcVnArray7_LREAL);
-//Datatypes.RegisterDatatype(_tcVnArray8_LREAL);
+Datatypes.RegisterDatatype(_tcVnArray4_LREAL);
+Datatypes.RegisterDatatype(_tcVnArray4_Point2_REAL);
+Datatypes.RegisterDatatype(_tcVnArray7_LREAL);
+Datatypes.RegisterDatatype(_tcVnArray8_LREAL);
 //Datatypes.RegisterDatatype(_tcVnMatrix2x3_LREAL);
 //Datatypes.RegisterDatatype(_tcVnMatrix3x3_LREAL);
 Datatypes.RegisterDatatype(_tcVnVector2_DINT);
@@ -118,18 +141,18 @@ Datatypes.RegisterDatatype(_tcVnVector2_REAL);
 Datatypes.RegisterDatatype(_tcVnVector2_SINT);
 Datatypes.RegisterDatatype(_tcVnVector2_UINT);
 Datatypes.RegisterDatatype(_tcVnVector2_USINT);
-//Datatypes.RegisterDatatype(_tcVnVector3_INT);
+Datatypes.RegisterDatatype(_tcVnVector3_INT);
 Datatypes.RegisterDatatype(_tcVnVector3_LREAL);
 Datatypes.RegisterDatatype(_tcVnVector3_REAL);
-//Datatypes.RegisterDatatype(_tcVnVector3_SINT);
-//Datatypes.RegisterDatatype(_tcVnVector3_UINT);
-//Datatypes.RegisterDatatype(_tcVnVector3_USINT);
-//Datatypes.RegisterDatatype(_tcVnVector4_DINT);
-//Datatypes.RegisterDatatype(_tcVnVector4_INT);
+Datatypes.RegisterDatatype(_tcVnVector3_SINT);
+Datatypes.RegisterDatatype(_tcVnVector3_UINT);
+Datatypes.RegisterDatatype(_tcVnVector3_USINT);
+Datatypes.RegisterDatatype(_tcVnVector4_DINT);
+Datatypes.RegisterDatatype(_tcVnVector4_INT);
 Datatypes.RegisterDatatype(_tcVnVector4_LREAL);
-//Datatypes.RegisterDatatype(_tcVnVector4_SINT);
-//Datatypes.RegisterDatatype(_tcVnVector4_UINT);
-//Datatypes.RegisterDatatype(_tcVnVector4_USINT);
+Datatypes.RegisterDatatype(_tcVnVector4_SINT);
+Datatypes.RegisterDatatype(_tcVnVector4_UINT);
+Datatypes.RegisterDatatype(_tcVnVector4_USINT);
 
 // constants
 
@@ -157,11 +180,34 @@ Datatypes.RegisterDatatype(_array0to7OfLREAL);
 Datatypes.RegisterDatatype(_eTcVn2dCodeSearchStrategy);
 
 // structs
+//Datatypes.RegisterDatatype(_gVSP_IMAGE_INFO);
+//Datatypes.RegisterDatatype(_gVSP_LEADER_PAYLOAD_IMAGE);
+//Datatypes.RegisterDatatype(_gVSP_PIXEL_FORMAT);
+//Datatypes.RegisterDatatype(_tcVnCameraCalibrationOptions);
+Datatypes.RegisterDatatype(_tcVnCircularArc);
+//Datatypes.RegisterDatatype(_tcVnCodeGrades1D);
+//Datatypes.RegisterDatatype(_tcVnCodeGradesDM);
+//Datatypes.RegisterDatatype(_tcVnCodeGradesQR);
+//Datatypes.RegisterDatatype(_tcVnDMatch
 Datatypes.RegisterDatatype(_tcVnImageInfo);
+Datatypes.RegisterDatatype(_tcVnKeyPoint);
+//Datatypes.RegisterDatatype(_tcVnMatrix);
+//Datatypes.RegisterDatatype(_tcVnMoments);
+//Datatypes.RegisterDatatype(_tcVnParamsAGAST);
+//Datatypes.RegisterDatatype(_tcVnParamsAKAZE);
 Datatypes.RegisterDatatype(_tcVnParamsBlobDetection);
+//Datatypes.RegisterDatatype(_tcVnParamsBRISK);
+//Datatypes.RegisterDatatype(_tcVnParamsFAST);
+//Datatypes.RegisterDatatype(_tcVnParamsGFTT);
+//Datatypes.RegisterDatatype(_tcVnParamsKAZE);
+//Datatypes.RegisterDatatype(_tcVnParamsMSER);
+//Datatypes.RegisterDatatype(_tcVnParamsORB);
+//Datatypes.RegisterDatatype(_tcVnParamsSB);
 Datatypes.RegisterDatatype(_tcVnPixelFormat);
 Datatypes.RegisterDatatype(_tcVnRectangle_DINT);
 Datatypes.RegisterDatatype(_tcVnRectangle_UDINT);
+Datatypes.RegisterDatatype(_tcVnRotatedRectangle);
+Datatypes.RegisterDatatype(_tcVnSize2_REAL);
 
 // interfaces
 Datatypes.RegisterDatatype(_iTcVnImage);]]></ST>

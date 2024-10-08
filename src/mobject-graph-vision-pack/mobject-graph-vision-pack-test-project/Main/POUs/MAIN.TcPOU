@@ -76,12 +76,11 @@ VAR
     //_ETcWatchdogAccumulationType_TestSuite : _ETcWatchdogAccumulationType_TestSuite;
     //_GEV_CAMERA_STATE_TestSuite : _GEV_CAMERA_STATE_TestSuite;
     
-	//interfaces
-	
-	_ITcVnContainer_TestSuite : _ITcVnContainer_TestSuite;
-	
     //structs
-	
+    _TcVnSize2_REAL_TestSuite : _TcVnSize2_REAL_TestSuite;
+    
+    //interfaces
+	_ITcVnContainer_TestSuite : _ITcVnContainer_TestSuite;
 END_VAR
 ]]></Declaration>
     <Implementation>

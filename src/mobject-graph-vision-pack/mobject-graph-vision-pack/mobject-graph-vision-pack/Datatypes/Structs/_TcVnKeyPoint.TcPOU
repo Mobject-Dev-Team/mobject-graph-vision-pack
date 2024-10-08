@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_TcVnKeyPoint" Id="{4bea38db-04f4-0aed-06b6-2af97c3dac8d}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _TcVnKeyPoint EXTENDS StructuredDatatypeBase
+VAR
+	localData : TcVnKeyPoint;
+	activeData : REFERENCE TO TcVnKeyPoint REF= localData;
+    _aPoint : _TcVnPoint2_REAL();
+    _fDiameter : _REAL(localdata.fDiameter);
+    _fAngle : _REAL(localdata.fAngle);
+    _fResponse : _REAL(localdata.fResponse);
+    _nOctave : _DINT(localdata.nOctave);
+    _nClassId : _DINT(localdata.nClassId);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{cf69e9a2-8b8c-0735-2f59-6b1c8050d553}" />
+    <Folder Name="Customize" Id="{dc46dc3b-582b-0ace-0430-b3a95061c9f5}">
+      <Folder Name="Constructor" Id="{9ae074b2-6bfb-06f1-02ad-b614ef131606}" />
+      <Folder Name="Protected" Id="{d5333aa6-e609-055c-0acd-7eb7189b6885}" />
+    </Folder>
+    <Property Name="Address" Id="{b45f8f7d-a694-055b-237d-28f00d982fce}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{5b9f4b87-aae9-0312-137f-cb889b0aa8b9}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="aPoint" Id="{ed5d5fbe-bada-0c0c-2356-c051fc965749}">
+      <Declaration><![CDATA[PROPERTY PUBLIC aPoint : REFERENCE TO _TcVnPoint2_REAL]]></Declaration>
+      <Get Name="Get" Id="{9fcc97f2-2ef5-07c0-2c6b-12695b087f71}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[aPoint REF= _aPoint;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{faa2c625-702f-07f5-0f24-9ec3a2384cad}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{d71dd2f7-80fd-0f86-136a-882967127783}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _TcVnKeyPoint;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_TcVnKeyPoint());
+pClone^.Value := Value;
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="fAngle" Id="{aa2b1b7a-c6cf-0ee0-00cb-6fb4bfdfe6ed}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fAngle : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{40e4b50a-d680-0ec4-030a-d7eadf8aa1c2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fAngle REF= _fAngle;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_init" Id="{5dae6684-1e96-0c5b-023c-935a378485bc}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetMemberReference();
+AddMember('aPoint', _aPoint);
+AddMember('fDiameter', _fDiameter);
+AddMember('fAngle', _fAngle);
+AddMember('fResponse', _fResponse);
+AddMember('nOctave', _nOctave);
+AddMember('nClassId', _nClassId);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="fDiameter" Id="{bf6071fd-fadc-04af-0b8f-5074f1309d31}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fDiameter : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{9161927b-e7aa-006f-0f77-f092328ca351}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fDiameter REF= _fDiameter;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fResponse" Id="{44edf430-164c-09b6-2573-3df9ae2c0ccf}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fResponse : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{747fc442-59bc-0dd9-013e-f8fbd1f08308}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fResponse REF= _fResponse;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Identifier" Id="{47ce8fc4-dbef-0c77-10c9-a4b393c90e74}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{00775479-2262-006c-3524-a44767f64ed1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'TcVnKeyPoint';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{fd9996df-680b-05d2-357d-df524a40c753}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO TcVnKeyPoint;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nClassId" Id="{055e93c2-db98-025c-0925-91f8c0ab525b}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nClassId : REFERENCE TO _DINT
+]]></Declaration>
+      <Get Name="Get" Id="{b9674b52-ad26-0f54-1dab-55eb272b3105}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nClassId REF= _nClassId;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nOctave" Id="{0a388a1b-e9d0-0125-201e-60da407ee1ee}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nOctave : REFERENCE TO _DINT
+]]></Declaration>
+      <Get Name="Get" Id="{2b5ae803-6f23-0a14-124b-b50f37449994}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nOctave REF= _nOctave;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetMemberReference" Id="{ee62db05-8ea6-0771-1688-b2559198a12c}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_aPoint.MakeReferenceTo(activeData.aPoint);
+_fDiameter.MakeReferenceTo(activeData.fDiameter);
+_fAngle.MakeReferenceTo(activeData.fAngle);
+_fResponse.MakeReferenceTo(activeData.fResponse);
+_nOctave.MakeReferenceTo(activeData.nOctave);
+_nClassId.MakeReferenceTo(activeData.nClassId);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{2726970f-adfd-03f6-0148-57da026f8829}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{ab0782f0-e039-0e01-1d61-dfba84dba83c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{a4dbcc93-bc72-0453-2c0b-bfcc2a572439}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	targetAsStruct : I_StructuredDatatype;
+	pTargetData : POINTER TO TcVnKeyPoint;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Target.TryResolveAsStructuredDatatype(targetAsStruct) THEN
+	RETURN;
+END_IF
+
+IF NOT (targetAsStruct.Identifier = Identifier) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetMemberReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{0e2fa2aa-f9f3-0c40-2db0-3d751767f514}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnKeyPoint]]></Declaration>
+      <Get Name="Get" Id="{553c8c11-c933-0782-24d7-71cd72b0a8dc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>
