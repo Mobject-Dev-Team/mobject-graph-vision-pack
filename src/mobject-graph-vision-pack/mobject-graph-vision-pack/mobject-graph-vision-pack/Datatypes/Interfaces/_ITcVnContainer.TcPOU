@@ -15,7 +15,7 @@ END_VAR
     </Implementation>
     <Folder Name="Core" Id="{8c6e98db-55ee-0507-35f7-72cb1e08eeef}" />
     <Folder Name="Customize" Id="{7a7b4358-0bff-0ace-0340-3dd72f091245}">
-      <Folder Name="Destructor" Id="{33f5b28c-31b8-0462-2c45-71a720a440be}" />
+      <Folder Name="Destructor" Id="{2af93322-152d-06ab-2691-33448865aaf7}" />
       <Folder Name="Private" Id="{06116da1-2e9a-0ab7-3a96-e1ad176f629d}" />
     </Folder>
     <Property Name="Address" Id="{0d1d9ecc-86c8-04cc-0061-b1800192f3b4}" FolderPath="Core\">
@@ -50,7 +50,7 @@ Clone := pClone^;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_exit" Id="{b37e1642-8eed-001c-36a4-e71b5ac63de1}" FolderPath="Customize\Destructor\">
+    <Method Name="FB_exit" Id="{0bff7f28-4b52-0f66-31e1-0b438dd7c454}" FolderPath="Customize\Destructor\">
       <Declaration><![CDATA[METHOD FB_exit : BOOL
 VAR_INPUT
 	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
@@ -61,7 +61,7 @@ END_VAR
 	RETURN;
 END_IF
 
-ReleaseActiveContainer();]]></ST>
+TryTcRelease();]]></ST>
       </Implementation>
     </Method>
     <Property Name="Identifier" Id="{135f45ca-b070-0af5-3022-2a12c62aba78}" FolderPath="Customize\">
@@ -82,22 +82,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[ReleaseActiveContainer();
+        <ST><![CDATA[TryTcRelease();
 activeData REF= ReferenceTarget;]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="ReleaseActiveContainer" Id="{9ed22f45-f951-042d-186f-699e8be4222e}" FolderPath="Customize\Private\">
-      <Declaration><![CDATA[METHOD PRIVATE ReleaseActiveContainer
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF activeData = 0 THEN
-	RETURN;
-END_IF
-
-activeData.TcRelease();
-activeData := 0;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Serialize_ContainerType_Vector_DINT" Id="{21396846-aafc-043b-04c3-1164cfdda6b7}" FolderPath="Customize\Private\">
@@ -484,10 +470,44 @@ IF targetAsInterface.Identifier <> Identifier THEN
 	RETURN;
 END_IF
 
-ReleaseActiveContainer();
+TryTcRelease();
 pTargetData := Target.Address;
 activeData REF= pTargetData^;
 TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryTcAddRef" Id="{e0280cff-c2e0-0e1b-1708-b4c46d31bb55}">
+      <Declaration><![CDATA[METHOD PUBLIC TryTcAddRef : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF activeData = 0 THEN
+	RETURN;
+END_IF
+
+IF activeData.TcAddRef() = 0 THEN
+	activeData := 0;
+END_IF
+
+TryTcAddRef := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryTcRelease" Id="{7a72ac48-b41c-01c7-03fa-0a8ab7bb1948}">
+      <Declaration><![CDATA[METHOD PUBLIC TryTcRelease : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF activeData = 0 THEN
+	RETURN;
+END_IF
+
+IF activeData.TcRelease() = 0 THEN
+	activeData := 0;
+END_IF
+
+TryTcRelease := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Property Name="Value" Id="{416ebca8-5790-08c7-2a74-c6278fa1367b}" FolderPath="Customize\">

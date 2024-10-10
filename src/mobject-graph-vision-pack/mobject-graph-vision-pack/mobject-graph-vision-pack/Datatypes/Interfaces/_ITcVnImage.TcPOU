@@ -15,7 +15,7 @@ END_VAR
     </Implementation>
     <Folder Name="Core" Id="{54b3347f-9780-0ef8-23a4-8790080c1b8f}" />
     <Folder Name="Customize" Id="{1331b21c-0b52-0dca-38d4-3a2cd67105e0}">
-      <Folder Name="Destructor" Id="{ca1c631f-f54c-0a2a-0226-64f42c3ebde8}" />
+      <Folder Name="Destructor" Id="{fa8bea4c-7d94-0574-27dd-66d29102dbe7}" />
       <Folder Name="Private" Id="{6ac695fe-f2f0-4f8c-8a93-aaffa4e76629}" />
     </Folder>
     <Property Name="Address" Id="{26adf67e-579f-0a6d-00da-3c2699a837da}" FolderPath="Core\">
@@ -50,7 +50,7 @@ Clone := pClone^;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_exit" Id="{98d3cdf8-8305-028d-39a2-732081720afe}" FolderPath="Customize\Destructor\">
+    <Method Name="FB_exit" Id="{a33d2963-d734-027d-2b62-b9e1fd640a35}" FolderPath="Customize\Destructor\">
       <Declaration><![CDATA[METHOD FB_exit : BOOL
 VAR_INPUT
 	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
@@ -61,7 +61,7 @@ END_VAR
 	RETURN;
 END_IF
 
-ReleaseActiveImage();]]></ST>
+TryTcRelease();]]></ST>
       </Implementation>
     </Method>
     <Property Name="Identifier" Id="{0de2f641-b44e-0525-1479-487c94fed83b}" FolderPath="Customize\">
@@ -103,22 +103,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[ReleaseActiveImage();
+        <ST><![CDATA[TryTcRelease();
 activeData REF= ReferenceTarget;]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="ReleaseActiveImage" Id="{ddfd52a7-f6fd-037b-1df1-cc611b6d0c67}" FolderPath="Customize\Private\">
-      <Declaration><![CDATA[METHOD PRIVATE ReleaseActiveImage
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF activeData = 0 THEN
-	RETURN;
-END_IF
-
-activeData.TcRelease();
-activeData := 0;]]></ST>
       </Implementation>
     </Method>
     <Method Name="SerializeWith" Id="{d8053af4-2ea3-4ddc-ad0b-52cc29c04f08}" FolderPath="Customize\">
@@ -439,7 +425,7 @@ IF targetAsInterface.Identifier <> Identifier THEN
 	RETURN;
 END_IF
 
-ReleaseActiveImage();
+TryTcRelease();
 pTargetData := Target.Address;
 activeData REF= pTargetData^;
 TryMakeReferenceTo := TRUE;]]></ST>
@@ -457,6 +443,40 @@ END_VAR
 END_IF
 
 TryReleaseRowPointer := SUCCEEDED(activeData.ReleaseRowPointer(ppRow));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryTcAddRef" Id="{1e91ec41-a275-0244-1707-b24e88039bac}">
+      <Declaration><![CDATA[METHOD PUBLIC TryTcAddRef : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF activeData = 0 THEN
+	RETURN;
+END_IF
+
+IF activeData.TcAddRef() = 0 THEN
+	activeData := 0;
+END_IF
+
+TryTcAddRef := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryTcRelease" Id="{7b51f51e-367c-045f-38fb-fd5d2d8dd214}">
+      <Declaration><![CDATA[METHOD PUBLIC TryTcRelease : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF activeData = 0 THEN
+	RETURN;
+END_IF
+
+IF activeData.TcRelease() = 0 THEN
+	activeData := 0;
+END_IF
+
+TryTcRelease := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Property Name="Value" Id="{046861a7-ca29-0a27-012a-81bd1a49d0c9}" FolderPath="Customize\">
