@@ -81,6 +81,7 @@ VAR
     
     //interfaces
 	_ITcVnContainer_TestSuite : _ITcVnContainer_TestSuite;
+    _ITcVnImage_TestSuite : _ITcVnImage_TestSuite;
 END_VAR
 ]]></Declaration>
     <Implementation>
