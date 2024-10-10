@@ -69,7 +69,7 @@ VAR
     _type : _ITcVnContainer;
 	data : ARRAY [0..4] OF REAL := [0.0, 1.1, 2.2, 3.3, 4.4];
     serializer : JsonSerializer;
-    expected : STRING := '';
+    expected : STRING(500) := '{"containerTypeName":"CTcVnContainer_Vector_REAL","containerTypeGuid":"4697D18B-33C6-47D3-A3CD-5F0562ACC387","elementTypeGuid":"18071995-0000-0000-0000-00000000000D","elementNum":5,"elementSize":4,"elements":[0.0,1.100000023841858,2.200000047683716,3.299999952316284,4.400000095367432]}';
     actual : STRING(500);
 END_VAR
 ]]></Declaration>
