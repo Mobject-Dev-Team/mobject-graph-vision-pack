@@ -61,7 +61,7 @@ END_VAR
 	RETURN;
 END_IF
 
-TryTcRelease();]]></ST>
+TryTcReleaseLocal();]]></ST>
       </Implementation>
     </Method>
     <Property Name="Identifier" Id="{135f45ca-b070-0af5-3022-2a12c62aba78}" FolderPath="Customize\">
@@ -82,8 +82,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TryTcRelease();
-activeData REF= ReferenceTarget;]]></ST>
+        <ST><![CDATA[activeData REF= ReferenceTarget;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Serialize_ContainerType_Vector_DINT" Id="{21396846-aafc-043b-04c3-1164cfdda6b7}" FolderPath="Customize\Private\">
@@ -470,7 +469,6 @@ IF targetAsInterface.Identifier <> Identifier THEN
 	RETURN;
 END_IF
 
-TryTcRelease();
 pTargetData := Target.Address;
 activeData REF= pTargetData^;
 TryMakeReferenceTo := TRUE;]]></ST>
@@ -508,6 +506,23 @@ IF activeData.TcRelease() = 0 THEN
 END_IF
 
 TryTcRelease := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryTcReleaseLocal" Id="{f94c2f07-d62f-0071-30c3-d38625a0b28c}" FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PUBLIC TryTcReleaseLocal : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF localData = 0 THEN
+	RETURN;
+END_IF
+
+IF localData.TcRelease() = 0 THEN
+	localData := 0;
+END_IF
+
+TryTcReleaseLocal := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Property Name="Value" Id="{416ebca8-5790-08c7-2a74-c6278fa1367b}" FolderPath="Customize\">
