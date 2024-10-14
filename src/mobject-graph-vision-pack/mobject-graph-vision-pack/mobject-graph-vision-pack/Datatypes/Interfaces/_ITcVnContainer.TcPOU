@@ -75,6 +75,17 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Property Name="IsValid" Id="{27a67e55-918d-0ce2-3cf2-2ee0466159ef}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsValid : BOOL]]></Declaration>
+      <Get Name="Get" Id="{bcc7a282-5e06-0f67-01da-f6a2f88ef258}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsValid := activeData <> 0;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Method Name="MakeReferenceTo" Id="{43bef498-17ae-0018-1c1f-8fb5f952e51c}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
