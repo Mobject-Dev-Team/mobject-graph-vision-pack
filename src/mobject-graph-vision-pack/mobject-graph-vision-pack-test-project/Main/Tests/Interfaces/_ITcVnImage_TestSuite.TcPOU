@@ -6,11 +6,61 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[TestSerializeTypeWith();
+      <ST><![CDATA[TestIsValidAfterInit();
+TestIsValidAfterImageAdded();
+TestSerializeTypeWith();
 TestSerializeWith_Empty();
 TestSerializeWith_Image_USINT();
 //TestTryDeserializeFrom();]]></ST>
     </Implementation>
+    <Method Name="TestIsValidAfterImageAdded" Id="{2dfffca0-9286-0072-1d73-41a09ce04ce4}">
+      <Declaration><![CDATA[METHOD PUBLIC TestIsValidAfterImageAdded
+VAR
+    _type : _ITcVnImage;
+    result : BOOL;
+    nWidth : UDINT := 4;
+    nHeight : UDINT := 4;
+    nChannelNum : UDINT := 1;
+	data : ARRAY [1..48] OF USINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestIsValidAfterImageAdded');
+
+F_VN_CreateImageFromArray(pData := ADR(data), ipImage := _type.Value, nWidth := nWidth, nHeight := nHeight, ePixelType := ETcVnElementType.TCVN_ET_USINT, nChannelNum := nchannelNum, hrPrev := S_OK);
+
+result := _type.IsValid;
+
+AssertTrue(
+	Condition := result,
+	Message := 'Incorrect state of IsValid'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestIsValidAfterInit" Id="{79faecf9-b9a0-099d-38e3-74812c30ac47}">
+      <Declaration><![CDATA[METHOD PUBLIC TestIsValidAfterInit
+VAR
+    _type : _ITcVnImage;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestIsValidAfterInit');
+
+result := _type.IsValid;
+
+AssertFalse(
+	Condition := result,
+	Message := 'Incorrect state of IsValid'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TestSerializeTypeWith" Id="{34bfaa43-73ce-0ee9-25ff-c4800cddd097}">
       <Declaration><![CDATA[METHOD PUBLIC TestSerializeTypeWith
 VAR

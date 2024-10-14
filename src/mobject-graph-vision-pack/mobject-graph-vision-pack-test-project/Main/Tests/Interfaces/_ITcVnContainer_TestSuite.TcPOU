@@ -6,11 +6,61 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[TestSerializeTypeWith();
+      <ST><![CDATA[TestIsValidAfterInit();
+TestIsValidAfterContainerAdded();
+TestSerializeTypeWith();
 TestSerializeWith_Empty();
 TestSerializeWith_Vector_REAL();
 TestTryDeserializeFrom();]]></ST>
     </Implementation>
+    <Method Name="TestIsValidAfterContainerAdded" Id="{1f39ce3c-c862-0870-2798-ba7a943998e5}">
+      <Declaration><![CDATA[METHOD PUBLIC TestIsValidAfterContainerAdded
+VAR CONSTANT
+    ELEMENTS : ULINT := 10;
+END_VAR
+VAR
+    _type : _ITcVnContainer;
+    result : BOOL;
+	data : ARRAY [1..ELEMENTS] OF USINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestIsValidAfterContainerAdded');
+
+F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := ContainerType_Vector_USINT, nElementNum := ELEMENTS, hrPrev := S_OK);
+
+result := _type.IsValid;
+
+AssertTrue(
+	Condition := result,
+	Message := 'Incorrect state of IsValid'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestIsValidAfterInit" Id="{953bf3bb-312d-0d6f-1769-ab603cedf296}">
+      <Declaration><![CDATA[METHOD PUBLIC TestIsValidAfterInit
+VAR
+    _type : _ITcVnContainer;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestIsValidAfterInit');
+
+result := _type.IsValid;
+
+AssertFalse(
+	Condition := result,
+	Message := 'Incorrect state of IsValid'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TestSerializeTypeWith" Id="{0a66d2f4-2d79-4286-a913-9e8c64e470c0}">
       <Declaration><![CDATA[METHOD PUBLIC TestSerializeTypeWith
 VAR
