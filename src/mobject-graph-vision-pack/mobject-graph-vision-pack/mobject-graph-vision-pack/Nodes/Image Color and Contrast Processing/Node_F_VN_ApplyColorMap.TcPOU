@@ -62,6 +62,7 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipColorMap.IsValid, 'ipColorMap must contain a valid container');
 ]]></ST>
       </Implementation>
     </Method>

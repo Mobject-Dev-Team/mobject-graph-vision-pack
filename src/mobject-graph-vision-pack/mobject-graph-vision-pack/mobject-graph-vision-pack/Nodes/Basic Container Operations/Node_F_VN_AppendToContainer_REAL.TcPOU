@@ -58,7 +58,7 @@ VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[//Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+        <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must contain a valid container');
 ]]></ST>
       </Implementation>
     </Method>
