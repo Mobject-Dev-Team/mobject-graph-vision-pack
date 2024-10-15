@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
-  <POU Name="Node_F_VN_AppendToContainer_REAL" Id="{5d400c6d-b03a-0172-248b-718e392c5b15}" SpecialFunc="None">
+  <POU Name="Node_F_VN_AppendToContainer_SINT" Id="{e549049b-2877-0725-11ae-d939300c16ff}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_AppendToContainer_REAL EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_AppendToContainer_SINT EXTENDS VisionNode
 VAR
-    fElement : _REAL(0.0);
+    nElement : _SINT(0);
     ipContainer : _ITcVnContainer;
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
@@ -15,18 +15,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{79e517a3-405e-0cc6-1489-e3cb2cce7789}" />
-    <Method Name="Clone" Id="{083e82b6-a6f6-09c9-2a58-acd47c7c3c22}">
+    <Folder Name="Constructor" Id="{e2f2789c-614d-0424-35f2-736eec067348}" />
+    <Method Name="Clone" Id="{5837c2b3-dc91-0051-08de-19e650b63250}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_AppendToContainer_REAL;
+	pNode : POINTER TO Node_F_VN_AppendToContainer_SINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_AppendToContainer_REAL);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_AppendToContainer_SINT);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{c49c331f-0f31-0296-27c2-81dde45e3fc8}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{a2c1857d-9eb6-046c-09b6-7f7b8e086c55}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -34,7 +34,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('fElement', fElement);
+        <ST><![CDATA[AddInput('nElement', nElement);
 AddInput('ipContainer', ipContainer);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipContainer', ipContainer);
@@ -42,17 +42,17 @@ AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{0d32c7af-2ccc-0737-327c-2572a728a3c7}">
+    <Method Name="OnExecute" Id="{acad8bd1-0d74-00e0-211f-8398c7b38ec0}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_AppendToContainer_REAL(
-    fElement := fElement.Value,
+        <ST><![CDATA[hresult.Value := F_VN_AppendToContainer_SINT(
+    nElement := nElement.Value,
 	ipContainer := ipContainer.Value,
 	hrPrev:= hrPrev.Value);
     ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{f6315c4f-41b0-03f0-0c81-347581eac928}">
+    <Method Name="PreExecutionCheck" Id="{dbd4a768-e0e0-087c-13b4-e7fe6eccc893}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
