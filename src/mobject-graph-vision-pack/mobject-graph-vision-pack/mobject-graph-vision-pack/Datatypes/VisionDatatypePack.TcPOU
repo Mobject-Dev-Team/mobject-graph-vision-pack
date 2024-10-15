@@ -66,6 +66,8 @@ VAR
 	_array0to3OfLREAL : _Array0to3OfLREAL;
     _array0to6OfLREAL : _Array0to6OfLREAL;
     _array0to7OfLREAL : _Array0to7OfLREAL;
+	_array0to1_0to2OfLREAL : _Array0to1_0to2OfLREAL;
+	_array0to2_0to2OfLREAL : _Array0to2_0to2OfLREAL;
     
     // enums
 	_eTcVn2dCodeSearchStrategy : _ETcVn2dCodeSearchStrategy(ETcVn2dCodeSearchStrategy.TCVN_CSS_DEFAULT);
@@ -175,6 +177,8 @@ Datatypes.RegisterDatatype(_array0to3OfINT);
 Datatypes.RegisterDatatype(_array0to3OfLREAL);
 Datatypes.RegisterDatatype(_array0to6OfLREAL);
 Datatypes.RegisterDatatype(_array0to7OfLREAL);
+Datatypes.RegisterDatatype(_array0to1_0to2OfLREAL);
+Datatypes.RegisterDatatype(_array0to2_0to2OfLREAL);
 
 // enums
 Datatypes.RegisterDatatype(_eTcVn2dCodeSearchStrategy);

@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK _Array0to1OfREAL EXTENDS ArrayDatatypeBase
+FUNCTION_BLOCK _Array0to1OfREAL EXTENDS ArrayDatatypeBase_1D
 VAR CONSTANT
 	lBound : DINT := 0;
 	uBound : DINT := 1;
@@ -19,14 +19,14 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Core " Id="{c422fdaa-e16b-0ef0-32a2-24aa59b63af0}">
-      <Folder Name="Constructor" Id="{1cf2ffdd-34e2-0dc6-26e3-653d27c9ffd8}" />
-      <Folder Name="Protected" Id="{489d5eb4-e55a-0a01-3dfa-b28dca32aa80}" />
+    <Folder Name="Core" Id="{5d997022-646e-0aa3-26ff-7f22363942ea}">
+      <Folder Name="Constructor" Id="{227057ae-2a92-0cc6-203d-fd4e94edbb08}" />
+      <Folder Name="Protected" Id="{02c5c413-4af4-0ef0-32f1-9a3c9c8cb581}" />
     </Folder>
     <Folder Name="Customize" Id="{51d6a80b-fcf9-0ae8-10a9-d4a52264ed7e}" />
-    <Property Name="Address" Id="{27f68ba8-8ad0-0c92-1855-8cff6cd90ac2}" FolderPath="Core \">
+    <Property Name="Address" Id="{b70eb4fe-6e84-0448-06ab-7587bdbb2bec}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
-      <Get Name="Get" Id="{ae5eafa9-0ad3-0022-30d3-8af418480659}">
+      <Get Name="Get" Id="{0011f921-2200-054b-3436-15966d7c36ea}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -35,9 +35,9 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Property Name="BaseDatatype" Id="{04cf64c3-d45d-0c32-0c65-86f4e789de00}" FolderPath="Core \">
+    <Property Name="BaseDatatype" Id="{8bfcf251-8fef-0cbe-3412-4ea85ee46b63}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC BaseDatatype : I_Datatype]]></Declaration>
-      <Get Name="Get" Id="{12954f87-88db-07a0-0379-fc0d86980037}">
+      <Get Name="Get" Id="{0a467fd2-9db5-0c54-0c44-b08162b0e311}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -46,7 +46,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="ClearReference" Id="{097ec509-5959-05e6-3a4c-291e15fb0255}" FolderPath="Core \">
+    <Method Name="ClearReference" Id="{5fe1586f-c9c0-0f29-27c6-8dcef33452d7}" FolderPath="Core\">
       <Declaration><![CDATA[METHOD PUBLIC ClearReference
 VAR_INPUT
 END_VAR
@@ -68,7 +68,7 @@ pClone^.Value := Value;
 Clone := pClone^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{3acc9ed7-44e9-04d8-0998-b9ad054a3702}" FolderPath="Core \Constructor\">
+    <Method Name="FB_init" Id="{6f0ae0e1-627a-053a-0cc1-01c4b7c02bdc}" FolderPath="Core\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -79,37 +79,6 @@ END_VAR
         <ST><![CDATA[SetElementReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetElementAsDatatypeByIndex" Id="{258f6cc9-cb53-0385-3272-f68dddce4fa2}" FolderPath="Core \">
-      <Declaration><![CDATA[METHOD PUBLIC GetElementAsDatatypeByIndex : I_Datatype
-VAR_INPUT
-	Index : DINT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[GetElementAsDatatypeByIndex := elements[Index];]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetElementByIndex" Id="{81759ad7-0916-03fd-2371-ac1924ff4b9d}" FolderPath="Customize\">
-      <Declaration><![CDATA[METHOD PUBLIC GetElementByIndex : REFERENCE TO _REAL;
-VAR_INPUT
-	Index : DINT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[GetElementByIndex REF= elements[Index];]]></ST>
-      </Implementation>
-    </Method>
-    <Property Name="LowerBound" Id="{66264e4f-3dc0-0248-36bb-f42ec07b8ec1}" FolderPath="Core \">
-      <Declaration><![CDATA[PROPERTY PUBLIC LowerBound : DINT]]></Declaration>
-      <Get Name="Get" Id="{f0472554-5f53-0d63-1333-58617ae4e36f}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[LowerBound := lBound;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
     <Method Name="MakeReferenceTo" Id="{64d32564-a6ec-082f-026b-956cc935b508}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
@@ -121,7 +90,7 @@ END_VAR
 SetElementReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnSerializeArrayValues" Id="{60680515-e8df-03a1-0773-a39b8c72c779}" FolderPath="Core \Protected\">
+    <Method Name="OnSerializeArrayValues" Id="{0583b999-b15f-0d42-0222-b85febcc7fd5}" FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED OnSerializeArrayValues
 VAR_INPUT
 	Serializer : I_Serializer;
@@ -135,7 +104,7 @@ END_VAR]]></Declaration>
 END_FOR]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetElementReference" Id="{4eaf1c64-6599-06ef-35da-50116effe2fb}" FolderPath="Core \Protected\">
+    <Method Name="SetElementReference" Id="{588fdd22-3bcb-06d3-17a3-bd51260213c4}" FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetElementReference
 VAR_INPUT
 END_VAR
@@ -148,9 +117,9 @@ END_VAR]]></Declaration>
 END_FOR]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Size" Id="{86f4dff8-f8b5-0f36-118e-7249e48c7ec9}" FolderPath="Core \">
+    <Property Name="Size" Id="{a03c556b-4f1c-0a46-1e49-ae73e90780c7}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
-      <Get Name="Get" Id="{e3c44d1c-cb4d-008e-29ae-0f3b90daaae3}">
+      <Get Name="Get" Id="{56da5978-1bd1-09de-00ae-79672bb417c9}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -159,7 +128,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryDeserializeArrayValues" Id="{64531901-28c7-0063-1524-491d8000a6f4}" FolderPath="Core \Protected\">
+    <Method Name="TryDeserializeArrayValues" Id="{3c7117ea-37bd-0382-2de2-e4b6dbd98ff5}" FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED TryDeserializeArrayValues : BOOL
 VAR_INPUT
 	Deserializer : I_Deserializer;
@@ -182,6 +151,50 @@ WHILE enumerator.MoveNext() AND i <= uBound DO
 
 END_WHILE
 enumerator.Dispose();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetElementAsDatatypeByIndex" Id="{174a7c61-a37f-0de4-130d-10837880aa4c}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetElementAsDatatypeByIndex : BOOL
+VAR_INPUT
+	Index : DINT;
+	Destination : REFERENCE TO I_Datatype;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Index < lbound OR Index > ubound THEN
+	RETURN;
+END_IF
+
+Destination := elements[Index];
+TryGetElementAsDatatypeByIndex := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetLowerBound" Id="{545a83f6-e416-0006-11ec-ba6722146d6d}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetLowerBound : BOOL
+VAR_INPUT
+	Dimention : UDINT;
+	Destination : REFERENCE TO DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Dimention = 1 THEN
+	Destination := lBound;
+	TryGetLowerBound := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetUpperBound" Id="{9de01636-ceae-01d0-2c0e-6572de383812}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetUpperBound : BOOL
+VAR_INPUT
+	Dimention : UDINT;
+	Destination : REFERENCE TO DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Dimention = 1 THEN
+	Destination := uBound;
+	TryGetUpperBound := TRUE;
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="TryMakeReferenceTo" Id="{58d26488-71e9-0ea2-1015-11e40f2593e9}" FolderPath="Customize\">
@@ -208,17 +221,6 @@ SetElementReference();
 TryMakeReferenceTo := TRUE;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="UpperBound" Id="{25442318-0503-0da0-2ec7-cbc583565944}" FolderPath="Core \">
-      <Declaration><![CDATA[PROPERTY PUBLIC UpperBound : DINT]]></Declaration>
-      <Get Name="Get" Id="{71d711d6-dc48-014b-2756-65776a36c653}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[UpperBound := ubound;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
     <Property Name="Value" Id="{efd120f4-ca55-00bc-2618-fe8a4436221b}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO ARRAY [lBound..uBound] OF REAL;]]></Declaration>
       <Get Name="Get" Id="{1f4c9c75-1e4e-0ae4-102a-b45cb62c6fb0}">
