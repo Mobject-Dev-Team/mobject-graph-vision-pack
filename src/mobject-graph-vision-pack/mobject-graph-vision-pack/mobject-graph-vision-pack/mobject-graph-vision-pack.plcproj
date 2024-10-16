@@ -592,6 +592,12 @@
     <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_INT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_ITcVnContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_ITcVnImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -599,6 +605,90 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnKeyPoint.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnPoint2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnPoint2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnPoint3_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnPoint3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector2_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector2_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector2_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector2_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector3_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector3_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector3_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector3_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector4_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector4_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector4_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector4_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector4_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_UDINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_ULINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Operations\Node_F_VN_GetNumberOfElements.TcPOU">
