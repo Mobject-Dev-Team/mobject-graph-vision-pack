@@ -81,7 +81,7 @@ VAR
 //  _tcVnCodeGrades1D : _TcVnCodeGrades1D;
 //  _tcVnCodeGradesDM : _TcVnCodeGradesDM;
 //  _tcVnCodeGradesQR : _TcVnCodeGradesQR;
-//  _tcVnDMatch : _TcVnDMatch;
+    _tcVnDMatch : _TcVnDMatch;
 	_tcVnImageInfo : _TcVnImageInfo;
     _tcVnKeyPoint : _TcVnKeyPoint;
 //  _tcVnMatrix : _TcVnMatrix;
@@ -192,7 +192,7 @@ Datatypes.RegisterDatatype(_tcVnCircularArc);
 //Datatypes.RegisterDatatype(_tcVnCodeGrades1D);
 //Datatypes.RegisterDatatype(_tcVnCodeGradesDM);
 //Datatypes.RegisterDatatype(_tcVnCodeGradesQR);
-//Datatypes.RegisterDatatype(_tcVnDMatch
+Datatypes.RegisterDatatype(_tcVnDMatch);
 Datatypes.RegisterDatatype(_tcVnImageInfo);
 Datatypes.RegisterDatatype(_tcVnKeyPoint);
 //Datatypes.RegisterDatatype(_tcVnMatrix);

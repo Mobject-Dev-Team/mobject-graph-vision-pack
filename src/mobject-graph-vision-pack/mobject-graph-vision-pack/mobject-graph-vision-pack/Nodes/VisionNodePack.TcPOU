@@ -82,7 +82,7 @@ VAR
     node_F_VN_AppendToContainer_ITcVnImage : Node_F_VN_AppendToContainer_ITcVnImage;
     node_F_VN_AppendToContainer_REAL : Node_F_VN_AppendToContainer_REAL;
     node_F_VN_AppendToContainer_SINT : Node_F_VN_AppendToContainer_SINT;
-    //node_F_VN_AppendToContainer_TcVnDMatch : Node_F_VN_AppendToContainer_TcVnDMatch;
+    node_F_VN_AppendToContainer_TcVnDMatch : Node_F_VN_AppendToContainer_TcVnDMatch;
     node_F_VN_AppendToContainer_TcVnKeyPoint : Node_F_VN_AppendToContainer_TcVnKeyPoint;
     node_F_VN_AppendToContainer_TcVnPoint2_DINT : Node_F_VN_AppendToContainer_TcVnPoint2_DINT;
     node_F_VN_AppendToContainer_TcVnPoint2_LREAL : Node_F_VN_AppendToContainer_TcVnPoint2_LREAL;
@@ -513,7 +513,7 @@ VAR
     //F_VN_EnclosingRectangle
     //F_VN_EnclosingTriangle
     //F_VN_FitEllipse
-    //F_VN_FitLine
+    node_F_VN_FitLine : Node_F_VN_FitLine;
     //F_VN_FitLineExp
     //F_VN_FourierDescriptors
     //F_VN_MatchContours
@@ -550,7 +550,7 @@ VAR
     //F_VN_DrawKeypointsExp
     node_F_VN_DrawLine : Node_F_VN_DrawLine;
     //F_VN_DrawLine_TcVnVector4_DINT
-    //F_VN_DrawLine_TcVnVector4_LREAL
+    node_F_VN_DrawLine_TcVnVector4_LREAL : Node_F_VN_DrawLine_TcVnVector4_LREAL;
     //F_VN_DrawLineExp
     //F_VN_DrawLineExp_TcVnVector4_DINT
     //F_VN_DrawLineExp_TcVnVector4_LREAL
@@ -909,7 +909,7 @@ VAR
     //F_VN_ClosestPointsBF
     //F_VN_LocateCircularArc
     //F_VN_LocateCircularArcExp
-    //F_VN_LocateEdge
+    node_F_VN_LocateEdge : Node_F_VN_LocateEdge;
     //F_VN_LocateEdgeExp
     //F_VN_LocateEdges
     //F_VN_LocateEdgesExp
@@ -977,7 +977,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToC
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_LREAL', node_F_VN_AppendToContainer_LREAL);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_REAL', node_F_VN_AppendToContainer_REAL);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_SINT', node_F_VN_AppendToContainer_SINT);
-//NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_TcVnDMatch', node_F_VN_AppendToContainer_TcVnDMatch);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_TcVnDMatch', node_F_VN_AppendToContainer_TcVnDMatch);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_TcVnKeyPoint', node_F_VN_AppendToContainer_TcVnKeyPoint);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_TcVnPoint2_DINT', node_F_VN_AppendToContainer_TcVnPoint2_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_TcVnPoint2_LREAL', node_F_VN_AppendToContainer_TcVnPoint2_LREAL);
@@ -1026,12 +1026,14 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi', node
 // Container Statistics
 
 // Contour Analysis
+NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_FitLine', node_F_VN_FitLine);
 
 // Control Functions
     
 // Drawing
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawContours', node_F_VN_DrawContours);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLine', node_F_VN_DrawLine);
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLine_TcVnVector4_LREAL', node_F_VN_DrawLine_TcVnVector4_LREAL);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PutLabel', node_F_VN_PutLabel);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PutText', node_F_VN_PutText);
 
@@ -1061,6 +1063,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_Threshold', node_
 // Machine Learning
 
 // Measurement
+NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_LocateEdge', node_F_VN_LocateEdge);
 
 // Miscellaneous
 

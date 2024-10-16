@@ -553,6 +553,9 @@
     <Compile Include="Datatypes\Interfaces\_ITcVnImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnDMatch.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Structs\_TcVnKeyPoint.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -626,6 +629,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnDMatch.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_TcVnVector2_DINT.TcPOU">
@@ -719,10 +725,16 @@
       <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_FitLine.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawContours.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawLine.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawLine_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_PutLabel.TcPOU">
@@ -756,6 +768,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Segmentation\Node_F_VN_Threshold.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_LocateEdge.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\VisionNodePack.TcPOU">
