@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
-  <POU Name="_ETcVn2dCodeSearchStrategy" Id="{5be12e34-c0d1-4973-8284-039090e83858}" SpecialFunc="None">
+  <POU Name="_ETcVn2dCodeSearchStrategy" Id="{5be12e34-c0d1-4973-8284-039090e83858}"
+    SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
@@ -22,7 +23,8 @@ END_VAR
       <Folder Name="Private" Id="{f64647d7-c4ad-474a-a85a-418458d7d9d6}" />
       <Folder Name="Protected" Id="{10fad48b-6bbf-400a-b933-52ef692221ce}" />
     </Folder>
-    <Method Name="AddLocalEnumeration" Id="{52effdbd-37fa-453c-baa2-8882527e3912}" FolderPath="Customize\Private\">
+    <Method Name="AddLocalEnumeration" Id="{52effdbd-37fa-453c-baa2-8882527e3912}"
+      FolderPath="Customize\Private\">
       <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
 VAR_INPUT
 	Enumeration : T_MAXSTRING;
@@ -64,7 +66,8 @@ END_VAR
 Clone := pClone^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{8ef90484-7f12-4187-94f2-3b44a21100d9}" FolderPath="Customize\Constructor\">
+    <Method Name="FB_init" Id="{8ef90484-7f12-4187-94f2-3b44a21100d9}"
+      FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -99,7 +102,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="IsEnumeratorValueEqual" Id="{6a61e91c-9236-46f1-8155-81d72ee95224}" FolderPath="Customize\Protected\">
+    <Method Name="IsEnumeratorValueEqual" Id="{6a61e91c-9236-46f1-8155-81d72ee95224}"
+      FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
 VAR_INPUT
 	Enumerator : I_KeyValueForwardEnumerator;
@@ -115,7 +119,8 @@ END_IF
 IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="MakeReferenceTo" Id="{646f68ea-4df1-4b73-bffa-1a01bba19e03}" FolderPath="Customize\">
+    <Method Name="MakeReferenceTo" Id="{646f68ea-4df1-4b73-bffa-1a01bba19e03}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO ETcVn2dCodeSearchStrategy;
@@ -126,7 +131,8 @@ END_VAR
 SetBaseDatatypeReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetBaseDatatypeReference" Id="{130acbcc-f84e-4ae1-8b25-95d6d588f69a}" FolderPath="Core\Protected\">
+    <Method Name="SetBaseDatatypeReference" Id="{130acbcc-f84e-4ae1-8b25-95d6d588f69a}"
+      FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
 VAR_INPUT
 END_VAR
@@ -146,21 +152,17 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{ce5f5830-b861-40e9-8958-4ad17ed78f1e}" FolderPath="Customize\">
+    <Method Name="TryMakeReferenceTo" Id="{ce5f5830-b861-40e9-8958-4ad17ed78f1e}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
 END_VAR
 VAR
-	targetAsEnum : I_EnumDatatype;
 	pTargetData : POINTER TO ETcVn2dCodeSearchStrategy;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT Target.TryResolveAsEnumDatatype(targetAsEnum) THEN
-	RETURN;
-END_IF
-
-IF targetAsEnum.Identifier <> Identifier THEN
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
 	RETURN;
 END_IF
 

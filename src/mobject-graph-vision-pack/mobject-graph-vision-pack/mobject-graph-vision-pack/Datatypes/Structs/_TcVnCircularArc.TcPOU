@@ -66,7 +66,8 @@ pClone^.Value := Value;
 Clone := pClone^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{db22c507-87ea-0730-24bc-11f41c2e30ac}" FolderPath="Customize\Constructor\">
+    <Method Name="FB_init" Id="{db22c507-87ea-0730-24bc-11f41c2e30ac}"
+      FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -126,7 +127,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="MakeReferenceTo" Id="{58710828-9f17-08c6-31f2-d2a6b35e6582}" FolderPath="Customize\">
+    <Method Name="MakeReferenceTo" Id="{58710828-9f17-08c6-31f2-d2a6b35e6582}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO TcVnCircularArc;
@@ -137,7 +139,8 @@ END_VAR
 SetMemberReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetMemberReference" Id="{bf794b18-094b-0ae4-305a-35402e5145b3}" FolderPath="Customize\Protected\">
+    <Method Name="SetMemberReference" Id="{bf794b18-094b-0ae4-305a-35402e5145b3}"
+      FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
 VAR_INPUT
 END_VAR
@@ -161,21 +164,17 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{354af9c2-2e70-0924-1a46-175e542c0e95}" FolderPath="Customize\">
+    <Method Name="TryMakeReferenceTo" Id="{354af9c2-2e70-0924-1a46-175e542c0e95}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
 END_VAR
 VAR
-	targetAsStruct : I_StructuredDatatype;
 	pTargetData : POINTER TO TcVnCircularArc;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT Target.TryResolveAsStructuredDatatype(targetAsStruct) THEN
-	RETURN;
-END_IF
-
-IF NOT (targetAsStruct.Identifier = Identifier) THEN
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
 	RETURN;
 END_IF
 

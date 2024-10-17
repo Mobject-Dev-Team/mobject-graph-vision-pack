@@ -119,15 +119,10 @@ VAR_INPUT
 	Target : I_Datatype;
 END_VAR
 VAR
-	targetAsAlias : I_AliasDatatype;
 	pTargetData : POINTER TO TcVnArray10_ITcVnImage;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT Target.TryResolveAsAliasDatatype(targetAsAlias) THEN
-	RETURN;
-END_IF
-
-IF targetAsAlias.Identifier <> Identifier THEN
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
 	RETURN;
 END_IF
 

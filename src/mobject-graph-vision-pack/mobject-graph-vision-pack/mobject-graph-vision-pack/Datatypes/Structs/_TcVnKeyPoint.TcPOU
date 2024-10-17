@@ -79,7 +79,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="FB_init" Id="{5dae6684-1e96-0c5b-023c-935a378485bc}" FolderPath="Customize\Constructor\">
+    <Method Name="FB_init" Id="{5dae6684-1e96-0c5b-023c-935a378485bc}"
+      FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -130,7 +131,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="MakeReferenceTo" Id="{fd9996df-680b-05d2-357d-df524a40c753}" FolderPath="Customize\">
+    <Method Name="MakeReferenceTo" Id="{fd9996df-680b-05d2-357d-df524a40c753}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO TcVnKeyPoint;
@@ -165,7 +167,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="SetMemberReference" Id="{ee62db05-8ea6-0771-1688-b2559198a12c}" FolderPath="Customize\Protected\">
+    <Method Name="SetMemberReference" Id="{ee62db05-8ea6-0771-1688-b2559198a12c}"
+      FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
 VAR_INPUT
 END_VAR
@@ -191,21 +194,17 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{a4dbcc93-bc72-0453-2c0b-bfcc2a572439}" FolderPath="Customize\">
+    <Method Name="TryMakeReferenceTo" Id="{a4dbcc93-bc72-0453-2c0b-bfcc2a572439}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
 END_VAR
 VAR
-	targetAsStruct : I_StructuredDatatype;
 	pTargetData : POINTER TO TcVnKeyPoint;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT Target.TryResolveAsStructuredDatatype(targetAsStruct) THEN
-	RETURN;
-END_IF
-
-IF NOT (targetAsStruct.Identifier = Identifier) THEN
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
 	RETURN;
 END_IF
 

@@ -68,7 +68,8 @@ pClone^.Value := Value;
 Clone := pClone^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{1f82a646-fec0-0c2b-3267-37c58ef30ee2}" FolderPath="Core\Constructor\">
+    <Method Name="FB_init" Id="{1f82a646-fec0-0c2b-3267-37c58ef30ee2}"
+      FolderPath="Core\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -79,7 +80,8 @@ END_VAR
         <ST><![CDATA[SetElementReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="MakeReferenceTo" Id="{2ab78e00-74e9-0632-0fbf-861c7b27ce26}" FolderPath="Customize\">
+    <Method Name="MakeReferenceTo" Id="{2ab78e00-74e9-0632-0fbf-861c7b27ce26}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO ARRAY [lBound..uBound] OF INT;
@@ -90,7 +92,8 @@ END_VAR
 SetElementReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnSerializeArrayValues" Id="{f4ec39ee-672f-04a9-1bcf-f700a21ef750}" FolderPath="Core\Protected\">
+    <Method Name="OnSerializeArrayValues" Id="{f4ec39ee-672f-04a9-1bcf-f700a21ef750}"
+      FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED OnSerializeArrayValues
 VAR_INPUT
 	Serializer : I_Serializer;
@@ -104,7 +107,8 @@ END_VAR]]></Declaration>
 END_FOR]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetElementReference" Id="{c18197fe-3c28-089b-10fa-773906dfa0de}" FolderPath="Core\Protected\">
+    <Method Name="SetElementReference" Id="{c18197fe-3c28-089b-10fa-773906dfa0de}"
+      FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetElementReference
 VAR_INPUT
 END_VAR
@@ -128,7 +132,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryDeserializeArrayValues" Id="{50383474-d1f6-0e18-190c-dc1d499ce4ef}" FolderPath="Core\Protected\">
+    <Method Name="TryDeserializeArrayValues" Id="{50383474-d1f6-0e18-190c-dc1d499ce4ef}"
+      FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED TryDeserializeArrayValues : BOOL
 VAR_INPUT
 	Deserializer : I_Deserializer;
@@ -153,7 +158,8 @@ END_WHILE
 enumerator.Dispose();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TryGetElementAsDatatypeByIndex" Id="{fe324ff8-3b1f-04a4-0f17-bdd01a0fe9a3}" FolderPath="Core\">
+    <Method Name="TryGetElementAsDatatypeByIndex" Id="{fe324ff8-3b1f-04a4-0f17-bdd01a0fe9a3}"
+      FolderPath="Core\">
       <Declaration><![CDATA[METHOD PUBLIC TryGetElementAsDatatypeByIndex : BOOL
 VAR_INPUT
 	Index : DINT;
@@ -197,21 +203,17 @@ END_VAR
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TryMakeReferenceTo" Id="{b5423845-94f1-0111-0650-5e12eed9a98c}" FolderPath="Customize\">
+    <Method Name="TryMakeReferenceTo" Id="{b5423845-94f1-0111-0650-5e12eed9a98c}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
 END_VAR
 VAR
-	targetAsArray : I_ArrayDatatype;
 	pTargetData : POINTER TO ARRAY [lBound..uBound] OF INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT Target.TryResolveAsArrayDatatype(targetAsArray) THEN
-	RETURN;
-END_IF
-
-IF NOT (targetAsArray.Identifier = Identifier) THEN
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
 	RETURN;
 END_IF
 

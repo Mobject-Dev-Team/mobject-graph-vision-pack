@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
-  <POU Name="_TcVnParamsBlobDetection" Id="{8594d258-0ce0-04df-3c10-f9a88b69e168}" SpecialFunc="None">
+  <POU Name="_TcVnParamsBlobDetection" Id="{8594d258-0ce0-04df-3c10-f9a88b69e168}"
+    SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
@@ -150,7 +151,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="FB_init" Id="{5736f6eb-fbfe-0e84-1690-6469c73422fc}" FolderPath="Customize\Constructor\">
+    <Method Name="FB_init" Id="{5736f6eb-fbfe-0e84-1690-6469c73422fc}"
+      FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -349,7 +351,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="MakeReferenceTo" Id="{cd282ba9-a074-0642-0f4f-8eb540da00c8}" FolderPath="Customize\">
+    <Method Name="MakeReferenceTo" Id="{cd282ba9-a074-0642-0f4f-8eb540da00c8}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO TcVnParamsBlobDetection;
@@ -371,7 +374,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="SetMemberReference" Id="{71352f94-5833-092a-39f3-6c3646c4abe1}" FolderPath="Customize\Protected\">
+    <Method Name="SetMemberReference" Id="{71352f94-5833-092a-39f3-6c3646c4abe1}"
+      FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
 VAR_INPUT
 END_VAR
@@ -413,21 +417,17 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{0549a965-8e82-01e5-3ebb-21fb6988c977}" FolderPath="Customize\">
+    <Method Name="TryMakeReferenceTo" Id="{0549a965-8e82-01e5-3ebb-21fb6988c977}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
 END_VAR
 VAR
-	targetAsStruct : I_StructuredDatatype;
 	pTargetData : POINTER TO TcVnParamsBlobDetection;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT Target.TryResolveAsStructuredDatatype(targetAsStruct) THEN
-	RETURN;
-END_IF
-
-IF NOT (targetAsStruct.Identifier = Identifier) THEN
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
 	RETURN;
 END_IF
 

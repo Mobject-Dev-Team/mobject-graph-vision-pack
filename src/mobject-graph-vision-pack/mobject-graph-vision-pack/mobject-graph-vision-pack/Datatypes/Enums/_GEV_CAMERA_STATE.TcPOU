@@ -22,7 +22,8 @@ END_VAR
       <Folder Name="Private" Id="{5f935d4a-2521-067f-26a6-9e6c4ae6d9e8}" />
       <Folder Name="Protected" Id="{32fb7fde-8df9-05d1-1060-86eaeddaf911}" />
     </Folder>
-    <Method Name="AddLocalEnumeration" Id="{3e43ae4c-e992-0125-1867-4ac14cc75cea}" FolderPath="Customize\Private\">
+    <Method Name="AddLocalEnumeration" Id="{3e43ae4c-e992-0125-1867-4ac14cc75cea}"
+      FolderPath="Customize\Private\">
       <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
 VAR_INPUT
 	Enumeration : T_MAXSTRING;
@@ -64,7 +65,8 @@ END_VAR
 Clone := pClone^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{77b83ecc-f577-0396-1034-795397f92968}" FolderPath="Customize\Constructor\">
+    <Method Name="FB_init" Id="{77b83ecc-f577-0396-1034-795397f92968}"
+      FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -96,7 +98,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="IsEnumeratorValueEqual" Id="{2ec705f5-59e6-0a61-1234-16b59d9bdfe4}" FolderPath="Customize\Protected\">
+    <Method Name="IsEnumeratorValueEqual" Id="{2ec705f5-59e6-0a61-1234-16b59d9bdfe4}"
+      FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
 VAR_INPUT
 	Enumerator : I_KeyValueForwardEnumerator;
@@ -112,7 +115,8 @@ END_IF
 IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="MakeReferenceTo" Id="{2d506990-ca5e-01f7-35ff-3a7cdb14eafb}" FolderPath="Customize\">
+    <Method Name="MakeReferenceTo" Id="{2d506990-ca5e-01f7-35ff-3a7cdb14eafb}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO GEV_CAMERA_STATE;
@@ -123,7 +127,8 @@ END_VAR
 SetBaseDatatypeReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetBaseDatatypeReference" Id="{61cb3714-eca0-0b18-32e7-8612464c0592}" FolderPath="Core\Protected\">
+    <Method Name="SetBaseDatatypeReference" Id="{61cb3714-eca0-0b18-32e7-8612464c0592}"
+      FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
 VAR_INPUT
 END_VAR
@@ -143,21 +148,17 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{6fa995f2-77ed-060f-039d-39c5cbd32a45}" FolderPath="Customize\">
+    <Method Name="TryMakeReferenceTo" Id="{6fa995f2-77ed-060f-039d-39c5cbd32a45}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
 END_VAR
 VAR
-	targetAsEnum : I_EnumDatatype;
 	pTargetData : POINTER TO GEV_CAMERA_STATE;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT Target.TryResolveAsEnumDatatype(targetAsEnum) THEN
-	RETURN;
-END_IF
-
-IF targetAsEnum.Identifier <> Identifier THEN
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
 	RETURN;
 END_IF
 

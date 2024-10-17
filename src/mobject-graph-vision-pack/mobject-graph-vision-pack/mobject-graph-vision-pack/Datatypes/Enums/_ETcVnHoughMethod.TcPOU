@@ -22,7 +22,8 @@ END_VAR
       <Folder Name="Private" Id="{2d7bfa7f-af78-0d27-2806-91775ddc4d78}" />
       <Folder Name="Protected" Id="{9b798fd3-90ae-05b0-365e-a1b98ad5af53}" />
     </Folder>
-    <Method Name="AddLocalEnumeration" Id="{d594f1db-523a-018c-35d2-fa9c98b06a13}" FolderPath="Customize\Private\">
+    <Method Name="AddLocalEnumeration" Id="{d594f1db-523a-018c-35d2-fa9c98b06a13}"
+      FolderPath="Customize\Private\">
       <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
 VAR_INPUT
 	Enumeration : T_MAXSTRING;
@@ -64,7 +65,8 @@ END_VAR
 Clone := pClone^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{85b8c148-50be-0f3c-04f1-9ec00b42c47f}" FolderPath="Customize\Constructor\">
+    <Method Name="FB_init" Id="{85b8c148-50be-0f3c-04f1-9ec00b42c47f}"
+      FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -96,7 +98,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="IsEnumeratorValueEqual" Id="{0ff8d33d-0455-07cd-2d8b-48bbe6103a14}" FolderPath="Customize\Protected\">
+    <Method Name="IsEnumeratorValueEqual" Id="{0ff8d33d-0455-07cd-2d8b-48bbe6103a14}"
+      FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
 VAR_INPUT
 	Enumerator : I_KeyValueForwardEnumerator;
@@ -112,7 +115,8 @@ END_IF
 IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="MakeReferenceTo" Id="{61e4f5fd-7d7a-0ac8-0856-88fe62fb6b54}" FolderPath="Customize\">
+    <Method Name="MakeReferenceTo" Id="{61e4f5fd-7d7a-0ac8-0856-88fe62fb6b54}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO ETcVnHoughMethod;
@@ -123,7 +127,8 @@ END_VAR
 SetBaseDatatypeReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetBaseDatatypeReference" Id="{0c86be6f-2a98-0f48-0ee5-1ef46e2aad24}" FolderPath="Core\Protected\">
+    <Method Name="SetBaseDatatypeReference" Id="{0c86be6f-2a98-0f48-0ee5-1ef46e2aad24}"
+      FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
 VAR_INPUT
 END_VAR
@@ -143,21 +148,17 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{08816ede-525c-04d5-01e3-a256f8c9ca83}" FolderPath="Customize\">
+    <Method Name="TryMakeReferenceTo" Id="{08816ede-525c-04d5-01e3-a256f8c9ca83}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
 END_VAR
 VAR
-	targetAsEnum : I_EnumDatatype;
 	pTargetData : POINTER TO ETcVnHoughMethod;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT Target.TryResolveAsEnumDatatype(targetAsEnum) THEN
-	RETURN;
-END_IF
-
-IF targetAsEnum.Identifier <> Identifier THEN
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
 	RETURN;
 END_IF
 

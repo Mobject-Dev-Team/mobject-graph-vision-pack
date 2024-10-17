@@ -53,7 +53,8 @@ Clone := pClone^;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{45c15bbd-3281-0eac-0486-bf41c705cda4}" FolderPath="Customize\Constructor\">
+    <Method Name="FB_init" Id="{45c15bbd-3281-0eac-0486-bf41c705cda4}"
+      FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -78,7 +79,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="MakeReferenceTo" Id="{c9cf7b5a-495e-0d1d-02bd-c4fd617b1aa2}" FolderPath="Customize\">
+    <Method Name="MakeReferenceTo" Id="{c9cf7b5a-495e-0d1d-02bd-c4fd617b1aa2}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO TcVnPoint2_REAL;
@@ -89,7 +91,8 @@ END_VAR
 SetBaseDatatypeReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetBaseDatatypeReference" Id="{8ffc90c6-7e54-0af7-33fa-51c4c55e214a}" FolderPath="Core\Protected\">
+    <Method Name="SetBaseDatatypeReference" Id="{8ffc90c6-7e54-0af7-33fa-51c4c55e214a}"
+      FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
 VAR_INPUT
 END_VAR
@@ -109,21 +112,17 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{e6a92154-afc1-09ba-1dc4-1757ea04e33c}" FolderPath="Customize\">
+    <Method Name="TryMakeReferenceTo" Id="{e6a92154-afc1-09ba-1dc4-1757ea04e33c}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
 END_VAR
 VAR
-	targetAsAlias : I_AliasDatatype;
 	pTargetData : POINTER TO TcVnPoint2_REAL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT Target.TryResolveAsAliasDatatype(targetAsAlias) THEN
-	RETURN;
-END_IF
-
-IF targetAsAlias.Identifier <> Identifier THEN
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
 	RETURN;
 END_IF
 
