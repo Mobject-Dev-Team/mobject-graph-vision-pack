@@ -259,42 +259,42 @@ VAR
     node_F_VN_InsertIntoContainer_ULINT : Node_F_VN_InsertIntoContainer_ULINT;
     node_F_VN_InsertIntoContainer_USINT : Node_F_VN_InsertIntoContainer_USINT;
     
-    //F_VN_SetAt_DINT
-    //F_VN_SetAt_INT
-    //F_VN_SetAt_ITcVnContainer
-    //F_VN_SetAt_ITcVnImage
-    //F_VN_SetAt_LREAL
-    //F_VN_SetAt_REAL
-    //F_VN_SetAt_SINT
-    //F_VN_SetAt_TcVnDMatch
-    //F_VN_SetAt_TcVnKeyPoint
-    //F_VN_SetAt_TcVnPoint2_DINT
-    //F_VN_SetAt_TcVnPoint2_LREAL
-    //F_VN_SetAt_TcVnPoint2_REAL
-    //F_VN_SetAt_TcVnPoint3_LREAL
-    //F_VN_SetAt_TcVnPoint3_REAL
-    //F_VN_SetAt_TcVnRectangle_DINT
-    //F_VN_SetAt_TcVnVector2_DINT
-    //F_VN_SetAt_TcVnVector2_INT
-    //F_VN_SetAt_TcVnVector2_REAL
-    //F_VN_SetAt_TcVnVector2_SINT
-    //F_VN_SetAt_TcVnVector2_UINT
-    //F_VN_SetAt_TcVnVector2_USINT
-    //F_VN_SetAt_TcVnVector3_INT
-    //F_VN_SetAt_TcVnVector3_REAL
-    //F_VN_SetAt_TcVnVector3_SINT
-    //F_VN_SetAt_TcVnVector3_UINT
-    //F_VN_SetAt_TcVnVector3_USINT
-    //F_VN_SetAt_TcVnVector4_DINT
-    //F_VN_SetAt_TcVnVector4_INT
-    //F_VN_SetAt_TcVnVector4_LREAL
-    //F_VN_SetAt_TcVnVector4_SINT
-    //F_VN_SetAt_TcVnVector4_UINT
-    //F_VN_SetAt_TcVnVector4_USINT
-    //F_VN_SetAt_UDINT
-    //F_VN_SetAt_UINT
-    //F_VN_SetAt_ULINT
-    //F_VN_SetAt_USINT
+    node_F_VN_SetAt_DINT : Node_F_VN_SetAt_DINT;
+    node_F_VN_SetAt_INT : Node_F_VN_SetAt_INT;
+    node_F_VN_SetAt_ITcVnContainer : Node_F_VN_SetAt_ITcVnContainer;
+    node_F_VN_SetAt_ITcVnImage : Node_F_VN_SetAt_ITcVnImage;
+    node_F_VN_SetAt_LREAL : Node_F_VN_SetAt_LREAL;
+    node_F_VN_SetAt_REAL : Node_F_VN_SetAt_REAL;
+    node_F_VN_SetAt_SINT : Node_F_VN_SetAt_SINT;
+    node_F_VN_SetAt_TcVnDMatch : Node_F_VN_SetAt_TcVnDMatch;
+    node_F_VN_SetAt_TcVnKeyPoint : Node_F_VN_SetAt_TcVnKeyPoint;
+    node_F_VN_SetAt_TcVnPoint2_DINT : Node_F_VN_SetAt_TcVnPoint2_DINT;
+    node_F_VN_SetAt_TcVnPoint2_LREAL : Node_F_VN_SetAt_TcVnPoint2_LREAL;
+    node_F_VN_SetAt_TcVnPoint2_REAL : Node_F_VN_SetAt_TcVnPoint2_REAL;
+    node_F_VN_SetAt_TcVnPoint3_LREAL : Node_F_VN_SetAt_TcVnPoint3_LREAL;
+    node_F_VN_SetAt_TcVnPoint3_REAL : Node_F_VN_SetAt_TcVnPoint3_REAL;
+    node_F_VN_SetAt_TcVnRectangle_DINT : Node_F_VN_SetAt_TcVnRectangle_DINT;
+    node_F_VN_SetAt_TcVnVector2_DINT : Node_F_VN_SetAt_TcVnVector2_DINT;
+    node_F_VN_SetAt_TcVnVector2_INT : Node_F_VN_SetAt_TcVnVector2_INT;
+    node_F_VN_SetAt_TcVnVector2_REAL : Node_F_VN_SetAt_TcVnVector2_REAL;
+    node_F_VN_SetAt_TcVnVector2_SINT : Node_F_VN_SetAt_TcVnVector2_SINT;
+    node_F_VN_SetAt_TcVnVector2_UINT : Node_F_VN_SetAt_TcVnVector2_UINT;
+    node_F_VN_SetAt_TcVnVector2_USINT : Node_F_VN_SetAt_TcVnVector2_USINT;
+    node_F_VN_SetAt_TcVnVector3_INT : Node_F_VN_SetAt_TcVnVector3_INT;
+    node_F_VN_SetAt_TcVnVector3_REAL : Node_F_VN_SetAt_TcVnVector3_REAL;
+    node_F_VN_SetAt_TcVnVector3_SINT : Node_F_VN_SetAt_TcVnVector3_SINT;
+    node_F_VN_SetAt_TcVnVector3_UINT : Node_F_VN_SetAt_TcVnVector3_UINT;
+    node_F_VN_SetAt_TcVnVector3_USINT : Node_F_VN_SetAt_TcVnVector3_USINT;
+    node_F_VN_SetAt_TcVnVector4_DINT : Node_F_VN_SetAt_TcVnVector4_DINT;
+    node_F_VN_SetAt_TcVnVector4_INT : Node_F_VN_SetAt_TcVnVector4_INT;
+    node_F_VN_SetAt_TcVnVector4_LREAL : Node_F_VN_SetAt_TcVnVector4_LREAL;
+    node_F_VN_SetAt_TcVnVector4_SINT : Node_F_VN_SetAt_TcVnVector4_SINT;
+    node_F_VN_SetAt_TcVnVector4_UINT : Node_F_VN_SetAt_TcVnVector4_UINT;
+    node_F_VN_SetAt_TcVnVector4_USINT : Node_F_VN_SetAt_TcVnVector4_USINT;
+    node_F_VN_SetAt_UDINT : Node_F_VN_SetAt_UDINT;
+    node_F_VN_SetAt_UINT : node_F_VN_SetAt_UINT;
+    node_F_VN_SetAt_ULINT : Node_F_VN_SetAt_ULINT;
+    node_F_VN_SetAt_USINT : Node_F_VN_SetAt_USINT;
     
     //F_VN_AdvanceIterator
     //F_VN_CheckIfEmpty
@@ -1096,6 +1096,43 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_InsertInt
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_InsertIntoContainer/F_VN_InsertIntoContainer_UINT', node_F_VN_InsertIntoContainer_UINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_InsertIntoContainer/F_VN_InsertIntoContainer_ULINT', node_F_VN_InsertIntoContainer_ULINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_InsertIntoContainer/F_VN_InsertIntoContainer_USINT', node_F_VN_InsertIntoContainer_USINT);
+
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_DINT', node_F_VN_SetAt_DINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_INT', node_F_VN_SetAt_INT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_ITcVnContainer', node_F_VN_SetAt_ITcVnContainer);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_ITcVnImage', node_F_VN_SetAt_ITcVnImage);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_LREAL', node_F_VN_SetAt_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_REAL', node_F_VN_SetAt_REAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_SINT', node_F_VN_SetAt_SINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnDMatch', node_F_VN_SetAt_TcVnDMatch);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnKeyPoint', node_F_VN_SetAt_TcVnKeyPoint);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnPoint2_DINT', node_F_VN_SetAt_TcVnPoint2_DINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnPoint2_LREAL', node_F_VN_SetAt_TcVnPoint2_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnPoint2_REAL', node_F_VN_SetAt_TcVnPoint2_REAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnPoint3_LREAL', node_F_VN_SetAt_TcVnPoint3_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnPoint3_REAL', node_F_VN_SetAt_TcVnPoint3_REAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnRectangle_DINT', node_F_VN_SetAt_TcVnRectangle_DINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector2_DINT', node_F_VN_SetAt_TcVnVector2_DINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector2_INT', node_F_VN_SetAt_TcVnVector2_INT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector2_REAL', node_F_VN_SetAt_TcVnVector2_REAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector2_SINT', node_F_VN_SetAt_TcVnVector2_SINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector2_UINT', node_F_VN_SetAt_TcVnVector2_UINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector2_USINT', node_F_VN_SetAt_TcVnVector2_USINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector3_INT', node_F_VN_SetAt_TcVnVector3_INT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector3_REAL', node_F_VN_SetAt_TcVnVector3_REAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector3_SINT', node_F_VN_SetAt_TcVnVector3_SINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector3_UINT', node_F_VN_SetAt_TcVnVector3_UINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector3_USINT', node_F_VN_SetAt_TcVnVector3_USINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector4_DINT', node_F_VN_SetAt_TcVnVector4_DINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector4_INT', node_F_VN_SetAt_TcVnVector4_INT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector4_LREAL', node_F_VN_SetAt_TcVnVector4_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector4_SINT', node_F_VN_SetAt_TcVnVector4_SINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector4_UINT', node_F_VN_SetAt_TcVnVector4_UINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector4_USINT', node_F_VN_SetAt_TcVnVector4_USINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_UDINT', node_F_VN_SetAt_UDINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_UINT', node_F_VN_SetAt_UINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_ULINT', node_F_VN_SetAt_ULINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_USINT', node_F_VN_SetAt_USINT);
 
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_GetNumberOfElements', node_F_VN_GetNumberOfElements);
 
