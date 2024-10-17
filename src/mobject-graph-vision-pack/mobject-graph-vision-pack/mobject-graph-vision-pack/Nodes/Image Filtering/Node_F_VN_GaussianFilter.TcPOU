@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="Node_F_VN_GaussianFilter" Id="{d97ed0c2-f8f6-0041-3003-3e3836b2a419}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_GaussianFilter EXTENDS Node
+FUNCTION_BLOCK Node_F_VN_GaussianFilter EXTENDS VisionNode
 VAR
 	ipSrcImage : _ITcVnImage;
     ipDestImage : _ITcVnImage;
@@ -45,7 +45,8 @@ AddParameter('nFilterHeight', nFilterHeight);]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{44457520-db85-0ad6-003f-a500edf9da17}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_GaussianFilter(
 	ipSrcImage:= ipSrcImage.Value, 
@@ -53,6 +54,17 @@ AddParameter('nFilterHeight', nFilterHeight);]]></ST>
 	nFilterWidth:= nFilterWidth.Value, 
 	nFilterHeight:= nFilterHeight.Value, 
 	hrPrev:= hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{0367bb1e-a304-0104-34c5-e64a1c8174b8}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(nFilterWidth.isOdd, 'nFilterWidth must be an odd number');
+Check.IsTrue(nFilterHeight.isOdd, 'nFilterHeight must be an odd number');]]></ST>
       </Implementation>
     </Method>
   </POU>

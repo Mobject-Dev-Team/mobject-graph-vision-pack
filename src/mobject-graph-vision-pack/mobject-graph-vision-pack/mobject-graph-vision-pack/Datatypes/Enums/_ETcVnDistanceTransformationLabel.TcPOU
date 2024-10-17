@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="_ETcVnDistanceTransformationLabel" Id="{19a31a00-f7de-062c-3c2e-b4f2cd0a662b}" SpecialFunc="None">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_ETcVnDistanceTransformationLabel" Id="{19a31a00-f7de-062c-3c2e-b4f2cd0a662b}"
+    SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
@@ -14,10 +15,16 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{dd891b2d-8fcb-0fa0-012b-7c190d8fa942}" />
-    <Folder Name="Private" Id="{7e180948-85f2-0950-0264-9abf534b59ce}" />
-    <Folder Name="Protected" Id="{a86a076c-bca3-0c58-378e-5f7804072df8}" />
-    <Method Name="AddLocalEnumeration" Id="{e4897d57-4c5a-0cbb-2502-5f08e8f7a6f2}" FolderPath="Private\">
+    <Folder Name="Core" Id="{768fddc6-bae8-0a5b-3b80-63b1c26ffd24}">
+      <Folder Name="Protected" Id="{d303fd09-e94a-0e7e-2921-5d6bb8d01397}" />
+    </Folder>
+    <Folder Name="Customize" Id="{56192f5c-b0a0-0fea-275e-1ac832ed0f48}">
+      <Folder Name="Constructor" Id="{dd891b2d-8fcb-0fa0-012b-7c190d8fa942}" />
+      <Folder Name="Private" Id="{7e180948-85f2-0950-0264-9abf534b59ce}" />
+      <Folder Name="Protected" Id="{a86a076c-bca3-0c58-378e-5f7804072df8}" />
+    </Folder>
+    <Method Name="AddLocalEnumeration" Id="{e4897d57-4c5a-0cbb-2502-5f08e8f7a6f2}"
+      FolderPath="Customize\Private\">
       <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
 VAR_INPUT
 	Enumeration : T_MAXSTRING;
@@ -27,9 +34,9 @@ END_VAR]]></Declaration>
         <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Address" Id="{53b6ce67-96bd-0c46-235c-c75a7f0390f3}">
+    <Property Name="Address" Id="{252c366c-1aff-0531-086c-3984235a4d4b}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
-      <Get Name="Get" Id="{bdbb4953-62d8-0f18-066d-cc8de06cd631}">
+      <Get Name="Get" Id="{7a911c27-8645-0438-0593-e7619064608a}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -38,7 +45,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="ClearReference" Id="{f2887065-900e-0cbe-3af9-c70518612037}">
+    <Method Name="ClearReference" Id="{e12ffe52-d342-0c2a-38ca-04405644a653}" FolderPath="Core\">
       <Declaration><![CDATA[METHOD PUBLIC ClearReference
 VAR_INPUT
 END_VAR
@@ -48,7 +55,7 @@ END_VAR
 SetBaseDatatypeReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Clone" Id="{85af352d-fef7-0ef2-3a3a-b5d4b0f55867}">
+    <Method Name="Clone" Id="{85af352d-fef7-0ef2-3a3a-b5d4b0f55867}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
 VAR
     pClone : POINTER TO _ETcVnDistanceTransformationLabel;
@@ -59,7 +66,8 @@ END_VAR
 Clone := pClone^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{dbc87442-f00e-0193-39d2-45e5645caf1b}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{dbc87442-f00e-0193-39d2-45e5645caf1b}"
+      FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -77,7 +85,7 @@ AddLocalEnumeration('TCVN_DTL_PIXEL', ETcVnDistanceTransformationLabel.TCVN_DTL_
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Identifier" Id="{06676978-8db0-0e34-1534-15ce1d3627ab}">
+    <Property Name="Identifier" Id="{06676978-8db0-0e34-1534-15ce1d3627ab}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
       <Get Name="Get" Id="{4e3b9b1b-48d0-0d67-0288-203b1716860e}">
         <Declaration><![CDATA[VAR
@@ -88,7 +96,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="IsEnumeratorValueEqual" Id="{5f2baf6d-8ee3-0c6d-1f8f-0f00b9e159de}" FolderPath="Protected\">
+    <Method Name="IsEnumeratorValueEqual" Id="{5f2baf6d-8ee3-0c6d-1f8f-0f00b9e159de}"
+      FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
 VAR_INPUT
 	Enumerator : I_KeyValueForwardEnumerator;
@@ -104,7 +113,8 @@ END_IF
 IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="MakeReferenceTo" Id="{39be66e3-d534-0fc2-286c-3b822cc09f2a}">
+    <Method Name="MakeReferenceTo" Id="{39be66e3-d534-0fc2-286c-3b822cc09f2a}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO ETcVnDistanceTransformationLabel;
@@ -115,7 +125,8 @@ END_VAR
 SetBaseDatatypeReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetBaseDatatypeReference" Id="{16cbdcda-3e15-053c-081d-6544a0dcb7c5}" FolderPath="Protected\">
+    <Method Name="SetBaseDatatypeReference" Id="{f1c380e3-74db-07fd-0b46-040aa6199d1d}"
+      FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
 VAR_INPUT
 END_VAR
@@ -124,9 +135,9 @@ END_VAR
         <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Size" Id="{ff14de45-4469-007c-1785-f8cc430bc99b}">
+    <Property Name="Size" Id="{3683bbc9-749c-0b65-1c8c-b5383c66e9fb}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
-      <Get Name="Get" Id="{02f5d2ae-d881-0a1a-3488-cc77ab591785}">
+      <Get Name="Get" Id="{b53204e6-c872-0a58-1ea7-f3b2e63e6ef0}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -135,21 +146,17 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{b2bdbac6-cba6-0a37-26b9-edeb7eb28f43}">
+    <Method Name="TryMakeReferenceTo" Id="{b2bdbac6-cba6-0a37-26b9-edeb7eb28f43}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
 END_VAR
 VAR
-	targetAsEnum : I_EnumDatatype;
 	pTargetData : POINTER TO ETcVnDistanceTransformationLabel;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT Target.TryResolveAsEnumDatatype(targetAsEnum) THEN
-	RETURN;
-END_IF
-
-IF targetAsEnum.Identifier <> Identifier THEN
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
 	RETURN;
 END_IF
 
@@ -159,7 +166,7 @@ SetBaseDatatypeReference();
 TryMakeReferenceTo := TRUE;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Value" Id="{36876ed5-9b55-0b10-25eb-10c5b65691a4}">
+    <Property Name="Value" Id="{36876ed5-9b55-0b10-25eb-10c5b65691a4}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnDistanceTransformationLabel]]></Declaration>
       <Get Name="Get" Id="{d3c7388a-2986-0248-04a6-0c710c6925b3}">
         <Declaration><![CDATA[VAR

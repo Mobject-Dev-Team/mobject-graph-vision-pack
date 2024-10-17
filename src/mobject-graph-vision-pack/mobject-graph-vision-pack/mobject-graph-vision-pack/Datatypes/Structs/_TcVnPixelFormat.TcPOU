@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="_TcVnPixelFormat" Id="{01e0a317-2d98-44db-b1ff-63b16b8eba2a}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -23,9 +23,12 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{8a38e651-53c5-434e-b33b-67d9998bd2e5}" />
-    <Folder Name="Protected" Id="{6931a688-49ce-4867-abf0-853fcefa14c8}" />
-    <Property Name="Address" Id="{2e1e56fc-cb38-4f5e-8fda-f22b199e6006}">
+    <Folder Name="Core" Id="{f07f3972-7378-0740-291a-f99148af2bce}" />
+    <Folder Name="Customize" Id="{cf48ae1a-96ef-0c40-18e7-80a351bd510f}">
+      <Folder Name="Constructor" Id="{8a38e651-53c5-434e-b33b-67d9998bd2e5}" />
+      <Folder Name="Protected" Id="{6931a688-49ce-4867-abf0-853fcefa14c8}" />
+    </Folder>
+    <Property Name="Address" Id="{2e1e56fc-cb38-4f5e-8fda-f22b199e6006}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
       <Get Name="Get" Id="{503139a6-b9d8-497c-ba97-5906b01f0394}">
         <Declaration><![CDATA[VAR
@@ -80,7 +83,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="ClearReference" Id="{c2bee71e-c629-4825-bca8-cbd5d1d8f2cd}">
+    <Method Name="ClearReference" Id="{c2bee71e-c629-4825-bca8-cbd5d1d8f2cd}" FolderPath="Core\">
       <Declaration><![CDATA[METHOD PUBLIC ClearReference
 VAR_INPUT
 END_VAR
@@ -90,7 +93,7 @@ END_VAR
 SetMemberReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Clone" Id="{fc2dadba-1ae7-4732-ad94-ea1f1d3f1221}">
+    <Method Name="Clone" Id="{fc2dadba-1ae7-4732-ad94-ea1f1d3f1221}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
 VAR
     pClone : POINTER TO _TcVnPixelFormat;
@@ -124,7 +127,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="FB_init" Id="{c37e145f-c6aa-45c1-859c-1db32d76bce7}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{c37e145f-c6aa-45c1-859c-1db32d76bce7}"
+      FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -144,7 +148,7 @@ AddMember('nElementSize',_nElementSize);
 AddMember('nTotalSize',_nTotalSize);]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Identifier" Id="{6eb37e63-c309-4880-baca-d1269c346f5f}">
+    <Property Name="Identifier" Id="{6eb37e63-c309-4880-baca-d1269c346f5f}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
       <Get Name="Get" Id="{d9398097-8430-4dfd-89f6-2f467b0a2768}">
         <Declaration><![CDATA[VAR
@@ -155,7 +159,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="MakeReferenceTo" Id="{c9adf6f9-cdf4-4384-b1c7-b4dec207f404}">
+    <Method Name="MakeReferenceTo" Id="{c9adf6f9-cdf4-4384-b1c7-b4dec207f404}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO TcVnPixelFormat;
@@ -199,7 +204,8 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="SetMemberReference" Id="{430d1822-454e-402f-ae0c-ba58d6022bcd}" FolderPath="Protected\">
+    <Method Name="SetMemberReference" Id="{430d1822-454e-402f-ae0c-ba58d6022bcd}"
+      FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
 VAR_STAT
 	// this variable is used for BITADR as this function failes if used on a local variable.
@@ -217,7 +223,7 @@ _nElementSize.MakeReferenceTo(activeData.nElementSize);
 _nTotalSize.MakeReferenceTo(activeData.nTotalSize);]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Size" Id="{2cc531c1-3b20-4e3a-9d2c-e59359a8cff7}">
+    <Property Name="Size" Id="{2cc531c1-3b20-4e3a-9d2c-e59359a8cff7}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
       <Get Name="Get" Id="{57957391-1ee7-4abc-8f99-79082124fc39}">
         <Declaration><![CDATA[VAR
@@ -228,21 +234,17 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{420e9016-12d0-4093-88b0-89055f150220}">
+    <Method Name="TryMakeReferenceTo" Id="{420e9016-12d0-4093-88b0-89055f150220}"
+      FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;
 END_VAR
 VAR
-	targetAsStruct : I_StructuredDatatype;
 	pTargetData : POINTER TO TcVnPixelFormat;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT Target.TryResolveAsStructuredDatatype(targetAsStruct) THEN
-	RETURN;
-END_IF
-
-IF NOT (targetAsStruct.Identifier = Identifier) THEN
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
 	RETURN;
 END_IF
 
@@ -252,7 +254,7 @@ SetMemberReference();
 TryMakeReferenceTo := TRUE;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Value" Id="{eb2c6b21-e4f3-4f41-8bbc-e21b4d43ce81}">
+    <Property Name="Value" Id="{eb2c6b21-e4f3-4f41-8bbc-e21b4d43ce81}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Value : reference to TcVnPixelFormat]]></Declaration>
       <Get Name="Get" Id="{cf983933-6728-4a71-8fde-82d19382ab5c}">
         <Declaration><![CDATA[VAR

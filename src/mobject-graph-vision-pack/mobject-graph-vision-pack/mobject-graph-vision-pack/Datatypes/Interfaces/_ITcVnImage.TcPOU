@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_ITcVnImage" Id="{e49a2247-ce03-0b2f-2be9-ad1a10990618}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ITcVnImage EXTENDS InterfaceDatatypeBase
+VAR
+	localData : ITcVnImage;
+	activeData : REFERENCE TO ITcVnImage REF= localData;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{54b3347f-9780-0ef8-23a4-8790080c1b8f}" />
+    <Folder Name="Customize" Id="{1331b21c-0b52-0dca-38d4-3a2cd67105e0}">
+      <Folder Name="Destructor" Id="{fa8bea4c-7d94-0574-27dd-66d29102dbe7}" />
+      <Folder Name="Private" Id="{6ac695fe-f2f0-4f8c-8a93-aaffa4e76629}" />
+    </Folder>
+    <Property Name="Address" Id="{26adf67e-579f-0a6d-00da-3c2699a837da}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{1d1ae7e4-0327-01a3-366e-ab0c58d72b4b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{a569e784-a42c-0267-3d75-2de521525280}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{b3436342-da0d-08b0-2adf-ef47dcc034c9}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ITcVnImage;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ITcVnImage);
+Clone := pClone^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_exit" Id="{a33d2963-d734-027d-2b62-b9e1fd640a35}" FolderPath="Customize\Destructor\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF bInCopyCode THEN
+	RETURN;
+END_IF
+
+TryTcReleaseLocal();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HasChannelCount" Id="{6b072562-27bd-0493-2ce2-1194360e8b96}">
+      <Declaration><![CDATA[METHOD PUBLIC HasChannelCount : BOOL
+VAR_INPUT
+	ChannelCount : BYTE;
+END_VAR
+VAR
+    pixelFormat : TcVnPixelFormat;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT TryGetPixelFormat(pixelFormat) THEN
+    RETURN;
+END_IF
+
+IF NOT (pixelFormat.nChannels = ChannelCount) THEN
+    RETURN;
+END_IF
+
+HasChannelCount := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{0de2f641-b44e-0525-1479-487c94fed83b}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{ec233534-04dc-04a1-34d5-c9c8bb5087db}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ITcVnImage';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsPixelValueCompatible" Id="{4a26373c-f2a9-0d81-1cf3-d6596eb691aa}">
+      <Declaration><![CDATA[METHOD PUBLIC IsPixelValueCompatible : BOOL
+VAR_INPUT
+	PixelValue : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="IsValid" Id="{b5701dc4-a730-0ca2-3386-3c315f28f8f4}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsValid : BOOL]]></Declaration>
+      <Get Name="Get" Id="{470abd33-b541-097b-3d2f-e6054eb7ffeb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsValid := activeData <> 0;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{f622f5ed-6f4a-0576-1243-468457a60aed}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ITcVnImage;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SerializeWith" Id="{d8053af4-2ea3-4ddc-ad0b-52cc29c04f08}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC SerializeWith
+VAR_INPUT
+	Serializer : I_Serializer;
+END_VAR
+VAR
+	result: HRESULT;
+	exportImageSize: ULINT;
+	buffer : POINTER TO BYTE;
+	imageInfo : _TcVnImageInfo;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT (activeData <> 0) THEN
+	// no image available, so drop out.. need to add serialization?
+	Serializer.AddNull();
+	RETURN;
+END_IF
+
+result := F_VN_ExportImageSize(ipImage:=activeData, nBufferSize:=exportImageSize, hrPrev:=result);
+
+IF FAILED(result) THEN
+	// export to bmp size failed, so drop out.. need to add serialization?
+	Serializer.AddNull();
+	RETURN;
+END_IF
+
+IF exportImageSize > DatatypeLimits.UDINT_MAX_VALUE THEN
+	// export is too big for __NEW, so drop out..
+	Serializer.AddNull();
+	RETURN;
+END_IF
+
+IF exportImageSize <= 0 THEN
+	// export is zero size, so drop out.. 
+	Serializer.AddNull();
+	RETURN;
+END_IF
+	
+buffer := __NEW(BYTE,ULINT_TO_UDINT(exportImageSize));
+result := F_VN_ExportImage(ipImage:=activeData, pBuffer:=buffer, nBufferSize:=exportImageSize, hrPrev:=result);
+
+IF FAILED(result) THEN
+	// export to bmp failed, so drop out.. 
+	Serializer.AddNull();
+	__DELETE(buffer);
+	RETURN;
+END_IF
+
+activeData.GetImageInfo(imageInfo.value);
+
+Serializer.StartObject();
+Serializer.AddKeyObject('imageInfo',imageInfo);
+Serializer.AddKey('imageData');
+Serializer.AddBase64(buffer,ULINT_TO_DINT(exportImageSize));
+Serializer.EndObject();
+
+__DELETE(buffer);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{81e68ae1-c9d8-0f2c-07e6-d2609b2e603e}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{fc7863ca-c7cb-0c90-3f7d-4039818336b9}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryDeserializeFrom" Id="{93c74b3e-7a54-464a-bc7d-f1ab237a9094}">
+      <Declaration><![CDATA[METHOD TryDeserializeFrom : BOOL
+VAR_INPUT
+	Deserializer : I_Deserializer;
+	Feedback : I_DeserializerFeedback;
+END_VAR
+VAR
+	imageInfo : _TcVnImageInfo;
+	imageSizeInBytes : UDINT;
+	buffer : POINTER TO BYTE;
+	hr : HRESULT;
+	elementType : ETcVnElementType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Deserializer.TryDeserializeKeyToObject('imageInfo', imageInfo, Feedback) THEN
+	RETURN;
+END_IF
+
+imageSizeInBytes := ULINT_TO_UDINT(imageInfo.nImageSize.Value);
+
+IF imageSizeInBytes = 0 THEN
+	TryDeserializeFrom := TRUE;
+	RETURN;
+END_IF
+
+buffer := __NEW(BYTE, imageSizeInBytes);
+
+IF NOT Deserializer.TryGetKeyBase64('imageData', buffer, imageSizeInBytes, Feedback) THEN
+	__DELETE(buffer);
+	RETURN;
+END_IF
+
+TryGetElementTypeFromInfo(imageInfo.Value, elementType);
+
+hr := F_VN_CreateImageFromArray(
+	pData := buffer,
+	ipImage := activeData,
+	nWidth := imageInfo.nWidth.Value,
+	nHeight :=  imageInfo.nHeight.Value,
+	ePixelType := elementType,
+	nChannelNum := imageInfo.stPixelFormat.nChannels.Value, 
+	hrPrev := hr);
+
+__DELETE(buffer);
+
+TryDeserializeFrom := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetElementTypeFromInfo" Id="{269656a9-39e7-490f-be72-c0ffab59a725}" FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PRIVATE TryGetElementTypeFromInfo : BOOL;
+VAR_INPUT
+	ImageInfo : TcVnImageInfo;
+	Destination : REFERENCE TO ETcVnElementType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE ImageInfo.stPixelFormat.nElementSize OF
+	
+	8 : // 8bit
+	
+		IF ImageInfo.stPixelFormat.bSigned THEN
+			Destination := ETcVnElementType.TCVN_ET_SINT;
+		ELSE	
+			Destination := ETcVnElementType.TCVN_ET_USINT;
+		END_IF
+		TryGetElementTypeFromInfo := TRUE;
+	
+	16 : // 16bit
+	
+		IF ImageInfo.stPixelFormat.bSigned THEN
+			Destination := ETcVnElementType.TCVN_ET_INT;
+		ELSE	
+			Destination := ETcVnElementType.TCVN_ET_UINT;
+		END_IF
+		TryGetElementTypeFromInfo := TRUE;
+	
+	32 : // 32bit
+	
+		IF ImageInfo.stPixelFormat.bSigned AND NOT ImageInfo.stPixelFormat.bFloat THEN
+			Destination := ETcVnElementType.TCVN_ET_DINT;
+			TryGetElementTypeFromInfo := TRUE;
+		END_IF
+		
+		IF ImageInfo.stPixelFormat.bFloat THEN
+			Destination := ETcVnElementType.TCVN_ET_REAL;
+			TryGetElementTypeFromInfo := TRUE;
+		END_IF
+		
+	64 : // 64bit
+	
+		IF ImageInfo.stPixelFormat.bFloat THEN
+			Destination := ETcVnElementType.TCVN_ET_LREAL;
+			TryGetElementTypeFromInfo := TRUE;
+		END_IF
+		
+ELSE
+	
+	RETURN;
+
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetHeight" Id="{18b16c03-7a0b-0a56-034a-0af280a9f298}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetHeight : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetHeight := SUCCEEDED(activeData.GetHeight(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetImageData" Id="{ee8223fb-c232-0959-332d-3c24168a228d}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetImageData : BOOL
+VAR_INPUT
+	Destination : POINTER TO ITcVnData;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetImageData := SUCCEEDED(activeData.GetImageData(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetImageInfo" Id="{f541461c-4118-0048-11f1-7ee2478c8c70}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetImageInfo : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO  TcVnImageInfo;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetImageInfo := SUCCEEDED(activeData.GetImageInfo(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetImageSize" Id="{8e7924da-0426-04c5-0fbe-9489b7ebc267}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetImageSize : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO ULINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetImageSize := SUCCEEDED(activeData.GetImageSize(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetPixelFormat" Id="{fc0232a2-bfb3-07ca-21a1-37687ca2844d}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetPixelFormat : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO  TcVnPixelFormat;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetPixelFormat := SUCCEEDED(activeData.GetPixelFormat(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetRowPointer" Id="{13c3de14-191b-04c9-110a-c2b0137959ec}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetRowPointer : BOOL
+VAR_INPUT
+	RowIndex : UDINT;
+	Destination : POINTER TO PVOID;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetRowPointer := SUCCEEDED(activeData.GetRowPointer(RowIndex, Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetWidth" Id="{3f18708e-4cf5-0cf2-0181-44b1b02b4fb1}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetWidth : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetWidth := SUCCEEDED(activeData.GetWidth(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetXPadding" Id="{633baea0-e650-0656-2433-1801ca7d9dfe}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetXPadding : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetXPadding := SUCCEEDED(activeData.GetXPadding(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetYPadding" Id="{63aecabe-4fef-0d89-317b-10cc3cc8cc85}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetYPadding : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetYPadding := SUCCEEDED(activeData.GetYPadding(Destination));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryMakeReferenceTo" Id="{7d7db605-3613-071c-1653-05e6e4328270}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO ITcVnImage;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryReleaseRowPointer" Id="{ee92e295-0f9a-09f7-0aab-880611e45b36}">
+      <Declaration><![CDATA[METHOD PUBLIC TryReleaseRowPointer : BOOL
+VAR_INPUT
+	ppRow : POINTER TO PVOID;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryReleaseRowPointer := SUCCEEDED(activeData.ReleaseRowPointer(ppRow));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryTcAddRef" Id="{1e91ec41-a275-0244-1707-b24e88039bac}">
+      <Declaration><![CDATA[METHOD PUBLIC TryTcAddRef : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF activeData = 0 THEN
+	RETURN;
+END_IF
+
+IF activeData.TcAddRef() = 0 THEN
+	activeData := 0;
+END_IF
+
+TryTcAddRef := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryTcRelease" Id="{7b51f51e-367c-045f-38fb-fd5d2d8dd214}">
+      <Declaration><![CDATA[METHOD PUBLIC TryTcRelease : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF activeData = 0 THEN
+	RETURN;
+END_IF
+
+IF activeData.TcRelease() = 0 THEN
+	activeData := 0;
+END_IF
+
+TryTcRelease := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryTcReleaseLocal" Id="{64da9e22-b948-0d23-0289-99482a104714}" FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PUBLIC TryTcReleaseLocal : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF localData = 0 THEN
+	RETURN;
+END_IF
+
+IF localData.TcRelease() = 0 THEN
+	localData := 0;
+END_IF
+
+TryTcReleaseLocal := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{046861a7-ca29-0a27-012a-81bd1a49d0c9}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO ITcVnImage]]></Declaration>
+      <Get Name="Get" Id="{900c5d4b-f08b-0a9c-0df7-7b8aa7f514a2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>
