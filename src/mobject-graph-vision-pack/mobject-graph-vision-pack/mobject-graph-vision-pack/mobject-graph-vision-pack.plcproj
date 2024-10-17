@@ -810,6 +810,114 @@
     <Compile Include="Nodes\Basic Container Operations\Node_F_VN_GetNumberOfElements.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_ITcVnContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_ITcVnImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnDMatch.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnKeyPoint.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnPoint2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnPoint2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnPoint3_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnPoint3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector2_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector2_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector2_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector2_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector3_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector3_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector3_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector3_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector4_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector4_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector4_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector4_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_TcVnVector4_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_UDINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_ULINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Operations\Node_F_VN_InsertIntoContainer_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Image Operations\Node_F_VN_CopyImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
