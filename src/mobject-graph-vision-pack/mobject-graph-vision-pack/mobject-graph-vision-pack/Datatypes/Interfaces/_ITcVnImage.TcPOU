@@ -71,16 +71,9 @@ VAR_INPUT
 END_VAR
 VAR
     pixelFormat : TcVnPixelFormat;
-    hresult : HRESULT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT IsValid THEN
-    RETURN;
-END_IF
-
-hresult := F_VN_GetPixelFormat(ipImage := activeData, stPixelFormat := pixelFormat, hrPrev := S_OK);
-
-IF FAILED(hresult) THEN
+        <ST><![CDATA[IF NOT TryGetPixelFormat(pixelFormat) THEN
     RETURN;
 END_IF
 
@@ -88,8 +81,7 @@ IF NOT (pixelFormat.nChannels = ChannelCount) THEN
     RETURN;
 END_IF
 
-HasChannelCount := TRUE;
-]]></ST>
+HasChannelCount := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Property Name="Identifier" Id="{0de2f641-b44e-0525-1479-487c94fed83b}" FolderPath="Customize\">
