@@ -382,6 +382,16 @@ VAR
     // node_F_VN_ReadQRCodeExp : Node_F_VN_ReadQRCodeExp
     // node_F_VN_ReadQRCodeExp2 : Node_F_VN_ReadQRCodeExp2
     
+    // Constants
+    node_RGBA_BLACK : Node_RGBA_BLACK;
+    node_RGBA_RED : Node_RGBA_RED;
+    node_RGBA_YELLOW : Node_RGBA_YELLOW;
+    node_RGBA_GREEN : Node_RGBA_GREEN;
+    node_RGBA_CYAN : Node_RGBA_CYAN;
+    node_RGBA_BLUE : Node_RGBA_BLUE;
+    node_RGBA_MAGENTA : Node_RGBA_MAGENTA;
+    node_RGBA_WHITE : Node_RGBA_WHITE;
+    
     // Container Statistics
     //F_VN_MaxElementElementwise_DINT
     //F_VN_MaxElementElementwise_INT
@@ -1022,6 +1032,16 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi', node
 // Code Quality
 
 // Code Reading
+
+// Constants
+NodeFactory.AddNodeAsPrototype('Vision/Constants/RGBA_BLACK', node_RGBA_BLACK);
+NodeFactory.AddNodeAsPrototype('Vision/Constants/RGBA_RED', node_RGBA_RED);
+NodeFactory.AddNodeAsPrototype('Vision/Constants/RGBA_YELLOW', node_RGBA_YELLOW);
+NodeFactory.AddNodeAsPrototype('Vision/Constants/RGBA_GREEN', node_RGBA_GREEN);
+NodeFactory.AddNodeAsPrototype('Vision/Constants/RGBA_CYAN', node_RGBA_CYAN);
+NodeFactory.AddNodeAsPrototype('Vision/Constants/RGBA_BLUE', node_RGBA_BLUE);
+NodeFactory.AddNodeAsPrototype('Vision/Constants/RGBA_MAGENTA', node_RGBA_MAGENTA);
+NodeFactory.AddNodeAsPrototype('Vision/Constants/RGBA_WHITE', node_RGBA_WHITE);
 
 // Container Statistics
 
