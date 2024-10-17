@@ -1,15 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
-  <POU Name="Node_F_VN_DrawLine" Id="{dc653c7a-2933-0576-2626-1faa874c03b0}" SpecialFunc="None">
+  <POU Name="Node_F_VN_DrawLine_TcVnVector4_LREAL" Id="{110d1d30-d0e3-07d2-17fb-66b7772746b7}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_DrawLine EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_DrawLine_TcVnVector4_LREAL EXTENDS VisionNode
 VAR
-    nX1 : _UDINT(0);
-    nY1 : _UDINT(0);
-    nX2 : _UDINT(0);
-    nY2 : _UDINT(0);
+    aLine : _TcVnVector4_LREAL;
     ipDestImage : _ITcVnImage;
     aColor : _TcVnVector4_LREAL;
     nThickness : _DINT(1);
@@ -20,18 +17,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{a5913828-a77a-0588-0b42-01dc512a4cf4}" />
-    <Method Name="Clone" Id="{d264fbd2-1fc9-0a2c-339a-46b0e119c9a0}">
+    <Folder Name="Constructor" Id="{827bea5f-61ba-040b-2195-07851c8d53ee}" />
+    <Method Name="Clone" Id="{18e5f27a-e1ed-02e2-3062-0cc95da0e5b7}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_DrawLine;
+	pNode : POINTER TO Node_F_VN_DrawLine_TcVnVector4_LREAL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawLine);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawLine_TcVnVector4_LREAL);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{ce37e974-3225-0748-34f6-48f40a96ea5a}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{d0af5d35-428e-05b6-336f-19b98dde0307}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -39,10 +36,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('nX1', nX1);
-AddInput('nY1', nY1);
-AddInput('nX2', nX2);
-AddInput('nY2', nY2);
+        <ST><![CDATA[AddInput('aLine', aLine);
 AddInput('ipDestImage', ipDestImage);
 AddInput('aColor', aColor);
 AddInput('hrPrev', hrPrev);
@@ -52,15 +46,12 @@ AddParameter('nThickness', nThickness);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{40947ae6-2476-0427-1850-8226b5b7e1bd}">
+    <Method Name="OnExecute" Id="{a3cdf037-404e-02af-16df-fab0e9f8a499}">
       <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_DrawLine(
-    nX1 := nX1.Value,
-    nY1 := nY1.Value,
-    nX2 := nX2.Value,
-	nY2 := nY2.Value,
+        <ST><![CDATA[hresult.Value := F_VN_DrawLine_TcVnVector4_LREAL(
+    aLine := aLine.Value,
 	ipDestImage := ipDestImage.Value,
     aColor := aColor.Value,
     nThickness := nThickness.Value,
@@ -68,7 +59,7 @@ AddParameter('nThickness', nThickness);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{8aab7573-0bc6-0ee8-1b5e-66d20084a33b}">
+    <Method Name="PreExecutionCheck" Id="{3147cdf1-2028-0afa-354f-9467005e203b}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
