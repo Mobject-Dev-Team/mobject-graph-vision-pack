@@ -12,7 +12,7 @@ VAR
     aEndPoint : _TcVnPoint2_REAL;
 	eEdgeDirection : _ETcVnEdgeDirection(ETcVnEdgeDirection.TCVN_ED_DARK_TO_LIGHT);
     fMinStrength : _REAL(0.0);
-    nSearchLines : _UDINT(0);
+    nSearchLines : _UDINT(1);
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -74,6 +74,7 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
 Check.IsTrue(nSearchLines.IsOdd, 'nSearchLines must be an odd number');
 ]]></ST>
       </Implementation>

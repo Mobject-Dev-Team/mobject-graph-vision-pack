@@ -120,6 +120,7 @@
     <Folder Include="Nodes\Machine Learning" />
     <Folder Include="Nodes\Measurement" />
     <Folder Include="Nodes\Miscellaneous" />
+    <Folder Include="Nodes\Constants" />
     <Folder Include="Nodes\OCR" />
     <Folder Include="Nodes\Texture Analysis" />
     <Folder Include="Nodes\VisionNode" />
@@ -586,6 +587,10 @@
     <Compile Include="Datatypes\VisionDatatypePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GVL_COLOURS.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_BitwiseNotImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -724,6 +729,30 @@
     <Compile Include="Nodes\Basic Image Operations\Node_F_VN_SetRoi_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_RGBA_BLUE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_RGBA_MAGENTA.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_RGBA_CYAN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_RGBA_YELLOW.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_RGBA_WHITE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_RGBA_RED.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_RGBA_GREEN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_RGBA_BLACK.TcPOU">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_FitLine.TcPOU">
       <SubType>Code</SubType>

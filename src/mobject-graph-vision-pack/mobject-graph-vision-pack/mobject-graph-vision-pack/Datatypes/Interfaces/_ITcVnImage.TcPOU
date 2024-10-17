@@ -64,6 +64,34 @@ END_IF
 TryTcReleaseLocal();]]></ST>
       </Implementation>
     </Method>
+    <Method Name="HasChannelCount" Id="{6b072562-27bd-0493-2ce2-1194360e8b96}">
+      <Declaration><![CDATA[METHOD PUBLIC HasChannelCount : BOOL
+VAR_INPUT
+	ChannelCount : BYTE;
+END_VAR
+VAR
+    pixelFormat : TcVnPixelFormat;
+    hresult : HRESULT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+    RETURN;
+END_IF
+
+hresult := F_VN_GetPixelFormat(ipImage := activeData, stPixelFormat := pixelFormat, hrPrev := S_OK);
+
+IF FAILED(hresult) THEN
+    RETURN;
+END_IF
+
+IF NOT (pixelFormat.nChannels = ChannelCount) THEN
+    RETURN;
+END_IF
+
+HasChannelCount := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Identifier" Id="{0de2f641-b44e-0525-1479-487c94fed83b}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
       <Get Name="Get" Id="{ec233534-04dc-04a1-34d5-c9c8bb5087db}">
