@@ -1075,6 +1075,285 @@
     <Compile Include="Nodes\Constants\Node_RGBA_BLACK.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnPoint2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnPoint2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnPoint3_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnPoint3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector2_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector2_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector2_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector2_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector3_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector3_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector3_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector3_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector4_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector4_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector4_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector4_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_TcVnVector4_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_UDINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_ULINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElementElementwise_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnPoint2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnPoint2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnPoint3_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnPoint3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector2_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector2_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector2_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector2_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector3_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector3_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector3_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector3_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector4_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector4_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector4_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector4_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_TcVnVector4_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_UDINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_ULINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElementElementwise_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnPoint2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnPoint2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnPoint3_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnPoint3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector2_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector2_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector2_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector2_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector3_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector3_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector3_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector3_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector4_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector4_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector4_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector4_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_TcVnVector4_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_UDINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_ULINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElementElementwise_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_FitLine.TcPOU">
       <SubType>Code</SubType>
     </Compile>
