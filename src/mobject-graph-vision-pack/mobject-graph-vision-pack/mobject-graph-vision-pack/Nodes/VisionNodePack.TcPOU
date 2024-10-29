@@ -30,17 +30,17 @@ VAR
     //F_VN_AddImagesWeightedExp
     //F_VN_AddScalarToImage
     //F_VN_AddVectorToImage
-    //F_VN_BitwiseAndImages
+    node_F_VN_BitwiseAndImages : Node_F_VN_BitwiseAndImages;
     //F_VN_BitwiseAndImagesExp
     //F_VN_BitwiseAndScalarWithImage
     //F_VN_BitwiseAndVectorWithImage
     node_F_VN_BitwiseNotImage : Node_F_VN_BitwiseNotImage;
     //F_VN_BitwiseNotImageExp
-    //F_VN_BitwiseOrImages
+    node_F_VN_BitwiseOrImages : Node_F_VN_BitwiseOrImages;
     //F_VN_BitwiseOrImagesExp
     //F_VN_BitwiseOrScalarWithImage
     //F_VN_BitwiseOrVectorWithImage
-    //F_VN_BitwiseXorImages
+    node_F_VN_BitwiseXorImages : Node_F_VN_BitwiseXorImages;
     //F_VN_BitwiseXorImagesExp
     //F_VN_BitwiseXorScalarWithImage
     //F_VN_BitwiseXorVectorWithImage
@@ -982,7 +982,10 @@ END_VAR
         <ST><![CDATA[// Algebraic Container Operations
 
 // Algebraic Image Operations
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_BitwiseAndImages', node_F_VN_BitwiseAndImages);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_BitwiseNotImage', node_F_VN_BitwiseNotImage);
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_BitwiseOrImages', node_F_VN_BitwiseOrImages);
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_BitwiseXorImages', node_F_VN_BitwiseXorImages);
 
 // Basic Container Operations
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_DINT', node_F_VN_AppendToContainer_DINT);

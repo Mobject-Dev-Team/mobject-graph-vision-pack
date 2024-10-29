@@ -591,7 +591,16 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_BitwiseOrImages.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_BitwiseNotImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_BitwiseAndImages.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_BitwiseXorImages.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_DINT.TcPOU">
