@@ -62,6 +62,8 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue((nFilterWidth.Value >= 1), 'nFilterWidth must be >= 1');
+Check.IsTrue((nFilterHeight.Value >= 1), 'nFilterHeight must be >= 1');
 ]]></ST>
       </Implementation>
     </Method>

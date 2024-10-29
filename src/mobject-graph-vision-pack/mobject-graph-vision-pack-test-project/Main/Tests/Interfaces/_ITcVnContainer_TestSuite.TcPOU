@@ -11,8 +11,36 @@ TestIsValidAfterContainerAdded();
 TestSerializeTypeWith();
 TestSerializeWith_Empty();
 TestSerializeWith_Vector_REAL();
-TestTryDeserializeFrom();]]></ST>
+TestTryDeserializeFrom();
+TestTryGetTypeName_Vector_REAL();
+TestHasType_Vector_REAL();
+]]></ST>
     </Implementation>
+    <Method Name="TestHasType_Vector_REAL" Id="{85835300-9eb0-09a2-2c7a-4f3f67f94c58}">
+      <Declaration><![CDATA[METHOD PUBLIC TestHasType_Vector_REAL
+VAR
+    _type : _ITcVnContainer;
+    data : ARRAY [0..4] OF REAL := [0.0, 1.1, 2.2, 3.3, 4.4];
+    expected : STRING := 'CTcVnContainer_Vector_REAL';
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestHasType_Vector_REAL');
+
+F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 5, hrPrev := S_OK);
+
+result := _type.HasType(expected);
+
+AssertTrue(
+	Condition := result,
+	Message := 'Container did not contain expected types.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TestIsValidAfterContainerAdded" Id="{1f39ce3c-c862-0870-2798-ba7a943998e5}">
       <Declaration><![CDATA[METHOD PUBLIC TestIsValidAfterContainerAdded
 VAR CONSTANT
@@ -164,6 +192,37 @@ AssertEquals(
     Expected := expected,
     Actual := actual,
     Message := 'Type did not deserialize correctly.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryGetTypeName_Vector_REAL" Id="{d08b5241-07f7-0fbb-147c-4d290dcc1c58}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryGetTypeName_Vector_REAL
+VAR
+    _type : _ITcVnContainer;
+    data : ARRAY [0..4] OF REAL := [0.0, 1.1, 2.2, 3.3, 4.4];
+    expected : STRING := 'CTcVnContainer_Vector_REAL';
+    actual : STRING;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryGetTypeName_Vector_REAL');
+
+F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 5, hrPrev := S_OK);
+
+result := _type.TryGetTypeName(actual);
+
+AssertTrue(
+	Condition := result,
+	Message := 'Get container type name failed.'
+);
+
+AssertEquals_STRING(Expected := expected,
+             Actual := actual,
+             Message := 'Container did not return correct name.'
 );
 
 TEST_FINISHED();

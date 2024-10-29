@@ -64,6 +64,27 @@ END_IF
 TryTcReleaseLocal();]]></ST>
       </Implementation>
     </Method>
+    <Method Name="HasType" Id="{636986b0-0b9e-0d82-386a-8c775037e6c8}">
+      <Declaration><![CDATA[METHOD PUBLIC HasType : BOOL
+VAR_INPUT
+	Expected : STRING;
+END_VAR
+VAR
+    name : STRING;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT TryGetTypeName(name) THEN
+    RETURN;
+END_IF
+
+IF NOT (Expected = name) THEN
+    RETURN;
+END_IF
+
+HasType := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Identifier" Id="{135f45ca-b070-0af5-3022-2a12c62aba78}" FolderPath="Customize\">
       <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
       <Get Name="Get" Id="{8a9e5bb7-5e05-0f0c-1a1e-8404a38a582d}">
@@ -460,6 +481,21 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// not yet implemented.  This will just be a reverse of the serialization code.]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetTypeName" Id="{1f9f0949-b4f8-0a9d-0079-cfde54baf053}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetTypeName : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetTypeName := SUCCEEDED(activeData.GetTypeName(Destination, 255));
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="TryMakeReferenceTo" Id="{273ebff0-3c8f-09f4-18a3-7e76d9dfa55d}" FolderPath="Customize\">

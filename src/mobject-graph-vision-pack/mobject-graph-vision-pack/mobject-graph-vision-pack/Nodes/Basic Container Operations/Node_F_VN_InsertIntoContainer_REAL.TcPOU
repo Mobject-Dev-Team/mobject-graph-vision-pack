@@ -62,6 +62,7 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
+Check.IsTrue(ipContainer.HasType('CTcVnContainer_Vector_REAL'), 'ipContainer contains incorrect types');
 ]]></ST>
       </Implementation>
     </Method>

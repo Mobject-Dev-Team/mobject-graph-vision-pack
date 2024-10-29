@@ -56,9 +56,14 @@ AddOutput('hresult',hresult);
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
-END_VAR]]></Declaration>
+END_VAR
+VAR
+    name : STRING;
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
+Check.IsTrue(ipContainer.HasType('CTcVnContainer_Vector_DINT'), 'ipContainer contains incorrect types');
 ]]></ST>
       </Implementation>
     </Method>
