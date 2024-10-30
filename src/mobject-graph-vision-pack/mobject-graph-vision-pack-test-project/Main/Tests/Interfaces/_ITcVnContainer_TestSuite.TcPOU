@@ -21,20 +21,20 @@ TestHasType_Vector_REAL();
 VAR
     _type : _ITcVnContainer;
     data : ARRAY [0..4] OF REAL := [0.0, 1.1, 2.2, 3.3, 4.4];
-    expected : STRING := 'CTcVnContainer_Vector_REAL';
+    expected : GUID := TC_GLOBAL_CONST_LIST.ContainerType_Vector_REAL;
     result : BOOL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('TestHasType_Vector_REAL');
 
-F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 5, hrPrev := S_OK);
+F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := expected, nElementNum := 5, hrPrev := S_OK);
 
 result := _type.HasType(expected);
 
 AssertTrue(
 	Condition := result,
-	Message := 'Container did not contain expected types.'
+	Message := 'Container did not contain expected type.'
 );
 
 TEST_FINISHED();

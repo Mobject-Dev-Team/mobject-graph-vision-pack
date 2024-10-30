@@ -67,18 +67,22 @@ TryTcReleaseLocal();]]></ST>
     <Method Name="HasType" Id="{636986b0-0b9e-0d82-386a-8c775037e6c8}">
       <Declaration><![CDATA[METHOD PUBLIC HasType : BOOL
 VAR_INPUT
-	Expected : STRING;
+	ContainerType : GUID;
 END_VAR
 VAR
-    name : STRING;
+    actualGuid : GUID;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT TryGetTypeName(name) THEN
+        <ST><![CDATA[IF NOT IsValid THEN
     RETURN;
 END_IF
 
-IF NOT (Expected = name) THEN
+IF NOT SUCCEEDED(activeData.GetTypeGuid(actualGuid)) THEN
     RETURN;
+END_IF
+
+IF NOT (GuidsEqualByVal(ContainerType, actualGuid)) THEN
+	RETURN;
 END_IF
 
 HasType := TRUE;
