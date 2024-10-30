@@ -58,7 +58,7 @@ VAR
     //F_VN_SubtractContainers
    
     // Algebraic Image Operations
-    //F_VN_AddImages
+    node_F_VN_AddImages : Node_F_VN_AddImages;
     //F_VN_AddImagesWeighted
     //F_VN_AddImagesWeightedExp
     //F_VN_AddScalarToImage
@@ -81,28 +81,30 @@ VAR
     //F_VN_DivideImageByScalar
     //F_VN_DivideImageByVector
     //F_VN_DivideImages
+    node_F_VN_DivideImages : Node_F_VN_DivideImages;
     //F_VN_DivideScalarByImage
     //F_VN_DivideVectorByImage
     //F_VN_ElementwiseExp
     //F_VN_ElementwiseLog
-    //F_VN_MaxImage
+    node_F_VN_MaxImage : Node_F_VN_MaxImage;
     //F_VN_MaxImageExp
     //F_VN_MaxImageWithScalar
     //F_VN_MaxImageWithScalarExp
     //F_VN_MaxImageWithVector
     //F_VN_MaxImageWithVectorExp
     //F_VN_MinImage
+    node_F_VN_MinImage : Node_F_VN_MinImage;
     //F_VN_MinImageExp
     //F_VN_MinImageWithScalar
     //F_VN_MinImageWithScalarExp
     //F_VN_MinImageWithVector
     //F_VN_MinImageWithVectorExp
-    //F_VN_MultiplyImages
+    node_F_VN_MultiplyImages : Node_F_VN_MultiplyImages;
     //F_VN_MultiplyImageWithScalar
     //F_VN_MultiplyImageWithVector
     //F_VN_SubtractImageFromScalar
     //F_VN_SubtractImageFromVector
-    //F_VN_SubtractImages
+    node_F_VN_SubtractImages : Node_F_VN_SubtractImages;
     //F_VN_SubtractScalarFromImage
     //F_VN_SubtractVectorFromImage
         
@@ -384,10 +386,10 @@ VAR
     node_F_VN_GetImageInfo : Node_F_VN_GetImageInfo;
     node_F_VN_GetImageWidth : Node_F_VN_GetImageWidth;
     //F_VN_GetPixel
-     node_F_VN_GetPixelFormat : Node_F_VN_GetPixelFormat;
-    //F_VN_GetRoi
+    node_F_VN_GetPixelFormat : Node_F_VN_GetPixelFormat;
+    node_F_VN_GetRoi : Node_F_VN_GetRoi;
     //F_VN_MixImageChannels
-    //F_VN_ResetRoi
+    node_F_VN_ResetRoi : Node_F_VN_ResetRoi;
     //F_VN_SetImageChannel
     //F_VN_SetPixel
     //F_VN_SetPixels
@@ -716,8 +718,8 @@ VAR
     //F_VN_HomographyExp
     //F_VN_InvertAffineTransformation
     //F_VN_PerspectiveTransformation
-    //F_VN_PyramidDown
-    //F_VN_PyramidUp
+    node_F_VN_PyramidDown : Node_F_VN_PyramidDown;
+    node_F_VN_PyramidUp : Node_F_VN_PyramidUp;
     //F_VN_RemapImageToLogPolarSpace
     //F_VN_RemapImageToLogPolarSpaceExp
     //F_VN_RemapImageToLogPolarSpaceExp2
@@ -764,7 +766,7 @@ VAR
     //F_VN_ConnectedComponentsExp
     //F_VN_ConnectedComponentsWithStats
     //F_VN_ConnectedComponentsWithStatsExp
-    //F_VN_CountNonZeroPixels
+    node_F_VN_CountNonZeroPixels : Node_F_VN_CountNonZeroPixels;
     //F_VN_DistanceTransformation
     //F_VN_DistanceTransformationExp
     //F_VN_GetConnectedComponent
@@ -797,9 +799,9 @@ VAR
     //F_VN_HistogramEqualization
     //F_VN_HistogramEqualizationExp
     //F_VN_HistogramExp
-    //F_VN_InvertImageColor
+    node_F_VN_InvertImageColor : Node_F_VN_InvertImageColor;
     //F_VN_InvertImageColorExp
-    //F_VN_NormalizeImage
+    node_F_VN_NormalizeImage : Node_F_VN_NormalizeImage;
     //F_VN_NormalizeImageExp
     //F_VN_NormalizeImageForDisplay
     //F_VN_ReferenceColorSimilarity_ITcVnColorModel
@@ -1064,7 +1066,7 @@ END_VAR
 //F_VN_SubtractContainers
 
 // Algebraic Image Operations
-//F_VN_AddImages
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_AddImages', node_F_VN_AddImages);
 //F_VN_AddImagesWeighted
 //F_VN_AddImagesWeightedExp
 //F_VN_AddScalarToImage
@@ -1087,28 +1089,30 @@ NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_BitwiseXo
 //F_VN_DivideImageByScalar
 //F_VN_DivideImageByVector
 //F_VN_DivideImages
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_DivideImages', node_F_VN_DivideImages);
 //F_VN_DivideScalarByImage
 //F_VN_DivideVectorByImage
 //F_VN_ElementwiseExp
 //F_VN_ElementwiseLog
-//F_VN_MaxImage
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_MaxImage', node_F_VN_MaxImage);
 //F_VN_MaxImageExp
 //F_VN_MaxImageWithScalar
 //F_VN_MaxImageWithScalarExp
 //F_VN_MaxImageWithVector
 //F_VN_MaxImageWithVectorExp
 //F_VN_MinImage
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_MinImage', node_F_VN_MinImage);
 //F_VN_MinImageExp
 //F_VN_MinImageWithScalar
 //F_VN_MinImageWithScalarExp
 //F_VN_MinImageWithVector
 //F_VN_MinImageWithVectorExp
-//F_VN_MultiplyImages
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_MultiplyImages', node_F_VN_MultiplyImages);
 //F_VN_MultiplyImageWithScalar
 //F_VN_MultiplyImageWithVector
 //F_VN_SubtractImageFromScalar
 //F_VN_SubtractImageFromVector
-//F_VN_SubtractImages
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_SubtractImages', node_F_VN_SubtractImages);
 //F_VN_SubtractScalarFromImage
 //F_VN_SubtractVectorFromImage
 
@@ -1391,9 +1395,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetImageInfo'
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetImageWidth', node_F_VN_GetImageWidth);
 //F_VN_GetPixel
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetPixelFormat', node_F_VN_GetPixelFormat);
-//F_VN_GetRoi
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetRoi', node_F_VN_GetRoi);
 //F_VN_MixImageChannels
-//F_VN_ResetRoi
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_ResetRoi', node_F_VN_ResetRoi);
 //F_VN_SetImageChannel
 //F_VN_SetPixel
 //F_VN_SetPixels
@@ -1724,8 +1728,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 //F_VN_HomographyExp
 //F_VN_InvertAffineTransformation
 //F_VN_PerspectiveTransformation
-//F_VN_PyramidDown
-//F_VN_PyramidUp
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_PyramidDown', node_F_VN_PyramidDown);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_PyramidUp', node_F_VN_PyramidUp);
 //F_VN_RemapImageToLogPolarSpace
 //F_VN_RemapImageToLogPolarSpaceExp
 //F_VN_RemapImageToLogPolarSpaceExp2
@@ -1773,6 +1777,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_Dete
 //F_VN_ConnectedComponentsWithStats
 //F_VN_ConnectedComponentsWithStatsExp
 //F_VN_CountNonZeroPixels
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CountNonZeroPixels', node_F_VN_CountNonZeroPixels);
 //F_VN_DistanceTransformation
 //F_VN_DistanceTransformationExp
 //F_VN_GetConnectedComponent
@@ -1805,9 +1810,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_
 //F_VN_HistogramEqualization
 //F_VN_HistogramEqualizationExp
 //F_VN_HistogramExp
-//F_VN_InvertImageColor
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_InvertImageColor', node_F_VN_InvertImageColor);
 //F_VN_InvertImageColorExp
-//F_VN_NormalizeImage
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_NormalizeImage', node_F_VN_NormalizeImage);
 //F_VN_NormalizeImageExp
 //F_VN_NormalizeImageForDisplay
 //F_VN_ReferenceColorSimilarity_ITcVnColorModel

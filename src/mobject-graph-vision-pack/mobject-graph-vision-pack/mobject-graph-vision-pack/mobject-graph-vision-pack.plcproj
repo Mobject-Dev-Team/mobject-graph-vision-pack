@@ -621,6 +621,18 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_AddImages.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_MultiplyImages.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_SubtractImages.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_MaxImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_BitwiseOrImages.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -631,6 +643,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_BitwiseXorImages.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_MinImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_DivideImages.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_DINT.TcPOU">
@@ -1071,6 +1089,9 @@
     <Compile Include="Nodes\Basic Image Operations\Node_F_VN_GetPixelFormat.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Image Operations\Node_F_VN_ResetRoi.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Image Operations\Node_F_VN_SetRoi.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1084,6 +1105,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Image Operations\Node_F_VN_GetImageInfo.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Operations\Node_F_VN_GetRoi.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Image Operations\Node_F_VN_SetRoi_TcVnRectangle_DINT.TcPOU">
@@ -1414,7 +1438,16 @@
     <Compile Include="Nodes\Drawing\Node_F_VN_PutText.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coordinate Transformations\Node_F_VN_PyramidDown.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coordinate Transformations\Node_F_VN_FlipImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coordinate Transformations\Node_F_VN_PyramidUp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_CountNonZeroPixels.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_DetectBlobs.TcPOU">
@@ -1423,10 +1456,16 @@
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ApplyColorMap.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_InvertImageColor.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ConvertColorSpace.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_GenerateColorMap.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_NormalizeImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_BoxFilter.TcPOU">
