@@ -64,11 +64,40 @@ AddOutput('hresult',hresult);]]></ST>
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    dynamicThresholding : BOOL;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
-//Check.IsTrue(ipSrcImage.IsPixelValueCompatible(fThreshold.Value), 'The value of fThreshold is not compatible with the source image pixel depth');
-//Check.IsTrue(ipSrcImage.IsPixelValueCompatible(fMaxValue.Value), 'The value of fMaxValue is not compatible with the source image pixel depth');]]></ST>
+
+CASE eThresholdType.Value OF
+    TCVN_TT_OTSU_BINARY,
+    TCVN_TT_OTSU_BINARY_INV,
+    TCVN_TT_OTSU_TRUNC,
+    TCVN_TT_OTSU_TOZERO,
+    TCVN_TT_OTSU_TOZERO_INV,
+    TCVN_TT_TRIANGLE_BINARY,
+    TCVN_TT_TRIANGLE_BINARY_INV,
+    TCVN_TT_TRIANGLE_TRUNC,
+    TCVN_TT_TRIANGLE_TOZERO,
+    TCVN_TT_TRIANGLE_TOZERO_INV :
+        dynamicThresholding := TRUE;
+END_CASE
+
+IF dynamicThresholding THEN
+    Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
+    Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+ELSE
+    Check.IsTrue((ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3)), 'ipSrcImage must have 1 channel');
+    Check.IsTrue((fThreshold.Value >= 0.0), 'fThreshold must be greater than or equal to 0');
+    Check.IsTrue((fThreshold.Value <= 255.0), 'fThreshold must be less than or equal to 255');
+END_IF
+
+Check.IsTrue((fMaxValue.Value >= 0.0), 'fMaxValue must be greater than or equal to 0');
+Check.IsTrue((fMaxValue.Value <= 255.0), 'fMaxValue must be less than or equal to 255');
+
+//TODO The max values for fThreshold and fMaxValue will not be 255 if pixel depths other than 8 nit are used.]]></ST>
       </Implementation>
     </Method>
   </POU>

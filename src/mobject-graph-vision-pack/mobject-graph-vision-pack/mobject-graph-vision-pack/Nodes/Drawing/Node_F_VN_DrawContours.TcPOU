@@ -67,9 +67,25 @@ AddParameter('nThickness', nThickness);
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    containerElements : ULINT;
+    maxIndexNumber : ULINT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipContours.IsValid, 'ipContours must be a valid container');
+Check.IsTrue((ipContours.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipContours.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_Vector_TcVnPoint2_DINT)),
+              'ipContours contains incorrect type');
+
+F_VN_GetNumberOfElements(ipContours.Value, containerElements, S_OK);
+
+Check.IsTrue((containerElements > 0), 'ipContours is empty');
+
+IF NOT Check.Failed THEN
+    maxIndexNumber := containerElements - 1;
+    Check.IsTrue((DINT_TO_ULINT(nContourIndex.Value) <= maxIndexNumber), 'nContourIndex out of range.');
+END_IF
 ]]></ST>
       </Implementation>
     </Method>

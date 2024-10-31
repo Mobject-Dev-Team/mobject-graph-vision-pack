@@ -59,6 +59,9 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipPointSet.IsValid, 'ipPointSet must be a valid container');
+Check.IsTrue((ipPointSet.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipPointSet.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL)),
+              'ipPointSet contains incorrect type');
 ]]></ST>
       </Implementation>
     </Method>

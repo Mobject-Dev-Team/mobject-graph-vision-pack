@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="Node_F_VN_AppendToContainer_TcVnVector4_INT" Id="{8015d29a-0a57-4c58-a2d8-3cbc2976c391}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
@@ -59,6 +59,7 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
+Check.IsTrue(ipContainer.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_INT), 'ipContainer contains incorrect type');
 ]]></ST>
       </Implementation>
     </Method>

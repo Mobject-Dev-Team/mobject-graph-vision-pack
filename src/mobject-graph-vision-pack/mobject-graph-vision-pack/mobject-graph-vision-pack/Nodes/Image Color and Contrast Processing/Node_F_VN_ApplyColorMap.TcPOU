@@ -59,10 +59,27 @@ AddOutput('hresult',hresult);
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    colorMapSize : ULINT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
+
 Check.IsTrue(ipColorMap.IsValid, 'ipColorMap must be a valid container');
+Check.IsTrue(ipColorMap.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_REAL), 'ipColorMap contains incorrect type');
+
+F_VN_GetNumberOfElements(ipColorMap.Value, colorMapSize, S_OK);
+
+CASE colorMapSize OF
+    256 :
+        Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+    65536 :
+        Check.IsTrue(ipSrcImage.IsPixelDepth(16), 'ipSrcImage must have 16 bit pixel depth');
+ELSE
+    Check.Fail('ipColorMp must contain 256 or 65536 elements');
+END_CASE
 ]]></ST>
       </Implementation>
     </Method>

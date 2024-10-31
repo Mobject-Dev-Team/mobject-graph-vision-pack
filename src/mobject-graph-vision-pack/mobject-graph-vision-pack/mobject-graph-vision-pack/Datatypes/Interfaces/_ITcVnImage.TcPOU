@@ -95,14 +95,25 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="IsPixelValueCompatible" Id="{4a26373c-f2a9-0d81-1cf3-d6596eb691aa}">
-      <Declaration><![CDATA[METHOD PUBLIC IsPixelValueCompatible : BOOL
+    <Method Name="IsPixelDepth" Id="{4a26373c-f2a9-0d81-1cf3-d6596eb691aa}">
+      <Declaration><![CDATA[METHOD PUBLIC IsPixelDepth : BOOL
 VAR_INPUT
-	PixelValue : LREAL;
+	PixelDepth : UINT;
+END_VAR
+VAR
+    pixelFormat : TcVnPixelFormat;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[IF NOT TryGetPixelFormat(pixelFormat) THEN
+    RETURN;
+END_IF
+
+IF NOT (pixelFormat.nElementSize = PixelDepth) THEN
+    RETURN;
+END_IF
+
+IsPixelDepth := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Property Name="IsValid" Id="{b5701dc4-a730-0ca2-3386-3c315f28f8f4}">

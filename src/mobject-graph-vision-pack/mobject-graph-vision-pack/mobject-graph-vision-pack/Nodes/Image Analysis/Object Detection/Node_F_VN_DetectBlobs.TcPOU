@@ -62,7 +62,7 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
-//TODO Check for correct pixel depth
+Check.IsTrue((ipSrcImage.IsPixelDepth(8) OR ipSrcImage.IsPixelDepth(32)), 'ipSrcImage must be 8 or 32 bit pixel depth');
 Check.IsTrue((ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3)), 'ipSrcImage must contain 1 or 3 channels');
 ]]></ST>
       </Implementation>
