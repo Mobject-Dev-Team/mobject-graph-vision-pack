@@ -122,8 +122,8 @@ CASE eTransform.Value OF
     //ETcVnColorSpaceTransform.TCVN_CST_RGBA_TO_BGR, // duplicate
     ETcVnColorSpaceTransform.TCVN_CST_BGRA_TO_RGBA,
     //ETcVnColorSpaceTransform.TCVN_CST_RGBA_TO_BGRA, // duplicate
-    //ETcVnColorSpaceTransform.TCVN_CST_BGRA_TO_GRAY0, // not defined in Tc3_Vision V4.0.3.5
-    //ETcVnColorSpaceTransform.TCVN_CST_RGBA_TO_GRAY1, // not defined in Tc3_Vision V4.0.3.5
+    ETcVnColorSpaceTransform.TCVN_CST_BGRA_TO_GRAY,
+    ETcVnColorSpaceTransform.TCVN_CST_RGBA_TO_GRAY,
     ETcVnColorSpaceTransform.TCVN_CST_RGBA_TO_BGR_565,
     ETcVnColorSpaceTransform.TCVN_CST_BGRA_TO_BGR_565,
     ETcVnColorSpaceTransform.TCVN_CST_RGBA_TO_BGR_555,
@@ -325,7 +325,7 @@ CASE eTransform.Value OF
 
         Check.Fail('eTransform value is invalid');
 ELSE
-    Check.Fail('eTransform value is invalid');
+    Check.Fail('eTransform value is unknown');
 END_CASE
 ]]></ST>
       </Implementation>
