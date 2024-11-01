@@ -410,18 +410,18 @@ VAR
     //F_VN_GradeQRCodeExp
     
     // Code Reading
-    // node_F_VN_ReadBarcode : Node_F_VN_ReadBarcode
-    // node_F_VN_ReadBarcodeExp : Node_F_VN_ReadBarcodeExp
-    // node_F_VN_ReadBarcodeExp2 : Node_F_VN_ReadBarcodeExp2
-    // node_F_VN_ReadDataMatrixCode : Node_F_VN_ReadDataMatrixCode
-    // node_F_VN_ReadDataMatrixCodeExp : Node_F_VN_ReadDataMatrixCodeExp
-    // node_F_VN_ReadDataMatrixCodeExp2 : Node_F_VN_ReadDataMatrixCodeExp2
-    // node_F_VN_ReadPharmaCode : Node_F_VN_ReadPharmaCode
-    // node_F_VN_ReadPharmaCodeExp : Node_F_VN_ReadPharmaCodeExp
-    // node_F_VN_ReadPharmaCodeExp2 : Node_F_VN_ReadPharmaCodeExp2
-    // node_F_VN_ReadQRCode : Node_F_VN_ReadQRCode
-    // node_F_VN_ReadQRCodeExp : Node_F_VN_ReadQRCodeExp
-    // node_F_VN_ReadQRCodeExp2 : Node_F_VN_ReadQRCodeExp2
+    // node_F_VN_ReadBarcode : Node_F_VN_ReadBarcode;
+    // node_F_VN_ReadBarcodeExp : Node_F_VN_ReadBarcodeExp;
+    // node_F_VN_ReadBarcodeExp2 : Node_F_VN_ReadBarcodeExp2;
+    node_F_VN_ReadDataMatrixCode : Node_F_VN_ReadDataMatrixCode;
+    // node_F_VN_ReadDataMatrixCodeExp : Node_F_VN_ReadDataMatrixCodeExp;
+    // node_F_VN_ReadDataMatrixCodeExp2 : Node_F_VN_ReadDataMatrixCodeExp2;
+    // node_F_VN_ReadPharmaCode : Node_F_VN_ReadPharmaCode;
+    // node_F_VN_ReadPharmaCodeExp : Node_F_VN_ReadPharmaCodeExp;
+    // node_F_VN_ReadPharmaCodeExp2 : Node_F_VN_ReadPharmaCodeExp2;
+    node_F_VN_ReadQRCode : Node_F_VN_ReadQRCode;
+    // node_F_VN_ReadQRCodeExp : Node_F_VN_ReadQRCodeExp;
+    // node_F_VN_ReadQRCodeExp2 : Node_F_VN_ReadQRCodeExp2;
     
     // Constants
     node_RGBA_BLACK : Node_RGBA_BLACK;
@@ -867,7 +867,7 @@ VAR
     //F_VN_FindReferenceKeyPointsInImageORB
     //F_VN_FindReferenceKeyPointsInImageORBExp
     //F_VN_GetMatchCoordinates
-    //F_VN_KeyPointsAGAST
+    node_F_VN_KeyPointsAGAST : Node_F_VN_KeyPointsAGAST;
     //F_VN_KeyPointsAGASTExp
     //F_VN_KeyPointsAndDescriptorsAKAZE
     //F_VN_KeyPointsAndDescriptorsAKAZEExp
@@ -877,13 +877,13 @@ VAR
     //F_VN_KeyPointsAndDescriptorsKAZEExp
     //F_VN_KeyPointsAndDescriptorsORB
     //F_VN_KeyPointsAndDescriptorsORBExp
-    //F_VN_KeyPointsFAST
+    node_F_VN_KeyPointsFAST : Node_F_VN_KeyPointsFAST;
     //F_VN_KeyPointsFASTExp
-    //F_VN_KeyPointsGFTT
+    node_F_VN_KeyPointsGFTT : Node_F_VN_KeyPointsGFTT;
     //F_VN_KeyPointsGFTTExp
-    //F_VN_KeyPointsMSER
+    node_F_VN_KeyPointsMSER : Node_F_VN_KeyPointsMSER;
     //F_VN_KeyPointsMSERExp
-    //F_VN_KeyPointsSB
+    node_F_VN_KeyPointsSB : Node_F_VN_KeyPointsSB;
     //F_VN_KeyPointsSBExp
     //F_VN_MatchDescriptorsBF
     //F_VN_MatchDescriptorsBFExp
@@ -1421,13 +1421,14 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi', node
 //F_VN_ReadBarcode
 //F_VN_ReadBarcodeExp
 //F_VN_ReadBarcodeExp2
-//F_VN_ReadDataMatrixCode
+NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDataMatrixCode', node_F_VN_ReadDataMatrixCode);
 //F_VN_ReadDataMatrixCodeExp
 //F_VN_ReadDataMatrixCodeExp2
 //F_VN_ReadPharmaCode
 //F_VN_ReadPharmaCodeExp
 //F_VN_ReadPharmaCodeExp2
 //F_VN_ReadQRCode
+NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadQRCode', node_F_VN_ReadQRCode);
 //F_VN_ReadQRCodeExp
 //F_VN_ReadQRCodeExp2
 
@@ -1878,7 +1879,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_Threshold', node_
 //F_VN_FindReferenceKeyPointsInImageORB
 //F_VN_FindReferenceKeyPointsInImageORBExp
 //F_VN_GetMatchCoordinates
-//F_VN_KeyPointsAGAST
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAGAST', node_F_VN_KeyPointsAGAST);
 //F_VN_KeyPointsAGASTExp
 //F_VN_KeyPointsAndDescriptorsAKAZE
 //F_VN_KeyPointsAndDescriptorsAKAZEExp
@@ -1888,13 +1889,13 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_Threshold', node_
 //F_VN_KeyPointsAndDescriptorsKAZEExp
 //F_VN_KeyPointsAndDescriptorsORB
 //F_VN_KeyPointsAndDescriptorsORBExp
-//F_VN_KeyPointsFAST
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsFAST', node_F_VN_KeyPointsFAST);
 //F_VN_KeyPointsFASTExp
-//F_VN_KeyPointsGFTT
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsGFTT', node_F_VN_KeyPointsGFTT);
 //F_VN_KeyPointsGFTTExp
-//F_VN_KeyPointsMSER
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsMSER', node_F_VN_KeyPointsMSER);
 //F_VN_KeyPointsMSERExp
-//F_VN_KeyPointsSB
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsSB', node_F_VN_KeyPointsSB);
 //F_VN_KeyPointsSBExp
 //F_VN_MatchDescriptorsBF
 //F_VN_MatchDescriptorsBFExp

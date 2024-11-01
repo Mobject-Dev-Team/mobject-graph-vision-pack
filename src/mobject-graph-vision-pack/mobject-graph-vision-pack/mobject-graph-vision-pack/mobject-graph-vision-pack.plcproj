@@ -1213,6 +1213,12 @@
       <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadQRCode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadDataMatrixCode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Constants\Node_RGBA_BLUE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1580,6 +1586,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Segmentation\Node_F_VN_Threshold.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAGAST.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsGFTT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsFAST.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsMSER.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsSB.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Measurement\Node_F_VN_LocateEdge.TcPOU">
