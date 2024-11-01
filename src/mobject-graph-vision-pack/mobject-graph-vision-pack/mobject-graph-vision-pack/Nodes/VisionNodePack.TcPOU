@@ -828,7 +828,7 @@ VAR
     //F_VN_CustomFilter
     //F_VN_CustomFilterExp
     //F_VN_DarkBorderObjects
-    //F_VN_FillHoles
+    node_F_VN_FillHoles : Node_F_VN_FillHoles;
     node_F_VN_GaussianFilter : Node_F_VN_GaussianFilter;
     //F_VN_GaussianFilterExp
     node_F_VN_LaplacianFilter : Node_F_VN_LaplacianFilter;
@@ -1839,7 +1839,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BoxFilter', node_F_V
 //F_VN_CustomFilter
 //F_VN_CustomFilterExp
 //F_VN_DarkBorderObjects
-//F_VN_FillHoles
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_FillHoles', node_F_VN_FillHoles);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_GaussianFilter', node_F_VN_GaussianFilter);
 //F_VN_GaussianFilterExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LaplacianFilter', node_F_VN_LaplacianFilter);
