@@ -593,7 +593,17 @@
     <Compile Include="Datatypes\Structs\_TcVnImageInfo.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnCodeGrades1D.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnParamsFAST.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Structs\_TcVnParamsBlobDetection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnParamsAGAST.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnRotatedRectangle.TcPOU">
@@ -1180,6 +1190,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Operations\Node_F_VN_SetAt_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Operations\Node_F_VN_ConvertElementType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Operations\Node_F_VN_ConvertElementTypeExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Image Operations\Node_F_VN_CopyImage.TcPOU">
