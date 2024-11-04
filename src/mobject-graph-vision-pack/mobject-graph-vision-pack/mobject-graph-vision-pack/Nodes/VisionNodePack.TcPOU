@@ -961,10 +961,10 @@ VAR
     //F_VN_LocateCircularArc
     //F_VN_LocateCircularArcExp
     node_F_VN_LocateEdge : Node_F_VN_LocateEdge;
-    //F_VN_LocateEdgeExp
-    //F_VN_LocateEdges
-    //F_VN_LocateEdgesExp
-    //F_VN_LocateEllipse
+    node_F_VN_LocateEdgeExp : Node_F_VN_LocateEdgeExp;
+    node_F_VN_LocateEdges : Node_F_VN_LocateEdges;
+    node_F_VN_LocateEdgesExp : Node_F_VN_LocateEdgesExp;
+    node_F_VN_LocateEllipse : Node_F_VN_LocateEllipse;
     //F_VN_LocateEllipseExp
     //F_VN_MeasureAngleBetweenEdges
     //F_VN_MeasureAngleBetweenEdgesExp
@@ -1973,10 +1973,10 @@ NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsSB', node
 //F_VN_LocateCircularArc
 //F_VN_LocateCircularArcExp
 NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_LocateEdge', node_F_VN_LocateEdge);
-//F_VN_LocateEdgeExp
-//F_VN_LocateEdges
-//F_VN_LocateEdgesExp
-//F_VN_LocateEllipse
+NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_LocateEdgeExp', node_F_VN_LocateEdgeExp);
+NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_LocateEdges', node_F_VN_LocateEdges);
+NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_LocateEdgesExp', node_F_VN_LocateEdgesExp);
+NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_LocateEllipse', node_F_VN_LocateEllipse);
 //F_VN_LocateEllipseExp
 //F_VN_MeasureAngleBetweenEdges
 //F_VN_MeasureAngleBetweenEdgesExp

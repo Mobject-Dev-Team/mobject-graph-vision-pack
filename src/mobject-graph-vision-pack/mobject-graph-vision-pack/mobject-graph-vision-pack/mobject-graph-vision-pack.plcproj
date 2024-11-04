@@ -1606,6 +1606,18 @@
     <Compile Include="Nodes\Measurement\Node_F_VN_LocateEdge.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_LocateEdges.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_LocateEdgeExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_LocateEdgesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_LocateEllipse.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\VisionNodePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
