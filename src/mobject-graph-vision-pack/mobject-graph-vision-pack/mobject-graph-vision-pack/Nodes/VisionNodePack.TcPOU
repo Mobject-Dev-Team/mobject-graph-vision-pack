@@ -823,18 +823,18 @@ VAR
     //F_VN_BilateralFilterExp
     node_F_VN_BoxFilter : Node_F_VN_BoxFilter;
     //F_VN_BoxFilterExp
-    //F_VN_BrightBorderObjects
+    node_F_VN_BrightBorderObjects : Node_F_VN_BrightBorderObjects;
     //F_VN_CreateStructuringElement
     //F_VN_CustomFilter
     //F_VN_CustomFilterExp
-    //F_VN_DarkBorderObjects
+    node_F_VN_DarkBorderObjects : Node_F_VN_DarkBorderObjects;
     node_F_VN_FillHoles : Node_F_VN_FillHoles;
     node_F_VN_GaussianFilter : Node_F_VN_GaussianFilter;
     //F_VN_GaussianFilterExp
     node_F_VN_LaplacianFilter : Node_F_VN_LaplacianFilter;
     //F_VN_LaplacianFilterExp
-    //F_VN_LocalMaxima
-    //F_VN_LocalMinima
+    node_F_VN_LocalMaxima : Node_F_VN_LocalMaxima;
+    node_F_VN_LocalMinima : Node_F_VN_LocalMinima;
     //F_VN_MedianFilter
     //F_VN_MorphologicalOperator
     //F_VN_RemoveLocalMaxima
@@ -1835,18 +1835,18 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_
 //F_VN_BilateralFilterExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BoxFilter', node_F_VN_BoxFilter);
 //F_VN_BoxFilterExp
-//F_VN_BrightBorderObjects
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BrightBorderObjects', node_F_VN_BrightBorderObjects);
 //F_VN_CreateStructuringElement
 //F_VN_CustomFilter
 //F_VN_CustomFilterExp
-//F_VN_DarkBorderObjects
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_DarkBorderObjects', node_F_VN_DarkBorderObjects);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_FillHoles', node_F_VN_FillHoles);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_GaussianFilter', node_F_VN_GaussianFilter);
 //F_VN_GaussianFilterExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LaplacianFilter', node_F_VN_LaplacianFilter);
 //F_VN_LaplacianFilterExp
-//F_VN_LocalMaxima
-//F_VN_LocalMinima
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LocalMaxima', node_F_VN_LocalMaxima);
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LocalMinima', node_F_VN_LocalMinima);
 //F_VN_MedianFilter
 //F_VN_MorphologicalOperator
 //F_VN_RemoveLocalMaxima

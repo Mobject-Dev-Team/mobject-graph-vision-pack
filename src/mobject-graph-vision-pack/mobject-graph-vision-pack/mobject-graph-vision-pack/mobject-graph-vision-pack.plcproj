@@ -1802,16 +1802,28 @@
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_NormalizeImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_LocalMaxima.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_DarkBorderObjects.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_FillHoles.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_BoxFilter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_BrightBorderObjects.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_GaussianFilter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_LaplacianFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_LocalMinima.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Segmentation\Node_F_VN_Threshold.TcPOU">
