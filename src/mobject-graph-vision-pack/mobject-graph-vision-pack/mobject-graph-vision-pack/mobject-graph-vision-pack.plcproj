@@ -367,6 +367,10 @@
     <Compile Include="Datatypes\Enums\_ETcVnBorderInterpolationMethod.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnBoostClassifierType.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnCalibrationPattern.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -495,6 +499,10 @@
       <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnTimestamp.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnOcrOptions.TcPOU">
       <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>
@@ -597,6 +605,12 @@
       <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnParamsSB.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnParamsBRISK.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Structs\_TcVnParamsFAST.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -604,6 +618,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnParamsAGAST.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnCameraCalibrationOptions.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnParamsGFTT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnRotatedRectangle.TcPOU">

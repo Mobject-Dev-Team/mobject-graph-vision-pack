@@ -127,8 +127,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="FB_init" Id="{c37e145f-c6aa-45c1-859c-1db32d76bce7}"
-      FolderPath="Customize\Constructor\">
+    <Method Name="FB_init" Id="{c37e145f-c6aa-45c1-859c-1db32d76bce7}" FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -159,8 +158,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="MakeReferenceTo" Id="{c9adf6f9-cdf4-4384-b1c7-b4dec207f404}"
-      FolderPath="Customize\">
+    <Method Name="MakeReferenceTo" Id="{c9adf6f9-cdf4-4384-b1c7-b4dec207f404}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO TcVnPixelFormat;
@@ -204,11 +202,10 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="SetMemberReference" Id="{430d1822-454e-402f-ae0c-ba58d6022bcd}"
-      FolderPath="Customize\Protected\">
+    <Method Name="SetMemberReference" Id="{430d1822-454e-402f-ae0c-ba58d6022bcd}" FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
 VAR_STAT
-	// this variable is used for BITADR as this function failes if used on a local variable.
+	// this variable is used for BITADR as this function fails if used on a local variable.
 	structure : TcVnPixelFormat;
 END_VAR]]></Declaration>
       <Implementation>
@@ -220,7 +217,8 @@ _nChannels.MakeReferenceTo(activeData.nChannels);
 _ePixelEncoding.MakeReferenceTo(activeData.ePixelEncoding);
 _ePixelPackMode.MakeReferenceTo(activeData.ePixelPackMode);
 _nElementSize.MakeReferenceTo(activeData.nElementSize);
-_nTotalSize.MakeReferenceTo(activeData.nTotalSize);]]></ST>
+_nTotalSize.MakeReferenceTo(activeData.nTotalSize);
+]]></ST>
       </Implementation>
     </Method>
     <Property Name="Size" Id="{2cc531c1-3b20-4e3a-9d2c-e59359a8cff7}" FolderPath="Core\">
@@ -234,8 +232,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{420e9016-12d0-4093-88b0-89055f150220}"
-      FolderPath="Customize\">
+    <Method Name="TryMakeReferenceTo" Id="{420e9016-12d0-4093-88b0-89055f150220}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;

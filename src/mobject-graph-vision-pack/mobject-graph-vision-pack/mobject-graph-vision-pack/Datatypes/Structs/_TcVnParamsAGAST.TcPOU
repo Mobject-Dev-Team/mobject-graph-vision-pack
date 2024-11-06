@@ -126,10 +126,9 @@ END_VAR
     </Property>
     <Method Name="SetMemberReference" Id="{2d2f86b4-6aa3-0124-141b-7ef989b13878}" FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
-VAR_STAT
-	// this variable is used for BITADR as this function failes if used on a local variable.
-	structure : TcVnPixelFormat;
-END_VAR]]></Declaration>
+VAR_INPUT
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_nThreshold.MakeReferenceTo(activeData.nThreshold);
 _bNonMaxSuppression.MakeReferenceTo(activeData.bNonMaxSuppression);
