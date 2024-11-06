@@ -753,6 +753,18 @@
     <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_AddImages.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_ElementwiseExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_ElementwiseLog.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_MultiplyImageWithScalar.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_SubtractScalarFromImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_MultiplyImages.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -778,6 +790,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_DivideImages.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_SubtractImageFromScalar.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Operations\Node_F_VN_AddScalarToImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Operations\Node_F_VN_AppendToContainer_DINT.TcPOU">

@@ -61,7 +61,7 @@ VAR
     node_F_VN_AddImages : Node_F_VN_AddImages;
     //F_VN_AddImagesWeighted
     //F_VN_AddImagesWeightedExp
-    //F_VN_AddScalarToImage
+    node_F_VN_AddScalarToImage : Node_F_VN_AddScalarToImage;
     //F_VN_AddVectorToImage
     node_F_VN_BitwiseAndImages : Node_F_VN_BitwiseAndImages;
     //F_VN_BitwiseAndImagesExp
@@ -84,8 +84,8 @@ VAR
     node_F_VN_DivideImages : Node_F_VN_DivideImages;
     //F_VN_DivideScalarByImage
     //F_VN_DivideVectorByImage
-    //F_VN_ElementwiseExp
-    //F_VN_ElementwiseLog
+    node_F_VN_ElementwiseExp : Node_F_VN_ElementwiseExp;
+    node_F_VN_ElementwiseLog : Node_F_VN_ElementwiseLog;
     node_F_VN_MaxImage : Node_F_VN_MaxImage;
     //F_VN_MaxImageExp
     //F_VN_MaxImageWithScalar
@@ -100,12 +100,12 @@ VAR
     //F_VN_MinImageWithVector
     //F_VN_MinImageWithVectorExp
     node_F_VN_MultiplyImages : Node_F_VN_MultiplyImages;
-    //F_VN_MultiplyImageWithScalar
+    node_F_VN_MultiplyImageWithScalar : Node_F_VN_MultiplyImageWithScalar;
     //F_VN_MultiplyImageWithVector
-    //F_VN_SubtractImageFromScalar
+    node_F_VN_SubtractImageFromScalar : Node_F_VN_SubtractImageFromScalar;
     //F_VN_SubtractImageFromVector
     node_F_VN_SubtractImages : Node_F_VN_SubtractImages;
-    //F_VN_SubtractScalarFromImage
+    node_F_VN_SubtractScalarFromImage : Node_F_VN_SubtractScalarFromImage;
     //F_VN_SubtractVectorFromImage
         
     // Basic Container Operations
@@ -1069,7 +1069,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_AddTo
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_AddImages', node_F_VN_AddImages);
 //F_VN_AddImagesWeighted
 //F_VN_AddImagesWeightedExp
-//F_VN_AddScalarToImage
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_AddScalarToImage', node_F_VN_AddScalarToImage);
 //F_VN_AddVectorToImage
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_BitwiseAndImages', node_F_VN_BitwiseAndImages);
 //F_VN_BitwiseAndImagesExp
@@ -1092,8 +1092,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_BitwiseXo
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_DivideImages', node_F_VN_DivideImages);
 //F_VN_DivideScalarByImage
 //F_VN_DivideVectorByImage
-//F_VN_ElementwiseExp
-//F_VN_ElementwiseLog
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_ElementwiseExp', node_F_VN_ElementwiseExp);
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_ElementwiseLog', node_F_VN_ElementwiseLog);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_MaxImage', node_F_VN_MaxImage);
 //F_VN_MaxImageExp
 //F_VN_MaxImageWithScalar
@@ -1108,12 +1108,12 @@ NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_MinImage'
 //F_VN_MinImageWithVector
 //F_VN_MinImageWithVectorExp
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_MultiplyImages', node_F_VN_MultiplyImages);
-//F_VN_MultiplyImageWithScalar
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_MultiplyImageWithScalar', node_F_VN_MultiplyImageWithScalar);
 //F_VN_MultiplyImageWithVector
-//F_VN_SubtractImageFromScalar
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_SubtractImageFromScalar', node_F_VN_SubtractImageFromScalar);
 //F_VN_SubtractImageFromVector
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_SubtractImages', node_F_VN_SubtractImages);
-//F_VN_SubtractScalarFromImage
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_SubtractScalarFromImage', node_F_VN_SubtractScalarFromImage);
 //F_VN_SubtractVectorFromImage
 
 // Basic Container Operations
