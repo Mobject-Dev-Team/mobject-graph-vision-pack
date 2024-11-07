@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_TcVnParamsORB" Id="{3f1f05b1-a670-0343-34d0-7eee142bd40e}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _TcVnParamsORB EXTENDS StructuredDatatypeBase
+VAR
+	localData : TcVnParamsORB;
+	activeData : REFERENCE TO TcVnParamsORB REF= localData;
+    _nMaxPoints : _UDINT(localData.nMaxPoints);
+    _fPyramidScale : _REAL(localData.fPyramidScale);
+    _nPyramidLevels : _UDINT(localData.nPyramidLevels);
+    _nEdgeThreshold : _UDINT(localData.nEdgeThreshold);
+    _nFirstLevel : _UDINT(localData.nFirstLevel);
+    _nBriefPoints : _UDINT(localData.nBriefPoints);
+    _eScoreType : _ETcVnFeatureScoreTypeORB(localData.eScoreType);
+    _nPatchSize : _UDINT(localData.nPatchSize);
+    _nFastThreshold : _DINT(localData.nFastThreshold);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{b83994e6-4b57-05b8-2b1a-9d067d863827}" />
+    <Folder Name="Customize" Id="{5f085016-8762-0ec1-36f3-88f313c31a25}">
+      <Folder Name="Constructor" Id="{4168d4ea-6583-0290-3f48-3c8dac2dd94c}" />
+      <Folder Name="Protected" Id="{0460a8d1-bb7b-05ea-22cd-fad64fe31469}" />
+    </Folder>
+    <Property Name="Address" Id="{736f0df8-d9aa-020e-138d-99b617dff448}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{541c2e96-87c2-09a2-2602-30609aab9a41}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{d5d7ca4d-4d31-07eb-03e3-4d8d2b30a345}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{c7a78bf6-d26a-05ee-0942-a2a31dc7a3b9}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _TcVnParamsORB;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_TcVnParamsORB());
+pClone^.Value := Value;
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="eScoreType" Id="{47d8684e-e1de-0240-1174-b79662216edc}">
+      <Declaration><![CDATA[PROPERTY PUBLIC eScoreType : REFERENCE TO _ETcVnFeatureScoreTypeORB]]></Declaration>
+      <Get Name="Get" Id="{b9cccec1-c4ac-063d-382e-22ecae354a8d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[eScoreType REF= _eScoreType;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_init" Id="{ef9851e3-0185-0f2b-2adc-23b5f8a96a18}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetMemberReference();
+AddMember('nMaxPoints', _nMaxPoints);
+AddMember('fPyramidScale', _fPyramidScale);
+AddMember('nPyramidLevels', _nPyramidLevels);
+AddMember('nEdgeThreshold', _nEdgeThreshold);
+AddMember('nFirstLevel', _nFirstLevel);
+AddMember('nBriefPoints', _nBriefPoints);
+AddMember('eScoreType', _eScoreType);
+AddMember('nPatchSize', _nPatchSize);
+AddMember('nFastThreshold', _nFastThreshold);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="fPyramidScale" Id="{64b04909-f94a-05cb-01e5-1536eda22acf}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fPyramidScale : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{29add4ba-bc64-01e7-2cec-749467d454dd}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fPyramidScale REF= _fPyramidScale;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Identifier" Id="{beac6d1c-4cbf-0913-2128-bd801f0a1195}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{0b0096bc-0e6a-04bb-38ac-2b026660862a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'TcVnParamsORB';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{3774210b-a9c0-0b92-36a0-810d5ae0dd27}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO TcVnParamsORB;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nBriefPoints" Id="{9fce51f4-0d1b-0a2c-1974-6ae6c75f0c4d}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nBriefPoints : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{66bd77ea-e916-0d7c-3f1b-3badbe565220}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nBriefPoints REF= _nBriefPoints;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nEdgeThreshold" Id="{180aeb2d-e1bc-02c9-0649-eee76933986f}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nEdgeThreshold : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{3981e594-be36-09a4-3ae6-a6c50fe0bcc6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nEdgeThreshold REF= _nEdgeThreshold;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nFastThreshold" Id="{43b4f05a-14df-096f-0a87-771980402eb4}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nFastThreshold : REFERENCE TO _DINT]]></Declaration>
+      <Get Name="Get" Id="{5be9915b-c590-005f-04e8-261fa6385217}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nFastThreshold REF= _nFastThreshold;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nFirstLevel" Id="{790a2c9c-b450-0a31-3d05-115f94c2295a}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nFirstLevel : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{f181826e-552c-0d39-1883-8b0cf8f3f1c4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nFirstLevel REF= _nFirstLevel;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nMaxPoints" Id="{489bfc99-e475-0d6c-288f-599cda977b16}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nMaxPoints : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{a2d1d6c0-6828-0e5a-1668-2e3aa3404ff9}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nMaxPoints REF= _nMaxPoints;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nPatchSize" Id="{01ea88d3-10fd-0439-2d72-7576d052b322}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nPatchSize : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{09349bd3-d1c2-0941-0eba-4e3cf91a4ad7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nPatchSize REF= _nPatchSize;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nPyramidLevels" Id="{a4067db9-645c-0112-109b-603259144d3f}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nPyramidLevels : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{c1a6888f-cf51-0153-16a7-309c54ab8ee4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nPyramidLevels REF= _nPyramidLevels;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetMemberReference" Id="{34805227-50c2-0d62-06ce-e1be62918d81}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_nMaxPoints.MakeReferenceTo(activeData.nMaxPoints);
+_fPyramidScale.MakeReferenceTo(activeData.fPyramidScale);
+_nPyramidLevels.MakeReferenceTo(activeData.nPyramidLevels);
+_nEdgeThreshold.MakeReferenceTo(activeData.nEdgeThreshold);
+_nFirstLevel.MakeReferenceTo(activeData.nFirstLevel);
+_nBriefPoints.MakeReferenceTo(activeData.nBriefPoints);
+_eScoreType.MakeReferenceTo(activeData.eScoreType);
+_nPatchSize.MakeReferenceTo(activeData.nPatchSize);
+_nFastThreshold.MakeReferenceTo(activeData.nFastThreshold);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{441ef6a5-8f8c-0e9e-23b5-b2382817bc84}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{fe63901f-c157-0768-30f5-8faf7072dbbb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{c9c6a527-18d4-03f6-2d1b-f63939b4a479}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO TcVnParamsORB;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetMemberReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{027f4969-3224-0d16-391e-a703c1976976}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnParamsORB]]></Declaration>
+      <Get Name="Get" Id="{d24bcab6-5a77-0e19-0d10-b3fb198a1482}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_TcVnParamsKAZE" Id="{1089b0e5-6e90-0d57-05f9-827cd041328a}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _TcVnParamsKAZE EXTENDS StructuredDatatypeBase
+VAR
+	localData : TcVnParamsKAZE;
+	activeData : REFERENCE TO TcVnParamsKAZE REF= localData;
+    _bExtended     : _BOOL(localdata.bExtended);
+    _bUpright      : _BOOL(localdata.bUpright);
+    _fThreshold    : _REAL(localdata.fThreshold);
+    _nOctaves      : _UDINT(localdata.nOctaves);
+    _nOctaveLayers : _UDINT(localdata.nOctaveLayers);
+    _eDiffusivity  : _ETcVnDiffusivityTypeKAZE(localdata.eDiffusivity);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{dbc8acb4-4db7-008f-060e-74332a172dd1}" />
+    <Folder Name="Customize" Id="{270c0b63-d7f4-0479-29af-baec9ead84fe}">
+      <Folder Name="Constructor" Id="{6b3d1f82-27df-0405-167a-135e57fa40e0}" />
+      <Folder Name="Protected" Id="{5723b9bf-e367-0aeb-3f54-4135c2e8f14b}" />
+    </Folder>
+    <Property Name="Address" Id="{a5418e27-5a6f-0740-02a2-3989c436e92d}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{f83852e7-12dc-04e5-36ec-bb3e995e6580}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="bExtended" Id="{cf28a7e7-158b-0503-2c25-d58ff2c1f3bf}">
+      <Declaration><![CDATA[PROPERTY PUBLIC bExtended : REFERENCE TO _BOOL]]></Declaration>
+      <Get Name="Get" Id="{5cfca72c-2b12-0449-33c1-fa5674218b49}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bExtended REF= _bExtended;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="bUpright" Id="{69bde511-4763-05a2-0560-086b5366625c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC bUpright : REFERENCE TO _BOOL]]></Declaration>
+      <Get Name="Get" Id="{f4ae5ab3-ee73-0550-0cfc-f57d716aa0d2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bUpright REF= _bUpright;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{0abc11f2-00ac-0200-2a67-71105a654838}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{bbd263c6-2d33-03e5-1ad2-ae1cfa04747f}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _TcVnParamsKAZE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_TcVnParamsKAZE());
+pClone^.Value := Value;
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="eDiffusivity" Id="{e69d658b-387b-0347-15ee-8ca8219368ef}">
+      <Declaration><![CDATA[PROPERTY PUBLIC eDiffusivity : REFERENCE TO _ETcVnDiffusivityTypeKAZE]]></Declaration>
+      <Get Name="Get" Id="{3c9d96ea-08f6-0407-242f-bde505323e0c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[eDiffusivity REF= _eDiffusivity;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_init" Id="{075fa414-2fe7-0e1f-29d9-67cf1c03c796}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetMemberReference();
+AddMember('bExtended', _bExtended);
+AddMember('bUpright', _bUpright);
+AddMember('fThreshold', _fThreshold);
+AddMember('nOctaves', _nOctaves);
+AddMember('nOctaveLayers', _nOctaveLayers);
+AddMember('eDiffusivity', _eDiffusivity);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="fThreshold" Id="{338733ac-0fba-059f-2bc0-8093fa929b37}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fThreshold : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{10dd2f1f-ec6b-0f9d-1612-a79de9118aa1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fThreshold REF= _fThreshold;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Identifier" Id="{5a9ad19e-d913-074f-0a19-ee307e846a87}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{bf7febe8-9bae-0295-2bb2-5705410208e7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'TcVnParamsKAZE';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{8a7b3470-84e6-05c9-370d-71a165780947}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO TcVnParamsKAZE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nOctaveLayers" Id="{5f182217-930d-0f83-3b91-bf75e380dd64}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nOctaveLayers : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{26fc345b-9758-0f4f-1448-5d7d9bf418af}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nOctaveLayers REF= _nOctaveLayers;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nOctaves" Id="{7e8396e2-9414-0ed8-0547-e38cdfc1814c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nOctaves : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{cc0350ac-58ad-0698-1cab-89151c04d4bc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nOctaves REF= _nOctaves;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetMemberReference" Id="{5c019f7c-0134-0dda-204c-0ec2902443d2}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_bExtended.MakeReferenceTo(activeData.bExtended);
+_bUpright.MakeReferenceTo(activeData.bUpright);
+_fThreshold.MakeReferenceTo(activeData.fThreshold);
+_nOctaves.MakeReferenceTo(activeData.nOctaves);
+_nOctaveLayers.MakeReferenceTo(activeData.nOctaveLayers);
+_eDiffusivity.MakeReferenceTo(activeData.eDiffusivity);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{22a77cfb-03e4-0857-226f-54c303c6db2c}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{a6245898-6dbc-0c7d-13fa-73008173f033}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{27f681ad-d569-08e7-12e7-c910c5dfc63e}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO TcVnParamsKAZE;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetMemberReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{ee6367fe-2e44-0ed0-020c-d9afcba7eb36}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnParamsKAZE]]></Declaration>
+      <Get Name="Get" Id="{47f8f709-8410-0dfd-37c6-e07e7de5c75a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

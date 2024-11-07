@@ -159,6 +159,10 @@
     <Compile Include="Datatypes\Aliases\_GVCP_REGISTER_ADDRESS.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnMatrix2x3_LREAL.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnArray4_Point2_REAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -180,6 +184,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnArray8_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnMatrix3x3_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnPoint.TcPOU">
@@ -604,6 +611,18 @@
     <Compile Include="Datatypes\Structs\_TcVnCodeGrades1D.TcPOU">
       <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnParamsMSER.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnParamsKAZE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnParamsAKAZE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnParamsORB.TcPOU">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnParamsSB.TcPOU">
       <SubType>Code</SubType>
