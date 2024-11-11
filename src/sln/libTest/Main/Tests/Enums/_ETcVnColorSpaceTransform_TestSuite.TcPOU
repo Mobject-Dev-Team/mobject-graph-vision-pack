@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="_ETcVnColorSpaceTransform_TestSuite" Id="{7dfe0615-ca9a-0a3a-3dd5-50181f1a725c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK _ETcVnColorSpaceTransform_TestSuite EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TestAddress();
+TestClearReference();
+TestClone();
+TestTypeNameReturnsExpected();
+TestIdentifierReturnsExpected();
+TestMakeReferenceToFollowsReference();
+TestMakeReferenceToUpdatesReference();
+TestSize();
+TestValueReturnsExpectedAfterInit();
+TestValueReturnsExpectedAfterChange();
+TestSerializeTypeWith();
+TestSerializeWith();
+TestTryDeserializeFrom();
+TestTryMakeReferenceToFollowsReference();
+TestTryMakeReferenceToUpdatesReference();
+]]></ST>
+    </Implementation>
+    <Method Name="TestAddress" Id="{bcb25f99-b357-0836-1dbe-84613036b1aa}">
+      <Declaration><![CDATA[METHOD PUBLIC TestAddress
+VAR
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+    notExpected : PVOID := 0;
+    actual : PVOID;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestAddress');
+
+actual := _type.Address;
+
+AssertFalse(
+    Condition := (notExpected = actual),
+    Message := 'Type did not return a valid address.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestClearReference" Id="{1e8a8851-e413-0209-3795-f24c5fa17cb2}">
+      <Declaration><![CDATA[METHOD PUBLIC TestClearReference
+VAR
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+	target : ETcVnColorSpaceTransform := ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA;
+    expected : ETcVnColorSpaceTransform := ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA;
+    actual : ETcVnColorSpaceTransform;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestClearReference');
+
+_type.MakeReferenceTo(target);
+_type.ClearReference();
+target := ETcVnColorSpaceTransform.TCVN_CST_MAX;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value continued to follow target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestClone" Id="{382319b8-b2a6-0bac-0185-75694119d9fa}">
+      <Declaration><![CDATA[METHOD PUBLIC TestClone
+VAR
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+	clone : I_Datatype;
+	isValidClone : BOOL;
+	compareResult : DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestClone');
+
+clone := _type.Clone();
+
+isValidClone := clone <> 0;
+
+IF isValidClone THEN
+	compareResult := memcmp(_type.Address, clone.Address, clone.Size);
+END_IF
+
+AssertTrue(
+	Condition := isValidClone,
+	Message := 'Clone did not produce a clone'
+);
+
+AssertEquals_DINT(
+	Expected := 0,
+    Actual := compareResult,
+    Message := 'Clone did not return a valid clone.'
+);
+
+clone.Dispose();
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestIdentifierReturnsExpected" Id="{5a69e26d-b7f1-0591-36a9-e59cf2418bf4}">
+      <Declaration><![CDATA[METHOD PUBLIC TestIdentifierReturnsExpected
+VAR
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+    expected : STRING := 'ETcVnColorSpaceTransform';
+    actual : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestIdentifierReturnsExpected');
+
+actual := _type.Identifier;
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not return correct iec type.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMakeReferenceToFollowsReference" Id="{894dac31-6f93-04ad-1f4a-b958b3eed6f4}">
+      <Declaration><![CDATA[METHOD PUBLIC TestMakeReferenceToFollowsReference
+VAR
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+	target : ETcVnColorSpaceTransform := ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA;
+    expected : ETcVnColorSpaceTransform := ETcVnColorSpaceTransform.TCVN_CST_MAX;
+    actual : ETcVnColorSpaceTransform;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestMakeReferenceToFollowsReference');
+
+_type.MakeReferenceTo(target);
+target := ETcVnColorSpaceTransform.TCVN_CST_MAX;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not follow target change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMakeReferenceToUpdatesReference" Id="{1912577a-703b-0b07-3e29-98a5411de937}">
+      <Declaration><![CDATA[METHOD PUBLIC TestMakeReferenceToUpdatesReference
+VAR
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+	target : ETcVnColorSpaceTransform := ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA;
+    expected : ETcVnColorSpaceTransform := ETcVnColorSpaceTransform.TCVN_CST_MAX;
+    actual : ETcVnColorSpaceTransform;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestMakeReferenceToUpdatesReference');
+
+_type.MakeReferenceTo(target);
+_type.Value := ETcVnColorSpaceTransform.TCVN_CST_MAX;
+
+actual := target;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not update target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeTypeWith" Id="{c90c1a96-79e5-0bb8-11e7-e4ae1e52cba6}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeTypeWith
+VAR
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+    serializer : JsonSerializer;
+    expected : STRING(6000) := '{"typeName":"ENUM","identifier":"ETcVnColorSpaceTransform","enumerations":["TCVN_CST_BGR_TO_BGRA","TCVN_CST_RGB_TO_RGBA","TCVN_CST_BGRA_TO_BGR","TCVN_CST_RGBA_TO_RGB","TCVN_CST_BGR_TO_RGBA","TCVN_CST_RGB_TO_BGRA","TCVN_CST_BGRA_TO_RGB","TCVN_CST_RGBA_TO_BGR","TCVN_CST_BGR_TO_RGB","TCVN_CST_RGB_TO_BGR","TCVN_CST_BGRA_TO_RGBA","TCVN_CST_RGBA_TO_BGRA","TCVN_CST_BGR_TO_GRAY","TCVN_CST_RGB_TO_GRAY","TCVN_CST_GRAY_TO_BGR","TCVN_CST_GRAY_TO_RGB","TCVN_CST_GRAY_TO_BGRA","TCVN_CST_GRAY_TO_RGBA","TCVN_CST_BGRA_TO_GRAY","TCVN_CST_RGBA_TO_GRAY","TCVN_CST_RGB_TO_BGR_565","TCVN_CST_BGR_TO_BGR_565","TCVN_CST_BGR_565_TO_RGB","TCVN_CST_BGR_565_TO_BGR","TCVN_CST_RGBA_TO_BGR_565","TCVN_CST_BGRA_TO_BGR_565","TCVN_CST_BGR_565_TO_RGBA","TCVN_CST_BGR_565_TO_BGRA","TCVN_CST_GRAY_TO_BGR_565","TCVN_CST_BGR_565_TO_GRAY","TCVN_CST_RGB_TO_BGR_555","TCVN_CST_BGR_TO_BGR_555","TCVN_CST_BGR_555_TO_RGB","TCVN_CST_BGR_555_TO_BGR","TCVN_CST_RGBA_TO_BGR_555","TCVN_CST_BGRA_TO_BGR_555","TCVN_CST_BGR_555_TO_RGBA","TCVN_CST_BGR_555_TO_BGRA","TCVN_CST_GRAY_TO_BGR_555","TCVN_CST_BGR_555_TO_GRAY","TCVN_CST_BGR_TO_XYZ","TCVN_CST_RGB_TO_XYZ","TCVN_CST_XYZ_TO_BGR","TCVN_CST_XYZ_TO_RGB","TCVN_CST_BGR_TO_YCRCB","TCVN_CST_RGB_TO_YCRCB","TCVN_CST_YCRCB_TO_BGR","TCVN_CST_YCRCB_TO_RGB","TCVN_CST_BGR_TO_HSV","TCVN_CST_RGB_TO_HSV","TCVN_CST_BGR_TO_LAB","TCVN_CST_RGB_TO_LAB","TCVN_CST_BAYER_RG_TO_BGR","TCVN_CST_BAYER_BG_TO_RGB","TCVN_CST_BAYER_GR_TO_BGR","TCVN_CST_BAYER_GB_TO_RGB","TCVN_CST_BAYER_BG_TO_BGR","TCVN_CST_BAYER_RG_TO_RGB","TCVN_CST_BAYER_GB_TO_BGR","TCVN_CST_BAYER_GR_TO_RGB","TCVN_CST_BGR_TO_LUV","TCVN_CST_RGB_TO_LUV","TCVN_CST_BGR_TO_HLS","TCVN_CST_RGB_TO_HLS","TCVN_CST_HSV_TO_BGR","TCVN_CST_HSV_TO_RGB","TCVN_CST_LAB_TO_BGR","TCVN_CST_LAB_TO_RGB","TCVN_CST_LUV_TO_BGR","TCVN_CST_LUV_TO_RGB","TCVN_CST_HLS_TO_BGR","TCVN_CST_HLS_TO_RGB","TCVN_CST_BAYER_RG_TO_BGR_VNG","TCVN_CST_BAYER_GR_TO_BGR_VNG","TCVN_CST_BAYER_BG_TO_BGR_VNG","TCVN_CST_BAYER_GB_TO_BGR_VNG","TCVN_CST_BAYER_RG_TO_RGB_VNG","TCVN_CST_BAYER_GR_TO_RGB_VNG","TCVN_CST_BAYER_BG_TO_RGB_VNG","TCVN_CST_BAYER_GB_TO_RGB_VNG","TCVN_CST_BGR_TO_HSV_FULL","TCVN_CST_RGB_TO_HSV_FULL","TCVN_CST_BGR_TO_HLS_FULL","TCVN_CST_RGB_TO_HLS_FULL","TCVN_CST_HSV_TO_BGR_FULL","TCVN_CST_HSV_TO_RGB_FULL","TCVN_CST_HLS_TO_BGR_FULL","TCVN_CST_HLS_TO_RGB_FULL","TCVN_CST_LBGR_TO_LAB","TCVN_CST_LRGB_TO_LAB","TCVN_CST_LBGR_TO_LUV","TCVN_CST_LRGB_TO_LUV","TCVN_CST_LAB_TO_LBGR","TCVN_CST_LAB_TO_LRGB","TCVN_CST_LUV_TO_LBGR","TCVN_CST_LUV_TO_LRGB","TCVN_CST_BGR_TO_YUV","TCVN_CST_RGB_TO_YUV","TCVN_CST_YUV_TO_BGR","TCVN_CST_YUV_TO_RGB","TCVN_CST_BAYER_RG_TO_GRAY","TCVN_CST_BAYER_GR_TO_GRAY","TCVN_CST_BAYER_BG_TO_GRAY","TCVN_CST_BAYER_GB_TO_GRAY","TCVN_CST_YUV_420_NV12_TO_RGB","TCVN_CST_YUV_420_NV12_TO_BGR","TCVN_CST_YUV_420_NV21_TO_RGB","TCVN_CST_YUV_420_NV21_TO_BGR","TCVN_CST_YUV_420_SP_TO_RGB","TCVN_CST_YUV_420_SP_TO_BGR","TCVN_CST_YUV_420_NV12_TO_RGBA","TCVN_CST_YUV_420_NV12_TO_BGRA","TCVN_CST_YUV_420_NV21_TO_RGBA","TCVN_CST_YUV_420_NV21_TO_BGRA","TCVN_CST_YUV_420_SP_TO_RGBA","TCVN_CST_YUV_420_SP_TO_BGRA","TCVN_CST_YUV_420_YV12_TO_RGB","TCVN_CST_YUV_420_YV12_TO_BGR","TCVN_CST_YUV_420_IYUV_TO_RGB","TCVN_CST_YUV_420_IYUV_TO_BGR","TCVN_CST_YUV_420_I420_TO_RGB","TCVN_CST_YUV_420_I420_TO_BGR","TCVN_CST_YUV_420_P_TO_RGB","TCVN_CST_YUV_420_P_TO_BGR","TCVN_CST_YUV_420_YV12_TO_RGBA","TCVN_CST_YUV_420_YV12_TO_BGRA","TCVN_CST_YUV_420_IYUV_TO_RGBA","TCVN_CST_YUV_420_IYUV_TO_BGRA","TCVN_CST_YUV_420_I420_TO_RGBA","TCVN_CST_YUV_420_I420_TO_BGRA","TCVN_CST_YUV_420_P_TO_RGBA","TCVN_CST_YUV_420_P_TO_BGRA","TCVN_CST_YUV_420_TO_GRAY","TCVN_CST_YUV_420_NV21_TO_GRAY","TCVN_CST_YUV_420_NV12_TO_GRAY","TCVN_CST_YUV_420_YV12_TO_GRAY","TCVN_CST_YUV_420_IYUV_TO_GRAY","TCVN_CST_YUV_420_I420_TO_GRAY","TCVN_CST_YUV_420_SP_TO_GRAY","TCVN_CST_YUV_420_P_TO_GRAY","TCVN_CST_YUV_422_UYVY_TO_RGB","TCVN_CST_YUV_422_UYVY_TO_BGR","TCVN_CST_YUV_422_Y422_TO_RGB","TCVN_CST_YUV_422_Y422_TO_BGR","TCVN_CST_YUV_422_UYNV_TO_RGB","TCVN_CST_YUV_422_UYNV_TO_BGR","TCVN_CST_YUV_422_UYVY_TO_RGBA","TCVN_CST_YUV_422_UYVY_TO_BGRA","TCVN_CST_YUV_422_Y422_TO_RGBA","TCVN_CST_YUV_422_Y422_TO_BGRA","TCVN_CST_YUV_422_UYNV_TO_RGBA","TCVN_CST_YUV_422_UYNV_TO_BGRA","TCVN_CST_YUV_422_YUY2_TO_RGB","TCVN_CST_YUV_422_YUY2_TO_BGR","TCVN_CST_YUV_422_YVYU_TO_RGB","TCVN_CST_YUV_422_YVYU_TO_BGR","TCVN_CST_YUV_422_YUYV_TO_RGB","TCVN_CST_YUV_422_YUYV_TO_BGR","TCVN_CST_YUV_422_YUNV_TO_RGB","TCVN_CST_YUV_422_YUNV_TO_BGR","TCVN_CST_YUV_422_YUY2_TO_RGBA","TCVN_CST_YUV_422_YUY2_TO_BGRA","TCVN_CST_YUV_422_YVYU_TO_RGBA","TCVN_CST_YUV_422_YVYU_TO_BGRA","TCVN_CST_YUV_422_YUYV_TO_RGBA","TCVN_CST_YUV_422_YUYV_TO_BGRA","TCVN_CST_YUV_422_YUNV_TO_RGBA","TCVN_CST_YUV_422_YUNV_TO_BGRA","TCVN_CST_YUV_422_UYVY_TO_GRAY","TCVN_CST_YUV_422_YUY2_TO_GRAY","TCVN_CST_YUV_422_Y422_TO_GRAY","TCVN_CST_YUV_422_UYNV_TO_GRAY","TCVN_CST_YUV_422_YVYU_TO_GRAY","TCVN_CST_YUV_422_YUYV_TO_GRAY","TCVN_CST_YUV_422_YUNV_TO_GRAY","TCVN_CST_RGBA_TO_PREMULTIPLICATED_RGBA","TCVN_CST_PREMULTIPLICATED_RGBA_TO_RGBA","TCVN_CST_RGB_TO_YUV_420_I420","TCVN_CST_BGR_TO_YUV_420_I420","TCVN_CST_RGB_TO_YUV_420_IYUV","TCVN_CST_BGR_TO_YUV_420_IYUV","TCVN_CST_RGBA_TO_YUV_420_I420","TCVN_CST_BGRA_TO_YUV_420_I420","TCVN_CST_RGBA_TO_YUV_420_IYUV","TCVN_CST_BGRA_TO_YUV_420_IYUV","TCVN_CST_RGB_TO_YUV_420_YV12","TCVN_CST_BGR_TO_YUV_420_YV12","TCVN_CST_RGBA_TO_YUV_420_YV12","TCVN_CST_BGRA_TO_YUV_420_YV12","TCVN_CST_BAYER_RG_TO_BGR_EA","TCVN_CST_BAYER_GR_TO_BGR_EA","TCVN_CST_BAYER_BG_TO_BGR_EA","TCVN_CST_BAYER_GB_TO_BGR_EA","TCVN_CST_BAYER_RG_TO_RGB_EA","TCVN_CST_BAYER_GR_TO_RGB_EA","TCVN_CST_BAYER_BG_TO_RGB_EA","TCVN_CST_BAYER_GB_TO_RGB_EA","TCVN_CST_BAYER_RG_TO_BGRA","TCVN_CST_BAYER_GR_TO_BGRA","TCVN_CST_BAYER_BG_TO_BGRA","TCVN_CST_BAYER_GB_TO_BGRA","TCVN_CST_BAYER_RG_TO_RGBA","TCVN_CST_BAYER_GR_TO_RGBA","TCVN_CST_BAYER_BG_TO_RGBA","TCVN_CST_BAYER_GB_TO_RGBA","TCVN_CST_MAX"],"baseType":{"typeName":"DINT","minValue":-2147483648,"maxValue":2147483647,"isSigned":true,"isFloat":false}}'; 
+    actual : STRING(6000);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeTypeWith');
+
+serializer.Reset();
+_type.SerializeTypeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeWith" Id="{33a37214-6412-0f76-2884-400b059e2a10}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeWith
+VAR
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+    serializer : JsonSerializer;
+    expected : STRING := '"TCVN_CST_BGR_TO_BGRA"';
+    actual : STRING(500);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeWith');
+
+serializer.Reset();
+_type.SerializeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type data did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSize" Id="{4cd2713c-fe89-0ae4-013f-ae0ef1fec4eb}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSize
+VAR
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+    expected : UDINT := SIZEOF(ETcVnColorSpaceTransform);
+    actual : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSize');
+
+actual := _type.Size;
+
+AssertEquals_UDINT(
+    Expected := Expected,
+    Actual := actual,
+    Message := 'Type did not return the correct size.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryDeserializeFrom" Id="{842a6ef8-e423-0c6a-170b-050c58996c7e}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryDeserializeFrom
+VAR
+    deserializer : JsonDeserializer;
+    feedback : DeserializerFeedback;
+    json : STRING := '"TCVN_CST_BGR_TO_BGRA"';
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+    expected : ETcVnColorSpaceTransform := ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA;
+    actual : ETcVnColorSpaceTransform;
+ END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryDeserializeFrom');
+
+deserializer.Reset();
+deserializer.TryLoad(json);
+_type.TryDeserializeFrom(Deserializer, Feedback);
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not deserialize correctly.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryMakeReferenceToFollowsReference" Id="{4022407e-6ee7-0d88-3e08-d2594261df0b}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryMakeReferenceToFollowsReference
+VAR
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+	target : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+    expected : ETcVnColorSpaceTransform := ETcVnColorSpaceTransform.TCVN_CST_MAX;
+    actual : ETcVnColorSpaceTransform;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryMakeReferenceToFollowsReference');
+
+_type.TryMakeReferenceTo(target);
+target.Value := ETcVnColorSpaceTransform.TCVN_CST_MAX;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not follow target change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryMakeReferenceToUpdatesReference" Id="{a2b6f76f-e4be-05bb-3c45-26a21e553afc}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryMakeReferenceToUpdatesReference
+VAR
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+	target : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+    expected : ETcVnColorSpaceTransform := ETcVnColorSpaceTransform.TCVN_CST_MAX;
+    actual : ETcVnColorSpaceTransform;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryMakeReferenceToUpdatesReference');
+
+_type.TryMakeReferenceTo(target);
+_type.Value := ETcVnColorSpaceTransform.TCVN_CST_MAX;
+
+actual := target.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not update target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTypeNameReturnsExpected" Id="{50143c92-2ae6-0e54-0858-569e52af210d}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTypeNameReturnsExpected
+VAR
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+    expected : STRING := 'ENUM';
+    actual : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTypeNameReturnsExpected');
+
+actual := _type.TypeName;
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not return correct iec type.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValueReturnsExpectedAfterChange" Id="{5234fb5f-7ccd-0c8b-34b4-86f2b5aab42b}">
+      <Declaration><![CDATA[METHOD PUBLIC TestValueReturnsExpectedAfterChange
+VAR
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+    expected : ETcVnColorSpaceTransform := ETcVnColorSpaceTransform.TCVN_CST_MAX;
+    actual : ETcVnColorSpaceTransform;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestValueReturnsExpectedAfterChange');
+
+_type.Value := ETcVnColorSpaceTransform.TCVN_CST_MAX;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Expected value not returned after change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValueReturnsExpectedAfterInit" Id="{8c10c82e-97d3-084f-3f5e-b10192977f82}">
+      <Declaration><![CDATA[METHOD PUBLIC TestValueReturnsExpectedAfterInit
+VAR
+    _type : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA);
+    expected : ETcVnColorSpaceTransform := ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA;
+    actual : ETcVnColorSpaceTransform;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestValueReturnsExpectedAfterInit');
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Expected value not returned after Init.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

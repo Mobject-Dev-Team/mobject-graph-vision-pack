@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_ETcVnContourRetrievalMode" Id="{a5ab3147-e9c7-098f-3ccb-c7a62b523d4e}"
+    SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnContourRetrievalMode EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnContourRetrievalMode;
+	activeData : REFERENCE TO ETcVnContourRetrievalMode;
+	enumBaseDatatype : _DINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{22e770ae-f597-047d-2b07-5ae2eba7babd}">
+      <Folder Name="Protected" Id="{4c6c47d5-a71a-0a73-1ecf-59912ce767ec}" />
+    </Folder>
+    <Folder Name="Customize" Id="{d80db340-a8cf-057f-11b1-2fc185bb9e7e}">
+      <Folder Name="Constructor" Id="{e6e68511-a2f8-0498-0c96-f25258562f36}" />
+      <Folder Name="Private" Id="{d85bd196-9840-0a44-0684-9d291b906117}" />
+      <Folder Name="Protected" Id="{977c23bb-de1d-01a8-1d79-901a064127aa}" />
+    </Folder>
+    <Method Name="AddLocalEnumeration" Id="{237b5cb5-0092-041c-084d-25d346c4daff}"
+      FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnContourRetrievalMode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{dc7e3394-509c-060c-308e-522e52ed90f5}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{3df068e8-1bd6-09f0-2f9d-76758976c721}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{bd79bb5a-88ce-0cdd-2c32-447c44bd9c44}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{f2f8f34c-1372-0b93-35dc-dea8ce8b56e5}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnContourRetrievalMode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnContourRetrievalMode(InitialValue := Value));
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{50a2e389-191f-0ba3-203b-a15b4e1f32a0}"
+      FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnContourRetrievalMode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_CRM_EXTERNAL', ETcVnContourRetrievalMode.TCVN_CRM_EXTERNAL);
+AddLocalEnumeration('TCVN_CRM_LIST', ETcVnContourRetrievalMode.TCVN_CRM_LIST);
+AddLocalEnumeration('TCVN_CRM_CONNECTED_COMPONENTS', ETcVnContourRetrievalMode.TCVN_CRM_CONNECTED_COMPONENTS);
+AddLocalEnumeration('TCVN_CRM_TREE', ETcVnContourRetrievalMode.TCVN_CRM_TREE);
+AddLocalEnumeration('TCVN_CRM_FLOODFILL', ETcVnContourRetrievalMode.TCVN_CRM_FLOODFILL);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{c6da98b2-9ff9-0438-3808-bb67fc9b3501}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{7ab0d653-cad4-0ab0-0c63-42eee9429e53}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnContourRetrievalMode';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{eb28da45-58fe-0126-3221-be3cea6444c1}"
+      FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnContourRetrievalMode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{e6c1a14e-cec2-052c-28c1-d56f5a4a2741}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnContourRetrievalMode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{7488dc24-9995-0a25-23c0-c16f07de1d77}"
+      FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{1028a8f1-475c-0473-13f5-41a82f8498a1}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{4d96c98d-0f9b-0aeb-04f5-862ce65eebc8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{96ceb65b-ed18-0ab5-2be8-94cd7cea5858}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO ETcVnContourRetrievalMode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{15a9a6f1-ae6c-0b44-126b-5d8ced8297bd}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnContourRetrievalMode]]></Declaration>
+      <Get Name="Get" Id="{9f58c5df-94f1-00ad-3ca3-da3657aa3f18}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{02a825a0-ba1c-0aa6-1a04-512315cd30fe}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

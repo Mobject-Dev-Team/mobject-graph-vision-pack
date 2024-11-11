@@ -1,0 +1,452 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_TcVnParamsBlobDetection" Id="{8594d258-0ce0-04df-3c10-f9a88b69e168}"
+    SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _TcVnParamsBlobDetection EXTENDS StructuredDatatypeBase
+VAR
+	localData : TcVnParamsBlobDetection;
+	activeData : REFERENCE TO TcVnParamsBlobDetection REF= localData;
+    _bFilterByArea         : _BOOL(localdata.bFilterByArea);
+    _bFilterByCircularity  : _BOOL(localdata.bFilterByCircularity);
+    _bFilterByConvexity    : _BOOL(localdata.bFilterByConvexity);
+    _bFilterByEccentricity : _BOOL(localdata.bFilterByEccentricity);
+    _bFilterByInertiaRatio : _BOOL(localdata.bFilterByInertiaRatio);
+    _fMinArea              : _REAL(localdata.fMinArea);
+    _fMaxArea              : _REAL(localdata.fMaxArea);
+    _fMinCircularity       : _REAL(localdata.fMinCircularity);
+    _fMaxCircularity       : _REAL(localdata.fMaxCircularity);
+    _fMinConvexity         : _REAL(localdata.fMinConvexity);
+    _fMaxConvexity         : _REAL(localdata.fMaxConvexity);
+    _fMinEccentricity      : _REAL(localdata.fMinEccentricity);
+    _fMaxEccentricity      : _REAL(localdata.fMaxEccentricity);
+    _fMinInertiaRatio      : _REAL(localdata.fMinInertiaRatio);
+    _fMaxInertiaRatio      : _REAL(localdata.fMaxInertiaRatio);
+    _eThresholdType        : _ETcVnThresholdType(localdata.eThresholdType);
+    _fMinThreshold         : _REAL(localdata.fMinThreshold);
+    _fMaxThreshold         : _REAL(localdata.fMaxThreshold);
+    _fThresholdStep        : _REAL(localdata.fThresholdStep);
+    _fMinBlobDistance      : _REAL(localdata.fMinBlobDistance);
+    _nMinRepeatability     : _UDINT(localdata.nMinRepeatability);
+    _eBlobCombination      : _ETcVnBlobCombination(localdata.eBlobCombination);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{c1f62570-e884-0ae5-15cd-04be7d72b0ad}" />
+    <Folder Name="Customize" Id="{6b64b7f4-5191-0965-1b53-ddc9b1f78312}">
+      <Folder Name="Constructor" Id="{741d1bfb-87a3-0e0d-2649-9eca8ba7d2d0}" />
+      <Folder Name="Protected" Id="{ca9f214e-3582-03f5-2d3d-4f2178ae766e}" />
+    </Folder>
+    <Property Name="Address" Id="{184a05e8-3b21-0d3a-1df5-4e560ead9efd}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{7348c008-8788-08c2-3c69-ac48f5485ed7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="bFilterByArea" Id="{14a95bbc-9053-0706-259c-eaa803d69159}">
+      <Declaration><![CDATA[PROPERTY PUBLIC bFilterByArea : REFERENCE TO _BOOL]]></Declaration>
+      <Get Name="Get" Id="{34fe697c-c008-05e9-3f47-b09756577e3a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bFilterByArea REF= _bFilterByArea;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="bFilterByCircularity" Id="{51e00aa2-7825-0eba-352d-46fec66f0dd5}">
+      <Declaration><![CDATA[PROPERTY PUBLIC bFilterByCircularity : REFERENCE TO _BOOL]]></Declaration>
+      <Get Name="Get" Id="{fd776267-a16a-0354-3b84-8d233e6ae045}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bFilterByCircularity REF= _bFilterByCircularity;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="bFilterByConvexity" Id="{bd6e709e-0383-0208-1f07-a0dc09a26e6b}">
+      <Declaration><![CDATA[PROPERTY PUBLIC bFilterByConvexity : REFERENCE TO _BOOL]]></Declaration>
+      <Get Name="Get" Id="{df25fc4b-992a-0bd1-2b2d-5279091600ad}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bFilterByConvexity REF= _bFilterByConvexity;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="bFilterByEccentricity" Id="{f862b523-24a8-06d2-0548-4bfc2cd8e2e3}">
+      <Declaration><![CDATA[PROPERTY PUBLIC bFilterByEccentricity : REFERENCE TO _BOOL]]></Declaration>
+      <Get Name="Get" Id="{25610988-fe02-0519-227b-2abbab1201e1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bFilterByEccentricity REF= _bFilterByEccentricity;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="bFilterByInertiaRatio" Id="{781e950b-6861-05f8-045e-9f5e7b5a7ac8}">
+      <Declaration><![CDATA[PROPERTY PUBLIC bFilterByInertiaRatio : REFERENCE TO _BOOL]]></Declaration>
+      <Get Name="Get" Id="{1ad36d93-7469-06ac-2a18-728787c92276}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bFilterByInertiaRatio REF= _bFilterByInertiaRatio;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{f8faafdb-cfb6-0fc6-18a4-37f62efdc928}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{a9ebd8fa-efe3-061a-2893-e668fd7e4bc8}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _TcVnParamsBlobDetection;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_TcVnParamsBlobDetection());
+pClone^.Value := Value;
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="eBlobCombination" Id="{d4868f56-73b7-007f-2627-8ca90da59a25}">
+      <Declaration><![CDATA[PROPERTY PUBLIC eBlobCombination : REFERENCE TO _ETcVnBlobCombination]]></Declaration>
+      <Get Name="Get" Id="{fb8bb9f1-87d9-059d-3948-c45b72667e33}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[eBlobCombination REF= _eBlobCombination;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="eThresholdType" Id="{1e22ebb6-f747-0460-33db-722d5573bb41}">
+      <Declaration><![CDATA[PROPERTY PUBLIC eThresholdType : REFERENCE TO _ETcVnThresholdType]]></Declaration>
+      <Get Name="Get" Id="{1ba210f2-2509-0be3-154c-4faf014b8fd6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[eThresholdType REF= _eThresholdType;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_init" Id="{5736f6eb-fbfe-0e84-1690-6469c73422fc}"
+      FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetMemberReference();
+AddMember('bFilterByArea', _bFilterByArea);
+AddMember('bFilterByCircularity', _bFilterByCircularity);
+AddMember('bFilterByConvexity', _bFilterByConvexity);
+AddMember('bFilterByEccentricity', _bFilterByEccentricity);
+AddMember('bFilterByInertiaRatio', _bFilterByInertiaRatio);
+AddMember('fMinArea', _fMinArea);
+AddMember('fMaxArea', _fMaxArea);
+AddMember('fMinCircularity', _fMinCircularity);
+AddMember('fMaxCircularity', _fMaxCircularity);
+AddMember('fMinConvexity', _fMinConvexity);
+AddMember('fMaxConvexity', _fMaxConvexity);
+AddMember('fMinEccentricity', _fMinEccentricity);
+AddMember('fMaxEccentricity', _fMaxEccentricity);
+AddMember('fMinInertiaRatio', _fMinInertiaRatio);
+AddMember('fMaxInertiaRatio', _fMaxInertiaRatio);
+AddMember('eThresholdType', _eThresholdType);
+AddMember('fMinThreshold', _fMinThreshold);
+AddMember('fMaxThreshold', _fMaxThreshold);
+AddMember('fThresholdStep',  _fThresholdStep);
+AddMember('fMinBlobDistance', _fMinBlobDistance);
+AddMember('nMinRepeatability', _nMinRepeatability);
+AddMember('eBlobCombination', _eBlobCombination);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="fMaxArea" Id="{a5b06ad2-182b-0103-39ab-6bdf6cb5c8fc}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMaxArea : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{2efc4d76-ca14-01ed-3ee3-70f52cf0a707}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMaxArea REF= _fMaxArea;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMaxCircularity" Id="{e325fb60-e86d-0013-181a-f3fe67f389fa}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMaxCircularity : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{0ee910b5-8cd6-0531-1d82-996659002e11}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMaxCircularity REF= _fMaxCircularity;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMaxConvexity" Id="{12d8def8-0746-0002-1d2d-419d588b00ba}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMaxConvexity : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{295da30d-09fc-0c79-3036-5dc99a735ea3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMaxConvexity REF= _fMaxConvexity;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMaxEccentricity" Id="{13f49679-89ea-04ad-1024-f3b865fbb7b7}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMaxEccentricity : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{4eb2b678-adf8-0005-0f54-ce5c5fe3bf4c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMaxEccentricity REF= _fMaxEccentricity;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMaxInertiaRatio" Id="{c9195a8d-6dcc-0b34-0830-b036fa3bad64}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMaxInertiaRatio : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{6ecf644d-c088-0e56-020c-49be970978bd}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMaxInertiaRatio REF= _fMaxInertiaRatio;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMaxThreshold" Id="{a565561b-e72a-062c-2000-7af32b6bb167}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMaxThreshold : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{ced25f25-dc44-0385-1975-53cb9755d629}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMaxThreshold REF= _fMaxThreshold;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMinArea" Id="{f1d51fe6-83de-050d-2b5c-a9e2a9c6dda8}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMinArea : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{795f1688-f175-0d98-270f-7d781d84359b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMinArea REF= _fMinArea;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMinBlobDistance" Id="{809e1e7c-2e50-092f-3b81-56c35d3a923e}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMinBlobDistance : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{e9280434-e6f6-0a3e-21c4-6de15ca7a73c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMinBlobDistance REF= _fMinBlobDistance;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMinCircularity" Id="{7ed03f45-c0c6-0645-17ef-60b842f02cbc}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMinCircularity : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{1fc406c6-19e1-02a5-21d3-fa2150481d9d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMinCircularity REF= _fMinCircularity;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMinConvexity" Id="{87a2ee18-17e3-0ba8-13d7-2ef19cfe7372}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMinConvexity : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{71c78752-08b5-015e-27b3-ba79b2c284db}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMinConvexity REF= _fMinConvexity;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMinEccentricity" Id="{6ec22a94-b42a-055a-349a-d27295be5d7b}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMinEccentricity : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{18c8f106-1e2d-0d03-2478-c4967cf8b69f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMinEccentricity REF= _fMinEccentricity;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMinInertiaRatio" Id="{e0d2c499-febb-0571-1831-4affee09a9e7}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMinInertiaRatio : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{64373eca-76bc-07b5-2322-27f913d4925a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMinInertiaRatio REF= _fMinInertiaRatio;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMinThreshold" Id="{e3a446fb-869a-0430-00c2-1c954c742888}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMinThreshold : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{dce8c73c-774d-02cd-3940-1714a7919e77}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMinThreshold REF= _fMinThreshold;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fThresholdStep" Id="{4af8c139-e1fc-08ea-184c-4c27fb29aa14}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fThresholdStep : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{ce523aa7-6afd-0527-320d-e0649c609a78}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fThresholdStep REF= _fThresholdStep;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Identifier" Id="{8f6ce571-d797-0403-11f5-7e89f88c7208}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{28864b14-4834-0e45-2223-4767383ccf25}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'TcVnParamsBlobDetection';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{cd282ba9-a074-0642-0f4f-8eb540da00c8}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO TcVnParamsBlobDetection;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nMinRepeatability" Id="{7ffb30e0-0b12-07ec-1814-0c97baa4b0ef}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nMinRepeatability : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{7267a750-1457-0ed9-2b5b-2e8674fd8ff2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nMinRepeatability REF= _nMinRepeatability;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetMemberReference" Id="{71352f94-5833-092a-39f3-6c3646c4abe1}"
+      FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_bFilterByArea.MakeReferenceTo(activeData.bFilterByArea);
+_bFilterByCircularity.MakeReferenceTo(activeData.bFilterByCircularity);
+_bFilterByConvexity.MakeReferenceTo(activeData.bFilterByConvexity);
+_bFilterByEccentricity.MakeReferenceTo(activeData.bFilterByEccentricity);
+_bFilterByInertiaRatio.MakeReferenceTo(activeData.bFilterByInertiaRatio);
+_fMinArea.MakeReferenceTo(activeData.fMinArea);
+_fMaxArea.MakeReferenceTo(activeData.fMaxArea);
+_fMinCircularity.MakeReferenceTo(activeData.fMinCircularity);
+_fMaxCircularity.MakeReferenceTo(activeData.fMaxCircularity);
+_fMinConvexity.MakeReferenceTo(activeData.fMinConvexity);
+_fMaxConvexity.MakeReferenceTo(activeData.fMaxConvexity);
+_fMinEccentricity.MakeReferenceTo(activeData.fMinEccentricity);
+_fMaxEccentricity.MakeReferenceTo(activeData.fMaxEccentricity);
+_fMinInertiaRatio.MakeReferenceTo(activeData.fMinInertiaRatio);
+_fMaxInertiaRatio.MakeReferenceTo(activeData.fMaxInertiaRatio);
+_eThresholdType.MakeReferenceTo(activeData.eThresholdType);
+_fMinThreshold.MakeReferenceTo(activeData.fMinThreshold);
+_fMaxThreshold.MakeReferenceTo(activeData.fMaxThreshold);
+_fThresholdStep.MakeReferenceTo(activeData.fThresholdStep);
+_fMinBlobDistance.MakeReferenceTo(activeData.fMinBlobDistance);
+_nMinRepeatability.MakeReferenceTo(activeData.nMinRepeatability);
+_eBlobCombination.MakeReferenceTo(activeData.eBlobCombination);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{127a3703-30ae-0b8b-3124-bc08cdc2d0ce}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{28596c9a-205f-0443-097d-f3dbb53698da}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{0549a965-8e82-01e5-3ebb-21fb6988c977}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO TcVnParamsBlobDetection;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetMemberReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{eed2a5c5-89bd-02f8-2ec2-0dd6b5c38b54}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnParamsBlobDetection]]></Declaration>
+      <Get Name="Get" Id="{a101a024-fd33-098a-0448-ad07d108ae10}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="_ETcVnBarcodeType_TestSuite" Id="{57afa318-6ef1-0d8e-12dd-ea49e9588e98}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK _ETcVnBarcodeType_TestSuite EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TestAddress();
+TestClearReference();
+TestClone();
+TestTypeNameReturnsExpected();
+TestIdentifierReturnsExpected();
+TestMakeReferenceToFollowsReference();
+TestMakeReferenceToUpdatesReference();
+TestSize();
+TestValueReturnsExpectedAfterInit();
+TestValueReturnsExpectedAfterChange();
+TestSerializeTypeWith();
+TestSerializeWith();
+TestTryDeserializeFrom();
+TestTryMakeReferenceToFollowsReference();
+TestTryMakeReferenceToUpdatesReference();
+]]></ST>
+    </Implementation>
+    <Method Name="TestAddress" Id="{beeb5ffb-e13c-02ec-0cb1-deb41239eeae}">
+      <Declaration><![CDATA[METHOD PUBLIC TestAddress
+VAR
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+    notExpected : PVOID := 0;
+    actual : PVOID;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestAddress');
+
+actual := _type.Address;
+
+AssertFalse(
+    Condition := (notExpected = actual),
+    Message := 'Type did not return a valid address.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestClearReference" Id="{21106a02-6d72-0301-36c6-721102802726}">
+      <Declaration><![CDATA[METHOD PUBLIC TestClearReference
+VAR
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+	target : ETcVnBarcodeType := ETcVnBarcodeType.TCVN_BT_CODABAR;
+    expected : ETcVnBarcodeType := ETcVnBarcodeType.TCVN_BT_CODABAR;
+    actual : ETcVnBarcodeType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestClearReference');
+
+_type.MakeReferenceTo(target);
+_type.ClearReference();
+target := ETcVnBarcodeType.TCVN_BT_CODE39;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value continued to follow target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestClone" Id="{e141e682-f14e-0f5b-19e7-36170ac85bb1}">
+      <Declaration><![CDATA[METHOD PUBLIC TestClone
+VAR
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+	clone : I_Datatype;
+	isValidClone : BOOL;
+	compareResult : DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestClone');
+
+clone := _type.Clone();
+
+isValidClone := clone <> 0;
+
+IF isValidClone THEN
+	compareResult := memcmp(_type.Address, clone.Address, clone.Size);
+END_IF
+
+AssertTrue(
+	Condition := isValidClone,
+	Message := 'Clone did not produce a clone'
+);
+
+AssertEquals_DINT(
+	Expected := 0,
+    Actual := compareResult,
+    Message := 'Clone did not return a valid clone.'
+);
+
+clone.Dispose();
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestIdentifierReturnsExpected" Id="{32ad0233-c83f-0917-1c8c-2bf8940c2753}">
+      <Declaration><![CDATA[METHOD PUBLIC TestIdentifierReturnsExpected
+VAR
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+    expected : STRING := 'ETcVnBarcodeType';
+    actual : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestIdentifierReturnsExpected');
+
+actual := _type.Identifier;
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not return correct iec type.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMakeReferenceToFollowsReference" Id="{f7cedb17-d61d-06e4-0a50-fb6066a66fd7}">
+      <Declaration><![CDATA[METHOD PUBLIC TestMakeReferenceToFollowsReference
+VAR
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+	target : ETcVnBarcodeType := ETcVnBarcodeType.TCVN_BT_CODABAR;
+    expected : ETcVnBarcodeType := ETcVnBarcodeType.TCVN_BT_CODE39;
+    actual : ETcVnBarcodeType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestMakeReferenceToFollowsReference');
+
+_type.MakeReferenceTo(target);
+target := ETcVnBarcodeType.TCVN_BT_CODE39;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not follow target change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMakeReferenceToUpdatesReference" Id="{5e6361e9-bb19-08ad-2485-15ea65e75ebd}">
+      <Declaration><![CDATA[METHOD PUBLIC TestMakeReferenceToUpdatesReference
+VAR
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+	target : ETcVnBarcodeType := ETcVnBarcodeType.TCVN_BT_CODABAR;
+    expected : ETcVnBarcodeType := ETcVnBarcodeType.TCVN_BT_CODE39;
+    actual : ETcVnBarcodeType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestMakeReferenceToUpdatesReference');
+
+_type.MakeReferenceTo(target);
+_type.Value := ETcVnBarcodeType.TCVN_BT_CODE39;
+
+actual := target;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not update target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeTypeWith" Id="{64ee65c4-1e42-0d00-22a7-fa9f99f5c259}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeTypeWith
+VAR
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+    serializer : JsonSerializer;
+    expected : STRING(500) := '{"typeName":"ENUM","identifier":"ETcVnBarcodeType","enumerations":["TCVN_BT_CODABAR","TCVN_BT_CODE39","TCVN_BT_CODE93","TCVN_BT_CODE128","TCVN_BT_EAN8","TCVN_BT_EAN13","TCVN_BT_ITF","TCVN_BT_UPCA","TCVN_BT_UPCE","TCVN_BT_ANY","TCVN_BT_CODE39EXTENDED"],"baseType":{"typeName":"UDINT","minValue":0,"maxValue":4294967295,"isSigned":false,"isFloat":false}}'; 
+    actual : STRING(500);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeTypeWith');
+
+serializer.Reset();
+_type.SerializeTypeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeWith" Id="{654fd89f-dafc-0a23-2b23-442fb1d4f51d}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeWith
+VAR
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+    serializer : JsonSerializer;
+    expected : STRING := '"TCVN_BT_CODABAR"';
+    actual : STRING(500);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeWith');
+
+serializer.Reset();
+_type.SerializeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type data did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSize" Id="{9a293227-1d22-0f4a-21a8-8c165c2e1f1c}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSize
+VAR
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+    expected : UDINT := SIZEOF(ETcVnBarcodeType);
+    actual : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSize');
+
+actual := _type.Size;
+
+AssertEquals_UDINT(
+    Expected := Expected,
+    Actual := actual,
+    Message := 'Type did not return the correct size.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryDeserializeFrom" Id="{ec2c5073-5ff4-09eb-0f02-88301119f624}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryDeserializeFrom
+VAR
+    deserializer : JsonDeserializer;
+    feedback : DeserializerFeedback;
+    json : STRING := '"TCVN_BT_CODABAR"';
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+    expected : ETcVnBarcodeType := ETcVnBarcodeType.TCVN_BT_CODABAR;
+    actual : ETcVnBarcodeType;
+ END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryDeserializeFrom');
+
+deserializer.Reset();
+deserializer.TryLoad(json);
+_type.TryDeserializeFrom(Deserializer, Feedback);
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not deserialize correctly.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryMakeReferenceToFollowsReference" Id="{ccae49b5-f004-0d07-03b9-c9bf3a790859}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryMakeReferenceToFollowsReference
+VAR
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+	target : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+    expected : ETcVnBarcodeType := ETcVnBarcodeType.TCVN_BT_CODE39;
+    actual : ETcVnBarcodeType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryMakeReferenceToFollowsReference');
+
+_type.TryMakeReferenceTo(target);
+target.Value := ETcVnBarcodeType.TCVN_BT_CODE39;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not follow target change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryMakeReferenceToUpdatesReference" Id="{e72dc37c-2d22-074d-0986-04e6403ada60}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryMakeReferenceToUpdatesReference
+VAR
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+	target : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+    expected : ETcVnBarcodeType := ETcVnBarcodeType.TCVN_BT_CODE39;
+    actual : ETcVnBarcodeType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryMakeReferenceToUpdatesReference');
+
+_type.TryMakeReferenceTo(target);
+_type.Value := ETcVnBarcodeType.TCVN_BT_CODE39;
+
+actual := target.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Value did not update target.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTypeNameReturnsExpected" Id="{e6d89094-326e-0b82-1446-2ca82cba3162}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTypeNameReturnsExpected
+VAR
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+    expected : STRING := 'ENUM';
+    actual : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTypeNameReturnsExpected');
+
+actual := _type.TypeName;
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Type did not return correct iec type.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValueReturnsExpectedAfterChange" Id="{db6d9665-f036-08ab-327c-403db59b6181}">
+      <Declaration><![CDATA[METHOD PUBLIC TestValueReturnsExpectedAfterChange
+VAR
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+    expected : ETcVnBarcodeType := ETcVnBarcodeType.TCVN_BT_CODE39;
+    actual : ETcVnBarcodeType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestValueReturnsExpectedAfterChange');
+
+_type.Value := ETcVnBarcodeType.TCVN_BT_CODE39;
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Expected value not returned after change.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValueReturnsExpectedAfterInit" Id="{54272d42-c62f-01c5-2eb8-80e5caa86622}">
+      <Declaration><![CDATA[METHOD PUBLIC TestValueReturnsExpectedAfterInit
+VAR
+    _type : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+    expected : ETcVnBarcodeType := ETcVnBarcodeType.TCVN_BT_CODABAR;
+    actual : ETcVnBarcodeType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestValueReturnsExpectedAfterInit');
+
+actual := _type.Value;
+
+AssertEquals(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Expected value not returned after Init.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

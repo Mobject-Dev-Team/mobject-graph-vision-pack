@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_ETcVnEdgeDetectionAlgorithm" Id="{de3327d9-628b-0db8-070f-b6ec3e9cfed8}"
+    SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnEdgeDetectionAlgorithm EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnEdgeDetectionAlgorithm;
+	activeData : REFERENCE TO ETcVnEdgeDetectionAlgorithm;
+	enumBaseDatatype : _DINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{e035bb8f-f195-0321-2564-328d1d9e6354}">
+      <Folder Name="Protected" Id="{24d363fe-2ee2-017f-0644-1bdf48376c97}" />
+    </Folder>
+    <Folder Name="Customize" Id="{5e2cb9a4-28a6-0918-2e91-0ebe8bb50e53}">
+      <Folder Name="Constructor" Id="{163cf6a0-f511-071e-20fa-813a2df9bf96}" />
+      <Folder Name="Private" Id="{fa96855c-e46a-09e8-18d9-cd7d699408c7}" />
+      <Folder Name="Protected" Id="{81f72d85-df5c-0d10-25bf-c5676d71d58f}" />
+    </Folder>
+    <Method Name="AddLocalEnumeration" Id="{c7807dc8-fcd2-0167-2c69-db3e14617561}"
+      FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnEdgeDetectionAlgorithm;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{1c4d0320-6103-0427-3c85-658858caa5d9}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{2ceb24b0-bddc-0b13-0661-3c4ac1ff7d2a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{06331ef3-70e5-04b8-06bb-a3e7476cd189}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{93dcc90a-ca49-0669-2de3-8775364a3c48}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnEdgeDetectionAlgorithm;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnEdgeDetectionAlgorithm(InitialValue := Value));
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{499c5acc-ee1f-048c-274d-37da243b2af5}"
+      FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnEdgeDetectionAlgorithm;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_EDA_INTERPOLATION', ETcVnEdgeDetectionAlgorithm.TCVN_EDA_INTERPOLATION);
+AddLocalEnumeration('TCVN_EDA_APPROX_ERF', ETcVnEdgeDetectionAlgorithm.TCVN_EDA_APPROX_ERF);
+AddLocalEnumeration('TCVN_EDA_APPROX_GAUSSIAN', ETcVnEdgeDetectionAlgorithm.TCVN_EDA_APPROX_GAUSSIAN);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{73c0b194-9924-0dcf-2ac0-b517abdb4f5b}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{2391be6c-42a0-0570-0938-859bb6badf5f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnEdgeDetectionAlgorithm';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{15a04b32-a76a-0a9a-0ce5-ab7589c338e2}"
+      FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnEdgeDetectionAlgorithm;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{96185666-00ce-04b4-2ca1-41455ce3c251}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnEdgeDetectionAlgorithm;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{9d4bfa6b-0ad5-0f35-2704-873b62a7c773}"
+      FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{e13cb641-21be-0973-19f6-6f0b79d34c79}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{3bb99596-40a5-0d7a-0259-ebc5370e2b18}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{7b1ff354-ecf7-0aaf-01ca-730cbb69bce2}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO ETcVnEdgeDetectionAlgorithm;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{961ce8f3-bf3e-0537-187a-30ab8e162096}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnEdgeDetectionAlgorithm]]></Declaration>
+      <Get Name="Get" Id="{bb0abdb4-7053-07e8-3dd2-c591c18a5e7c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{08eee3c9-39d1-055b-191e-944ae51f1070}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

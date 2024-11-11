@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_TcVnCircularArc" Id="{4951f374-0693-08ca-2d04-f331eab41917}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _TcVnCircularArc EXTENDS StructuredDatatypeBase
+VAR
+	localData : TcVnCircularArc;
+	activeData : REFERENCE TO TcVnCircularArc REF= localData;
+    _aCenter : _TcVnPoint2_REAL();
+    _fRadius : _REAL(localdata.fRadius);
+    _fStartAngle : _REAL(localdata.fStartAngle);
+    _fEndAngle : _REAL(localdata.fEndAngle);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{5ca4ef02-1fdb-02f0-2cf0-79426c09e893}" />
+    <Folder Name="Customize" Id="{e036f8a1-e2f2-002b-36f2-c77b5b08ba5b}">
+      <Folder Name="Constructor" Id="{8d19eb76-4ccf-0192-2b88-d287bab8f563}" />
+      <Folder Name="Protected" Id="{4c60290c-0bd9-03e3-1858-2a550fa6b1fe}" />
+    </Folder>
+    <Property Name="aCenter" Id="{6519d179-65be-02af-2bc8-0624badeb97f}">
+      <Declaration><![CDATA[PROPERTY PUBLIC aCenter : REFERENCE TO _TcVnPoint2_REAL]]></Declaration>
+      <Get Name="Get" Id="{6346538a-13be-0188-31ef-42122ad2f1b0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[aCenter REF= _aCenter;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Address" Id="{3c4d2a12-0bbd-0d70-3d96-8bd7c56ed2ae}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{93a83177-e79c-0151-0586-0fc2fa2740f0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{34c7f395-3543-02c7-18b7-37d276fe00e2}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{a8eba0f1-31e1-0051-269f-8be84897a99a}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _TcVnCircularArc;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_TcVnCircularArc());
+pClone^.Value := Value;
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{db22c507-87ea-0730-24bc-11f41c2e30ac}"
+      FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetMemberReference();
+AddMember('aCenter', _aCenter);
+AddMember('fRadius', _fRadius);
+AddMember('fStartAngle', _fStartAngle);
+AddMember('fEndAngle', _fEndAngle);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="fEndAngle" Id="{c2a9bb97-6cfd-0147-1e67-69c0e1e33ee1}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fEndAngle : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{3d6c0aa1-df26-0a26-1fba-14ffd0e83587}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fEndAngle REF= _fEndAngle;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fRadius" Id="{8d3b8667-50d8-0c18-183e-b3d420a8abaf}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fRadius : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{5f92a681-3017-01d3-10cb-300d2522673e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fRadius REF= _fRadius;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fStartAngle" Id="{66bd4cbe-e1f6-0215-266c-f4764586cf0e}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fStartAngle : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{48079711-f1d8-075c-2edd-940e70b20d3e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fStartAngle REF= _fStartAngle;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Identifier" Id="{6337cac5-c3ee-0aa4-1bb4-b4aa7ca42fcf}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{7b71be49-afbc-0959-0142-962bf7ee2a57}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'TcVnCircularArc';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{58710828-9f17-08c6-31f2-d2a6b35e6582}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO TcVnCircularArc;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetMemberReference" Id="{bf794b18-094b-0ae4-305a-35402e5145b3}"
+      FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_aCenter.MakeReferenceTo(activeData.aCenter);
+_fRadius.MakeReferenceTo(activeData.fRadius);
+_fStartAngle.MakeReferenceTo(activeData.fStartAngle);
+_fEndAngle.MakeReferenceTo(activeData.fEndAngle);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{88487755-2a2d-03e6-34c5-2a3e8ff7441b}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{7dbe3ab4-90d4-0bd0-1487-3271bd582597}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{354af9c2-2e70-0924-1a46-175e542c0e95}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO TcVnCircularArc;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetMemberReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{5707480c-6f6f-013a-27af-db00c418bcb6}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnCircularArc]]></Declaration>
+      <Get Name="Get" Id="{f1788c78-5593-0aa2-33ad-d137eabe9cf0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

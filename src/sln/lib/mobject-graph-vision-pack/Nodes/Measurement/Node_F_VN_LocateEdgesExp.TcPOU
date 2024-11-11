@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_LocateEdgesExp" Id="{b89dd7a9-df69-060d-1689-96092ab6ba23}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_LocateEdgesExp EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+    ipEdgePoints : _ITcVnContainer;
+    aStartPoint : _TcVnPoint2_REAL;
+    aEndPoint : _TcVnPoint2_REAL;
+    nNumEdges : _UDINT(0);
+	eEdgeDirection : _ETcVnEdgeDirection(ETcVnEdgeDirection.TCVN_ED_DARK_TO_LIGHT);
+    bAlternateDirection : _BOOL(FALSE);
+    fMinStrength : _REAL(0.0);
+    nSearchLines : _UDINT(1);
+    fSearchLineDist : _REAL(0.0);
+    nMaxThickness : _UDINT(0);
+    nSubpixelsIterations : _UDINT(0);
+    fApproxPrecision : _REAL(0.0);
+    eAlgorithm : _ETcVnEdgeDetectionAlgorithm(ETcVnEdgeDetectionAlgorithm.TCVN_EDA_INTERPOLATION);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{1a8d7bb0-4fdc-0407-3f1d-ec70821dd26a}" />
+    <Method Name="Clone" Id="{bfb2de1b-fcb0-0120-0afe-43df2d017ebb}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_LocateEdgesExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_LocateEdgesExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{4ba76759-ea40-0735-228e-fb6b1fe01787}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('aStartPoint', aStartPoint);
+AddInput('aEndPoint', aEndPoint);
+AddInput('hrPrev', hrPrev);
+AddParameter('nNumEdges', nNumEdges);
+AddParameter('eEdgeDirection', eEdgeDirection);
+AddParameter('bAlternateDirection', bAlternateDirection);
+AddParameter('fMinStrength', fMinStrength);
+AddParameter('nSearchLines', nSearchLines);
+AddParameter('fSearchLineDist', fSearchLineDist);
+AddParameter('nMaxThickness', nMaxThickness);
+AddParameter('nSubpixelsIterations', nSubpixelsIterations);
+AddParameter('fApproxPrecision', fApproxPrecision);
+AddParameter('eAlgorithm', eAlgorithm);
+AddOutput('ipEdgePoints', ipEdgePoints);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{4f2bf090-73e6-05c9-15fe-500b9326dc60}">
+      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_LocateEdgesExp(
+	ipSrcImage := ipSrcImage.Value,
+	ipEdgePoints := ipEdgePoints.Value,
+    aStartPoint := aStartPoint.Value,
+    aEndPoint := aEndPoint.Value,
+    nNumEdges := nNumEdges.Value,
+    eEdgeDirection := eEdgeDirection.Value,
+    bAlternateDirection := bAlternateDirection.Value,
+	fMinStrength := fMinStrength.Value,
+	nSearchLines := nSearchLines.Value,
+    fSearchLineDist := fSearchLineDist.Value,
+    nMaxThickness := nMaxThickness.Value,
+    nSubpixelsIterations := nSubpixelsIterations.Value,
+    fApproxPrecision := fApproxPrecision.Value,
+    eAlgorithm := eAlgorithm.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{ffa444f8-4380-085c-3046-0c11c51ef638}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+Check.IsTrue(nSearchLines.IsOdd, 'nSearchLines must be an odd number');
+Check.IsTrue((fSearchLineDist.Value > 0.0), 'nSearchLineDist must be greater than 0');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_ETcVnMorphologicalOperator" Id="{4ab1e0f4-6c56-09a8-21ee-344468a56821}"
+    SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnMorphologicalOperator EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnMorphologicalOperator;
+	activeData : REFERENCE TO ETcVnMorphologicalOperator;
+	enumBaseDatatype : _DINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{413c0975-a9b3-039e-3f92-a30acb3b6afe}">
+      <Folder Name="Protected" Id="{6b0406ff-8ad9-0bbf-3b71-9a7cfa09ab25}" />
+    </Folder>
+    <Folder Name="Customize" Id="{a76debb1-ef2c-054c-24f0-e799328fd0ef}">
+      <Folder Name="Constructor" Id="{1ec0e912-4d71-0601-0dea-d94b281e3869}" />
+      <Folder Name="Private" Id="{0a6917d4-3746-09ed-3837-a0a287b50a76}" />
+      <Folder Name="Protected" Id="{f0d60536-b5af-00c6-0ddb-b736ff246915}" />
+    </Folder>
+    <Method Name="AddLocalEnumeration" Id="{a5338993-670c-0145-098d-4d5e6675a300}"
+      FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnMorphologicalOperator;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{cecb4f30-5bf3-0935-1929-a5ccc1349df4}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{e2b76158-24a8-022e-0772-f1440d376f2c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{b72abc02-7930-048f-36f4-ed9554cbedb4}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{47c15e73-5191-0991-3620-b30cec27d17a}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnMorphologicalOperator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnMorphologicalOperator(InitialValue := Value));
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{f40362a7-5531-0016-0ced-db909a4e8d3e}"
+      FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnMorphologicalOperator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_MO_EROSION', ETcVnMorphologicalOperator.TCVN_MO_EROSION);
+AddLocalEnumeration('TCVN_MO_DILATION', ETcVnMorphologicalOperator.TCVN_MO_DILATION);
+AddLocalEnumeration('TCVN_MO_OPENING', ETcVnMorphologicalOperator.TCVN_MO_OPENING);
+AddLocalEnumeration('TCVN_MO_CLOSING', ETcVnMorphologicalOperator.TCVN_MO_CLOSING);
+AddLocalEnumeration('TCVN_MO_GRADIENT', ETcVnMorphologicalOperator.TCVN_MO_GRADIENT);
+AddLocalEnumeration('TCVN_MO_WHITE_TOPHAT', .TCVN_MO_WHITE_TOPHAT);
+AddLocalEnumeration('TCVN_MO_BLACK_TOPHAT', ETcVnMorphologicalOperator.TCVN_MO_BLACK_TOPHAT);
+AddLocalEnumeration('TCVN_MO_OPENING_BY_RECONSTRUCTION', ETcVnMorphologicalOperator.TCVN_MO_OPENING_BY_RECONSTRUCTION);
+AddLocalEnumeration('TCVN_MO_CLOSING_BY_RECONSTRUCTION', ETcVnMorphologicalOperator.TCVN_MO_CLOSING_BY_RECONSTRUCTION);
+AddLocalEnumeration('TCVN_MO_WHITE_TOPHAT_BY_RECONSTRUCTION', ETcVnMorphologicalOperator.TCVN_MO_WHITE_TOPHAT_BY_RECONSTRUCTION);
+AddLocalEnumeration('TCVN_MO_BLACK_TOPHAT_BY_RECONSTRUCTION', ETcVnMorphologicalOperator.TCVN_MO_BLACK_TOPHAT_BY_RECONSTRUCTION);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{df116bcc-cc2b-0160-3720-89be68cc529b}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{a804f63b-b517-0dc3-1ad8-31255298e695}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnMorphologicalOperator';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{b778d932-d482-0010-3ce3-9fc8b7df8bfd}"
+      FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnMorphologicalOperator;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{284b87fd-6e7e-0319-3d33-92e6391868e2}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnMorphologicalOperator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{175bbfeb-4945-089b-3905-820748ecd609}"
+      FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{a4e195de-6b23-0834-364c-2ff6734eadf7}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{77d03885-3bed-05aa-2afe-8f26bb55626d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{bca86c23-63e5-090d-384c-33f9b35d57da}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO ETcVnMorphologicalOperator;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{8d30fc7a-5928-03ce-1f16-a960ff54abaf}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnMorphologicalOperator]]></Declaration>
+      <Get Name="Get" Id="{b25e9e74-6a14-00cd-20ff-fc4773d5912d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{a3a741b4-0d9d-023c-1469-f80cf2de6e7d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>
