@@ -790,13 +790,13 @@ VAR
     // Image Color and Contrast Processing
     node_F_VN_ApplyColorMap : Node_F_VN_ApplyColorMap;
     //F_VN_ApplyLut
-    //F_VN_Clahe
-    //F_VN_ClaheExp
+    node_F_VN_Clahe : Node_F_VN_Clahe;
+    node_F_VN_ClaheExp : Node_F_VN_ClaheExp;
     node_F_VN_ConvertColorSpace : Node_F_VN_ConvertColorSpace;
     node_F_VN_GenerateColorMap : Node_F_VN_GenerateColorMap;
     //F_VN_GenerateCustomColorMap
     //F_VN_Histogram
-    //F_VN_HistogramEqualization
+    node_F_VN_HistogramEqualization : Node_F_VN_HistogramEqualization;
     //F_VN_HistogramEqualizationExp
     //F_VN_HistogramExp
     node_F_VN_InvertImageColor : Node_F_VN_InvertImageColor;
@@ -1802,13 +1802,13 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CountNonZeroPixels', 
 // Image Color and Contrast Processing
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ApplyColorMap', node_F_VN_ApplyColorMap);
 //F_VN_ApplyLut
-//F_VN_Clahe
-//F_VN_ClaheExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_Clahe', node_F_VN_Clahe);
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ClaheExp', node_F_VN_ClaheExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ConvertColorSpace', node_F_VN_ConvertColorSpace);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_GenerateColorMap', node_F_VN_GenerateColorMap);
 //F_VN_GenerateCustomColorMap
 //F_VN_Histogram
-//F_VN_HistogramEqualization
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_HistogramEqualization', node_F_VN_HistogramEqualization);
 //F_VN_HistogramEqualizationExp
 //F_VN_HistogramExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_InvertImageColor', node_F_VN_InvertImageColor);
