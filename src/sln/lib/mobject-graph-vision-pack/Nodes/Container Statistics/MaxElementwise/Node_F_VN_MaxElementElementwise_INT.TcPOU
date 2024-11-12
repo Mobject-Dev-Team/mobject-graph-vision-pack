@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_MaxElementElementwise_INT" Id="{59248bab-d00e-4297-9ed2-aadd0c0b1ad1}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MaxElementElementwise_INT EXTENDS VisionNode
+VAR
+    ipContainer : _ITcVnContainer;
+    nMax : _INT(0);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{6c382206-eefe-411e-9f7a-577ad4c41419}" />
+    <Method Name="Clone" Id="{f6771a0f-ef1d-48d2-a669-95ce5b864852}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_MaxElementElementwise_INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MaxElementElementwise_INT);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{9a75601d-9e08-477d-ba11-f7a49c1b04a2}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipContainer', ipContainer);
+AddInput('nMax', nMax);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipContainer', ipContainer);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{97828893-09ed-4bb2-a4f5-b517867a419c}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MaxElementElementwise_INT(
+    ipContainer := ipContainer.Value,
+    nMax := nMax.Value,
+    hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{66327d47-1830-4a78-b33b-a33506741a66}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
+Check.IsTrue(ipContainer.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_INT), 'ipContainer contains incorrect type');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

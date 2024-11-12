@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_LocateEllipse" Id="{c7d2978b-3683-05b7-0a8b-f63c12f25f9e}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_LocateEllipse EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+    stEllipse : _TcVnRotatedRectangle;
+    aCenter : _TcVnPoint2_REAL;
+    fSearchRadius : _REAL(0.0);
+	eEdgeDirection : _ETcVnEdgeDirection(ETcVnEdgeDirection.TCVN_ED_DARK_TO_LIGHT);
+    fMinStrength : _REAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{d30fdbe1-de30-0240-23c0-b35d9445526e}" />
+    <Method Name="Clone" Id="{a39d2dd6-5f76-0e7c-2faf-7bd7c142568e}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_LocateEllipse;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_LocateEllipse);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{8f7783ea-d5df-0184-3704-5ed5d7e5367a}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('hrPrev', hrPrev);
+AddInput('aCenter', aCenter);
+AddParameter('fSearchRadius', fSearchRadius);
+AddParameter('eEdgeDirection', eEdgeDirection);
+AddParameter('fMinStrength', fMinStrength);
+AddOutput('stEllipse', stEllipse);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{383c5446-eefc-0f37-372c-c5fb79029c21}">
+      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_LocateEllipse(
+	ipSrcImage := ipSrcImage.Value,
+    stEllipse := stEllipse.Value,
+    aCenter := aCenter.Value,
+    fSearchRadius := fSearchRadius.Value,
+    eEdgeDirection := eEdgeDirection.Value,
+	fMinStrength := fMinStrength.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{1c1cc57f-0b9e-0e86-3dd2-53f3cd2c014f}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_ETcVn2dCodeSearchStrategy" Id="{5be12e34-c0d1-4973-8284-039090e83858}"
+    SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVn2dCodeSearchStrategy EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVn2dCodeSearchStrategy;
+	activeData : REFERENCE TO ETcVn2dCodeSearchStrategy;
+	enumBaseDatatype : _UDINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{4bb1d008-3a2f-0a42-1b07-2cd0b9a085e8}">
+      <Folder Name="Protected" Id="{64287468-37c9-06a2-0a5c-65db648f1b34}" />
+    </Folder>
+    <Folder Name="Customize" Id="{e8cc9149-44a3-0e96-31ba-61d165a9ba0f}">
+      <Folder Name="Constructor" Id="{72c73cd4-5112-4575-a4ce-4926caae75c4}" />
+      <Folder Name="Private" Id="{f64647d7-c4ad-474a-a85a-418458d7d9d6}" />
+      <Folder Name="Protected" Id="{10fad48b-6bbf-400a-b933-52ef692221ce}" />
+    </Folder>
+    <Method Name="AddLocalEnumeration" Id="{52effdbd-37fa-453c-baa2-8882527e3912}"
+      FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVn2dCodeSearchStrategy;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{dc25011f-b2a0-4420-98c8-b921c98f340c}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{66625fcb-a0fd-4385-9e81-d11485dab810}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{7b147035-0843-456a-b403-3f67350949d6}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{77d4e1ef-06b6-459a-9194-edbcd6394657}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVn2dCodeSearchStrategy;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVn2dCodeSearchStrategy(InitialValue := Value));
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{8ef90484-7f12-4187-94f2-3b44a21100d9}"
+      FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVn2dCodeSearchStrategy;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_CSS_DEFAULT', ETcVn2dCodeSearchStrategy.TCVN_CSS_DEFAULT);
+AddLocalEnumeration('TCVN_CSS_FIRST_FLIPPED', ETcVn2dCodeSearchStrategy.TCVN_CSS_FIRST_FLIPPED);
+AddLocalEnumeration('TCVN_CSS_FIRST_INVERTED', ETcVn2dCodeSearchStrategy.TCVN_CSS_FIRST_INVERTED);
+AddLocalEnumeration('TCVN_CSS_FIRST_NOT_FLIPPED', ETcVn2dCodeSearchStrategy.TCVN_CSS_FIRST_NOT_FLIPPED);
+AddLocalEnumeration('TCVN_CSS_FIRST_NOT_INVERTED', ETcVn2dCodeSearchStrategy.TCVN_CSS_FIRST_NOT_INVERTED);
+AddLocalEnumeration('TCVN_CSS_ONLY_FLIPPED', ETcVn2dCodeSearchStrategy.TCVN_CSS_ONLY_FLIPPED);
+AddLocalEnumeration('TCVN_CSS_ONLY_INVERTED', ETcVn2dCodeSearchStrategy.TCVN_CSS_ONLY_INVERTED);
+AddLocalEnumeration('TCVN_CSS_ONLY_NOT_FLIPPED', ETcVn2dCodeSearchStrategy.TCVN_CSS_ONLY_NOT_FLIPPED);
+AddLocalEnumeration('TCVN_CSS_ONLY_NOT_INVERTED', ETcVn2dCodeSearchStrategy.TCVN_CSS_ONLY_NOT_INVERTED);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{5342fd20-72dc-444d-a214-55c0dd5ad52c}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{56fc425c-b7ce-4e6e-b6d1-aa9af0d39f1d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVn2dCodeSearchStrategy';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{6a61e91c-9236-46f1-8155-81d72ee95224}"
+      FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVn2dCodeSearchStrategy;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{646f68ea-4df1-4b73-bffa-1a01bba19e03}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVn2dCodeSearchStrategy;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{130acbcc-f84e-4ae1-8b25-95d6d588f69a}"
+      FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{57f25cab-adc7-44a6-8f0a-6f08ed25c722}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{929cef7a-424d-4d36-8027-fe9020dc4298}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{ce5f5830-b861-40e9-8958-4ad17ed78f1e}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO ETcVn2dCodeSearchStrategy;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{bee402f6-2aca-40e1-a610-51bc94e1ddb1}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVn2dCodeSearchStrategy]]></Declaration>
+      <Get Name="Get" Id="{56ecd470-c691-43cd-bcf4-03ab287375cd}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{bc022720-64b4-4688-888a-494ca5f6e0c4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

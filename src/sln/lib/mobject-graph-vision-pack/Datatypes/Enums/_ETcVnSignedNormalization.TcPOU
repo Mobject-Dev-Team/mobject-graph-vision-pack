@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_ETcVnSignedNormalization" Id="{cc86d2d8-b3c7-0f22-2b9f-d678ca949d84}"
+    SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnSignedNormalization EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnSignedNormalization;
+	activeData : REFERENCE TO ETcVnSignedNormalization;
+	enumBaseDatatype : _INT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{d2b98418-8310-0050-1e85-1f0a3c17bcb5}">
+      <Folder Name="Protected" Id="{ebe891d2-6bb5-02c0-05f6-6e76a23532b2}" />
+    </Folder>
+    <Folder Name="Customize" Id="{6df5757d-7264-0f65-3006-e71c32395533}">
+      <Folder Name="Constructor" Id="{38e34fa5-ee9f-091d-15c8-62e6617d3671}" />
+      <Folder Name="Private" Id="{d4402803-8b74-04f2-0b3f-f8126f3cebac}" />
+      <Folder Name="Protected" Id="{b25a4ad8-98f1-0be7-30ed-b9a557cbedab}" />
+    </Folder>
+    <Method Name="AddLocalEnumeration" Id="{05f0a5bc-48bf-0af2-0605-c2e39cc0c092}"
+      FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnSignedNormalization;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{712741ba-a024-09e2-2d84-27d33b547541}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{6871e3dd-4ba7-05fa-0070-4db70954fc7a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{f80fff07-8c36-0b78-0095-8107d196d380}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{47682d9a-ab7e-0e00-0b0d-f14994fa77e2}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnSignedNormalization;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnSignedNormalization(InitialValue := Value));
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{02893dec-bee9-04c4-356e-90529771dfda}"
+      FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnSignedNormalization;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_SN_FIX_ZERO', ETcVnSignedNormalization.TCVN_SN_FIX_ZERO);
+AddLocalEnumeration('TCVN_SN_FULL_SCALE', ETcVnSignedNormalization.TCVN_SN_FULL_SCALE);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{28fdc7d4-20b5-0715-3533-95aff3ef942c}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{64859904-8632-0e30-1628-b309e7f5ef6d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnSignedNormalization';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{941e263d-730d-030d-0cf1-4fc749cef2af}"
+      FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnSignedNormalization;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{048c0c34-a277-044a-2da5-6c9a3c83f77c}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnSignedNormalization;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{c723a9bb-b653-043d-114d-9f5ae3ef83ab}"
+      FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{ed524ea4-825b-04c2-14e5-a245508c82ae}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{62d0fa4f-51d6-066e-1b64-f1b9cb824380}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{e74b642c-f382-0db5-3547-8721ce0bac8b}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO ETcVnSignedNormalization;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{cf0057a3-7745-0251-1249-c590b524cca5}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnSignedNormalization]]></Declaration>
+      <Get Name="Get" Id="{29c0bbc1-5fea-05ae-0f56-8699f06f27a0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{d73f9e4f-84d2-0625-27d9-234b25bf9102}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

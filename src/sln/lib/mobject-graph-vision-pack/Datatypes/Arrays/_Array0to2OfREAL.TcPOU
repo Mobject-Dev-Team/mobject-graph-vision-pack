@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_Array0to2OfREAL" Id="{a391b679-688a-034f-2684-cda018a3fb76}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _Array0to2OfREAL EXTENDS ArrayDatatypeBase_1D
+VAR CONSTANT
+	lBound : DINT := 0;
+	uBound : DINT := 2;
+END_VAR
+VAR
+	localData : ARRAY [lBound..uBound] OF REAL;
+	activeData : REFERENCE TO ARRAY [lBound..uBound] OF REAL REF= localData;
+	elements : ARRAY [lBound..uBound] OF _REAL(0.0);
+	baseType : _REAL(0.0);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{c504bef0-ab17-0580-1c2d-e28585614d3e}">
+      <Folder Name="Constructor" Id="{00ad46f1-fda0-05d8-1c7e-a81ff277f167}" />
+      <Folder Name="Protected" Id="{fed37318-1237-0d97-24dc-fbfbdfcb41ec}" />
+    </Folder>
+    <Folder Name="Customize" Id="{3edc9cec-dd32-0b3e-2ce2-6478320b72f4}" />
+    <Property Name="Address" Id="{6cb465a3-c8db-03ec-172f-c7bfdaeef08c}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{cb375a10-6e87-08b8-3f76-e40928ad4487}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="BaseDatatype" Id="{8c7a19ab-c766-009b-0fc8-de1c100003fd}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC BaseDatatype : I_Datatype]]></Declaration>
+      <Get Name="Get" Id="{87adaf00-6de2-05bf-0d57-f046cc414041}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[BaseDatatype := baseType;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{db170fad-5dd6-002c-1a41-91204cc50537}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetElementReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{592e5c32-d4eb-06dc-0b4e-b86651762cbb}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _Array0to2OfREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_Array0to2OfREAL());
+pClone^.Value := Value;
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{1e2473d0-211c-0881-378c-aa8d547158ea}"
+      FolderPath="Core\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetElementReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{1fd8604b-329d-0071-12b8-02a14d5cbe1c}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ARRAY [lBound..uBound] OF REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetElementReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnSerializeArrayValues" Id="{a27d6dc5-8026-023f-382f-5025ef9ffb37}"
+      FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED OnSerializeArrayValues
+VAR_INPUT
+	Serializer : I_Serializer;
+END_VAR
+VAR
+	i : DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i := lBound TO uBound DO
+	elements[i].SerializeWith(Serializer);
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetElementReference" Id="{8a1edd00-af4c-0083-0e2b-aede01b43743}"
+      FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetElementReference
+VAR_INPUT
+END_VAR
+VAR
+	i : DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i := lBound TO uBound DO
+	elements[i].MakeReferenceTo(activeData[i]);
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{b4e788f2-3261-02c0-1387-0f36fa4b4ba0}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{16c907e3-1a4d-06e9-041e-1e7652110b5d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryDeserializeArrayValues" Id="{389ad87a-038d-0be2-225e-63c2b757dca1}"
+      FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED TryDeserializeArrayValues : BOOL
+VAR_INPUT
+	Deserializer : I_Deserializer;
+	Feedback : I_DeserializerFeedback;
+END_VAR
+VAR
+	enumerator : I_DeserializerArrayForwardEnumerator;
+	i : DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumerator := Deserializer.GetArrayEnumerator();
+i := lBound;
+
+WHILE enumerator.MoveNext() AND i <= uBound DO
+	
+	IF NOT elements[i].TryDeserializeFrom(enumerator.Current, Feedback) THEN
+		EXIT;
+	END_IF
+	i := i + 1;
+
+END_WHILE
+enumerator.Dispose();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetElementAsDatatypeByIndex" Id="{d1f1576d-1117-0051-35d6-8a010d476605}"
+      FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetElementAsDatatypeByIndex : BOOL
+VAR_INPUT
+	Index : DINT;
+	Destination : REFERENCE TO I_Datatype;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Index < lbound OR Index > ubound THEN
+	RETURN;
+END_IF
+
+Destination := elements[Index];
+TryGetElementAsDatatypeByIndex := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetLowerBound" Id="{cf0eb6e1-060c-0bfd-071f-c3001e3cb7f5}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetLowerBound : BOOL
+VAR_INPUT
+	Dimention : UDINT;
+	Destination : REFERENCE TO DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Dimention = 1 THEN
+	Destination := lBound;
+	TryGetLowerBound := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetUpperBound" Id="{b87e329f-9d49-04d2-1131-3f2c8b8d3623}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetUpperBound : BOOL
+VAR_INPUT
+	Dimention : UDINT;
+	Destination : REFERENCE TO DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Dimention = 1 THEN
+	Destination := uBound;
+	TryGetUpperBound := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryMakeReferenceTo" Id="{e9260b53-a1ed-0c7e-36d4-89d6d78a43aa}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO ARRAY [lBound..uBound] OF REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetElementReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{24eb7488-5809-0621-27a1-3c5c71f6f413}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO ARRAY [lBound..uBound] OF REAL;]]></Declaration>
+      <Get Name="Get" Id="{7a81c5ca-e7f0-0faf-095f-3941ed2a3e4d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value ref= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_AppendToContainer_TcVnVector2_DINT" Id="{c5f63b3b-bbbd-4204-b58e-0d5822379fbd}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_AppendToContainer_TcVnVector2_DINT EXTENDS VisionNode
+VAR
+    aElement : _TcVnVector2_DINT;
+    ipContainer : _ITcVnContainer;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{175e22dc-c2b5-483a-b128-9a8df404d255}" />
+    <Method Name="Clone" Id="{876d68ef-ff3b-4a45-a2d1-8f3c4b2d6e7c}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_AppendToContainer_TcVnVector2_DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_AppendToContainer_TcVnVector2_DINT);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{960a98ae-d545-4064-b836-ad5f01db6406}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('aElement', aElement);
+AddInput('ipContainer', ipContainer);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipContainer', ipContainer);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{d08f1950-d60e-4aa2-a65f-6c7bb796134e}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_AppendToContainer_TcVnVector2_DINT(
+    aElement := aElement.Value,
+	ipContainer := ipContainer.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{4fe949d6-1926-49da-9a11-238a8bf809d9}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

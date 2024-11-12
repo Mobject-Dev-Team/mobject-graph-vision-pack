@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_ETcVnDrawMatchesFlags" Id="{e969a346-2e52-0295-2375-7b616dc979de}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnDrawMatchesFlags EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnDrawMatchesFlags;
+	activeData : REFERENCE TO ETcVnDrawMatchesFlags;
+	enumBaseDatatype : _DINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{798faa80-0a02-076d-2ad0-a8c09c16d7ea}">
+      <Folder Name="Protected" Id="{13738084-bad8-03dd-33af-d88fb66fa71e}" />
+    </Folder>
+    <Folder Name="Customize" Id="{7f148000-30c8-0442-15af-aa7dcd8b3869}">
+      <Folder Name="Constructor" Id="{a8d25a69-e6ff-0d1f-27d5-1063947a0e79}" />
+      <Folder Name="Private" Id="{5c8b8169-756c-0dbc-18e8-9bcb70ff4eb4}" />
+      <Folder Name="Protected" Id="{7f0da98a-5d0c-0edd-0f17-4dfd99cb7b32}" />
+    </Folder>
+    <Method Name="AddLocalEnumeration" Id="{40c320ef-184e-01b7-1f2b-5bb5c6bd3058}"
+      FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnDrawMatchesFlags;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{9c1e89d3-8b07-0490-096b-444b7e2dc60b}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{b9976b3f-7c68-0394-33a4-433e7e0c6d56}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{d78d9a97-1677-0013-0138-5eae598cab03}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{7dc295ed-d27e-0a50-0da4-f6fea6bc9bc3}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnDrawMatchesFlags;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnDrawMatchesFlags(InitialValue := Value));
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{43aee692-4d4a-0dd0-1bea-a152b0d3f208}"
+      FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnDrawMatchesFlags;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_DMF_DEFAULT', ETcVnDrawMatchesFlags.TCVN_DMF_DEFAULT);
+AddLocalEnumeration('TCVN_DMF_OVERDRAW', ETcVnDrawMatchesFlags.TCVN_DMF_OVERDRAW);
+AddLocalEnumeration('TCVN_DMF_SKIPSINGLE', ETcVnDrawMatchesFlags.TCVN_DMF_SKIPSINGLE);
+AddLocalEnumeration('TCVN_DMF_OVERDRAW_SKIPSINGLE', ETcVnDrawMatchesFlags.TCVN_DMF_OVERDRAW_SKIPSINGLE);
+AddLocalEnumeration('TCVN_DMF_RICHKEYPOINT', ETcVnDrawMatchesFlags.TCVN_DMF_RICHKEYPOINT);
+AddLocalEnumeration('TCVN_DMF_OVERDRAW_RICHKEYPOINT', ETcVnDrawMatchesFlags.TCVN_DMF_OVERDRAW_RICHKEYPOINT);
+AddLocalEnumeration('TCVN_DMF_SKIPSINGLE_RICHKEYPOINT', ETcVnDrawMatchesFlags.TCVN_DMF_SKIPSINGLE_RICHKEYPOINT);
+AddLocalEnumeration('TCVN_DMF_OVERDRAW_SKIPSINGLE_RICHKEYPOINT', ETcVnDrawMatchesFlags.TCVN_DMF_OVERDRAW_SKIPSINGLE_RICHKEYPOINT);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{86487d81-73c7-0f49-1f99-92e183dbbc1b}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{ce1791fe-4545-0da1-3413-962fa4982027}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnDrawMatchesFlags';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{c0d7ea0c-e29d-0668-2137-c6496333e272}"
+      FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnDrawMatchesFlags;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{7edf67e5-c864-09b1-27d7-044d99859a3a}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnDrawMatchesFlags;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{34e767b0-e260-0181-07ec-5d07952655aa}"
+      FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{7f7c2f64-c03d-0edf-14f1-2c6bfb5bde68}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{6c53df6c-b37b-0819-24cc-a81448ddb75d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{2027459d-4f84-03fe-1b84-35123d722093}"
+      FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO ETcVnDrawMatchesFlags;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{92de1790-fafd-0a83-21e9-d603d5c10cf8}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnDrawMatchesFlags]]></Declaration>
+      <Get Name="Get" Id="{27b3463e-5e4d-04fd-10b9-848ef7dc1aaf}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{274df711-f41f-039c-00ab-aa909363275c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

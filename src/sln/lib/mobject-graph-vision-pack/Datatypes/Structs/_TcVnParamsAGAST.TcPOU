@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_TcVnParamsAGAST" Id="{a6092a64-714f-0b4c-0d5c-a946312bcebc}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _TcVnParamsAGAST EXTENDS StructuredDatatypeBase
+VAR
+	localData : TcVnParamsAGAST;
+	activeData : REFERENCE TO TcVnParamsAGAST REF= localData;
+	_nThreshold : _DINT(localData.nThreshold);
+    _bNonMaxSuppression : _BOOL(localData.bNonMaxSuppression);
+	_eType : _ETcVnKeypointDetectionTypeAGAST(localData.eType);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{28cd2fa3-d52e-0132-0dc3-a6dca8f284b9}" />
+    <Folder Name="Customize" Id="{40a410f6-a91a-0531-20f0-a4c0d6a76cbb}">
+      <Folder Name="Constructor" Id="{000e93af-771a-02e9-1a41-67b372de52fd}" />
+      <Folder Name="Protected" Id="{b061b049-ebb1-0bf0-2bdb-78bbd2ca9ed2}" />
+    </Folder>
+    <Property Name="Address" Id="{692178c3-6813-0d7d-3269-1719342d3472}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{e2a34566-b6b4-0597-2930-5984a13a9a81}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="bNonMaxSuppression" Id="{744f2b27-943e-056c-18f2-c00e82947288}">
+      <Declaration><![CDATA[PROPERTY PUBLIC bNonMaxSuppression : REFERENCE TO _BOOL]]></Declaration>
+      <Get Name="Get" Id="{53dfed0b-44f9-0eb7-0c0b-0e43d2c2f3cb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bNonMaxSuppression REF= _bNonMaxSuppression;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{b1ff1981-0140-009d-2726-cabec6e975ee}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{9725b7bc-df22-0a61-2cee-1de1fb1a6125}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _TcVnParamsAGAST;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_TcVnParamsAGAST());
+pClone^.Value := Value;
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="eType" Id="{cd63b9c1-ede5-0774-091a-a02bf6e106e2}">
+      <Declaration><![CDATA[PROPERTY PUBLIC eType : REFERENCE TO _ETcVnKeypointDetectionTypeAGAST]]></Declaration>
+      <Get Name="Get" Id="{5c1a4f6b-157e-00c1-3fec-a0f392791aaf}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[eType REF= _eType;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_init" Id="{a1f47d92-79c3-0ba3-2d46-4ed94f434571}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetMemberReference();
+AddMember('nThreshold',_nThreshold);
+AddMember('bNonMaxSuppression',_bNonMaxSuppression );
+AddMember('eType',_eType);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{b6e1e7cb-3547-047e-006e-1c5f4fbba7f7}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{8f742cac-0dc7-0efd-0a83-daeda58a0d11}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'TcVnParamsAGAST';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{d4ab68cc-e85d-0e77-353f-083d4f5b49c2}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO TcVnParamsAGAST;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nThreshold" Id="{64654570-2aba-0329-332e-7c74224cfd93}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nThreshold : REFERENCE TO _DINT]]></Declaration>
+      <Get Name="Get" Id="{4a6cb94f-f02d-0047-1242-e6afbfd4ba85}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nThreshold REF= _nThreshold;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetMemberReference" Id="{2d2f86b4-6aa3-0124-141b-7ef989b13878}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_nThreshold.MakeReferenceTo(activeData.nThreshold);
+_bNonMaxSuppression.MakeReferenceTo(activeData.bNonMaxSuppression);
+_eType.MakeReferenceTo(activeData.eType);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{ea069f81-5a62-0f6e-3198-161a40ce2e10}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{75c3704a-9afa-0066-2b9f-ebc2e376547c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{9f37d491-1595-0889-3ceb-04c1c840fd4a}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO TcVnParamsAGAST;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetMemberReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{68e55722-8728-0e65-22b8-c622ae469daa}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnParamsAGAST]]></Declaration>
+      <Get Name="Get" Id="{8e9f955e-5b12-0eb6-01d6-9b5f320d0a36}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

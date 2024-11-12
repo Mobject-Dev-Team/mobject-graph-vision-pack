@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_TcVnParamsMSER" Id="{8415e151-330a-044b-1e44-a5d03d9f1d70}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _TcVnParamsMSER EXTENDS StructuredDatatypeBase
+VAR
+	localData : TcVnParamsMSER;
+	activeData : REFERENCE TO TcVnParamsMSER REF= localData;
+	_nDelta : _DINT(localData.nDelta);
+    _nMinArea : _UDINT(localData.nMinArea);
+	_nMaxArea : _UDINT(localData.nMaxArea);
+	_fMaxVariation : _LREAL(localData.fMaxVariation);
+	_fMinDiversity : _LREAL(localData.fMinDiversity);
+	_nMaxEvolution : _UDINT(localData.nMaxEvolution);
+    _fAreaThreshold : _LREAL(localData.fAreaThreshold);
+    _fMinMargin : _LREAL(localData.fMinMargin);
+    _nEdgeBlurSize : _UDINT(localData.nEdgeBlurSize);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{0c5e0a5a-b8de-083d-04fa-77bfbde0f7fc}" />
+    <Folder Name="Customize" Id="{3b0f5d5d-59ec-0949-0a47-6eade71dd329}">
+      <Folder Name="Constructor" Id="{73b7aeb2-c2ad-0790-200d-743459cc97ed}" />
+      <Folder Name="Protected" Id="{f515bbeb-0e88-04dc-3af7-c4b92c5c7383}" />
+    </Folder>
+    <Property Name="Address" Id="{15a6aa5f-63a0-069f-3517-43ce737200da}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{9157615d-2420-03f3-131a-2fd2e7a7b131}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{619a585a-5063-0959-02ce-050b17f19f79}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{c85bec7d-5e4e-0d5c-191a-28926f3375d0}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _TcVnParamsMSER;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_TcVnParamsMSER());
+pClone^.Value := Value;
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="fAreaThreshold" Id="{5dfb13a4-7ba9-05fd-0a18-bf3f8b5c0d1a}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fAreaThreshold : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{9ae9a7fa-acf3-096c-0edb-1531b715af56}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fAreaThreshold REF= _fAreaThreshold;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_init" Id="{17de168b-30c3-00fb-29e7-e10e1259deb0}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetMemberReference();
+AddMember('nDelta', _nDelta);
+AddMember('nMinArea', _nMinArea);
+AddMember('nMaxArea', _nMaxArea);
+AddMember('fMaxVariation', _fMaxVariation);
+AddMember('fMinDiversity', _fMinDiversity);
+AddMember('nMaxEvolution', _nMaxEvolution);
+AddMember('fAreaThreshold', _fAreaThreshold);
+AddMember('fMinMargin', _fMinMargin);
+AddMember('nEdgeBlurSize', _nEdgeBlurSize);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="fMaxVariation" Id="{1c3f244e-6610-0f65-1409-0cd93a8a074e}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMaxVariation : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{4229a383-bcc7-07f6-21b6-5923286ac9fa}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMaxVariation REF= _fMaxVariation;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMinDiversity" Id="{de617d27-07d6-018e-18c3-eec4738b986d}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMinDiversity : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{801d4649-10a4-0c36-26e9-e57c0668b74e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMinDiversity REF= _fMinDiversity;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMinMargin" Id="{b8c5977f-1109-0c74-0143-f78ca74926ff}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMinMargin : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{6f59f1ea-56c5-032b-1b59-eec8fd4fe09a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMinMargin REF= _fMinMargin;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Identifier" Id="{9db0f63e-fd08-0682-308e-966c5b16313b}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{a28e4e79-2a55-08dd-2477-1915f3c3af09}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'TcVnParamsMSER';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{4f5a33b5-30cc-01aa-2b27-9ee9dd8f386a}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO TcVnParamsMSER;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nDelta" Id="{90823a2d-b3f3-03b6-3ee6-f0de1daf1716}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nDelta : REFERENCE TO _DINT]]></Declaration>
+      <Get Name="Get" Id="{a4489dac-7411-0301-362f-4bd46ec5b088}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nDelta REF= _nDelta;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nEdgeBlurSize" Id="{8a082ef8-77f7-07eb-26a6-0a95a3875a37}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nEdgeBlurSize : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{17e6ed4a-9ceb-0fc4-0865-8eb3af4b170c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nEdgeBlurSize REF= _nEdgeBlurSize;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nMaxArea" Id="{99d875f8-e939-04b5-0bb6-b2fcd5a96b16}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nMaxArea : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{6f5ea55b-00e2-03c7-32ef-01d3d48e1ad5}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nMaxArea REF= _nMaxArea;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nMaxEvolution" Id="{c7f6463d-bdfc-00e0-367c-2360bc7733b2}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nMaxEvolution : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{8dff4dde-2540-064e-1562-a4f9f4fe9a3f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nMaxEvolution REF= _nMaxEvolution;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nMinArea" Id="{950b61eb-cad8-0a2f-1acd-51fee0ddf165}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nMinArea : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{6dda2a1b-1a23-01dc-2d7f-11425cbd6d85}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nMinArea REF= _nMinArea;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetMemberReference" Id="{37de610e-3f62-09c2-3a20-7f2bf78f6329}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_nDelta.MakeReferenceTo(activeData.nDelta);
+_nMinArea.MakeReferenceTo(activeData.nMinArea);
+_nMaxArea.MakeReferenceTo(activeData.nMaxArea);
+_fMaxVariation.MakeReferenceTo(activeData.fMaxVariation);
+_fMinDiversity.MakeReferenceTo(activeData.fMinDiversity);
+_nMaxEvolution.MakeReferenceTo(activeData.nMaxEvolution);
+_fAreaThreshold.MakeReferenceTo(activeData.fAreaThreshold);
+_fMinMargin.MakeReferenceTo(activeData.fMinMargin);
+_nEdgeBlurSize.MakeReferenceTo(activeData.nEdgeBlurSize);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{a065791b-fa96-0998-0229-e77b3362b3ff}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{9bf6a221-d182-0202-321e-90a6731fe711}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{bc392d66-6ef0-0b57-03dc-a166add914c7}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO TcVnParamsMSER;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetMemberReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{10f951fb-2b6e-089a-1ae8-7e36ccad7693}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnParamsMSER]]></Declaration>
+      <Get Name="Get" Id="{a52f3280-a601-06d7-3d3a-aa4877ae2990}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

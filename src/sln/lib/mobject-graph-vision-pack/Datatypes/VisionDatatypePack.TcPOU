@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="VisionDatatypePack" Id="{41aa96c4-4e58-0595-14c8-fb1325f46fff}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK VisionDatatypePack IMPLEMENTS I_DatatypePack
+VAR
+    // aliases
+    _gVCP_REGISTER_ADDRESS : _GVCP_REGISTER_ADDRESS;
+    _tcVnPoint : _TcVnPoint;
+    _tcVnPoint2_DINT : _TcVnPoint2_DINT;
+    _tcVnPoint2_LREAL : _TcVnPoint2_LREAL;
+    _tcVnPoint2_REAL : _TcVnPoint2_REAL;
+    _tcVnPoint3_LREAL : _TcVnPoint3_LREAL;
+    _tcVnPoint3_REAL : _TcVnPoint3_REAL;
+    _tcVnRectangle : _TcVnRectangle;
+  
+    _tcVnArray10_ITcVnImage : _TcVnArray10_ITcVnImage;
+    _tcVnArray3_Point2_REAL : _TcVnArray3_Point2_REAL;
+    //_tcVnArray33_UDINT : _TcVnArray33_UDINT;
+    _tcVnArray4_LREAL : _TcVnArray4_LREAL;
+    _tcVnArray4_Point2_REAL : _TcVnArray4_Point2_REAL;
+    _tcVnArray7_LREAL : _TcVnArray7_LREAL;
+    _tcVnArray8_LREAL : _TcVnArray8_LREAL;
+    _tcVnMatrix2x3_LREAL : _TcVnMatrix2x3_LREAL;
+    _tcVnMatrix3x3_LREAL : _TcVnMatrix3x3_LREAL;
+    _tcVnVector2_DINT : _TcVnVector2_DINT;
+    _tcVnVector2_INT : _TcVnVector2_INT;
+    _tcVnVector2_LREAL : _TcVnVector2_LREAL;
+    _tcVnVector2_REAL : _TcVnVector2_REAL;
+    _tcVnVector2_SINT : _TcVnVector2_SINT;
+    _tcVnVector2_UINT : _TcVnVector2_UINT;
+    _tcVnVector2_USINT : _TcVnVector2_USINT;
+    _tcVnVector3_INT : _TcVnVector3_INT;
+    _tcVnVector3_LREAL : _TcVnVector3_LREAL;
+    _tcVnVector3_REAL : _TcVnVector3_REAL;
+    _tcVnVector3_SINT : _TcVnVector3_SINT;
+    _tcVnVector3_UINT : _TcVnVector3_UINT;
+    _tcVnVector3_USINT : _TcVnVector3_USINT;
+    _tcVnVector4_DINT : _TcVnVector4_DINT;
+    _tcVnVector4_INT : _TcVnVector4_INT;
+    _tcVnVector4_LREAL : _TcVnVector4_LREAL;
+    _tcVnVector4_SINT : _TcVnVector4_SINT;
+    _tcVnVector4_UINT : _TcVnVector4_UINT;
+    _tcVnVector4_USINT : _TcVnVector4_USINT;
+ 
+    // constants
+    
+    // arrays
+    _array0to1OfDINT : _Array0to1OfDINT;
+    _array0to1OfINT : _Array0to1OfINT;
+    _array0to1OfLREAL : _Array0to1OfLREAL;
+    _array0to1OfREAL : _Array0to1OfREAL;
+    _array0to1OfSINT : _Array0to1OfSINT;
+    _array0to1OfUINT : _Array0to1OfUINT;
+    _array0to1OfUSINT : _Array0to1OfUSINT;
+    _array0to2OfINT : _Array0to2OfINT;
+    _array0to2OfLREAL : _Array0to2OfLREAL;
+    _array0to2OfREAL : _Array0to2OfREAL;
+    _array0to2OfSINT : _Array0to2OfSINT;
+    _array0to2OfUINT : _Array0to2OfUINT;
+    _array0to2OfUSINT : _Array0to2OfUSINT;
+    _array0to3OfDINT : _Array0to3OfDINT;
+    _array0to3OfINT : _Array0to3OfINT;
+	_array0to3OfLREAL : _Array0to3OfLREAL;
+    _array0to6OfLREAL : _Array0to6OfLREAL;
+    _array0to7OfLREAL : _Array0to7OfLREAL;
+	_array0to1_0to2OfLREAL : _Array0to1_0to2OfLREAL;
+	_array0to2_0to2OfLREAL : _Array0to2_0to2OfLREAL;
+    
+    // enums
+	_eTcVn2dCodeSearchStrategy : _ETcVn2dCodeSearchStrategy(ETcVn2dCodeSearchStrategy.TCVN_CSS_DEFAULT);
+    _eTcVnAdaptiveThresholdMethod : _ETcVnAdaptiveThresholdMethod(ETcVnAdaptiveThresholdMethod.TCVN_ATM_MEAN);
+    _eTcVnBarcodeSearchDirection : _ETcVnBarcodeSearchDirection(ETcVnBarcodeSearchDirection.TCVN_BSD_ANY);
+    _eTcVnBarcodeType : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODABAR);
+    _eTcVnBlobCombination : _ETcVnBlobCombination(ETcVnBlobCombination.TCVN_BC_SMALLEST);
+    //_eTcVnBoostClassifierType : _ETcVnBoostClassifierType(ETcVnBoostClassifierType.TCVN_BCT_DISCRETE);
+    _eTcVnBorderInterpolationMethod : _ETcVnBorderInterpolationMethod(ETcVnBorderInterpolationMethod.TCVN_BIM_DEFAULT);
+    _eTcVnCalibrationPattern : _ETcVnCalibrationPattern(ETcVnCalibrationPattern.TCVN_CP_CIRCLES_SYM);
+    _eTcVnCalibrationPatternOrigin : _ETcVnCalibrationPatternOrigin(ETcVnCalibrationPatternOrigin.TCVN_CPO_TOPCENTER);
+    _eTcVnCameraState : _ETcVnCameraState(ETcVnCameraState.TCVN_CS_INITIAL);
+    _eTcVnClusteringAlgorithm : _ETcVnClusteringAlgorithm(ETcVnClusteringAlgorithm.TCVN_CA_KMEANSPP);
+    _eTcVnColorMap : _ETcVnColorMap(ETcVnColorMap.TCVN_CM_AUTUMN);
+    _eTcVnColorMapSize : _ETcVnColorMapSize(ETcVnColorMapSize.TCVN_CMS_256);
+    _eTcVnColorSpaceTransform : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_RGBA_TO_RGB);
+    _eTcVnColorTrainingMethod : _ETcVnColorTrainingMethod(ETcVnColorTrainingMethod.TCVN_CTM_LAB);
+    _eTcVnConnectedComponentsAlgorithm : _ETcVnConnectedComponentsAlgorithm(ETcVnConnectedComponentsAlgorithm.TCVN_CCA_WU);
+    _eTcVnContainerExportFormat : _ETcVnContainerExportFormat(ETcVnContainerExportFormat.TCVN_CEF_XML);
+    _eTcVnContourApproximationMethod : _ETcVnContourApproximationMethod(ETcVnContourApproximationMethod.TCVN_CAM_NONE);
+    _eTcVnContourRetrievalMode : _ETcVnContourRetrievalMode(ETcVnContourRetrievalMode.TCVN_CRM_EXTERNAL);
+    _eTcVnContoursMatchComparisonMethod : _ETcVnContoursMatchComparisonMethod(ETcVnContoursMatchComparisonMethod.TCVN_CMCM_CONTOURS_MATCH_I1);
+    _eTcVnDiffusivityTypeKAZE : _ETcVnDiffusivityTypeKAZE(ETcVnDiffusivityTypeKAZE.TCVN_DT1_KAZE_PM_G1);
+    _eTcVnDistanceTransformationLabel : _ETcVnDistanceTransformationLabel(ETcVnDistanceTransformationLabel.TCVN_DTL_CCOMP);
+    _eTcVnDistanceTransformationMask : _ETcVnDistanceTransformationMask(ETcVnDistanceTransformationMask.TCVN_DTM_PRECISE);
+    _eTcVnDistanceType : _ETcVnDistanceType(ETcVnDistanceType.TCVN_DT_USER);
+    _eTcVnDrawMatchesFlags : _ETcVnDrawMatchesFlags(ETcVnDrawMatchesFlags.TCVN_DMF_DEFAULT);
+    _eTcVnDrawShape : _ETcVnDrawShape(ETcVnDrawShape.TCVN_DS_CIRCLE);
+    _eTcVnEdgeDetectionAlgorithm : _ETcVnEdgeDetectionAlgorithm(ETcVnEdgeDetectionAlgorithm.TCVN_EDA_INTERPOLATION);
+    _eTcVnEdgeDirection : _ETcVnEdgeDirection(ETcVnEdgeDirection.TCVN_ED_DARK_TO_LIGHT);
+    _eTcVnElementType : _ETcVnElementType(ETcVnElementType.TCVN_ET_SAME_AS_SOURCE);
+    _eTcVnEstimationAlgorithm : _ETcVnEstimationAlgorithm(ETcVnEstimationAlgorithm.TCVN_EA_DEFAULT);
+    _eTcVnExtremePointDirection : _ETcVnExtremePointDirection(ETcVnExtremePointDirection.TCVN_EPD_TOP_LEFT);
+    _eTcVnFeatureDescriptorTypeAKAZE : _ETcVnFeatureDescriptorTypeAKAZE(ETcVnFeatureDescriptorTypeAKAZE.TCVN_FDT_AKAZE_KAZE_UPRIGHT);
+    //_eTcVnFeatureScalingType : _ETcVnFeatureScalingType(ETcVnFeatureScalingType.TCVN_FST1_MAXABS);
+    _eTcVnFeatureScoreTypeORB : _ETcVnFeatureScoreTypeORB(ETcVnFeatureScoreTypeORB.TCVN_FST_ORB_HARRIS);
+    _eTcVnFilterDirection : _ETcVnFilterDirection(ETcVnFilterDirection.TCVN_FD_X);
+    _eTcVnFlipAxis : _ETcVnFlipAxis(ETcVnFlipAxis.TCVN_FA_X);
+    _eTcVnFontType : _ETcVnFontType(ETcVnFontType.TCVN_FT_HERSHEY_SIMPLEX);
+    _eTcVnHoughMethod : _ETcVnHoughMethod(ETcVnHoughMethod.TCVN_HM_STANDARD);
+    //_eTcVnInitializableFunction : _ETcVnInitializableFunction(ETcVnInitializableFunction.TCVN_IF_OCR);
+    _eTcVnInterpolationType : _ETcVnInterpolationType(ETcVnInterpolationType.TCVN_IT_NEAREST_NEIGHBOR);
+    _eTcVnKeypointDetectionTypeAGAST : _ETcVnKeypointDetectionTypeAGAST(ETcVnKeypointDetectionTypeAGAST.TCVN_KDT_AGAST_5_8);
+    _eTcVnKeypointDetectionTypeFAST : _ETcVnKeypointDetectionTypeFAST(ETcVnKeypointDetectionTypeFAST.TCVN_KDT_FAST_5_8);
+    //_eTcVnKnn : _ETcVnKnn(ETcVnKnn.TCVN_KNN_CLASSIFIER);
+    _eTcVnLineType : _ETcVnLineType(ETcVnLineType.TCVN_LT_4_CONNECTED);
+    _eTcVnMorphologicalOperator : _ETcVnMorphologicalOperator(ETcVnMorphologicalOperator.TCVN_MO_EROSION);
+    //_eTcVnNbc : _ETcVnNbc(ETcVnNbc.TCVN_NBC_CLASSIFIER);
+    _eTcVnNormalizationType : _ETcVnNormalizationType(ETcVnNormalizationType.TCVN_NT_INF);
+    //_eTcVnOcrModelType : _ETcVnOcrModelType(ETcVnOcrModelType.TCVN_OMT_NUMBERS);
+    //_eTcVnOcrOptions : _ETcVnOcrOptions(ETcVnOcrOptions.TCVN_OO_NONE);
+    _eTcVnOrientationMethod : _ETcVnOrientationMethod(ETcVnOrientationMethod.TCVN_OM_PCA);
+    //_eTcVnPaddingMode : _ETcVnPaddingMode(ETcVnPaddingMode.TCVN_PM_NONE);
+    _eTcVnPixelConnectivity : _ETcVnPixelConnectivity(ETcVnPixelConnectivity.TCVN_PC_4);
+    _eTcVnPixelEncoding : _ETcVnPixelEncoding(ETcVnPixelEncoding.TCVN_PE_NONE);
+    _eTcVnPixelPackMode : _ETcVnPixelPackMode(ETcVnPixelPackMode.TCVN_PPM_NONE);
+    //_eTcVnPrototypeClusterer : _ETcVnPrototypeClusterer(ETcVnPrototypeClusterer.TCVN_PC_NOVELTY_DETECTOR);
+    _eTcVnRectangleIntersection : _ETcVnRectangleIntersection(ETcVnRectangleIntersection.TCVN_RI_NONE);
+    _eTcVnRotationAngle : _ETcVnRotationAngle(ETcVnRotationAngle.TCVN_RA_90_DEG);
+    //_eTcVnRTrees : _ETcVnRTrees(ETcVnRTrees.TCVN_RT_CLASSIFIER);
+    _eTcVnSignedNormalization : _ETcVnSignedNormalization(ETcVnSignedNormalization.TCVN_SN_FIX_ZERO);
+    //_eTcVnSolvePnPMethod : _ETcVnSolvePnPMethod(ETcVnSolvePnPMethod.TCVN_SPM_ITERATIVE);
+    //_eTcVnSta : _ETcVnSta(ETcVnSta.TCVN_STA_CLASSIFIER);
+    _eTcVnStructuringElementShape : _ETcVnStructuringElementShape(ETcVnStructuringElementShape.TCVN_SES_RECTANGLE);
+    //_eTcVnSvm : _ETcVnSvm(ETcVnSvm.TCVN_SVM_C_CLASSIFIER);
+    //_eTcVnSvmKernelType : _ETcVnSvmKernelType(ETcVnSvmKernelType.TCVN_SKT_LINEAR);
+    //_eTcVnSvmSgdClassifierMarginType : _ETcVnSvmSgdClassifierMarginType(ETcVnSvmSgdClassifierMarginType.TCVN_SSCMT_SOFT_MARGIN);
+    //_eTcVnSvmSgdClassifierType : _ETcVnSvmSgdClassifierType(ETcVnSvmSgdClassifierType.TCVN_SSCT_SGD);
+    _eTcVnTemplateMatchMethod : _ETcVnTemplateMatchMethod(ETcVnTemplateMatchMethod.TCVN_TMM_SQDIFF);
+    _eTcVnThresholdType : _ETcVnThresholdType(ETcVnThresholdType.TCVN_TT_BINARY);
+    //_eTcVnTimestamp : _ETcVnTimestamp(ETcVnTimestamp.TCVN_TS_IMAGE_COMPLETED);
+    _eTcVnVectorCompareMethod : _ETcVnVectorCompareMethod(ETcVnVectorCompareMethod.TCVN_VCM_EUCLIDEAN);
+    _eTcVnWorldCoordinateSystem : _ETcVnWorldCoordinateSystem(ETcVnWorldCoordinateSystem.TCVN_WCS_X_RIGHT_Y_DOWN);
+    _eTcWatchdogAccumulationType : _ETcWatchdogAccumulationType(ETcWatchdogAccumulationType.WD_ACC_TYPE_MEAN);
+    _gEV_CAMERA_STATE : _GEV_CAMERA_STATE(GEV_CAMERA_STATE.GEV_CAMERA_IDLE);
+	
+    // structs
+//  _gVSP_IMAGE_INFO : _GVSP_IMAGE_INFO;
+//  _gVSP_LEADER_PAYLOAD_IMAGE : _GVSP_LEADER_PAYLOAD_IMAGE;
+//  _gVSP_PIXEL_FORMAT : _GVSP_PIXEL_FORMAT;
+    _tcVnCameraCalibrationOptions : _TcVnCameraCalibrationOptions;
+    _tcVnCircularArc : _TcVnCircularArc;
+//  _tcVnCodeGrades1D : _TcVnCodeGrades1D;
+//  _tcVnCodeGradesDM : _TcVnCodeGradesDM;
+//  _tcVnCodeGradesQR : _TcVnCodeGradesQR;
+    _tcVnDMatch : _TcVnDMatch;
+	_tcVnImageInfo : _TcVnImageInfo;
+    _tcVnKeyPoint : _TcVnKeyPoint;
+//  _tcVnMatrix : _TcVnMatrix;
+//  _tcVnMoments : _TcVnMoments;
+    _tcVnParamsAGAST : _TcVnParamsAGAST;
+    _tcVnParamsAKAZE : _TcVnParamsAKAZE;
+    _tcVnParamsBlobDetection : _TcVnParamsBlobDetection;
+    _tcVnParamsBRISK : _TcVnParamsBRISK;
+    _tcVnParamsFAST : _TcVnParamsFAST;
+    _tcVnParamsGFTT : _TcVnParamsGFTT;
+    _tcVnParamsKAZE : _TcVnParamsKAZE;
+    _tcVnParamsMSER : _TcVnParamsMSER;
+    _tcVnParamsORB : _TcVnParamsORB;
+    _tcVnParamsSB : _TcVnParamsSB;
+    _tcVnPixelFormat : _TcVnPixelFormat;
+	_tcVnRectangle_DINT : _TcVnRectangle_DINT;
+    _tcVnRectangle_UDINT : _TcVnRectangle_UDINT;
+    _tcVnRotatedRectangle : _TcVnRotatedRectangle;
+    _tcVnSize2_REAL : _TcVnSize2_REAL;
+	
+	// interfaces
+	_iTcVnImage : _ITcVnImage;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RegisterWithDatatypes" Id="{5bfb729e-cc5d-077c-086c-02393210cdae}">
+      <Declaration><![CDATA[METHOD RegisterWithDatatypes
+VAR_INPUT
+	Datatypes : I_Datatypes;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// aliases
+Datatypes.RegisterDatatype(_GVCP_REGISTER_ADDRESS);
+Datatypes.RegisterDatatype(_tcVnPoint);
+Datatypes.RegisterDatatype(_tcVnPoint2_DINT);
+Datatypes.RegisterDatatype(_tcVnPoint2_LREAL);
+Datatypes.RegisterDatatype(_tcVnPoint2_REAL);
+Datatypes.RegisterDatatype(_tcVnPoint3_LREAL);
+Datatypes.RegisterDatatype(_tcVnPoint3_REAL);
+Datatypes.RegisterDatatype(_tcVnRectangle);
+
+Datatypes.RegisterDatatype(_tcVnArray10_ITcVnImage);
+Datatypes.RegisterDatatype(_tcVnArray3_Point2_REAL);
+//Datatypes.RegisterDatatype(_tcVnArray33_UDINT);
+Datatypes.RegisterDatatype(_tcVnArray4_LREAL);
+Datatypes.RegisterDatatype(_tcVnArray4_Point2_REAL);
+Datatypes.RegisterDatatype(_tcVnArray7_LREAL);
+Datatypes.RegisterDatatype(_tcVnArray8_LREAL);
+Datatypes.RegisterDatatype(_tcVnMatrix2x3_LREAL);
+Datatypes.RegisterDatatype(_tcVnMatrix3x3_LREAL);
+Datatypes.RegisterDatatype(_tcVnVector2_DINT);
+Datatypes.RegisterDatatype(_tcVnVector2_INT);
+Datatypes.RegisterDatatype(_tcVnVector2_LREAL);
+Datatypes.RegisterDatatype(_tcVnVector2_REAL);
+Datatypes.RegisterDatatype(_tcVnVector2_SINT);
+Datatypes.RegisterDatatype(_tcVnVector2_UINT);
+Datatypes.RegisterDatatype(_tcVnVector2_USINT);
+Datatypes.RegisterDatatype(_tcVnVector3_INT);
+Datatypes.RegisterDatatype(_tcVnVector3_LREAL);
+Datatypes.RegisterDatatype(_tcVnVector3_REAL);
+Datatypes.RegisterDatatype(_tcVnVector3_SINT);
+Datatypes.RegisterDatatype(_tcVnVector3_UINT);
+Datatypes.RegisterDatatype(_tcVnVector3_USINT);
+Datatypes.RegisterDatatype(_tcVnVector4_DINT);
+Datatypes.RegisterDatatype(_tcVnVector4_INT);
+Datatypes.RegisterDatatype(_tcVnVector4_LREAL);
+Datatypes.RegisterDatatype(_tcVnVector4_SINT);
+Datatypes.RegisterDatatype(_tcVnVector4_UINT);
+Datatypes.RegisterDatatype(_tcVnVector4_USINT);
+
+// constants
+
+// arrays
+Datatypes.RegisterDatatype(_array0to1OfDINT);
+Datatypes.RegisterDatatype(_array0to1OfINT);
+Datatypes.RegisterDatatype(_array0to1OfLREAL);
+Datatypes.RegisterDatatype(_array0to1OfREAL);
+Datatypes.RegisterDatatype(_array0to1OfSINT);
+Datatypes.RegisterDatatype(_array0to1OfUINT);
+Datatypes.RegisterDatatype(_array0to1OfUSINT);
+Datatypes.RegisterDatatype(_array0to2OfINT);
+Datatypes.RegisterDatatype(_array0to2OfLREAL);
+Datatypes.RegisterDatatype(_array0to2OfREAL);
+Datatypes.RegisterDatatype(_array0to2OfSINT);
+Datatypes.RegisterDatatype(_array0to2OfUINT);
+Datatypes.RegisterDatatype(_array0to2OfUSINT);
+Datatypes.RegisterDatatype(_array0to3OfDINT);
+Datatypes.RegisterDatatype(_array0to3OfINT);
+Datatypes.RegisterDatatype(_array0to3OfLREAL);
+Datatypes.RegisterDatatype(_array0to6OfLREAL);
+Datatypes.RegisterDatatype(_array0to7OfLREAL);
+Datatypes.RegisterDatatype(_array0to1_0to2OfLREAL);
+Datatypes.RegisterDatatype(_array0to2_0to2OfLREAL);
+
+// enums
+Datatypes.RegisterDatatype(_eTcVn2dCodeSearchStrategy);
+Datatypes.RegisterDatatype(_eTcVnAdaptiveThresholdMethod);
+Datatypes.RegisterDatatype(_eTcVnBarcodeSearchDirection);
+Datatypes.RegisterDatatype(_eTcVnBarcodeType);
+Datatypes.RegisterDatatype(_eTcVnBlobCombination);
+//Datatypes.RegisterDatatype(_eTcVnBoostClassifierType);
+Datatypes.RegisterDatatype(_eTcVnBorderInterpolationMethod);
+Datatypes.RegisterDatatype(_eTcVnCalibrationPattern);
+Datatypes.RegisterDatatype(_eTcVnCalibrationPatternOrigin);
+Datatypes.RegisterDatatype(_eTcVnCameraState);
+Datatypes.RegisterDatatype(_eTcVnClusteringAlgorithm);
+Datatypes.RegisterDatatype(_eTcVnColorMap);
+Datatypes.RegisterDatatype(_eTcVnColorMapSize);
+Datatypes.RegisterDatatype(_eTcVnColorSpaceTransform);
+Datatypes.RegisterDatatype(_eTcVnColorTrainingMethod);
+Datatypes.RegisterDatatype(_eTcVnConnectedComponentsAlgorithm);
+Datatypes.RegisterDatatype(_eTcVnContainerExportFormat);
+Datatypes.RegisterDatatype(_eTcVnContourApproximationMethod);
+Datatypes.RegisterDatatype(_eTcVnContourRetrievalMode);
+Datatypes.RegisterDatatype(_eTcVnContoursMatchComparisonMethod);
+Datatypes.RegisterDatatype(_eTcVnDiffusivityTypeKAZE);
+Datatypes.RegisterDatatype(_eTcVnDistanceTransformationLabel);
+Datatypes.RegisterDatatype(_eTcVnDistanceTransformationMask);
+Datatypes.RegisterDatatype(_eTcVnDistanceType);
+Datatypes.RegisterDatatype(_eTcVnDrawMatchesFlags);
+Datatypes.RegisterDatatype(_eTcVnDrawShape);
+Datatypes.RegisterDatatype(_eTcVnEdgeDetectionAlgorithm);
+Datatypes.RegisterDatatype(_eTcVnEdgeDirection);
+Datatypes.RegisterDatatype(_eTcVnElementType);
+Datatypes.RegisterDatatype(_eTcVnEstimationAlgorithm);
+Datatypes.RegisterDatatype(_eTcVnExtremePointDirection);
+Datatypes.RegisterDatatype(_eTcVnFeatureDescriptorTypeAKAZE);
+//Datatypes.RegisterDatatype(_eTcVnFeatureScalingType);
+Datatypes.RegisterDatatype(_eTcVnFeatureScoreTypeORB);
+Datatypes.RegisterDatatype(_eTcVnFilterDirection);
+Datatypes.RegisterDatatype(_eTcVnFlipAxis);
+Datatypes.RegisterDatatype(_eTcVnFontType);
+Datatypes.RegisterDatatype(_eTcVnHoughMethod);
+//Datatypes.RegisterDatatype(_eTcVnInitializableFunction);
+Datatypes.RegisterDatatype(_eTcVnInterpolationType);
+Datatypes.RegisterDatatype(_eTcVnKeypointDetectionTypeAGAST);
+Datatypes.RegisterDatatype(_eTcVnKeypointDetectionTypeFAST);
+//Datatypes.RegisterDatatype(_eTcVnKnn);
+Datatypes.RegisterDatatype(_eTcVnLineType);
+Datatypes.RegisterDatatype(_eTcVnMorphologicalOperator);
+//Datatypes.RegisterDatatype(_eTcVnNbc);
+Datatypes.RegisterDatatype(_eTcVnNormalizationType);
+//Datatypes.RegisterDatatype(_eTcVnOcrModelType);
+//Datatypes.RegisterDatatype(_eTcVnOcrOptions);
+Datatypes.RegisterDatatype(_eTcVnOrientationMethod);
+//Datatypes.RegisterDatatype(_eTcVnPaddingMode);
+Datatypes.RegisterDatatype(_eTcVnPixelConnectivity);
+Datatypes.RegisterDatatype(_eTcVnPixelEncoding);
+Datatypes.RegisterDatatype(_eTcVnPixelPackMode);
+//Datatypes.RegisterDatatype(_eTcVnPrototypeClusterer);
+Datatypes.RegisterDatatype(_eTcVnRectangleIntersection);
+Datatypes.RegisterDatatype(_eTcVnRotationAngle);
+//Datatypes.RegisterDatatype(_eTcVnRTrees);
+Datatypes.RegisterDatatype(_eTcVnSignedNormalization);
+//Datatypes.RegisterDatatype(_eTcVnSolvePnPMethod);
+//Datatypes.RegisterDatatype(_eTcVnSta);
+Datatypes.RegisterDatatype(_eTcVnStructuringElementShape);
+//Datatypes.RegisterDatatype(_eTcVnSvm);
+//Datatypes.RegisterDatatype(_eTcVnSvmKernelType);
+//Datatypes.RegisterDatatype(_eTcVnSvmSgdClassifierMarginType);
+//Datatypes.RegisterDatatype(_eTcVnSvmSgdClassifierType);
+Datatypes.RegisterDatatype(_eTcVnTemplateMatchMethod);
+Datatypes.RegisterDatatype(_eTcVnThresholdType);
+//Datatypes.RegisterDatatype(_eTcVnTimestamp);
+Datatypes.RegisterDatatype(_eTcVnVectorCompareMethod);
+Datatypes.RegisterDatatype(_eTcVnWorldCoordinateSystem);
+Datatypes.RegisterDatatype(_eTcWatchdogAccumulationType);
+Datatypes.RegisterDatatype(_gEV_CAMERA_STATE);
+
+// structs
+//Datatypes.RegisterDatatype(_gVSP_IMAGE_INFO);
+//Datatypes.RegisterDatatype(_gVSP_LEADER_PAYLOAD_IMAGE);
+//Datatypes.RegisterDatatype(_gVSP_PIXEL_FORMAT);
+Datatypes.RegisterDatatype(_tcVnCameraCalibrationOptions);
+Datatypes.RegisterDatatype(_tcVnCircularArc);
+//Datatypes.RegisterDatatype(_tcVnCodeGrades1D);
+//Datatypes.RegisterDatatype(_tcVnCodeGradesDM);
+//Datatypes.RegisterDatatype(_tcVnCodeGradesQR);
+Datatypes.RegisterDatatype(_tcVnDMatch);
+Datatypes.RegisterDatatype(_tcVnImageInfo);
+Datatypes.RegisterDatatype(_tcVnKeyPoint);
+//Datatypes.RegisterDatatype(_tcVnMatrix);
+//Datatypes.RegisterDatatype(_tcVnMoments);
+Datatypes.RegisterDatatype(_tcVnParamsAGAST);
+Datatypes.RegisterDatatype(_tcVnParamsAKAZE);
+Datatypes.RegisterDatatype(_tcVnParamsBlobDetection);
+Datatypes.RegisterDatatype(_tcVnParamsBRISK);
+Datatypes.RegisterDatatype(_tcVnParamsFAST);
+Datatypes.RegisterDatatype(_tcVnParamsGFTT);
+Datatypes.RegisterDatatype(_tcVnParamsKAZE);
+Datatypes.RegisterDatatype(_tcVnParamsMSER);
+Datatypes.RegisterDatatype(_tcVnParamsORB);
+Datatypes.RegisterDatatype(_tcVnParamsSB);
+Datatypes.RegisterDatatype(_tcVnPixelFormat);
+Datatypes.RegisterDatatype(_tcVnRectangle_DINT);
+Datatypes.RegisterDatatype(_tcVnRectangle_UDINT);
+Datatypes.RegisterDatatype(_tcVnRotatedRectangle);
+Datatypes.RegisterDatatype(_tcVnSize2_REAL);
+
+// interfaces
+Datatypes.RegisterDatatype(_iTcVnImage);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

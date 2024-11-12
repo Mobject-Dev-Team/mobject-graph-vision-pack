@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_InsertIntoContainer_TcVnPoint2_LREAL" Id="{d35e48d1-95c9-4e9b-9619-810d8191f519}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_InsertIntoContainer_TcVnPoint2_LREAL EXTENDS VisionNode
+VAR
+    aElement : _TcVnPoint2_LREAL;
+    ipContainer : _ITcVnContainer;
+    nIndex : _ULINT(0);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{a327d4e5-f832-4319-b839-ae637bf64f49}" />
+    <Method Name="Clone" Id="{dd343de0-3b91-4fd2-b478-47208ca5d554}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_InsertIntoContainer_TcVnPoint2_LREAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_InsertIntoContainer_TcVnPoint2_LREAL);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{5abe4088-7b1d-4c1b-8183-ccb60c63d85a}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('aElement', aElement);
+AddInput('ipContainer', ipContainer);
+AddInput('nIndex', nIndex);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipContainer', ipContainer);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{9625c392-9877-44ff-8ab8-968371a381cd}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_InsertIntoContainer_TcVnPoint2_LREAL(
+    aElement := aElement.Value,
+    ipContainer := ipContainer.Value,
+    nIndex := nIndex.Value,
+    hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{3bd2cab8-9c93-4859-b3da-9eb4356190d2}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

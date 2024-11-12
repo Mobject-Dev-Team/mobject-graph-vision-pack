@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_ITcVnImage_TestSuite" Id="{6c4c1747-4f86-0b13-190f-2c57b022d3ad}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK _ITcVnImage_TestSuite EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TestIsValidAfterInit();
+TestIsValidAfterImageAdded();
+TestSerializeTypeWith();
+TestSerializeWith_Empty();
+TestSerializeWith_Image_USINT();
+//TestTryDeserializeFrom();]]></ST>
+    </Implementation>
+    <Method Name="TestIsValidAfterImageAdded" Id="{2dfffca0-9286-0072-1d73-41a09ce04ce4}">
+      <Declaration><![CDATA[METHOD PUBLIC TestIsValidAfterImageAdded
+VAR
+    _type : _ITcVnImage;
+    result : BOOL;
+    nWidth : UDINT := 4;
+    nHeight : UDINT := 4;
+    nChannelNum : UDINT := 1;
+	data : ARRAY [1..48] OF USINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestIsValidAfterImageAdded');
+
+F_VN_CreateImageFromArray(pData := ADR(data), ipImage := _type.Value, nWidth := nWidth, nHeight := nHeight, ePixelType := ETcVnElementType.TCVN_ET_USINT, nChannelNum := nchannelNum, hrPrev := S_OK);
+
+result := _type.IsValid;
+
+AssertTrue(
+	Condition := result,
+	Message := 'Incorrect state of IsValid'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestIsValidAfterInit" Id="{79faecf9-b9a0-099d-38e3-74812c30ac47}">
+      <Declaration><![CDATA[METHOD PUBLIC TestIsValidAfterInit
+VAR
+    _type : _ITcVnImage;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestIsValidAfterInit');
+
+result := _type.IsValid;
+
+AssertFalse(
+	Condition := result,
+	Message := 'Incorrect state of IsValid'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeTypeWith" Id="{34bfaa43-73ce-0ee9-25ff-c4800cddd097}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeTypeWith
+VAR
+    _type : _ITcVnImage;
+    serializer : JsonSerializer;
+    expected : STRING(500) := '{"typeName":"INTERFACE","identifier":"ITcVnImage"}';
+    actual : STRING(500);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeTypeWith');
+
+serializer.Reset();
+_type.SerializeTypeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeWith_Empty" Id="{01d3eb34-4c4e-0ff2-1332-65df63125415}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeWith_Empty
+VAR
+    _type : _ITcVnImage;
+    serializer : JsonSerializer;
+    expected : STRING := 'null';
+    actual : STRING(500);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeWith_Empty');
+
+serializer.Reset();
+_type.SerializeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type data did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSerializeWith_Image_USINT" Id="{8af6f408-7dee-015d-33e3-72843e2a4629}">
+      <Declaration><![CDATA[METHOD PUBLIC TestSerializeWith_Image_USINT
+VAR
+    _type : _ITcVnImage;
+    nWidth : UDINT := 4;
+    nHeight : UDINT := 4;
+    nChannelNum : UDINT := 1;
+	data : ARRAY [1..48] OF USINT;
+    serializer : JsonSerializer;
+    expected : STRING(500) := '{"imageInfo":{"nImageSize":16,"nWidth":4,"nHeight":4,"nXPadding":0,"nYPadding":0,"stPixelFormat":{"bSupported":true,"bSigned":false,"bPlanar":false,"bFloat":false,"nChannels":1,"ePixelEncoding":"TCVN_PE_NONE","ePixelPackMode":"TCVN_PPM_NONE","nElementSize":8,"nTotalSize":8}},"imageData":"AAAAAAAAAAAAAAAAAAAAAA=="}';
+    actual : STRING(500);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSerializeWith_Image_USINT');
+
+F_VN_CreateImageFromArray(pData := ADR(data), ipImage := _type.Value, nWidth := nWidth, nHeight := nHeight, ePixelType := ETcVnElementType.TCVN_ET_USINT, nChannelNum := nchannelNum, hrPrev := S_OK);
+
+serializer.Reset();
+_type.SerializeWith(serializer);
+serializer.TryGetSerializedData(ADR(actual), SIZEOF(actual));
+
+AssertEquals_STRING(
+    Expected := expected,
+    Actual := actual,
+    Message := 'Serialization of type data did not return correct string.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

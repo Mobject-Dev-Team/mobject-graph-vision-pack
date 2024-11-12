@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_GetAt_ITcVnImage" Id="{b8b8d385-5631-4647-b0c5-53853d2296c4}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_GetAt_ITcVnImage EXTENDS VisionNode
+VAR
+    ipContainer : _ITcVnContainer;
+    ipElement : _ITcVnImage;
+    nIndex : _ULINT(0);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{f1830bea-6e7b-4aad-826f-73bc786745db}" />
+    <Method Name="Clone" Id="{20530fbe-2c91-45e2-ba6c-d7015487b9d8}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_GetAt_ITcVnImage;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_GetAt_ITcVnImage);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{513a3a65-f49c-4315-b0ef-a3fd40d23710}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipContainer', ipContainer);
+AddInput('nIndex', nIndex);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipElement', ipElement);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{68436676-d0ea-4c9e-ad73-a0ae4e41da14}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_GetAt_ITcVnImage(
+    ipContainer := ipContainer.Value,
+    ipElement := ipElement.Value,
+    nIndex := nIndex.Value,
+    hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{566e94dc-e871-43d2-8b3e-4c7b7ac0ae4a}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
+Check.IsTrue(ipContainer.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_ITcVnImage), 'ipContainer contains incorrect type');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

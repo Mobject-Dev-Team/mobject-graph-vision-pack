@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_NormalizeImage" Id="{a97dd817-6871-0bc8-2819-c50742b6209c}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_NormalizeImage EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{ebb9494f-2c2c-0b31-2848-f473093ab3c5}" />
+    <Method Name="Clone" Id="{ce76605a-3106-0987-1e09-68a2817fbb3f}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_NormalizeImage;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_NormalizeImage);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{b45b258f-6d43-0570-1e4a-2d2a72af3488}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{240a04cd-87c3-0ace-0be4-c1c0cfa5d134}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_NormalizeImage(
+    ipSrcImage := ipSrcImage.Value,
+	ipDestImage := ipDestImage.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{336a923d-204e-04e8-1d91-a130a95637aa}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

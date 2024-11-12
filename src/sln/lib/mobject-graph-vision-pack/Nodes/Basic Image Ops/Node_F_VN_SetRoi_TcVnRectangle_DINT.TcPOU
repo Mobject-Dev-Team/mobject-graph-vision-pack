@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_SetRoi_TcVnRectangle_DINT" Id="{368d5241-1901-06d4-077c-acd9ee1c073d}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_SetRoi_TcVnRectangle_DINT EXTENDS VisionNode
+VAR
+    stRoi : _TcVnRectangle_DINT;
+    ipDestImage : _ITcVnImage;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{741dff11-8ffd-0e34-041a-895dc49a7313}" />
+    <Method Name="Clone" Id="{7bb450d7-3971-0f13-3e82-6d0db4a2f1e6}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_SetRoi_TcVnRectangle_DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_SetRoi_TcVnRectangle_DINT);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{94be413e-64b5-0578-2085-f8a488afcf7b}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('stRoi', stRoi);
+AddInput('ipDestImage', ipDestImage);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{89ac33e8-e612-08fb-05bc-1b770e9a7769}">
+      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_SetRoi_TcVnRectangle_DINT(
+    stRoi := stRoi.Value,
+	ipDestImage := ipDestImage.Value,
+	hrPrev:= hrPrev.Value);
+    
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{86895ff9-5f3e-0459-3f27-3a354c16a009}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
