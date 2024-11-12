@@ -97,7 +97,7 @@ END_IF
 Check.IsTrue((fMaxValue.Value >= 0.0), 'fMaxValue must be greater than or equal to 0');
 Check.IsTrue((fMaxValue.Value <= 255.0), 'fMaxValue must be less than or equal to 255');
 
-//TODO The max values for fThreshold and fMaxValue will not be 255 if pixel depths other than 8 nit are used.]]></ST>
+//TODO The max values for fThreshold and fMaxValue will not be 255 if pixel depths other than 8 bit are used.]]></ST>
       </Implementation>
     </Method>
   </POU>

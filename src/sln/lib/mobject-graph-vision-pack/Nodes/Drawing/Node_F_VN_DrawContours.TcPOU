@@ -82,8 +82,13 @@ F_VN_GetNumberOfElements(ipContours.Value, containerElements, S_OK);
 
 Check.IsTrue((containerElements > 0), 'ipContours is empty');
 
-IF NOT Check.Failed THEN
-    maxIndexNumber := containerElements - 1;
+IF Check.Failed THEN
+    RETURN;
+END_IF
+
+maxIndexNumber := containerElements - 1;
+
+IF (nContourIndex.Value > -1) THEN
     Check.IsTrue((DINT_TO_ULINT(nContourIndex.Value) <= maxIndexNumber), 'nContourIndex out of range.');
 END_IF
 ]]></ST>

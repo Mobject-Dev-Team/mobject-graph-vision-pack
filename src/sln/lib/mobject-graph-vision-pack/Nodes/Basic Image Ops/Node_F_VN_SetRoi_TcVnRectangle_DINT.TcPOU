@@ -61,6 +61,18 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
+
+IF Check.Failed THEN
+    RETURN;
+END_IF
+
+ipDestImage.Value.GetWidth(imageWidth);
+ipDestImage.Value.GetHeight(imageHeight);
+
+Check.IsTrue((stRoi.Value.Width < imageWidth), 'ROI width must be less than image width');
+Check.IsTrue((stRoi.Value.Width <= (imageWidth - stRoi.Value.nX)), 'ROI too wide to fit within image');
+Check.IsTrue((roiRectangle.nHeight < imageHeight), 'ROI height must be less than image height');
+Check.IsTrue((roiRectangle.nHeight <= (imageHeight - stRoi.Value.nY)), 'ROI too high to fit within image');
 ]]></ST>
       </Implementation>
     </Method>
