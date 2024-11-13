@@ -86,9 +86,9 @@ roiRectangle.nY := nY.Value;
 roiRectangle.nWidth := nWidth.Value;
 roiRectangle.nHeight := nHeight.Value;
 
-Check.IsTrue((roiRectangle.nWidth < imageWidth), 'ROI width must be less than image width');
+Check.IsTrue((roiRectangle.nWidth <= imageWidth), 'ROI width must not be greater than image width');
 Check.IsTrue((roiRectangle.nWidth <= (imageWidth - roiRectangle.nX)), 'ROI too wide to fit within image');
-Check.IsTrue((roiRectangle.nHeight < imageHeight), 'ROI height must be less than image height');
+Check.IsTrue((roiRectangle.nHeight <= imageHeight), 'ROI height must not be greater than image height');
 Check.IsTrue((roiRectangle.nHeight <= (imageHeight - roiRectangle.nY)), 'ROI too high to fit within image');
 ]]></ST>
       </Implementation>
