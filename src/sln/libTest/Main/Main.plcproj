@@ -126,6 +126,7 @@
           <Value>255</Value>
         </Parameter>
       </Parameters>
+      <Namespace>Tc2_Utilities</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -179,10 +180,10 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <LibraryReference Include="mobject-core,0.5.0,mobject">
+    <LibraryReference Include="mobject-core,0.6.0,mobject">
       <Namespace>mobject_core</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph-vision-pack,0.7.0,mobject">
+    <LibraryReference Include="mobject-graph-vision-pack,0.8.0,mobject">
       <Namespace>mobject_graph_vision_pack</Namespace>
     </LibraryReference>
   </ItemGroup>

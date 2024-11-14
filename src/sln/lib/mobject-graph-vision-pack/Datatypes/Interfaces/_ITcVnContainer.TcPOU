@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK _ITcVnContainer EXTENDS InterfaceDatatypeBase
+FUNCTION_BLOCK _ITcVnContainer EXTENDS InterfaceDatatypeBase IMPLEMENTS I_InterfaceDatatype_ITcVnContainer
 VAR
 	localData : ITcVnContainer;
 	activeData : REFERENCE TO ITcVnContainer REF= localData;
@@ -474,6 +474,28 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="TryCopyContentFrom" Id="{6130f86b-d6bd-0a88-1ba0-51e0c0a096dc}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCopyContentFrom : BOOL
+VAR_INPUT
+	Source : I_InterfaceDatatype;
+END_VAR
+VAR
+	ipSrcContainer : I_InterfaceDatatype_ITcVnContainer;
+	hresult : HRESULT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT __QUERYINTERFACE(Source, ipSrcContainer) THEN
+	RETURN;
+END_IF
+
+hresult := F_VN_CopyContainer(
+    ipSrcContainer := ipSrcContainer.Value,
+	ipDestContainer := Value,
+	hrPrev:= S_OK);
+    
+TryCopyContentFrom := SUCCEEDED(hresult);]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TryDeserializeFrom" Id="{0b0f32ca-3c06-0d78-39fb-8c8d3ba75da5}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryDeserializeFrom : BOOL
 VAR_INPUT

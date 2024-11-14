@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <Itf Name="I_InterfaceDatatype_ITcVnContainer" Id="{49061b50-e93e-0b1a-2156-e2c6b348b683}">
+    <Declaration><![CDATA[INTERFACE I_InterfaceDatatype_ITcVnContainer EXTENDS I_InterfaceDatatype
+]]></Declaration>
+    <Property Name="Value" Id="{3befb903-e27d-0482-1340-8aaa41a896f3}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO ITcVnContainer]]></Declaration>
+      <Get Name="Get" Id="{ccc415ca-8f82-03bd-06d2-5908b8ee70c2}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

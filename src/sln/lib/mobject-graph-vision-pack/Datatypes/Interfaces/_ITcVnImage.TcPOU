@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK _ITcVnImage EXTENDS InterfaceDatatypeBase
+FUNCTION_BLOCK _ITcVnImage EXTENDS InterfaceDatatypeBase IMPLEMENTS I_InterfaceDatatype_ITcVnImage
 VAR
 	localData : ITcVnImage;
 	activeData : REFERENCE TO ITcVnImage REF= localData;
@@ -207,6 +207,29 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="TryCopyContentFrom" Id="{8d31a75c-b04f-0a71-24be-8a63f649c95a}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCopyContentFrom : BOOL
+VAR_INPUT
+	Source : I_InterfaceDatatype;
+END_VAR
+VAR
+	ipSrcImage : I_InterfaceDatatype_ITcVnImage;
+	hresult : HRESULT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT __QUERYINTERFACE(Source, ipSrcImage) THEN
+	RETURN;
+END_IF
+
+hresult := F_VN_CopyImage(
+    ipSrcImage := ipSrcImage.Value,
+	ipDestImage := Value,
+	hrPrev:= S_OK);
+    
+
+TryCopyContentFrom := SUCCEEDED(hresult);]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TryDeserializeFrom" Id="{93c74b3e-7a54-464a-bc7d-f1ab237a9094}">
       <Declaration><![CDATA[METHOD TryDeserializeFrom : BOOL
 VAR_INPUT
