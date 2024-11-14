@@ -69,7 +69,11 @@ VAR
     dynamicThresholding : BOOL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+        <ST><![CDATA[IF FAILED(hrPrev.Value) THEN
+    RETURN;
+END_IF
+
+Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
 
 CASE eThresholdType.Value OF
     TCVN_TT_OTSU_BINARY,

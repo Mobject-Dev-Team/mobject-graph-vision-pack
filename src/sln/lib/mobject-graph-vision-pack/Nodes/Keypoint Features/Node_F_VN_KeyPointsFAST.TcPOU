@@ -57,7 +57,11 @@ VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+        <ST><![CDATA[IF FAILED(hrPrev.Value) THEN
+    RETURN;
+END_IF
+
+Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
 
 //TODO Is this check needed? Do the other KeyPoints methods need it?
 Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');

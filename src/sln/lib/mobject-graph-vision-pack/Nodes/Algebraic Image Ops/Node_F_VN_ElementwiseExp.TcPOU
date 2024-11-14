@@ -57,7 +57,11 @@ VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+        <ST><![CDATA[IF FAILED(hrPrev.Value) THEN
+    RETURN;
+END_IF
+
+Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
 Check.IsTrue((ipSrcImage.IsPixelDepth(32) OR
               ipSrcImage.IsPixelDepth(64)), 'ipSrcImage must have 32 or 64 bit pixel depth');
 ]]></ST>

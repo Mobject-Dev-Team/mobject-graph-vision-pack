@@ -59,8 +59,8 @@ VAR
    
     // Algebraic Image Operations
     node_F_VN_AddImages : Node_F_VN_AddImages;
-    //F_VN_AddImagesWeighted
-    //F_VN_AddImagesWeightedExp
+    node_F_VN_AddImagesWeighted : Node_F_VN_AddImagesWeighted;
+    node_F_VN_AddImagesWeightedExp : Node_F_VN_AddImagesWeightedExp;
     node_F_VN_AddScalarToImage : Node_F_VN_AddScalarToImage;
     //F_VN_AddVectorToImage
     node_F_VN_BitwiseAndImages : Node_F_VN_BitwiseAndImages;
@@ -851,7 +851,7 @@ VAR
     // Image Segmentation
     //F_VN_AdaptiveThreshold
     //F_VN_AdaptiveThresholdExp
-    //F_VN_CheckColorRange
+    node_F_VN_CheckColorRange : Node_F_VN_CheckColorRange;
     //F_VN_DoubleThreshold
     node_F_VN_Threshold : Node_F_VN_Threshold;
     //F_VN_WatershedSegmentationExp
@@ -1067,8 +1067,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_AddTo
 
 // Algebraic Image Operations
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_AddImages', node_F_VN_AddImages);
-//F_VN_AddImagesWeighted
-//F_VN_AddImagesWeightedExp
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_AddImagesWeighted', node_F_VN_AddImagesWeighted);
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_AddImagesWeightedExp', node_F_VN_AddImagesWeightedExp);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_AddScalarToImage', node_F_VN_AddScalarToImage);
 //F_VN_AddVectorToImage
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Image Operations/F_VN_BitwiseAndImages', node_F_VN_BitwiseAndImages);
@@ -1863,7 +1863,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LocalMinima', node_F
 // Image Segmentation
 //F_VN_AdaptiveThreshold
 //F_VN_AdaptiveThresholdExp
-//F_VN_CheckColorRange
+NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_CheckColorRange', node_F_VN_CheckColorRange);
 //F_VN_DoubleThreshold
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_Threshold', node_F_VN_Threshold);
 //F_VN_WatershedSegmentationExp

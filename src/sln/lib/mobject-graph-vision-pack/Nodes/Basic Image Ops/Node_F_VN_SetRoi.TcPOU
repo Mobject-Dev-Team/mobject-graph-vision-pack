@@ -73,7 +73,11 @@ VAR
     roiRectangle : TcVnRectangle_UDINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
+        <ST><![CDATA[IF FAILED(hrPrev.Value) THEN
+    RETURN;
+END_IF
+
+Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
 
 IF Check.Failed THEN
     RETURN;

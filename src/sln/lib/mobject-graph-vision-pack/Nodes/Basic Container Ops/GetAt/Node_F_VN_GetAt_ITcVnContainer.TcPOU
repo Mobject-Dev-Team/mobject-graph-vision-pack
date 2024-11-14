@@ -60,7 +60,11 @@ VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Check.IsTrue(ipSrcContainer.IsValid, 'ipSrcContainer must be a valid container');
+        <ST><![CDATA[IF FAILED(hrPrev.Value) THEN
+    RETURN;
+END_IF
+
+Check.IsTrue(ipSrcContainer.IsValid, 'ipSrcContainer must be a valid container');
 //TODO Check.IsTrue(ipSrcContainer.HasType( ??? ), 'ipSrcContainer contains incorrect type');
 ]]></ST>
       </Implementation>

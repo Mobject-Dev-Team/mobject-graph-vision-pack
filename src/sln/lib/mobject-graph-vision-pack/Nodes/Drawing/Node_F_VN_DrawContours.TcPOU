@@ -73,7 +73,11 @@ VAR
     maxIndexNumber : ULINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Check.IsTrue(ipContours.IsValid, 'ipContours must be a valid container');
+        <ST><![CDATA[IF FAILED(hrPrev.Value) THEN
+    RETURN;
+END_IF
+
+Check.IsTrue(ipContours.IsValid, 'ipContours must be a valid container');
 Check.IsTrue((ipContours.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
               ipContours.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_Vector_TcVnPoint2_DINT)),
               'ipContours contains incorrect type');

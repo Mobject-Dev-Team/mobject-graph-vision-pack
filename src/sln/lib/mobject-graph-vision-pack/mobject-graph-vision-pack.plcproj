@@ -789,6 +789,12 @@
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_AddImages.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_AddImagesWeighted.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_AddImagesWeightedExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_ElementwiseExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1910,6 +1916,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Segmentation\Node_F_VN_Threshold.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Segmentation\Node_F_VN_CheckColorRange.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAGAST.TcPOU">
