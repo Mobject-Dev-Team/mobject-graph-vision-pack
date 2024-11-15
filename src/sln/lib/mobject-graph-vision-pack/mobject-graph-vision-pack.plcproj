@@ -789,6 +789,45 @@
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_AddImages.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_AddImagesWeighted.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_AddImagesWeightedExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_AddVectorToImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseAndScalarWithImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseXorVectorWithImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseXorScalarWithImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseOrVectorWithImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseOrScalarWithImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseAndVectorWithImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_DivideImageByScalar.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_DivideVectorByImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_DivideScalarByImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_DivideImageByVector.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_ElementwiseExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -796,6 +835,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MultiplyImageWithScalar.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MultiplyImageWithVector.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_SubtractImageFromVector.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_SubtractScalarFromImage.TcPOU">
@@ -832,6 +877,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_AddScalarToImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_SubtractVectorFromImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_DINT.TcPOU">
@@ -1488,6 +1536,15 @@
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CopyImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateImageAndSetPixels.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateEmptyImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_GetPixelFormat.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1828,6 +1885,24 @@
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_FitLine.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawRotatedRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_FillRotatedRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_PlotIntensityProfile.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_FillRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_FillCircle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawContours.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1835,6 +1910,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawCircle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawPoint.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawLine_TcVnVector4_LREAL.TcPOU">
@@ -1846,19 +1924,40 @@
     <Compile Include="Nodes\Drawing\Node_F_VN_PutText.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyYAxisInversionToAffineTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpAffine.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_PyramidDown.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_FlipImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyYAxisInversionToAffineTransformationExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_PyramidUp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_CountNonZeroPixels.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAverage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageMedian.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_DetectBlobs.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_DetectBlobsExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ApplyColorMap.TcPOU">
@@ -1885,6 +1984,12 @@
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_NormalizeImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_NormalizeImageForDisplay.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_VarianceFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_LocalMaxima.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1907,6 +2012,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_LocalMinima.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Segmentation\Node_F_VN_CheckColorRange.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Segmentation\Node_F_VN_AdaptiveThreshold.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Segmentation\Node_F_VN_Threshold.TcPOU">
@@ -1937,6 +2048,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Measurement\Node_F_VN_LocateEdgesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_MeasureAngleBetweenEdges.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Measurement\Node_F_VN_LocateEllipse.TcPOU">

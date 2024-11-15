@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_MeasureAngleBetweenEdges" Id="{716e9f30-b26b-0757-12d5-db597169eb26}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MeasureAngleBetweenEdges EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+    fAngle : _REAL(0.0);
+    aInnerPoint : _TcVnPoint2_REAL;
+    aOuterPoint1 : _TcVnPoint2_REAL;
+    aOuterPoint2 : _TcVnPoint2_REAL;
+	eEdgeDirection : _ETcVnEdgeDirection(ETcVnEdgeDirection.TCVN_ED_DARK_TO_LIGHT);
+    fMinStrength : _REAL(0.0);
+    nSearchLines : _UDINT(1);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{476220b6-b7bf-0e47-2f9e-294387021832}" />
+    <Method Name="Clone" Id="{7863223e-34e0-0fdc-15a7-f9807c58b13b}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_MeasureAngleBetweenEdges;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MeasureAngleBetweenEdges);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{3a893c2e-05d1-00e1-3572-27f5a072fd48}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('aInnerPoint', aInnerPoint);
+AddInput('aOuterPoint1', aOuterPoint1);
+AddInput('aOuterPoint2', aOuterPoint2);
+AddInput('hrPrev', hrPrev);
+AddParameter('eEdgeDirection', eEdgeDirection);
+AddParameter('fMinStrength', fMinStrength);
+AddParameter('nSearchLines', nSearchLines);
+AddOutput('fAngle', fAngle);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{c1642618-8520-0635-303d-3077274089a6}">
+      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MeasureAngleBetweenEdges(
+	ipSrcImage := ipSrcImage.Value,
+    fAngle := fAngle.Value,
+	aInnerPoint := aInnerPoint.Value,
+    aOuterPoint1 := aOuterPoint1.Value,
+    aOuterPoint2 := aOuterPoint2.Value,
+    eEdgeDirection := eEdgeDirection.Value,
+	fMinStrength := fMinStrength.Value,
+	nSearchLines := nSearchLines.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{cd847ecb-2b6d-00a5-3ab6-7e0a809706f5}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+Check.IsTrue(nSearchLines.IsOdd, 'nSearchLines must be an odd number');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

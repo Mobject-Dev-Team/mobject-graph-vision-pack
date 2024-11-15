@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_AddImagesWeightedExp" Id="{de45aab1-1632-0473-1fcd-c2ad7b6a346a}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_AddImagesWeightedExp EXTENDS VisionNode
+VAR
+    ipSrcImage1 : _ITcVnImage;
+    ipSrcImage2 : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    fWeight1 : _LREAL(0.0);
+    fWeight2 : _LREAL(0.0);
+    fDelta : _LREAL(0.0);
+    eDestType : _ETcVnElementType(ETcVnElementType.TCVN_ET_SAME_AS_SOURCE);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{fef63205-6d44-0f74-219c-20cc59901154}" />
+    <Method Name="Clone" Id="{176379db-4c52-01d7-2b2e-a293fbfb32d4}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_AddImagesWeightedExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_AddImagesWeightedExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{b96ae527-c6ee-07f7-2272-fc5b47841bac}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage1', ipSrcImage1);
+AddInput('ipSrcImage2', ipSrcImage2);
+AddInput('hrPrev', hrPrev);
+AddParameter('fWeight1', fWeight1);
+AddParameter('fWeight2', fWeight2);
+AddParameter('fDelta', fDelta);
+AddParameter('eDestType', eDestType);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{05002e4d-1810-036d-2108-d7bff6524fe2}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_AddImagesWeightedExp(
+    ipSrcImage1 := ipSrcImage1.Value,
+    ipSrcImage2 := ipSrcImage2.Value,
+	ipDestImage := ipDestImage.Value,
+    fWeight1 := fWeight1.Value,
+    fWeight2 := fWeight2.Value,
+    fDelta := fDelta.Value,
+    eDestType := eDestType.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{da72fad6-5c30-0ea3-2b59-73b7b9cfb5d0}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage1.IsValid, 'ipSrcImage1 must contain an image');
+Check.IsTrue(ipSrcImage2.IsValid, 'ipSrcImage2 must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
