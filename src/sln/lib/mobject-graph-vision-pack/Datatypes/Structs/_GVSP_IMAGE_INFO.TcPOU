@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_GVSP_IMAGE_INFO" Id="{da5781c1-fb67-05f6-2284-0e8262f9113b}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _GVSP_IMAGE_INFO EXTENDS StructuredDatatypeBase
+VAR
+	localData : GVSP_IMAGE_INFO;
+	activeData : REFERENCE TO GVSP_IMAGE_INFO REF= localData;
+    _CameraIpAddress : _UDINT(localdata.CameraIpAddress);
+    _LocalIpAddress : _UDINT(localdata.LocalIpAddress);
+    _CameraUdpPort : _UINT(localdata.CameraUdpPort);
+    _LocalUdpPort : _UINT(localdata.LocalUdpPort);
+    _GvspChannelId : _UINT(localdata.GvspChannelId);
+    _GevStatus : _UINT(localdata.GevStatus);
+    _BlockId : _ULINT(localdata.BlockId);
+    _LeaderInfo : _GVSP_LEADER_PAYLOAD_IMAGE();
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{5f39f996-c21b-05d4-18a8-6a1cfd531274}" />
+    <Folder Name="Customize" Id="{774670f1-3574-0e96-156c-c57156ffae8e}">
+      <Folder Name="Constructor" Id="{e41327a1-1298-0a7b-3eae-19c74fae01cb}" />
+      <Folder Name="Protected" Id="{f2758d70-fd82-0cc5-2823-6d23786424c0}" />
+    </Folder>
+    <Property Name="Address" Id="{71fb01c0-8396-0eab-36cd-bed8e4be6688}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{6df94c81-a2bc-0306-2713-6da57b816928}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="BlockId" Id="{1d9e0593-53c3-0087-16b3-f15f74162e41}">
+      <Declaration><![CDATA[PROPERTY PUBLIC BlockId : REFERENCE TO _ULINT]]></Declaration>
+      <Get Name="Get" Id="{a61be0e6-69d7-0479-1609-8fbd1e631a83}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[BlockId REF= _BlockId;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="CameraIpAddress" Id="{bdd9e853-49ba-022b-2cda-98b485890295}">
+      <Declaration><![CDATA[PROPERTY PUBLIC CameraIpAddress : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{de9af7cc-27c4-02d5-15b1-8339aa0f928d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CameraIpAddress REF= _CameraIpAddress;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="CameraUdpPort" Id="{325ea0fd-949d-0ff7-1d5f-b16dd05f36af}">
+      <Declaration><![CDATA[PROPERTY PUBLIC CameraUdpPort : REFERENCE TO _UINT]]></Declaration>
+      <Get Name="Get" Id="{a8bb9db8-144e-03da-00ad-a7f54924fbe7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CameraUdpPort REF= _CameraUdpPort;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{aaa9697f-df45-0ef7-12e4-b51a41fa131e}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{ca3defd2-62f7-0ccc-14e6-4eefd2e01ed8}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _GVSP_IMAGE_INFO;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_GVSP_IMAGE_INFO());
+pClone^.Value := Value;
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{41e44d81-40bb-05c3-0a99-7c7152efbd3c}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetMemberReference();
+AddMember('CameraIpAddress', _CameraIpAddress);
+AddMember('LocalIpAddress', _LocalIpAddress);
+AddMember('CameraUdpPort', _CameraUdpPort);
+AddMember('LocalUdpPort', _LocalUdpPort);
+AddMember('GvspChannelId', _GvspChannelId);
+AddMember('GevStatus', _GevStatus);
+AddMember('BlockId', _BlockId);
+AddMember('LeaderInfo', _LeaderInfo);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="GevStatus" Id="{dda42ad0-c5bb-0978-3190-16359d903a07}">
+      <Declaration><![CDATA[PROPERTY PUBLIC GevStatus : REFERENCE TO _UINT]]></Declaration>
+      <Get Name="Get" Id="{136df57b-1818-01ff-0179-2d7491d6ba5b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[GevStatus REF= _GevStatus;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="GvspChannelId" Id="{cf365d6a-e546-0b3d-080c-766768ff1ae3}">
+      <Declaration><![CDATA[PROPERTY PUBLIC GvspChannelId : REFERENCE TO _UINT]]></Declaration>
+      <Get Name="Get" Id="{6ed5047d-0890-09f3-1463-4a4ebb6ed70c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[GvspChannelId REF= _GvspChannelId;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Identifier" Id="{720a60b2-4bec-0c06-08bf-c0b07066ff55}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{aaec201b-cbcf-0a57-0809-0cb3ffe8ff82}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'GVSP_IMAGE_INFO';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="LeaderInfo" Id="{1fac3339-48b8-04f3-0c00-a587943d5c28}">
+      <Declaration><![CDATA[PROPERTY PUBLIC LeaderInfo : REFERENCE TO _GVSP_LEADER_PAYLOAD_IMAGE]]></Declaration>
+      <Get Name="Get" Id="{acd08174-9fac-0c2e-19a7-7e61b34de92e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[LeaderInfo REF= _LeaderInfo;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="LocalIpAddress" Id="{36505468-3a8e-0a97-35cf-7ac5f4619047}">
+      <Declaration><![CDATA[PROPERTY PUBLIC LocalIpAddress : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{89a716e4-0a79-0901-3fee-99f11ab750e6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[LocalIpAddress REF= _LocalIpAddress;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="LocalUdpPort" Id="{986fd1af-1295-0557-3c4e-81b69e0d6a58}">
+      <Declaration><![CDATA[PROPERTY PUBLIC LocalUdpPort : REFERENCE TO _UINT]]></Declaration>
+      <Get Name="Get" Id="{de66a537-33e4-0249-0c5e-367f3803ec4e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[LocalUdpPort REF= _LocalUdpPort;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{22bd43e8-76e2-0f6c-0872-a59434bdba8d}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO GVSP_IMAGE_INFO;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetMemberReference" Id="{82879577-1d75-0c73-0985-2aa201a04948}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_CameraIpAddress.MakeReferenceTo(activeData.CameraIpAddress);
+_LocalIpAddress.MakeReferenceTo(activeData.LocalIpAddress);
+_CameraUdpPort.MakeReferenceTo(activeData.CameraUdpPort);
+_LocalUdpPort.MakeReferenceTo(activeData.LocalUdpPort);
+_GvspChannelId.MakeReferenceTo(activeData.GvspChannelId);
+_GevStatus.MakeReferenceTo(activeData.GevStatus);
+_BlockId.MakeReferenceTo(activeData.BlockId);
+_LeaderInfo.MakeReferenceTo(activeData.LeaderInfo);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{ec6346e1-6e7d-03c8-27de-0d9270613808}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{faa4fa95-b697-0dcd-0d2b-a3af3eaf7a33}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{e4c785bf-4d72-0fa9-2511-48a6f9970c59}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	targetAsStruct : I_StructuredDatatype;
+	pTargetData : POINTER TO GVSP_IMAGE_INFO;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Target.TryResolveAsStructuredDatatype(targetAsStruct) THEN
+	RETURN;
+END_IF
+
+IF NOT (targetAsStruct.Identifier = Identifier) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetMemberReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{fcdd44c8-ecf9-06c0-1a2a-0c1963747971}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO GVSP_IMAGE_INFO]]></Declaration>
+      <Get Name="Get" Id="{32c02205-1a3d-0bbe-21a8-f25f036ca8ea}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

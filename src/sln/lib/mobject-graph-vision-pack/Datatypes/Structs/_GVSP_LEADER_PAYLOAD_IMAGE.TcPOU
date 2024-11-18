@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_GVSP_LEADER_PAYLOAD_IMAGE" Id="{b18e786c-69f1-04a5-1f9a-737ca0dec0a6}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _GVSP_LEADER_PAYLOAD_IMAGE EXTENDS StructuredDatatypeBase
+VAR
+	localData : GVSP_LEADER_PAYLOAD_IMAGE;
+	activeData : REFERENCE TO GVSP_LEADER_PAYLOAD_IMAGE REF= localData;
+    _Timestamp : _ULINT(localdata.Timestamp);
+    _PixelFormat : _GVSP_PIXEL_FORMAT();
+    _SizeX : _UDINT(localdata.SizeX);
+    _SizeY : _UDINT(localdata.SizeY);
+    _OffsetX : _UDINT(localdata.OffsetX);
+    _OffsetY : _UDINT(localdata.OffsetY);
+    _PaddingX : _UINT(localdata.PaddingX);
+    _PaddingY : _UINT(localdata.PaddingY);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{722404ac-5c1d-0500-21e8-6c7ab6305f62}" />
+    <Folder Name="Customize" Id="{5485ed02-8a10-0c0d-13b8-2d15f5f33535}">
+      <Folder Name="Constructor" Id="{c243bbf5-bb9c-0b7c-13b8-c778eab99379}" />
+      <Folder Name="Protected" Id="{e2b4f56f-1a4e-025e-241a-7e1779ef8b82}" />
+    </Folder>
+    <Property Name="Address" Id="{b14dfab9-473a-003d-3269-997bb89ebabc}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{7a04e50d-f48d-0457-3ba7-6b9e519c4526}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{6f177cf8-5f6a-01c4-04fd-3a85f1afb848}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{e6b5f861-95bd-0ceb-1aae-2e1f35c37c6e}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _GVSP_LEADER_PAYLOAD_IMAGE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_GVSP_LEADER_PAYLOAD_IMAGE());
+pClone^.Value := Value;
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{4880fbc3-c239-00f0-2bb2-3d245a3e46ed}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetMemberReference();
+AddMember('Timestamp', _Timestamp);
+AddMember('PixelFormat', _PixelFormat);
+AddMember('SizeX', _SizeX);
+AddMember('SizeY', _SizeY);
+AddMember('OffsetX', _OffsetX);
+AddMember('OffsetY', _OffsetY);
+AddMember('PaddingX', _PaddingX);
+AddMember('PaddingY', _PaddingY);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{48febd4f-3eab-01b7-2b5b-b0436690af2f}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{f16f7bc8-d0c7-0859-1425-30a640f063da}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'GVSP_LEADER_PAYLOAD_IMAGE';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{f4360897-394f-0a0e-174a-515eac71fb13}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO GVSP_LEADER_PAYLOAD_IMAGE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="OffsetX" Id="{a472a4ea-2814-000c-315a-a44bf4799493}">
+      <Declaration><![CDATA[PROPERTY PUBLIC OffsetX : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{8e4f650d-4afd-015b-0e11-8f8663e3a17b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[OffsetX REF= _OffsetX;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="OffsetY" Id="{03ed6988-d746-0cb1-0d13-cf48ac77cae5}">
+      <Declaration><![CDATA[PROPERTY PUBLIC OffsetY : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{e5d432d1-f71d-00eb-12a7-ace1e380f472}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[OffsetY REF= _OffsetY;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="PaddingX" Id="{a4497240-5d13-018d-0845-0f6b9778aa91}">
+      <Declaration><![CDATA[PROPERTY PUBLIC PaddingX : REFERENCE TO _UINT]]></Declaration>
+      <Get Name="Get" Id="{2761dfe4-fa2a-0946-36cb-0f2b7f56309b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PaddingX REF= _PaddingX;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="PaddingY" Id="{1dbd443e-f413-01f0-14d2-9d02992b904c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC PaddingY : REFERENCE TO _UINT]]></Declaration>
+      <Get Name="Get" Id="{900ea66d-2ffc-0e21-21bf-397cdf8d6475}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PaddingY REF= _PaddingY;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="PixelFormat" Id="{976cd05e-6748-0a68-1fa9-ef7272f0051f}">
+      <Declaration><![CDATA[PROPERTY PUBLIC PixelFormat : REFERENCE TO _GVSP_PIXEL_FORMAT]]></Declaration>
+      <Get Name="Get" Id="{a79b3095-84ac-060a-125b-a3ac406d1fbe}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PixelFormat REF= _PixelFormat;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetMemberReference" Id="{ad71cadd-092c-0b0f-127d-dfedbf57b1bc}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Timestamp.MakeReferenceTo(activeData.Timestamp);
+_PixelFormat.MakeReferenceTo(activeData.PixelFormat);
+_SizeX.MakeReferenceTo(activeData.SizeX);
+_SizeY.MakeReferenceTo(activeData.SizeY);
+_OffsetX.MakeReferenceTo(activeData.OffsetX);
+_OffsetY.MakeReferenceTo(activeData.OffsetY);
+_PaddingX.MakeReferenceTo(activeData.PaddingX);
+_PaddingY.MakeReferenceTo(activeData.PaddingY);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{5aeb125e-c1d4-0b61-3d24-b7823998a42d}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{5c49488c-60b7-0f06-14a1-c05853908d29}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="SizeX" Id="{876b9e32-2328-0a10-24b5-8325e93ccc82}">
+      <Declaration><![CDATA[PROPERTY PUBLIC SizeX : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{804e1d56-5cf1-0c56-1feb-72130eeac3a6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[SizeX REF= _SizeX;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="SizeY" Id="{9a282cc8-109b-0b5c-1c27-6d227c0fc306}">
+      <Declaration><![CDATA[PROPERTY PUBLIC SizeY : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{201fae7e-fbde-055c-0a91-b4c78a4bc4f2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[SizeY REF= _SizeY;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Timestamp" Id="{2de72366-29c0-0c45-054a-e9bbae499f92}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Timestamp : REFERENCE TO _ULINT]]></Declaration>
+      <Get Name="Get" Id="{c484252f-4905-0c47-324d-5f3dfbde4516}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Timestamp REF= _Timestamp;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{30c3902c-0573-0e69-025f-fe8f3685a19f}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	targetAsStruct : I_StructuredDatatype;
+	pTargetData : POINTER TO GVSP_LEADER_PAYLOAD_IMAGE;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Target.TryResolveAsStructuredDatatype(targetAsStruct) THEN
+	RETURN;
+END_IF
+
+IF NOT (targetAsStruct.Identifier = Identifier) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetMemberReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{64648171-0d04-05dd-2ffc-6428be601f29}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO GVSP_LEADER_PAYLOAD_IMAGE]]></Declaration>
+      <Get Name="Get" Id="{7d51f37b-a52d-0037-0196-d75bb1f96116}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

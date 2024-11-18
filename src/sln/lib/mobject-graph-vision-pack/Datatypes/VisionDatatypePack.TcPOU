@@ -145,9 +145,9 @@ VAR
     _gEV_CAMERA_STATE : _GEV_CAMERA_STATE(GEV_CAMERA_STATE.GEV_CAMERA_IDLE);
 	
     // structs
-//  _gVSP_IMAGE_INFO : _GVSP_IMAGE_INFO;
-//  _gVSP_LEADER_PAYLOAD_IMAGE : _GVSP_LEADER_PAYLOAD_IMAGE;
-//  _gVSP_PIXEL_FORMAT : _GVSP_PIXEL_FORMAT;
+    _gVSP_IMAGE_INFO : _GVSP_IMAGE_INFO;
+    _gVSP_LEADER_PAYLOAD_IMAGE : _GVSP_LEADER_PAYLOAD_IMAGE;
+    _gVSP_PIXEL_FORMAT : _GVSP_PIXEL_FORMAT;
     _tcVnCameraCalibrationOptions : _TcVnCameraCalibrationOptions;
     _tcVnCircularArc : _TcVnCircularArc;
 //  _tcVnCodeGrades1D : _TcVnCodeGrades1D;
@@ -328,9 +328,9 @@ Datatypes.RegisterDatatype(_eTcWatchdogAccumulationType);
 Datatypes.RegisterDatatype(_gEV_CAMERA_STATE);
 
 // structs
-//Datatypes.RegisterDatatype(_gVSP_IMAGE_INFO);
-//Datatypes.RegisterDatatype(_gVSP_LEADER_PAYLOAD_IMAGE);
-//Datatypes.RegisterDatatype(_gVSP_PIXEL_FORMAT);
+Datatypes.RegisterDatatype(_gVSP_IMAGE_INFO);
+Datatypes.RegisterDatatype(_gVSP_LEADER_PAYLOAD_IMAGE);
+Datatypes.RegisterDatatype(_gVSP_PIXEL_FORMAT);
 Datatypes.RegisterDatatype(_tcVnCameraCalibrationOptions);
 Datatypes.RegisterDatatype(_tcVnCircularArc);
 //Datatypes.RegisterDatatype(_tcVnCodeGrades1D);
