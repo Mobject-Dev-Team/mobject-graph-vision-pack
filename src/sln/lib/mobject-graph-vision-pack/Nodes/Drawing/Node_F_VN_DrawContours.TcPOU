@@ -42,10 +42,10 @@ END_VAR
 AddInput('nContourIndex', nContourIndex);
 AddInput('ipDestImage', ipDestImage);
 AddInput('aColor', aColor);
+AddParameter('nThickness', nThickness);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
-AddParameter('nThickness', nThickness);
 ]]></ST>
       </Implementation>
     </Method>

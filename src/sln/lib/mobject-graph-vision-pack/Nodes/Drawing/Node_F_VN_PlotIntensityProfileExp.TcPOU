@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_PlotIntensityProfileExp" Id="{9f9d41cd-de96-0c29-0c2e-ba5ce5ecfce7}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_PlotIntensityProfileExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    aStartPoint : _TcVnPoint2_REAL;
+    aEndPoint : _TcVnPoint2_REAL;
+    aBackgroundColor : _TcVnVector4_LREAL;
+    aLineColor : _TcVnVector4_LREAL;
+    aGridColor : _TcVnVector4_LREAL;
+    nScaleX : _DINT(1);
+    nScaleY : _DINT(1);
+    nThickness : _DINT(1);
+    nDestChannels : _DINT(1);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{efcbbce1-1e97-0f4c-3510-6d8221b20323}" />
+    <Method Name="Clone" Id="{2e96ddb3-a280-0a31-2b46-0313c40fdc25}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_PlotIntensityProfileExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_PlotIntensityProfileExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{649d62b0-e3f9-06b1-08e8-69277c2f0ada}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('aStartPoint', aStartPoint);
+AddInput('aEndPoint', aEndPoint);
+AddInput('aBackgroundColor', aBackgroundColor);
+AddInput('aLineColor', aLineColor);
+AddInput('aGridColor', aGridColor);
+AddParameter('nScaleX', nScaleX);
+AddParameter('nScaleY', nScaleY);
+AddParameter('nThickness', nThickness);
+AddParameter('nDestChannels', nDestChannels);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{6e762f6e-6d7c-067d-02d8-08a3fd86f716}">
+      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_PlotIntensityProfileExp(
+	ipSrcImage := ipSrcImage.Value,
+    ipDestImage := ipDestImage.Value,
+    aStartPoint := aStartPoint.Value,
+    aEndPoint := aEndPoint.Value,
+    aBackgroundColor := aBackgroundColor.Value,
+    aLineColor := aLineColor.Value,
+    aGridColor := aGridColor.Value,
+    nScaleX := nScaleX.Value,
+    nScaleY := nScaleY.Value,
+    nThickness := nThickness.Value,
+    nDestChannels := nDestChannels.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{5d2a67e0-7cf7-0b68-29b0-469dace8ca3e}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+Check.IsTrue((nDestChannels.Value = 1 OR nDestChannels.Value = 3), 'nDestChannels must be 1 or 3');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

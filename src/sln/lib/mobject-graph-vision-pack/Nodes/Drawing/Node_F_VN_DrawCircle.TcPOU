@@ -43,10 +43,10 @@ AddInput('nCenterY', nCenterY);
 AddInput('nRadius', nRadius);
 AddInput('ipDestImage', ipDestImage);
 AddInput('aColor', aColor);
+AddParameter('nThickness', nThickness);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
-AddParameter('nThickness', nThickness);
 ]]></ST>
       </Implementation>
     </Method>

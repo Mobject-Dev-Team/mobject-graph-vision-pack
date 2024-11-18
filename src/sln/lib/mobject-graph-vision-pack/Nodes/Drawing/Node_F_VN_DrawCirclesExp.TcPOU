@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_DrawCirclesExp" Id="{de01294d-8a52-0265-0774-14832e0004ef}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_DrawCirclesExp EXTENDS VisionNode
+VAR
+    ipCircles : _ITcVnContainer;
+    nCircleIndex : _DINT(0);
+    ipDestImage : _ITcVnImage;
+    aColor : _TcVnVector4_LREAL;
+    nThickness : _DINT(1);
+    eLineType : _ETcVnLineType(ETcVnLineType.TCVN_LT_4_CONNECTED);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{c67bcd6f-ecb8-0f11-14e7-0edd1196dccf}" />
+    <Method Name="Clone" Id="{3973e433-ad5a-0c9b-1d21-fd6fc8fee85d}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_DrawCirclesExp
+;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawCirclesExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{8f197540-68c6-06ec-135e-f2c57a8fc201}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipCircles', ipCircles);
+AddInput('nCircleIndex', nCircleIndex);
+AddInput('ipDestImage', ipDestImage);
+AddInput('aColor', aColor);
+AddParameter('nThickness', nThickness);
+AddParameter('eLineType', eLineType);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{66eeb5a1-15ef-0fa9-3944-43d6ee32d3f0}">
+      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_DrawCirclesExp(
+    ipCircles := ipCircles.Value,
+    nCircleIndex := nCircleIndex.Value,
+	ipDestImage := ipDestImage.Value,
+    aColor := aColor.Value,
+    nThickness := nThickness.Value,
+    eLineType := eLineType.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{a2fe63dd-e419-04b7-3bdf-36d5c44af054}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    containerElements : ULINT;
+    maxIndexNumber : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipCircles.IsValid, 'ipCircles must be a valid container');
+Check.IsTrue((ipCircles.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipCircles.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_Vector_TcVnPoint2_DINT)),
+              'ipCircles contains incorrect type');
+
+F_VN_GetNumberOfElements(ipCircles.Value, containerElements, S_OK);
+
+Check.IsTrue((containerElements > 0), 'ipContours is empty');
+
+IF Check.Failed THEN
+    RETURN;
+END_IF
+
+maxIndexNumber := containerElements - 1;
+
+IF (nCircleIndex.Value > -1) THEN
+    Check.IsTrue((DINT_TO_ULINT(nCircleIndex.Value) <= maxIndexNumber), 'nCircleIndex out of range.');
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
