@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_ExportImageSize" Id="{1224ce58-81d9-0b19-1581-09f80140ed3a}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ExportImageSize EXTENDS VisionNode
+VAR
+    ipImage : _ITcVnImage;
+    nBufferSize : _ULINT(0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{bbc599cc-193d-070f-2ea1-542117749be5}" />
+    <Method Name="Clone" Id="{a444706e-3685-047c-3c2b-db7aa6c50552}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ExportImageSize;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ExportImageSize);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{8a9ee821-a640-0ce9-28f4-ed2d7fd3ca71}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipImage', ipImage);
+AddInput('hrPrev', hrPrev);
+AddOutput('nBufferSize', nBufferSize);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{282bf096-6fa5-097e-238b-8147e8e1265b}">
+      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ExportImageSize(
+    ipImage := ipImage.Value,
+    nBufferSize := nBufferSize.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{da2548d7-9377-0fe6-3e00-1cfd61763057}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipImage.IsValid, 'ipImage must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

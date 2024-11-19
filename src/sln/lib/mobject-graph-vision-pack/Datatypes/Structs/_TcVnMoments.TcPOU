@@ -1,0 +1,474 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_TcVnMoments" Id="{df4af3e2-7eb8-09c6-0353-ed9013a7dfd3}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _TcVnMoments EXTENDS StructuredDatatypeBase
+VAR
+	localData : TcVnMoments;
+	activeData : REFERENCE TO TcVnMoments REF= localData;
+    _fM00 : _LREAL(localdata.fM00);
+    _fM01 : _LREAL(localdata.fM01);
+    _fM02 : _LREAL(localdata.fM02);
+    _fM03 : _LREAL(localdata.fM03);
+    _fM10 : _LREAL(localdata.fM10);
+    _fM11 : _LREAL(localdata.fM11);
+    _fM12 : _LREAL(localdata.fM12);
+    _fM20 : _LREAL(localdata.fM20);
+    _fM21 : _LREAL(localdata.fM21);
+    _fM30 : _LREAL(localdata.fM30);
+    _fMu02 : _LREAL(localdata.fMu02);
+    _fMu03 : _LREAL(localdata.fMu03);
+    _fMu11 : _LREAL(localdata.fMu11);
+    _fMu12 : _LREAL(localdata.fMu12);
+    _fMu20 : _LREAL(localdata.fMu20);
+    _fMu21 : _LREAL(localdata.fMu21);
+    _fMu30 : _LREAL(localdata.fMu30);
+    _fNu02 : _LREAL(localdata.fNu02);
+    _fNu03 : _LREAL(localdata.fNu03);
+    _fNu11 : _LREAL(localdata.fNu11);
+    _fNu12 : _LREAL(localdata.fNu12);
+    _fNu20 : _LREAL(localdata.fNu20);
+    _fNu21 : _LREAL(localdata.fNu21);
+    _fNu30 : _LREAL(localdata.fNu30);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{1486190a-dce8-0507-2657-d129a99ac0d8}" />
+    <Folder Name="Customize" Id="{a16d525b-77e4-002b-1cba-66a26d84f23f}">
+      <Folder Name="Constructor" Id="{73ae51e1-bb60-04a4-27a3-e30d77e91d91}" />
+      <Folder Name="Protected" Id="{6af6bfcc-5ef2-0ea2-02dd-d612008eba6e}" />
+    </Folder>
+    <Property Name="Address" Id="{b3f4c40f-cc0b-0520-3259-f2f86d080c8c}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{c24a981d-9187-04fa-070c-0051088c6d73}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{72b0f7fe-4f98-0a54-316a-c0842c5bac6a}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{a110dfaf-c7fe-0f52-0894-2b38483b821e}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _TcVnMoments;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_TcVnMoments());
+pClone^.Value := Value;
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{1d0e26df-7929-0a73-22ca-7bcb31168be0}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetMemberReference();
+AddMember('fM00', _fM00);
+AddMember('fM01', _fM01);
+AddMember('fM02', _fM02);
+AddMember('fM03', _fM03);
+AddMember('fM10', _fM10);
+AddMember('fM11', _fM11);
+AddMember('fM12', _fM12);
+AddMember('fM20', _fM20);
+AddMember('fM21', _fM21);
+AddMember('fM30', _fM30);
+AddMember('fMu02', _fMu02);
+AddMember('fMu03', _fMu03);
+AddMember('fMu11', _fMu11);
+AddMember('fMu12', _fMu12);
+AddMember('fMu20', _fMu20);
+AddMember('fMu21', _fMu21);
+AddMember('fMu30', _fMu30);
+AddMember('fNu02', _fNu02);
+AddMember('fNu03', _fNu03);
+AddMember('fNu11', _fNu11);
+AddMember('fNu12', _fNu12);
+AddMember('fNu20', _fNu20);
+AddMember('fNu21', _fNu21);
+AddMember('fNu30', _fNu30);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="fM00" Id="{80d125f8-c3dd-0636-0f15-9fc61576d643}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fM00 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{2331730a-1656-007b-2b66-d609bec8ec3b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fM00 REF= _fM00;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fM01" Id="{36b25b1f-d2b1-0b44-321b-be9a52fa775b}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fM01 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{e1b3b633-7a2b-017b-2d57-c983592e12f3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fM01 REF= _fM01;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fM02" Id="{6ceb3024-1218-0dba-202f-68eef6c78c1b}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fM02 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{d7a7a1af-1142-01f6-35e9-39070c346f3a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fM02 REF= _fM02;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fM03" Id="{7b4f9982-ca43-0baf-0828-14c084ed78ba}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fM03 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{580ce5b3-cd11-0e85-0e64-59e611123308}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fM03 REF= _fM03;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fM10" Id="{a29d4fa6-b8d1-0edb-344c-2fce760cd38b}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fM10 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{033809fe-705c-0d3c-15a3-a2d6ce9c1e98}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fM10 REF= _fM10;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fM11" Id="{a5dcff7c-17da-0c88-0a78-47d7fefa60a2}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fM11 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{4752a721-fb48-0419-02e1-363c09bdcb1c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fM11 REF= _fM11;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fM12" Id="{25a391c5-6525-08dc-34c4-ad2f9cd123ad}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fM12 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{25c6f550-0b1c-0eff-031c-71bf2b7a8317}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fM12 REF= _fM12;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fM20" Id="{57b57c3f-08b4-089f-254b-68d9f0635624}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fM20 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{64a8e051-71c8-0211-00e6-352bc19b0354}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fM20 REF= _fM20;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fM21" Id="{ab543009-8311-01c2-1e26-fdaf99151f4e}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fM21 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{16a2770b-d3f4-0305-1b5f-ee165c7df4ec}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fM21 REF= _fM21;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fM30" Id="{c11e2c8f-0cd0-00dc-0bbf-06f422735522}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fM30 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{57bb8299-eb72-0648-354b-96a2c7d360a3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fM30 REF= _fM30;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMu02" Id="{4af7292b-fc6c-0e94-25a1-9dc1bc914190}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMu02 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{beea8111-655d-0b27-113a-42df93b2e90d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMu02 REF= _fMu02;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMu03" Id="{bb037be7-3406-05bb-33f5-420dc4b3ca27}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMu03 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{a9026fe1-2b86-0b85-271b-04cd3e8341c8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMu03 REF= _fMu03;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMu11" Id="{22783bdf-81ce-0d81-3fea-e81d868abcb4}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMu11 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{f84d953b-13d7-009b-1f5c-c848ee50b42d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMu11 REF= _fMu11;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMu12" Id="{7881e82c-1f37-02b0-3490-1540825b65b9}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMu12 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{168990f2-9123-0544-3735-d60d1dcafb4a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMu12 REF= _fMu12;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMu20" Id="{35657642-c0b1-0062-0c1f-ebfcc28138af}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMu20 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{3c27a4bb-7e39-0804-390c-e9e603573541}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMu20 REF= _fMu20;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMu21" Id="{8c42c644-b38d-0097-18a4-e393f5e081db}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMu21 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{38aaa139-62b7-03d3-2dde-412090f86422}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMu21 REF= _fMu21;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMu30" Id="{5d7252cb-0265-0c4c-3ec9-eb204ca5f26d}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMu30 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{c9c08f96-7450-0343-328a-0f6c9191f336}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMu30 REF= _fMu30;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fNu02" Id="{d460313c-adff-0333-295b-5220a85465d2}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fNu02 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{2a4a0b5b-c3d2-011a-170e-e060179949c2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fNu02 REF= _fNu02;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fNu03" Id="{c0e788a3-c695-0119-2360-dfb2fd3fa828}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fNu03 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{78066a05-67d6-00ec-3c58-fa9db4cfa9ab}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fNu03 REF= _fNu03;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fNu11" Id="{c281fb99-a96c-013a-379d-411dffbbd3ac}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fNu11 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{abbd1a77-63c8-0ac2-148a-7674381dc6a4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fNu11 REF= _fNu11;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fNu12" Id="{afd80acc-9863-0462-23f5-7f6088ab4360}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fNu12 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{5e4055bc-ebb0-082d-14a3-0be3c9293604}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fNu12 REF= _fNu12;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fNu20" Id="{ae9c3daa-d7b6-0379-1608-a55c49b2a68f}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fNu20 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{50b273c3-ea97-0927-2783-66a7a9a7b6e7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fNu20 REF= _fNu20;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fNu21" Id="{acff8466-b6d2-06a2-2d48-6dd3e7effd0b}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fNu21 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{7d4ac74d-db70-06e6-14eb-e6e35ee6957f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fNu21 REF= _fNu21;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fNu30" Id="{72185285-9983-0d31-0562-bcd7e52377c1}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fNu30 : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{a9c65544-3135-0ecd-01f1-22beddb649cd}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fNu30 REF= _fNu30;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Identifier" Id="{6272f2fa-e185-03f1-20d1-d85a38a52479}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{ad6ca682-9a31-065d-0ef0-096858583003}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'TcVnMoments';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{eab9bfca-0d08-00b8-2cc8-48ce7e817375}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO TcVnMoments;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetMemberReference" Id="{e857ce70-4b2a-0657-3ba7-375e42d14440}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_fM00.MakeReferenceTo(activeData.fM00);
+_fM01.MakeReferenceTo(activeData.fM01);
+_fM02.MakeReferenceTo(activeData.fM02);
+_fM03.MakeReferenceTo(activeData.fM03);
+_fM10.MakeReferenceTo(activeData.fM10);
+_fM11.MakeReferenceTo(activeData.fM11);
+_fM12.MakeReferenceTo(activeData.fM12);
+_fM20.MakeReferenceTo(activeData.fM20);
+_fM21.MakeReferenceTo(activeData.fM21);
+_fM30.MakeReferenceTo(activeData.fM30);
+_fMu02.MakeReferenceTo(activeData.fMu02);
+_fMu03.MakeReferenceTo(activeData.fMu03);
+_fMu11.MakeReferenceTo(activeData.fMu11);
+_fMu12.MakeReferenceTo(activeData.fMu12);
+_fMu20.MakeReferenceTo(activeData.fMu20);
+_fMu21.MakeReferenceTo(activeData.fMu21);
+_fMu30.MakeReferenceTo(activeData.fMu30);
+_fNu02.MakeReferenceTo(activeData.fNu02);
+_fNu03.MakeReferenceTo(activeData.fNu03);
+_fNu11.MakeReferenceTo(activeData.fNu11);
+_fNu12.MakeReferenceTo(activeData.fNu12);
+_fNu20.MakeReferenceTo(activeData.fNu20);
+_fNu21.MakeReferenceTo(activeData.fNu21);
+_fNu30.MakeReferenceTo(activeData.fNu30);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{eb9c3ccd-23a0-0dbf-07f7-13c8862c24d6}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{3f33f176-5686-0d05-13ca-281d17281f05}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{52983675-1b08-09f6-079a-616388e9cc61}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO TcVnMoments;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetMemberReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{81ad430c-b976-030f-1f87-b8fff2ddcacf}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnMoments]]></Declaration>
+      <Get Name="Get" Id="{f736f98d-4874-020c-3430-9a8c6fe1f540}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

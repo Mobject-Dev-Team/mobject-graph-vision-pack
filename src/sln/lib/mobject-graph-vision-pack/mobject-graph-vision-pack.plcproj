@@ -622,6 +622,9 @@
     <Compile Include="Datatypes\Structs\_GVSP_IMAGE_INFO.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnMoments.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Structs\_TcVnDMatch.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1540,6 +1543,19 @@
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CopyImageRegion.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ExportImageSize.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ExportImageAsBmpSize.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_TransformIntoDisplayableImage.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ConvertElementType.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1564,6 +1580,12 @@
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ResetRoi.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetPixels.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_GetPixel.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetRoi.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1582,9 +1604,27 @@
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_GetRoi.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetPixel.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetRoi_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetRoi_TcVnRectangle_UDINT.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_TransformIntoDisplayableImageExp.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CopyIntoDisplayableImage.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateAssociatedImage.TcPOU">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Code Reading\Node_F_VN_ReadQRCode.TcPOU">
       <SubType>Code</SubType>
@@ -1999,6 +2039,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_PutText.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_PadImageBorder.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_PadImageBorderExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyYAxisInversionToAffineTransformation.TcPOU">

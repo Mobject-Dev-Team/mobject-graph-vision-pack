@@ -58,6 +58,10 @@ AddOutput('hresult',hresult);
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    imageWidth : UDINT;
+    imageHeight : UDINT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
@@ -69,10 +73,10 @@ END_IF
 ipDestImage.Value.GetWidth(imageWidth);
 ipDestImage.Value.GetHeight(imageHeight);
 
-Check.IsTrue((stRoi.Value.Width < imageWidth), 'ROI width must be less than image width');
-Check.IsTrue((stRoi.Value.Width <= (imageWidth - stRoi.Value.nX)), 'ROI too wide to fit within image');
-Check.IsTrue((roiRectangle.nHeight < imageHeight), 'ROI height must be less than image height');
-Check.IsTrue((roiRectangle.nHeight <= (imageHeight - stRoi.Value.nY)), 'ROI too high to fit within image');
+Check.IsTrue((stRoi.Value.nWidth < imageWidth), 'ROI width must be less than image width');
+Check.IsTrue((stRoi.Value.nWidth <= (imageWidth - stRoi.Value.nX)), 'ROI too wide to fit within image');
+Check.IsTrue((stRoi.Value.nHeight < imageHeight), 'ROI height must be less than image height');
+Check.IsTrue((stRoi.Value.nHeight <= (imageHeight - stRoi.Value.nY)), 'ROI too high to fit within image');
 ]]></ST>
       </Implementation>
     </Method>

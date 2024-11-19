@@ -364,10 +364,10 @@ VAR
     node_F_VN_ConvertElementType : Node_F_VN_ConvertElementType;
     node_F_VN_ConvertElementTypeExp : Node_F_VN_ConvertElementTypeExp;
     node_F_VN_CopyImage : Node_F_VN_CopyImage;
-    //F_VN_CopyImageRegion
+    node_F_VN_CopyImageRegion : Node_F_VN_CopyImageRegion;
     //F_VN_CopyImageRegionToRegion
-    //F_VN_CopyIntoDisplayableImage
-    //F_VN_CreateAssociatedImage
+    //node_F_VN_CopyIntoDisplayableImage : Node_F_VN_CopyIntoDisplayableImage;
+    node_F_VN_CreateAssociatedImage : Node_F_VN_CreateAssociatedImage;
     node_F_VN_CreateEmptyImage : Node_F_VN_CreateEmptyImage;
     node_F_VN_CreateImage : Node_F_VN_CreateImage;
     node_F_VN_CreateImageAndSetPixels : Node_F_VN_CreateImageAndSetPixels;
@@ -375,30 +375,30 @@ VAR
     //F_VN_ExportImage
     //F_VN_ExportImageAsBmp
     //F_VN_ExportImageAsBmpExp
-    //F_VN_ExportImageAsBmpSize
+    node_F_VN_ExportImageAsBmpSize : Node_F_VN_ExportImageAsBmpSize;
     //F_VN_ExportImageAsBmpSizeExp
-    //F_VN_ExportImageSize
+    node_F_VN_ExportImageSize : Node_F_VN_ExportImageSize;
     //F_VN_FuseImages
     //F_VN_FuseImagesArray
     node_F_VN_GetImageChannel : Node_F_VN_GetImageChannel;
     node_F_VN_GetImageHeight : Node_F_VN_GetImageHeight;
     node_F_VN_GetImageInfo : Node_F_VN_GetImageInfo;
     node_F_VN_GetImageWidth : Node_F_VN_GetImageWidth;
-    //F_VN_GetPixel
+    node_F_VN_GetPixel : Node_F_VN_GetPixel;
     node_F_VN_GetPixelFormat : Node_F_VN_GetPixelFormat;
     node_F_VN_GetRoi : Node_F_VN_GetRoi;
     //F_VN_MixImageChannels
     node_F_VN_ResetRoi : Node_F_VN_ResetRoi;
     //F_VN_SetImageChannel
-    //F_VN_SetPixel
-    //F_VN_SetPixels
+    node_F_VN_SetPixel : Node_F_VN_SetPixel;
+    node_F_VN_SetPixels : Node_F_VN_SetPixels;
     //F_VN_SetPixelsExp
     node_F_VN_SetRoi : Node_F_VN_SetRoi;
     //node_F_VN_SetRoi_TcVnRectangle_DINT : Node_F_VN_SetRoi_TcVnRectangle_DINT;
-    //F_VN_SetRoi_TcVnRectangle_UDINT
+    node_F_VN_SetRoi_TcVnRectangle_UDINT : Node_F_VN_SetRoi_TcVnRectangle_UDINT;
     //F_VN_SplitImageChannels
-    //F_VN_TransformIntoDisplayableImage
-    //F_VN_TransformIntoDisplayableImageExp
+    //node_F_VN_TransformIntoDisplayableImage : Node_F_VN_TransformIntoDisplayableImage;
+    //node_F_VN_TransformIntoDisplayableImageExp : Node_F_VN_TransformIntoDisplayableImageExp;
     
     // Code Quality
     //F_VN_GradeBarcode
@@ -646,8 +646,8 @@ VAR
     //F_VN_Dft
     //F_VN_InverseDft
     //F_VN_OptimalDftSize
-    //F_VN_PadImageBorder
-    //F_VN_PadImageBorderExp
+    node_F_VN_PadImageBorder : Node_F_VN_PadImageBorder;
+    node_F_VN_PadImageBorderExp : Node_F_VN_PadImageBorderExp;
     
     // Geometric and Coordinate Transformations
     //F_VN_CalibrateCamera
@@ -1371,10 +1371,10 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_GetNumber
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_ConvertElementType', node_F_VN_ConvertElementType);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_ConvertElementTypeExp', node_F_VN_ConvertElementTypeExp);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CopyImage', node_F_VN_CopyImage);
-//F_VN_CopyImageRegion
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CopyImageRegion', node_F_VN_CopyImageRegion);
 //F_VN_CopyImageRegionToRegion
-//F_VN_CopyIntoDisplayableImage
-//F_VN_CreateAssociatedImage
+//NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CopyIntoDisplayableImage', node_F_VN_CopyIntoDisplayableImage);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CreateAssociatedImage', node_F_VN_CreateAssociatedImage);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CreateEmptyImage', node_F_VN_CreateEmptyImage);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CreateImage', node_F_VN_CreateImage);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CreateImageAndSetPixels', node_F_VN_CreateImageAndSetPixels);
@@ -1382,31 +1382,31 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CreateImageAn
 //F_VN_ExportImage
 //F_VN_ExportImageAsBmp
 //F_VN_ExportImageAsBmpExp
-//F_VN_ExportImageAsBmpSize
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_ExportImageAsBmpSize', node_F_VN_ExportImageAsBmpSize);
 //F_VN_ExportImageAsBmpSizeExp
-//F_VN_ExportImageSize
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_ExportImageSize', node_F_VN_ExportImageSize);
 //F_VN_FuseImages
 //F_VN_FuseImagesArray
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetImageChannel', node_F_VN_GetImageChannel);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetImageHeight', node_F_VN_GetImageHeight);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetImageInfo', node_F_VN_GetImageInfo);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetImageWidth', node_F_VN_GetImageWidth);
-//F_VN_GetPixel
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetPixel', node_F_VN_GetPixel);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetPixelFormat', node_F_VN_GetPixelFormat);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetRoi', node_F_VN_GetRoi);
 //F_VN_MixImageChannels
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_ResetRoi', node_F_VN_ResetRoi);
 //F_VN_SetImageChannel
-//F_VN_SetPixel
-//F_VN_SetPixels
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetPixel', node_F_VN_SetPixel);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetPixels', node_F_VN_SetPixels);
 //F_VN_SetPixelsExp
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi', node_F_VN_SetRoi);
 //NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi_TcVnRectangle_DINT', node_F_VN_SetRoi_TcVnRectangle_DINT);
-//F_VN_SetRoi_TcVnRectangle_UDINT
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi_TcVnRectangle_UDINT', node_F_VN_SetRoi_TcVnRectangle_UDINT);
 //F_VN_SplitImageChannels
-//F_VN_TransformIntoDisplayableImage
-//F_VN_TransformIntoDisplayableImageExp
- 
+//NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_TransformIntoDisplayableImage', node_F_VN_TransformIntoDisplayableImage); 
+//NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_TransformIntoDisplayableImageExp', node_F_VN_TransformIntoDisplayableImageExp); 
+
 // Code Quality
 //F_VN_GradeBarcode
 //F_VN_GradeBarcodeExp
@@ -1658,8 +1658,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PutText', node_F_VN_PutText)
 //F_VN_Dft
 //F_VN_InverseDft
 //F_VN_OptimalDftSize
-//F_VN_PadImageBorder
-//F_VN_PadImageBorderExp
+NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_PadImageBorder', node_F_VN_PadImageBorder);
+NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_PadImageBorderExp', node_F_VN_PadImageBorderExp);
 
 // Geometric and Coordinate Transformations
 //F_VN_CalibrateCamera

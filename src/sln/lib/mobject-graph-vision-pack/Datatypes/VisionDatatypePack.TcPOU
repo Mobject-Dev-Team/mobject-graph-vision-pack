@@ -157,7 +157,7 @@ VAR
 	_tcVnImageInfo : _TcVnImageInfo;
     _tcVnKeyPoint : _TcVnKeyPoint;
 //  _tcVnMatrix : _TcVnMatrix;
-//  _tcVnMoments : _TcVnMoments;
+    _tcVnMoments : _TcVnMoments;
     _tcVnParamsAGAST : _TcVnParamsAGAST;
     _tcVnParamsAKAZE : _TcVnParamsAKAZE;
     _tcVnParamsBlobDetection : _TcVnParamsBlobDetection;
@@ -340,7 +340,7 @@ Datatypes.RegisterDatatype(_tcVnDMatch);
 Datatypes.RegisterDatatype(_tcVnImageInfo);
 Datatypes.RegisterDatatype(_tcVnKeyPoint);
 //Datatypes.RegisterDatatype(_tcVnMatrix);
-//Datatypes.RegisterDatatype(_tcVnMoments);
+Datatypes.RegisterDatatype(_tcVnMoments);
 Datatypes.RegisterDatatype(_tcVnParamsAGAST);
 Datatypes.RegisterDatatype(_tcVnParamsAKAZE);
 Datatypes.RegisterDatatype(_tcVnParamsBlobDetection);
