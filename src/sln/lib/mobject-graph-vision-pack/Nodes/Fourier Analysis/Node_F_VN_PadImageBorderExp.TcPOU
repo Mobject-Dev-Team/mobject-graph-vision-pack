@@ -46,7 +46,7 @@ AddParameter('nBottomBorder', nBottomBorder);
 AddParameter('nLeftBorder', nLeftBorder);
 AddParameter('nRightBorder', nRightBorder);
 AddParameter('ePaddingType', ePaddingType);
-AddParameter('aPaddingValue', aPaddingValue);
+AddInput('aPaddingValue', aPaddingValue);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipPaddedImage', ipPaddedImage);
 AddOutput('hresult',hresult);
