@@ -559,9 +559,9 @@ VAR
     //F_VN_ConvexityDefects
     //F_VN_CustomElementWiseContainerOperation_ITcVnContainer
     //F_VN_CustomElementWiseContainerOperation_ITcVnForwardIterator
-    //F_VN_EnclosingCircle
-    //F_VN_EnclosingRectangle
-    //F_VN_EnclosingTriangle
+    node_F_VN_EnclosingCircle : Node_F_VN_EnclosingCircle;
+    node_F_VN_EnclosingRectangle : Node_F_VN_EnclosingRectangle;
+    node_F_VN_EnclosingTriangle : Node_F_VN_EnclosingTriangle;
     //F_VN_FitEllipse
     node_F_VN_FitLine : Node_F_VN_FitLine;
     //F_VN_FitLineExp
@@ -772,16 +772,16 @@ VAR
     //F_VN_GetConnectedComponentExp
     node_F_VN_ImageAverage : Node_F_VN_ImageAverage;
     //F_VN_ImageAverageExp
-    //F_VN_ImageAverageStdDev
+    node_F_VN_ImageAverageStdDev : Node_F_VN_ImageAverageStdDev;
     //F_VN_ImageAverageStdDevExp
-    //F_VN_ImageCenterOfMass
+    node_F_VN_ImageCenterOfMass : Node_F_VN_ImageCenterOfMass;
     //F_VN_ImageCenterOfMassExp
     node_F_VN_ImageMedian : Node_F_VN_ImageMedian;
     //F_VN_ImageMedianExp
-    //F_VN_ImageMoments
-    //F_VN_MaxPixelValue
+    node_F_VN_ImageMoments : Node_F_VN_ImageMoments;
+    node_F_VN_MaxPixelValue : Node_F_VN_MaxPixelValue;
     //F_VN_MaxPixelValueExp
-    //F_VN_MinPixelValue
+    node_F_VN_MinPixelValue : Node_F_VN_MinPixelValue;
     //F_VN_MinPixelValueExp
     //F_VN_RegionOrientation
     //F_VN_RegionOrientationExp
@@ -1569,9 +1569,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElementEleme
 //F_VN_ConvexityDefects
 //F_VN_CustomElementWiseContainerOperation_ITcVnContainer
 //F_VN_CustomElementWiseContainerOperation_ITcVnForwardIterator
-//F_VN_EnclosingCircle
-//F_VN_EnclosingRectangle
-//F_VN_EnclosingTriangle
+NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_EnclosingCircle', node_F_VN_EnclosingCircle);
+NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_EnclosingRectangle', node_F_VN_EnclosingRectangle);
+NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_EnclosingTriangle', node_F_VN_EnclosingTriangle);
 //F_VN_FitEllipse
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_FitLine', node_F_VN_FitLine);
 //F_VN_FitLineExp
@@ -1785,16 +1785,16 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CountNonZeroPixels', 
 //F_VN_GetConnectedComponentExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ImageAverage', node_F_VN_ImageAverage);
 //F_VN_ImageAverageExp
-//F_VN_ImageAverageStdDev
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ImageAverageStdDev', node_F_VN_ImageAverageStdDev);
 //F_VN_ImageAverageStdDevExp
-//F_VN_ImageCenterOfMass
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ImageCenterOfMass', node_F_VN_ImageCenterOfMass);
 //F_VN_ImageCenterOfMassExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ImageMedian', node_F_VN_ImageMedian);
 //F_VN_ImageMedianExp
-//F_VN_ImageMoments
-//F_VN_MaxPixelValue
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ImageMoments', node_F_VN_ImageMoments);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_MaxPixelValue', node_F_VN_MaxPixelValue);
 //F_VN_MaxPixelValueExp
-//F_VN_MinPixelValue
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_MinPixelValue', node_F_VN_MinPixelValue);
 //F_VN_MinPixelValueExp
 //F_VN_RegionOrientation
 //F_VN_RegionOrientationExp
