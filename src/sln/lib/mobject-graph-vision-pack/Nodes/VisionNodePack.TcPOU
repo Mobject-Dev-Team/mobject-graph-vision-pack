@@ -1993,11 +1993,11 @@ NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_MeasureAngleBetweenEdges
 //F_VN_ConvertITcUnknownToITcVnMlModel
 //F_VN_DeinitializeFunction
 //F_VN_GetTimestamp
-NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_HuMomentInvariants', node_F_VN_HuMomentInvariants);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_HuMomentInvariants', node_F_VN_HuMomentInvariants);
 //F_VN_InitMatrixStruct
 //F_VN_InvertMatrix3x3
-NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_LineIntersectionPoint', node_F_VN_LineIntersectionPoint);
-NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_LineIntersectionPointAndAngle', node_F_VN_LineIntersectionPointAndAngle);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_LineIntersectionPoint', node_F_VN_LineIntersectionPoint);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_LineIntersectionPointAndAngle', node_F_VN_LineIntersectionPointAndAngle);
 //F_VN_MultiplyMatrices
 //F_VN_RotatedRectangleCorners
 //F_VN_RotatedRectangleIntersection
@@ -2005,12 +2005,12 @@ NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_LineIntersectionPointAnd
 //F_VN_UpdateTimestamp
 
 // OCR
-//F_VN_OCR
-//F_VN_OCRExp
+//NodeFactory.AddNodeAsPrototype('Vision/OCR/F_VN_OCR', node_F_VN_OCR);
+//NodeFactory.AddNodeAsPrototype('Vision/OCR/F_VN_OCRExp', node_F_VN_OCRExp);
 
 // Texture Analysis
-//F_VN_Granulometry
-//F_VN_HaralickFeatures
+//NodeFactory.AddNodeAsPrototype('Vision/Texture Analysis/F_VN_Granulometry', node_F_VN_Granulometry);
+//NodeFactory.AddNodeAsPrototype('Vision/Texture Analysis/F_VN_HaralickFeatures', node_F_VN_HaralickFeatures);
 ]]></ST>
       </Implementation>
     </Method>
