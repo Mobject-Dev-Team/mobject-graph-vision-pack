@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_FitEllipse" Id="{d96bceb6-6a8c-0b70-1f0d-eb362111181e}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_FitEllipse EXTENDS VisionNode
+VAR
+    ipPointSet : _ITcVnContainer;
+    stEllipse : _TcVnRotatedRectangle;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{980734b0-37aa-01a2-32a1-3e1f17be3dfe}" />
+    <Method Name="Clone" Id="{234d58e6-0454-0352-130b-323582ff215a}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_FitEllipse;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_FitEllipse);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{06ffa112-8782-0019-2307-1ffeffdcf03f}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipPointSet', ipPointSet);
+AddInput('hrPrev', hrPrev);
+AddOutput('stEllipse', stEllipse);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{f4980f3a-30eb-0f7d-1e35-a69855072d89}">
+      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_FitEllipse(
+	ipPointSet := ipPointSet.Value,
+    stEllipse := stEllipse.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{cd8b6144-d513-08a9-0c61-4583427f26e5}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    elementNum : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipPointSet.IsValid, 'ipPointSet must be a valid container');
+Check.IsTrue((ipPointSet.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipPointSet.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL)),
+              'ipPointSet contains incorrect type');
+
+F_VN_GetNumberOfElements(ipPointSet.Value, elementNum, S_OK);
+
+Check.IsTrue((elementNum >= 5), 'ipPointSet must contain at least 5 points');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

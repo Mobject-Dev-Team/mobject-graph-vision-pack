@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
-  <POU Name="Node_F_VN_ReadQRCode" Id="{ff622ef1-755c-046f-0e9d-c678c02f2129}" SpecialFunc="None">
+  <POU Name="Node_F_VN_HuMomentInvariants" Id="{8d96b3fc-ba79-070d-05d9-8b6c15bcec97}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_ReadQRCode EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_HuMomentInvariants EXTENDS VisionNode
 VAR
-    ipSrcImage : _ITcVnImage;
-    ipDecodedData : _ITcVnContainer;
+    stMoments : _TcVnMoments;
+    aHuInvariants : _TcVnArray7_LREAL;
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -15,18 +15,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{99461bb7-a5bc-049e-0946-ae9019411241}" />
-    <Method Name="Clone" Id="{6b5a334b-50ae-031c-3888-f7ac0d287783}">
+    <Folder Name="Constructor" Id="{176a5d38-5389-0573-2346-3096ead23911}" />
+    <Method Name="Clone" Id="{4bd8c3e3-cfb6-057e-3385-018159bade73}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_ReadQRCode;
+	pNode : POINTER TO Node_F_VN_HuMomentInvariants;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_ReadQRCode);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_HuMomentInvariants);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{4bcabed7-90fa-0c60-0335-536292908893}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{e1072ac9-0a49-02a4-3b05-88cba79681f1}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -34,33 +34,31 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+        <ST><![CDATA[AddInput('stMoments', stMoments);
 AddInput('hrPrev', hrPrev);
-AddOutput('ipDecodedData', ipDecodedData);
+AddOutput('aHuInvariants', aHuInvariants);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{941e02f3-d4f9-0acb-2bcd-826add4781a4}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+    <Method Name="OnExecute" Id="{51d69cb4-f15b-05fc-3228-7a7d89cf83ed}">
+      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_ReadQRCode(
-	ipSrcImage := ipSrcImage.Value,
-    ipDecodedData := ipDecodedData.Value,
+        <ST><![CDATA[hresult.Value := F_VN_HuMomentInvariants(
+	stMoments := stMoments.Value,
+    aHuInvariants := aHuInvariants.Value,
 	hrPrev:= hrPrev.Value);
-    ]]></ST>
+]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{295e0778-eabf-04e3-1a36-50cad0bf0fa8}">
+    <Method Name="PreExecutionCheck" Id="{1a280466-5c27-0ea5-2f2c-679adf1817ab}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
-Check.IsTrue((ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3)), 'ipSrcImage must have 1 or 3 channels');
-Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
-]]></ST>
+        <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
   </POU>

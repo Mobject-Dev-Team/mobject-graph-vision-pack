@@ -52,7 +52,7 @@ AddOutput('hresult',hresult);
       <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_ClaheExp(
-	ipSrcImage   := ipSrcImage.Value,
+	ipSrcImage := ipSrcImage.Value,
     fClipLimit := fClipLimit.Value,
     nTilesX := nTilesX.Value,
     nTilesY := nTilesY.Value,

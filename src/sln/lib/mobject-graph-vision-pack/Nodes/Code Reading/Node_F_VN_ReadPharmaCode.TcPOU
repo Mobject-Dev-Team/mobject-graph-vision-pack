@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
-  <POU Name="Node_F_VN_ReadDataMatrixCode" Id="{48758f93-2f36-0f89-177c-e2ea6a44e294}" SpecialFunc="None">
+  <POU Name="Node_F_VN_ReadPharmaCode" Id="{c6c90f62-46bf-02d0-0510-0ce0200b2b51}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_ReadDataMatrixCode EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_ReadPharmaCode EXTENDS VisionNode
 VAR
     ipSrcImage : _ITcVnImage;
     ipDecodedData : _ITcVnContainer;
@@ -15,18 +15,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{e164ae47-9b7c-01c6-285a-e6d05e9762f7}" />
-    <Method Name="Clone" Id="{89399bb7-69a4-096c-1548-89824b3e7914}">
+    <Folder Name="Constructor" Id="{68cc53df-d123-0e4f-3579-7d4ac8d476d2}" />
+    <Method Name="Clone" Id="{74f88a40-8363-0234-18b9-6f5aa81f73d7}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_ReadDataMatrixCode;
+	pNode : POINTER TO Node_F_VN_ReadPharmaCode;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_ReadDataMatrixCode);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ReadPharmaCode);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{7055f3ac-550b-0685-17b2-5ec52a3ec544}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{0d03007d-39c3-0558-03df-04c3c05a04f4}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -41,17 +41,17 @@ AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{e2f83839-48f4-0c14-279f-5561be136c3b}">
+    <Method Name="OnExecute" Id="{d4d30b96-6687-01fd-1828-610a15d7c6b0}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_ReadDataMatrixCode(
+        <ST><![CDATA[hresult.Value := F_VN_ReadPharmaCode(
 	ipSrcImage := ipSrcImage.Value,
     ipDecodedData := ipDecodedData.Value,
 	hrPrev:= hrPrev.Value);
     ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{1bb05a25-6444-0410-22bb-387924db59f7}">
+    <Method Name="PreExecutionCheck" Id="{948bd24d-9b47-03d9-1c55-119835abcba0}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
@@ -59,7 +59,16 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
 Check.IsTrue((ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3)), 'ipSrcImage must have 1 or 3 channels');
-Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+
+IF (ipSrcImage.HasChannelCount(1)) THEN
+    Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+END_IF
+
+IF (ipSrcImage.HasChannelCount(3)) THEN
+    Check.IsTrue((ipSrcImage.IsPixelDepth(8) OR 
+                 ipSrcImage.IsPixelDepth(16) OR
+                 ipSrcImage.IsPixelDepth(32)), 'ipSrcImage must have 8, 16 or 32 bit pixel depth');
+END_IF
 ]]></ST>
       </Implementation>
     </Method>
