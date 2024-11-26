@@ -34,8 +34,9 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipImage', ipImage);
+AddInput('hrPrev', hrPrev);
 AddOutput('ipImage', ipImage);
-AddOutput('hresult',hresult);
+AddOutput('hresult', hresult);
 ]]></ST>
       </Implementation>
     </Method>

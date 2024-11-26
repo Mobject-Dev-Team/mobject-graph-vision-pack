@@ -128,6 +128,8 @@
     <Folder Include="Datatypes\Enums" />
     <Folder Include="Datatypes\Interfaces" />
     <Folder Include="Datatypes\Structs" />
+    <Folder Include="Function" />
+    <Folder Include="Function\Checks" />
     <Folder Include="Nodes" />
     <Folder Include="Nodes\Algebraic Container Ops" />
     <Folder Include="Nodes\Algebraic Container Ops\AddTo" />
@@ -699,6 +701,15 @@
     <Compile Include="Datatypes\VisionDatatypePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Function\Checks\IsImage1SizeEqualToImage2Size.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Function\Checks\IsRoiSizeOK.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Function\Checks\IsValidImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GVL_COLOURS.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -835,6 +846,21 @@
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_AddVectorToImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseAndImagesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseNotImageExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MaxImageExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseXorImagesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseOrImagesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseAndScalarWithImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -869,6 +895,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_ElementwiseLog.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MaxImageWithScalarExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MaxImageWithVectorExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MinImageWithVectorExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MinImageWithScalarExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MinImageExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MaxImageWithScalar.TcPOU">
@@ -1579,6 +1620,9 @@
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CopyImageRegion.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CopyImageRegionToRegion.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ExportImageSize.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2155,13 +2199,31 @@
     <Compile Include="Nodes\Image Analysis\Node_F_VN_CountNonZeroPixels.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_DistanceTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAverage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAverageStdDev.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAverageExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAverageStdDevExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageCenterOfMass.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageCenterOfMassExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_RegionOrientation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageMedianExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageMoments.TcPOU">
@@ -2173,7 +2235,16 @@
     <Compile Include="Nodes\Image Analysis\Node_F_VN_MaxPixelValue.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_MaxPixelValueExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_MinPixelValueExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_MinPixelValue.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_RegionOrientationExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_DetectBlobs.TcPOU">

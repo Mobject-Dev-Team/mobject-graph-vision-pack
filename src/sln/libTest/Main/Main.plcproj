@@ -61,6 +61,7 @@
     <Folder Include="Tests" />
     <Folder Include="Tests\Enums" />
     <Folder Include="Tests\Interfaces" />
+    <Folder Include="Tests\Functions" />
     <Folder Include="Tests\Structs" />
   </ItemGroup>
   <ItemGroup>

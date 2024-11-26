@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_MaxImageWithScalarExp" Id="{1288f6d9-c69d-0468-1b1d-8223e731ca3d}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MaxImageWithScalarExp EXTENDS VisionNode
+VAR
+    fScalar : _LREAL(0.0);
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    ipMask : _ITcVnImage;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{a0776346-4e4e-0b4d-1577-830f6d8ec467}" />
+    <Method Name="Clone" Id="{5f586019-af2a-0942-27d4-5947fca03d62}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_MaxImageWithScalarExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MaxImageWithScalarExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{c118cefd-6e7b-0f45-2816-9c7a6096655c}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('fScalar', fScalar);
+AddInput('ipSrcImage', ipSrcImage);
+AddInput('ipMask', ipMask);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{c22b29f0-f1d1-0062-221d-9db8db8ade41}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MaxImageWithScalarExp(
+    fScalar := fScalar.Value,
+    ipSrcImage := ipSrcImage.Value,
+	ipDestImage := ipDestImage.Value,
+    ipMask := ipMask.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{0853e84a-80da-020c-0b3f-e0c7739426e7}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipMask.IsValid, 'ipMask must contain an image');
+Check.IsTrue(ipMask.HasChannelCount(1), 'ipMask must have 1 channel');
+Check.IsTrue(ipMask.IsPixelDepth(8), 'ipMask must have 8 bit pixel depth');
+Check.IsTrue(IsImage1SizeEqualToImage2Size(ipMask.Value, ipSrcImage.Value), 'ipMask must be the same size as ipSrcImage');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -68,8 +68,8 @@ VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR
 VAR
-    imageWidth : UDINT;
-    imageHeight : UDINT;
+    imgWidth : UDINT;
+    imgHeight : UDINT;
     roiRectangle : TcVnRectangle_UDINT;
 END_VAR]]></Declaration>
       <Implementation>
@@ -79,17 +79,14 @@ IF Check.Failed THEN
     RETURN;
 END_IF
 
-ipDestImage.Value.GetWidth(imageWidth);
-ipDestImage.Value.GetHeight(imageHeight);
+ipDestImage.Value.GetWidth(imgWidth);
+ipDestImage.Value.GetHeight(imgHeight);
 roiRectangle.nX := nX.Value;
 roiRectangle.nY := nY.Value;
 roiRectangle.nWidth := nWidth.Value;
 roiRectangle.nHeight := nHeight.Value;
 
-Check.IsTrue((roiRectangle.nWidth <= imageWidth), 'ROI width must not be greater than image width');
-Check.IsTrue((roiRectangle.nWidth <= (imageWidth - roiRectangle.nX)), 'ROI too wide to fit within image');
-Check.IsTrue((roiRectangle.nHeight <= imageHeight), 'ROI height must not be greater than image height');
-Check.IsTrue((roiRectangle.nHeight <= (imageHeight - roiRectangle.nY)), 'ROI too high to fit within image');
+Check.IsTrue(IsRoiSizeOK(roiRectangle, imgWidth, imgHeight), 'ROI must fit within image');
 ]]></ST>
       </Implementation>
     </Method>

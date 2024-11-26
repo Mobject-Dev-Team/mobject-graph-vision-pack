@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_MinImageWithVectorExp" Id="{a963be22-78fc-021e-0e37-35a5725a3779}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MinImageWithVectorExp EXTENDS VisionNode
+VAR
+    aVector : _TcVnVector4_LREAL;
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    ipMask : _ITcVnImage;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{b5bae51a-60a2-0df3-12f0-e768934c4ab1}" />
+    <Method Name="Clone" Id="{9d98a042-29f1-077f-0a1d-8065a3cfffa3}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_MinImageWithVectorExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MinImageWithVectorExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{140c6bfb-e77b-054b-141f-4f80ba557265}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('aVector', aVector);
+AddInput('ipSrcImage', ipSrcImage);
+AddInput('ipMask', ipMask);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{e26ca01e-31b1-078a-3847-fc42236ee557}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MinImageWithVectorExp(
+    aVector := aVector.Value,
+    ipSrcImage := ipSrcImage.Value,
+	ipDestImage := ipDestImage.Value,
+    ipMask := ipMask.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{97b69245-b59e-08f6-08e1-7a7851ec064c}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipMask.IsValid, 'ipMask must contain an image');
+Check.IsTrue(ipMask.HasChannelCount(1), 'ipMask must have 1 channel');
+Check.IsTrue(ipMask.IsPixelDepth(8), 'ipMask must have 8 bit pixel depth');
+Check.IsTrue(IsImage1SizeEqualToImage2Size(ipMask.Value, ipSrcImage.Value), 'ipMask must be the same size as ipSrcImage');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

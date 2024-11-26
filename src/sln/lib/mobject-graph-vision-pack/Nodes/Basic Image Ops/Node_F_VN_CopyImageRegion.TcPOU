@@ -38,7 +38,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddOutput('ipSrcImage', ipSrcImage);
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
 AddParameter('nX', nX);
 AddParameter('nY', nY);
 AddParameter('nWidth', nWidth);
