@@ -581,8 +581,8 @@ VAR
     // Drawing
     node_F_VN_DrawArrow : Node_F_VN_DrawArrow;
     node_F_VN_DrawArrow_TcVnVector4_DINT : Node_F_VN_DrawArrow_TcVnVector4_DINT;
-    //F_VN_DrawArrowExp
-    //F_VN_DrawArrowExp_TcVnVector4_DINT
+    node_F_VN_DrawArrowExp : Node_F_VN_DrawArrowExp;
+    node_F_VN_DrawArrowExp_TcVnVector4_DINT : Node_F_VN_DrawArrowExp_TcVnVector4_DINT;
     node_F_VN_DrawCircle : Node_F_VN_DrawCircle;
     node_F_VN_DrawCircleExp : Node_F_VN_DrawCircleExp;
     node_F_VN_DrawCircles : Node_F_VN_DrawCircles;
@@ -601,8 +601,8 @@ VAR
     node_F_VN_DrawLine_TcVnVector4_DINT : Node_F_VN_DrawLine_TcVnVector4_DINT;
     node_F_VN_DrawLine_TcVnVector4_LREAL : Node_F_VN_DrawLine_TcVnVector4_LREAL;
     node_F_VN_DrawLineExp : Node_F_VN_DrawLineExp;
-    //F_VN_DrawLineExp_TcVnVector4_DINT
-    //F_VN_DrawLineExp_TcVnVector4_LREAL
+    node_F_VN_DrawLineExp_TcVnVector4_DINT : Node_F_VN_DrawLineExp_TcVnVector4_DINT;
+    node_F_VN_DrawLineExp_TcVnVector4_LREAL : Node_F_VN_DrawLineExp_TcVnVector4_LREAL;
     //F_VN_DrawLines
     //F_VN_DrawLinesExp
     //F_VN_DrawMatches
@@ -629,9 +629,9 @@ VAR
     node_F_VN_PlotIntensityProfile : Node_F_VN_PlotIntensityProfile;
     node_F_VN_PlotIntensityProfileExp : Node_F_VN_PlotIntensityProfileExp;
     node_F_VN_PutLabel : Node_F_VN_PutLabel;
-    //F_VN_PutLabelExp
+    node_F_VN_PutLabelExp : Node_F_VN_PutLabelExp;
     node_F_VN_PutText : Node_F_VN_PutText;
-    //F_VN_PutTextExp
+    node_F_VN_PutTextExp : Node_F_VN_PutTextExp;
     
     // Fourier Analysis
     //F_VN_CreateBandpassButterworthFilter
@@ -891,8 +891,8 @@ VAR
     //F_VN_MatchDescriptorsKnnBFExp
     //F_VN_MatchDescriptorsKnnFlannLsh
     //F_VN_MatchDescriptorsKnnFlannLshExp
-    //F_VN_RegionsMSER
-    //F_VN_RegionsMSERExp
+    node_F_VN_RegionsMSER : Node_F_VN_RegionsMSER;
+    node_F_VN_RegionsMSERExp : Node_F_VN_RegionsMSERExp;
     
     // Machine Learning
     //F_VN_CreateBoostClassifier
@@ -1589,8 +1589,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_FitLine', node_F_VN
 // Drawing
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawArrow', node_F_VN_DrawArrow);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawArrow_TcVnVector4_DINT', node_F_VN_DrawArrow_TcVnVector4_DINT);
-//F_VN_DrawArrowExp
-//F_VN_DrawArrowExp_TcVnVector4_DINT
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawArrowExp', node_F_VN_DrawArrowExp);
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawArrowExp_TcVnVector4_DINT', node_F_VN_DrawArrowExp_TcVnVector4_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawCircle', node_F_VN_DrawCircle);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawCircleExp', node_F_VN_DrawCircleExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawCircles', node_F_VN_DrawCircles);
@@ -1609,8 +1609,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLine', node_F_VN_DrawLin
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLine_TcVnVector4_DINT', node_F_VN_DrawLine_TcVnVector4_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLine_TcVnVector4_LREAL', node_F_VN_DrawLine_TcVnVector4_LREAL);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLineExp', node_F_VN_DrawLineExp);
-//F_VN_DrawLineExp_TcVnVector4_DINT
-//F_VN_DrawLineExp_TcVnVector4_LREAL
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLineExp_TcVnVector4_DINT', node_F_VN_DrawLineExp_TcVnVector4_DINT);
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLineExp_TcVnVector4_LREAL', node_F_VN_DrawLineExp_TcVnVector4_LREAL);
 //F_VN_DrawLines
 //F_VN_DrawLinesExp
 //F_VN_DrawMatches
@@ -1639,9 +1639,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_FillRotatedRectangle', node_
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PlotIntensityProfile', node_F_VN_PlotIntensityProfile);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PlotIntensityProfileExp', node_F_VN_PlotIntensityProfileExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PutLabel', node_F_VN_PutLabel);
-//F_VN_PutLabelExp
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PutLabelExp', node_F_VN_PutLabelExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PutText', node_F_VN_PutText);
-//F_VN_PutTextExp
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PutTextExp', node_F_VN_PutTextExp);
 
 // Fourier Analysis
 //F_VN_CreateBandpassButterworthFilter
@@ -1902,8 +1902,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsSB', node
 //F_VN_MatchDescriptorsKnnBFExp
 //F_VN_MatchDescriptorsKnnFlannLsh
 //F_VN_MatchDescriptorsKnnFlannLshExp
-//F_VN_RegionsMSER
-//F_VN_RegionsMSERExp
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_RegionsMSER', node_F_VN_RegionsMSER);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_RegionsMSERExp', node_F_VN_RegionsMSERExp);
 
 // Machine Learning
 //F_VN_CreateBoostClassifier

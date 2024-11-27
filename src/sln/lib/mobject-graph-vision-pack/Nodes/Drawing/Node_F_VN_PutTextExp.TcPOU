@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_PutTextExp" Id="{b48937c4-0037-4ecd-9a4b-82b5e011c0db}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_PutTextExp EXTENDS VisionNode
+VAR
+    sText : _STRING('');
+    ipDestImage : _ITcVnImage;
+    nX : _UDINT(1);
+    nY : _UDINT(1);
+    eFontType : _ETcVnFontType(ETcVnFontType.TCVN_FT_HERSHEY_SIMPLEX);
+    fFontScale : _LREAL(1.0);
+    aColor : _TcVnVector4_LREAL;
+    nThickness : _DINT(1);
+    eLineType : _ETcVnLineType(ETcVnLineType.TCVN_LT_4_CONNECTED);
+    bBottomLeftOrigin : _BOOL(FALSE);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{7a3cd441-6fd2-47fa-b088-a686e1702798}" />
+    <Method Name="Clone" Id="{20d9a960-6094-469b-9428-03fd9daeb9ca}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_PutTextExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_PutTextExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{122d48a9-f97c-4165-a544-4e92ef93e877}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('sText', sText);
+AddInput('ipDestImage', ipDestImage);
+AddParameter('nX', nX);
+AddParameter('nY', nY);
+AddParameter('eFontType', eFontType);
+AddParameter('fFontScale', fFontScale);
+AddInput('aColor', aColor);
+AddParameter('nThickness', nThickness);
+AddParameter('eLineType', eLineType);
+AddParameter('bBottomLeftOrigin', bBottomLeftOrigin);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{1f542665-36de-42e3-b31a-28cdbd134b83}">
+      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_PutTextExp(
+    sText := sText.Value,
+	ipDestImage := ipDestImage.Value,
+	nX:= nX.Value,
+	nY:= nY.Value,
+    eFontType := eFontType.Value,
+    fFontScale := fFontScale.Value,
+    aColor := aColor.Value,
+    nThickness := nThickness.Value,
+    eLineType := eLineType.Value,
+    bBottomLeftOrigin := bBottomLeftOrigin.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{827e9c01-cb18-48d6-a57e-0f174a28d79e}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

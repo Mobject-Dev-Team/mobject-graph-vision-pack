@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_RegionsMSERExp" Id="{b36830e4-10fe-4033-9888-0407ae8375ee}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_RegionsMSERExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipRegions : _ITcVnContainer;
+    ipBoundingBoxes : _ITcVnContainer;
+    stParams : _TcVnParamsMSER;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{5eeafca3-da54-4469-8182-1b5d41bfcaf6}" />
+    <Method Name="Clone" Id="{2067913e-dea4-4527-b7a4-16fa0c9e2162}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_RegionsMSERExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_RegionsMSERExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{5490d35a-e16d-43e8-8091-097194a6a35f}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('stParams', stParams);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipRegions', ipRegions);
+AddOutput('ipBoundingBoxes', ipBoundingBoxes);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{feb06f59-c0bd-44fc-99f9-fb7e1108ae6c}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_RegionsMSERExp(
+	ipSrcImage := ipSrcImage.Value,
+    ipRegions := ipRegions.Value,
+    ipBoundingBoxes := ipBoundingBoxes.Value,
+    stParams := stParams.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{103a0a32-8740-44b5-9130-905b8c7ff904}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

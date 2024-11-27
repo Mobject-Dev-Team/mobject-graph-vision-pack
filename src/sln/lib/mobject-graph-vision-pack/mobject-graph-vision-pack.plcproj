@@ -128,8 +128,8 @@
     <Folder Include="Datatypes\Enums" />
     <Folder Include="Datatypes\Interfaces" />
     <Folder Include="Datatypes\Structs" />
-    <Folder Include="Function" />
-    <Folder Include="Function\Checks" />
+    <Folder Include="Functions" />
+    <Folder Include="Functions\Checks" />
     <Folder Include="Nodes" />
     <Folder Include="Nodes\Algebraic Container Ops" />
     <Folder Include="Nodes\Algebraic Container Ops\AddTo" />
@@ -701,13 +701,13 @@
     <Compile Include="Datatypes\VisionDatatypePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Function\Checks\IsImage1SizeEqualToImage2Size.TcPOU">
+    <Compile Include="Functions\Checks\IsImage1SizeEqualToImage2Size.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Function\Checks\IsRoiSizeOK.TcPOU">
+    <Compile Include="Functions\Checks\IsRoiSizeOK.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Function\Checks\IsValidImage.TcPOU">
+    <Compile Include="Functions\Checks\IsValidImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GVL_COLOURS.TcGVL">
@@ -2063,6 +2063,12 @@
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_FitEllipse.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawArrowExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawArrowExp_TcVnVector4_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawArrow_TcVnVector4_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2085,6 +2091,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawLineExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawLineExp_TcVnVector4_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawLineExp_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawOrientation.TcPOU">
@@ -2163,7 +2175,13 @@
     <Compile Include="Nodes\Drawing\Node_F_VN_PutLabel.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_PutLabelExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_PutText.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_PutTextExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Fourier Analysis\Node_F_VN_PadImageBorder.TcPOU">
@@ -2331,7 +2349,13 @@
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsMSER.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_RegionsMSER.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsSB.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_RegionsMSERExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Measurement\Node_F_VN_LocateEdge.TcPOU">

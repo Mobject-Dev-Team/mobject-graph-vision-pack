@@ -39,12 +39,12 @@ END_VAR
       <Implementation>
         <ST><![CDATA[AddInput('sText', sText);
 AddInput('ipDestImage', ipDestImage);
-AddInput('hrPrev', hrPrev);
-AddOutput('ipDestImage', ipDestImage);
-AddOutput('hresult',hresult);
 AddParameter('nX', nX);
 AddParameter('nY', nY);
 AddParameter('fFontScale', fFontScale);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
