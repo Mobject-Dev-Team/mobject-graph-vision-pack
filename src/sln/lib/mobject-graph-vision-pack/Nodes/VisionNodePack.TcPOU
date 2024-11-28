@@ -377,7 +377,7 @@ VAR
     node_F_VN_ExportImageAsBmpSize : Node_F_VN_ExportImageAsBmpSize;
     //F_VN_ExportImageAsBmpSizeExp
     node_F_VN_ExportImageSize : Node_F_VN_ExportImageSize;
-    //F_VN_FuseImages
+    node_F_VN_FuseImages : Node_F_VN_FuseImages;
     //F_VN_FuseImagesArray
     node_F_VN_GetImageChannel : Node_F_VN_GetImageChannel;
     node_F_VN_GetImageHeight : Node_F_VN_GetImageHeight;
@@ -388,10 +388,10 @@ VAR
     node_F_VN_GetRoi : Node_F_VN_GetRoi;
     //F_VN_MixImageChannels
     node_F_VN_ResetRoi : Node_F_VN_ResetRoi;
-    //F_VN_SetImageChannel
+    node_F_VN_SetImageChannel : Node_F_VN_SetImageChannel;
     node_F_VN_SetPixel : Node_F_VN_SetPixel;
     node_F_VN_SetPixels : Node_F_VN_SetPixels;
-    //F_VN_SetPixelsExp
+    node_F_VN_SetPixelsExp : Node_F_VN_SetPixelsExp;
     node_F_VN_SetRoi : Node_F_VN_SetRoi;
     //node_F_VN_SetRoi_TcVnRectangle_DINT : Node_F_VN_SetRoi_TcVnRectangle_DINT;
     node_F_VN_SetRoi_TcVnRectangle_UDINT : Node_F_VN_SetRoi_TcVnRectangle_UDINT;
@@ -680,12 +680,12 @@ VAR
     //F_VN_TransformCoordinatesWorldToImage_Point
     node_F_VN_AlignRotatedImageRegion : Node_F_VN_AlignRotatedImageRegion;
     //F_VN_AlignRotatedImageRegionExp
-    //F_VN_ApplyRotationToAffineTransformation
-    //F_VN_ApplyRotationToAffineTransformationExp
-    //F_VN_ApplyScalingToAffineTransformation
-    //F_VN_ApplyScalingToAffineTransformationExp
-    //F_VN_ApplyTranslationToAffineTransformation
-    //F_VN_ApplyTranslationToAffineTransformationExp
+    node_F_VN_ApplyRotationToAffineTransformation : Node_F_VN_ApplyRotationToAffineTransformation;
+    node_F_VN_ApplyRotationToAffineTransformationExp : Node_F_VN_ApplyRotationToAffineTransformationExp;
+    node_F_VN_ApplyScalingToAffineTransformation : Node_F_VN_ApplyScalingToAffineTransformation;
+    node_F_VN_ApplyScalingToAffineTransformationExp : Node_F_VN_ApplyScalingToAffineTransformationExp;
+    node_F_VN_ApplyTranslationToAffineTransformation : Node_F_VN_ApplyTranslationToAffineTransformation;
+    node_F_VN_ApplyTranslationToAffineTransformationExp : Node_F_VN_ApplyTranslationToAffineTransformationExp;
     node_F_VN_ApplyYAxisInversionToAffineTransformation : Node_F_VN_ApplyYAxisInversionToAffineTransformation;
     node_F_VN_ApplyYAxisInversionToAffineTransformationExp : Node_F_VN_ApplyYAxisInversionToAffineTransformationExp;
     //F_VN_ConvertCartesianToPolarAngleImage
@@ -707,14 +707,14 @@ VAR
     //F_VN_DecomposeHomography
     //F_VN_DecomposeHomographyExp
     node_F_VN_FlipImage : Node_F_VN_FlipImage;
-    //F_VN_GenerateAffineTransformationUnitMatrix2D
+    node_F_VN_GenerateAffineTransformationUnitMatrix2D : Node_F_VN_GenerateAffineTransformationUnitMatrix2D;
     //F_VN_GetAffineTransformation
     //F_VN_GetAffineTransformation2D
     //F_VN_GetAffineTransformation2DExp
     //F_VN_GetPerspectiveTransformation
     //F_VN_Homography
     //F_VN_HomographyExp
-    //F_VN_InvertAffineTransformation
+    node_F_VN_InvertAffineTransformation : Node_F_VN_InvertAffineTransformation;
     //F_VN_PerspectiveTransformation
     node_F_VN_PyramidDown : Node_F_VN_PyramidDown;
     node_F_VN_PyramidUp : Node_F_VN_PyramidUp;
@@ -724,9 +724,9 @@ VAR
     //F_VN_RemapImageToPolarSpace
     //F_VN_RemapImageToPolarSpaceExp
     //F_VN_RemapImageToPolarSpaceExp2
-    //F_VN_ResizeImage
+    node_F_VN_ResizeImage : Node_F_VN_ResizeImage;
     //F_VN_ResizeImageExp
-    //F_VN_RotateImage
+    node_F_VN_RotateImage : Node_F_VN_RotateImage;
     //F_VN_RotateImageExp
     //F_VN_RotateImageExp2
     node_F_VN_WarpAffine : Node_F_VN_WarpAffine;
@@ -852,7 +852,7 @@ VAR
     node_F_VN_CheckColorRange : Node_F_VN_CheckColorRange;
     //F_VN_DoubleThreshold
     node_F_VN_Threshold : Node_F_VN_Threshold;
-    //F_VN_WatershedSegmentationExp
+    node_F_VN_WatershedSegmentationExp : Node_F_VN_WatershedSegmentationExp;
     
     // Keypoint Features
     //F_VN_FilterGoodMatches
@@ -1056,11 +1056,11 @@ NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_Divid
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_MaxContainer', node_F_VN_MaxContainer);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_MinContainer', node_F_VN_MinContainer);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_MultiplyContainers', node_F_VN_MultiplyContainers);
-//F_VN_MultiplyWithContainerElements1
-//F_VN_MultiplyWithContainerElements2
-//F_VN_MultiplyWithContainerElements3
-//F_VN_MultiplyWithContainerElements4
-//F_VN_NegateContainer
+//NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_MultiplyWithContainerElements1', node_F_VN_MultiplyWithContainerElements1);
+//NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_MultiplyWithContainerElements2', node_F_VN_MultiplyWithContainerElements2);
+//NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_MultiplyWithContainerElements3', node_F_VN_MultiplyWithContainerElements3);
+//NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_MultiplyWithContainerElements4', node_F_VN_MultiplyWithContainerElements4);
+//NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_NegateContainer', node_F_VN_NegateContainer);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_SubtractContainers', node_F_VN_SubtractContainers);
 
 // Algebraic Image Operations
@@ -1383,7 +1383,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CreateImageAn
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_ExportImageAsBmpSize', node_F_VN_ExportImageAsBmpSize);
 //F_VN_ExportImageAsBmpSizeExp
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_ExportImageSize', node_F_VN_ExportImageSize);
-//F_VN_FuseImages
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_FuseImages', node_F_VN_FuseImages);
 //F_VN_FuseImagesArray
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetImageChannel', node_F_VN_GetImageChannel);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetImageHeight', node_F_VN_GetImageHeight);
@@ -1394,10 +1394,10 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetPixelForma
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetRoi', node_F_VN_GetRoi);
 //F_VN_MixImageChannels
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_ResetRoi', node_F_VN_ResetRoi);
-//F_VN_SetImageChannel
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetImageChannel', node_F_VN_SetImageChannel);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetPixel', node_F_VN_SetPixel);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetPixels', node_F_VN_SetPixels);
-//F_VN_SetPixelsExp
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetPixelsExp', node_F_VN_SetPixelsExp);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi', node_F_VN_SetRoi);
 //NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi_TcVnRectangle_DINT', node_F_VN_SetRoi_TcVnRectangle_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi_TcVnRectangle_UDINT', node_F_VN_SetRoi_TcVnRectangle_UDINT);
@@ -1615,10 +1615,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLineExp_TcVnVector4_LREA
 //F_VN_DrawLinesExp
 //F_VN_DrawMatches
 //F_VN_DrawMatchesExp
-//F_VN_DrawOrientation
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawOrientation', node_F_VN_DrawOrientation);
 //F_VN_DrawOrientationExp
-//F_VN_DrawPoint
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawPoint', node_F_VN_DrawPoint);
 //F_VN_DrawPointExp
 //F_VN_DrawPoints
@@ -1690,12 +1688,12 @@ NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_PadImageBorderExp',
 //F_VN_TransformCoordinatesWorldToImage_Point
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_AlignRotatedImageRegion', node_F_VN_AlignRotatedImageRegion);
 //F_VN_AlignRotatedImageRegionExp
-//F_VN_ApplyRotationToAffineTransformation
-//F_VN_ApplyRotationToAffineTransformationExp
-//F_VN_ApplyScalingToAffineTransformation
-//F_VN_ApplyScalingToAffineTransformationExp
-//F_VN_ApplyTranslationToAffineTransformation
-//F_VN_ApplyTranslationToAffineTransformationExp
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ApplyRotationToAffineTransformation', node_F_VN_ApplyRotationToAffineTransformation);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ApplyRotationToAffineTransformationExp', node_F_VN_ApplyRotationToAffineTransformationExp);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ApplyScalingToAffineTransformation', node_F_VN_ApplyScalingToAffineTransformation);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ApplyScalingToAffineTransformationExp', node_F_VN_ApplyScalingToAffineTransformationExp);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ApplyTranslationToAffineTransformation', node_F_VN_ApplyTranslationToAffineTransformation);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ApplyTranslationToAffineTransformationExp', node_F_VN_ApplyTranslationToAffineTransformationExp);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ApplyYAxisInversionToAffineTransformation', node_F_VN_ApplyYAxisInversionToAffineTransformation);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ApplyYAxisInversionToAffineTransformationExp', node_F_VN_ApplyYAxisInversionToAffineTransformationExp);
 //F_VN_ConvertCartesianToPolarAngleImage
@@ -1717,14 +1715,14 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 //F_VN_DecomposeHomography
 //F_VN_DecomposeHomographyExp
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_FlipImage', node_F_VN_FlipImage);
-//F_VN_GenerateAffineTransformationUnitMatrix2D
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_GenerateAffineTransformationUnitMatrix2D', node_F_VN_GenerateAffineTransformationUnitMatrix2D);
 //F_VN_GetAffineTransformation
 //F_VN_GetAffineTransformation2D
 //F_VN_GetAffineTransformation2DExp
 //F_VN_GetPerspectiveTransformation
 //F_VN_Homography
 //F_VN_HomographyExp
-//F_VN_InvertAffineTransformation
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_InvertAffineTransformation', node_F_VN_InvertAffineTransformation);
 //F_VN_PerspectiveTransformation
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_PyramidDown', node_F_VN_PyramidDown);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_PyramidUp', node_F_VN_PyramidUp);
@@ -1734,9 +1732,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 //F_VN_RemapImageToPolarSpace
 //F_VN_RemapImageToPolarSpaceExp
 //F_VN_RemapImageToPolarSpaceExp2
-//F_VN_ResizeImage
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ResizeImage', node_F_VN_ResizeImage);
 //F_VN_ResizeImageExp
-//F_VN_RotateImage
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_RotateImage', node_F_VN_RotateImage);
 //F_VN_RotateImageExp
 //F_VN_RotateImageExp2
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpAffine', node_F_VN_WarpAffine);
@@ -1774,7 +1772,6 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_Dete
 //F_VN_ConnectedComponentsExp
 //F_VN_ConnectedComponentsWithStats
 //F_VN_ConnectedComponentsWithStatsExp
-//F_VN_CountNonZeroPixels
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CountNonZeroPixels', node_F_VN_CountNonZeroPixels);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_DistanceTransformation', node_F_VN_DistanceTransformation);
 //F_VN_DistanceTransformationExp
@@ -1863,7 +1860,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_AdaptiveThreshold
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_CheckColorRange', node_F_VN_CheckColorRange);
 //F_VN_DoubleThreshold
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_Threshold', node_F_VN_Threshold);
-//F_VN_WatershedSegmentationExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_WatershedSegmentationExp', node_F_VN_WatershedSegmentationExp);
 
 // Keypoint Features
 //F_VN_FilterGoodMatches
