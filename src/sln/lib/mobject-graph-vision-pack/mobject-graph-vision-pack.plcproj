@@ -127,6 +127,13 @@
     <Folder Include="Datatypes\Arrays" />
     <Folder Include="Datatypes\Enums" />
     <Folder Include="Datatypes\Interfaces" />
+    <Folder Include="Datatypes\Interfaces\Containers" />
+    <Folder Include="Datatypes\Interfaces\Containers\ITcVnAccess" />
+    <Folder Include="Datatypes\Interfaces\Containers\ITcVnRandomAccess" />
+    <Folder Include="Datatypes\Interfaces\Containers\Iterators" />
+    <Folder Include="Datatypes\Interfaces\Containers\ITcVnContainer" />
+    <Folder Include="Datatypes\Interfaces\Images" />
+    <Folder Include="Datatypes\Interfaces\Images\ITcVnImage" />
     <Folder Include="Datatypes\Structs" />
     <Folder Include="Functions" />
     <Folder Include="Functions\Checks" />
@@ -605,17 +612,16 @@
     <Compile Include="Datatypes\Enums\_GEV_CAMERA_STATE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Datatypes\Interfaces\I_InterfaceDatatype_ITcVnImage.TcIO">
+    <Compile Include="Datatypes\Interfaces\Containers\ITcVnContainer\I_InterfaceDatatype_ITcVnContainer.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Datatypes\Interfaces\I_InterfaceDatatype_ITcVnContainer.TcIO">
+    <Compile Include="Datatypes\Interfaces\Containers\ITcVnContainer\_ITcVnContainer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Datatypes\Interfaces\_ITcVnContainer.TcPOU">
+    <Compile Include="Datatypes\Interfaces\Images\ITcVnImage\I_InterfaceDatatype_ITcVnImage.TcIO">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
-    <Compile Include="Datatypes\Interfaces\_ITcVnImage.TcPOU">
+    <Compile Include="Datatypes\Interfaces\Images\ITcVnImage\_ITcVnImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Structs\_GVSP_LEADER_PAYLOAD_IMAGE.TcPOU">
@@ -2253,7 +2259,13 @@
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_InvertAffineTransformation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_GetAffineTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_CannyEdgeDetectionExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_CountNonZeroPixels.TcPOU">
@@ -2272,6 +2284,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAverageStdDevExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_CannyEdgeDetection.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageCenterOfMass.TcPOU">
@@ -2343,6 +2358,12 @@
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_NormalizeImageForDisplay.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_CreateStructuringElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_MorphologicalOperator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_VarianceFilter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2368,6 +2389,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_LocalMinima.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Segmentation\Node_F_VN_AdaptiveThresholdExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Segmentation\Node_F_VN_WatershedSegmentationExp.TcPOU">
@@ -2421,13 +2445,35 @@
     <Compile Include="Nodes\Measurement\Node_F_VN_LocateEllipse.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_ClipLineToBoundary_ITcVnImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_ClipLineToBoundary_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_RotatedRectangleCorners.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Miscellaneous\Node_F_VN_HuMomentInvariants.TcPOU">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_InvertMatrix3x3.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_ClipLineToBoundary.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_MultiplyMatrices.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\Miscellaneous\Node_F_VN_LineIntersectionPoint.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Miscellaneous\Node_F_VN_LineIntersectionPointAndAngle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_RotatedRectangleIntersection.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\VisionNodePack.TcPOU">

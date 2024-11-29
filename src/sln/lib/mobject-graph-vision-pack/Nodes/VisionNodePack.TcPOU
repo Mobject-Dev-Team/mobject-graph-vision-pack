@@ -708,7 +708,7 @@ VAR
     //F_VN_DecomposeHomographyExp
     node_F_VN_FlipImage : Node_F_VN_FlipImage;
     node_F_VN_GenerateAffineTransformationUnitMatrix2D : Node_F_VN_GenerateAffineTransformationUnitMatrix2D;
-    //F_VN_GetAffineTransformation
+    node_F_VN_GetAffineTransformation : Node_F_VN_GetAffineTransformation;
     //F_VN_GetAffineTransformation2D
     //F_VN_GetAffineTransformation2DExp
     //F_VN_GetPerspectiveTransformation
@@ -758,8 +758,8 @@ VAR
     //F_VN_MatchTemplateAndEvaluate
     //F_VN_MatchTemplateAndEvaluateExp
     //F_VN_MatchTemplateExp
-    //F_VN_CannyEdgeDetection
-    //F_VN_CannyEdgeDetectionExp
+    node_F_VN_CannyEdgeDetection : Node_F_VN_CannyEdgeDetection;
+    node_F_VN_CannyEdgeDetectionExp : Node_F_VN_CannyEdgeDetectionExp;
     //F_VN_ConnectedComponents
     //F_VN_ConnectedComponentsExp
     //F_VN_ConnectedComponentsWithStats
@@ -822,7 +822,7 @@ VAR
     node_F_VN_BoxFilter : Node_F_VN_BoxFilter;
     //F_VN_BoxFilterExp
     node_F_VN_BrightBorderObjects : Node_F_VN_BrightBorderObjects;
-    //F_VN_CreateStructuringElement
+    node_F_VN_CreateStructuringElement : Node_F_VN_CreateStructuringElement;
     //F_VN_CustomFilter
     //F_VN_CustomFilterExp
     node_F_VN_DarkBorderObjects : Node_F_VN_DarkBorderObjects;
@@ -834,7 +834,7 @@ VAR
     node_F_VN_LocalMaxima : Node_F_VN_LocalMaxima;
     node_F_VN_LocalMinima : Node_F_VN_LocalMinima;
     //F_VN_MedianFilter
-    //F_VN_MorphologicalOperator
+    node_F_VN_MorphologicalOperator : Node_F_VN_MorphologicalOperator;
     //F_VN_RemoveLocalMaxima
     //F_VN_RemoveLocalMinima
     //F_VN_ScharrFilter
@@ -848,9 +848,9 @@ VAR
     
     // Image Segmentation
     node_F_VN_AdaptiveThreshold : Node_F_VN_AdaptiveThreshold;
-    //F_VN_AdaptiveThresholdExp
+    node_F_VN_AdaptiveThresholdExp : Node_F_VN_AdaptiveThresholdExp;
     node_F_VN_CheckColorRange : Node_F_VN_CheckColorRange;
-    //F_VN_DoubleThreshold
+    //node_F_VN_DoubleThreshold : Node_F_VN_DoubleThreshold;
     node_F_VN_Threshold : Node_F_VN_Threshold;
     node_F_VN_WatershedSegmentationExp : Node_F_VN_WatershedSegmentationExp;
     
@@ -973,9 +973,9 @@ VAR
     
     // Miscellaneous
     //F_VN_CheckFunctionInitialization
-    //F_VN_ClipLineToBoundary
-    //F_VN_ClipLineToBoundary_ITcVnImage
-    //F_VN_ClipLineToBoundary_TcVnRectangle_DINT
+    node_F_VN_ClipLineToBoundary : Node_F_VN_ClipLineToBoundary;
+    node_F_VN_ClipLineToBoundary_ITcVnImage : Node_F_VN_ClipLineToBoundary_ITcVnImage;
+    node_F_VN_ClipLineToBoundary_TcVnRectangle_DINT : Node_F_VN_ClipLineToBoundary_TcVnRectangle_DINT;
     //F_VN_ConvertITcUnknownToITcVnBitmapExport
     //F_VN_ConvertITcUnknownToITcVnContainer
     //F_VN_ConvertITcUnknownToITcVnImage
@@ -984,12 +984,12 @@ VAR
     //F_VN_GetTimestamp
     node_F_VN_HuMomentInvariants : Node_F_VN_HuMomentInvariants;
     //F_VN_InitMatrixStruct
-    //F_VN_InvertMatrix3x3
+    node_F_VN_InvertMatrix3x3 : Node_F_VN_InvertMatrix3x3;
     node_F_VN_LineIntersectionPoint : Node_F_VN_LineIntersectionPoint;
     node_F_VN_LineIntersectionPointAndAngle : Node_F_VN_LineIntersectionPointAndAngle;
-    //F_VN_MultiplyMatrices
-    //F_VN_RotatedRectangleCorners
-    //F_VN_RotatedRectangleIntersection
+    //node_F_VN_MultiplyMatrices : Node_F_VN_MultiplyMatrices;
+    node_F_VN_RotatedRectangleCorners : Node_F_VN_RotatedRectangleCorners;
+    node_F_VN_RotatedRectangleIntersection : Node_F_VN_RotatedRectangleIntersection;
     //F_VN_SetRngSeed
     //F_VN_UpdateTimestamp
     
@@ -1716,7 +1716,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 //F_VN_DecomposeHomographyExp
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_FlipImage', node_F_VN_FlipImage);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_GenerateAffineTransformationUnitMatrix2D', node_F_VN_GenerateAffineTransformationUnitMatrix2D);
-//F_VN_GetAffineTransformation
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_GetAffineTransformation', node_F_VN_GetAffineTransformation);
 //F_VN_GetAffineTransformation2D
 //F_VN_GetAffineTransformation2DExp
 //F_VN_GetPerspectiveTransformation
@@ -1767,7 +1767,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_Dete
 //F_VN_MatchTemplateAndEvaluateExp
 //F_VN_MatchTemplateExp
 //F_VN_CannyEdgeDetection
-//F_VN_CannyEdgeDetectionExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CannyEdgeDetection', node_F_VN_CannyEdgeDetection);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CannyEdgeDetectionExp', node_F_VN_CannyEdgeDetectionExp);
 //F_VN_ConnectedComponents
 //F_VN_ConnectedComponentsExp
 //F_VN_ConnectedComponentsWithStats
@@ -1830,7 +1831,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BoxFilter', node_F_VN_BoxFilter);
 //F_VN_BoxFilterExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BrightBorderObjects', node_F_VN_BrightBorderObjects);
-//F_VN_CreateStructuringElement
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_CreateStructuringElement', node_F_VN_CreateStructuringElement);
 //F_VN_CustomFilter
 //F_VN_CustomFilterExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_DarkBorderObjects', node_F_VN_DarkBorderObjects);
@@ -1842,7 +1843,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LaplacianFilter', no
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LocalMaxima', node_F_VN_LocalMaxima);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LocalMinima', node_F_VN_LocalMinima);
 //F_VN_MedianFilter
-//F_VN_MorphologicalOperator
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_MorphologicalOperator', node_F_VN_MorphologicalOperator);
 //F_VN_RemoveLocalMaxima
 //F_VN_RemoveLocalMinima
 //F_VN_ScharrFilter
@@ -1856,9 +1857,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_VarianceFilter', nod
     
 // Image Segmentation
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_AdaptiveThreshold', node_F_VN_AdaptiveThreshold);
-//F_VN_AdaptiveThresholdExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_AdaptiveThresholdExp', node_F_VN_AdaptiveThresholdExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_CheckColorRange', node_F_VN_CheckColorRange);
-//F_VN_DoubleThreshold
+//NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_DoubleThreshold', node_F_VN_DoubleThreshold);
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_Threshold', node_F_VN_Threshold);
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_WatershedSegmentationExp', node_F_VN_WatershedSegmentationExp);
 
@@ -1981,9 +1982,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_MeasureAngleBetweenEdges
 
 // Miscellaneous
 //F_VN_CheckFunctionInitialization
-//F_VN_ClipLineToBoundary
-//F_VN_ClipLineToBoundary_ITcVnImage
-//F_VN_ClipLineToBoundary_TcVnRectangle_DINT
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_ClipLineToBoundary', node_F_VN_ClipLineToBoundary);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_ClipLineToBoundary_ITcVnImage', node_F_VN_ClipLineToBoundary_ITcVnImage);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_ClipLineToBoundary_TcVnRectangle_DINT', node_F_VN_ClipLineToBoundary_TcVnRectangle_DINT);
 //F_VN_ConvertITcUnknownToITcVnBitmapExport
 //F_VN_ConvertITcUnknownToITcVnContainer
 //F_VN_ConvertITcUnknownToITcVnImage
@@ -1992,12 +1993,12 @@ NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_MeasureAngleBetweenEdges
 //F_VN_GetTimestamp
 NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_HuMomentInvariants', node_F_VN_HuMomentInvariants);
 //F_VN_InitMatrixStruct
-//F_VN_InvertMatrix3x3
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_InvertMatrix3x3', node_F_VN_InvertMatrix3x3);
 NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_LineIntersectionPoint', node_F_VN_LineIntersectionPoint);
 NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_LineIntersectionPointAndAngle', node_F_VN_LineIntersectionPointAndAngle);
-//F_VN_MultiplyMatrices
-//F_VN_RotatedRectangleCorners
-//F_VN_RotatedRectangleIntersection
+//NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_MultiplyMatrices', node_F_VN_MultiplyMatrices);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_RotatedRectangleCorners', node_F_VN_RotatedRectangleCorners);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_RotatedRectangleIntersection', node_F_VN_RotatedRectangleIntersection);
 //F_VN_SetRngSeed
 //F_VN_UpdateTimestamp
 
