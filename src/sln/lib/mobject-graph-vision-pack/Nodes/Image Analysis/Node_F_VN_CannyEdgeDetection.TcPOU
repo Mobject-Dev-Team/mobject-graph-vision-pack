@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_CannyEdgeDetection" Id="{5bc2386c-6630-0a08-0754-183c82a6a3a2}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_CannyEdgeDetection EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    fThresholdLow : _LREAL(0.0);
+    fThresholdHigh : _LREAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{77d8172a-6f18-0c6f-0048-ed3a7286207b}" />
+    <Method Name="Clone" Id="{4d62dd94-c76b-0eac-33e9-9822159a2577}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_CannyEdgeDetection;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_CannyEdgeDetection);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ee7d47ca-4812-0ced-059d-22435e8f1741}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('fThresholdLow', fThresholdLow);
+AddParameter('fThresholdHigh', fThresholdHigh);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult', hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{381133c9-7838-0b1e-12a1-128a4c40d04a}">
+      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_CannyEdgeDetection(
+	ipSrcImage := ipSrcImage.Value,
+    ipDestImage := ipDestImage.Value,
+    fThresholdLow := fThresholdLow.Value,
+    fThresholdHigh := fThresholdHigh.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{61937689-8b5c-0c9e-2d7a-aebadc46c845}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

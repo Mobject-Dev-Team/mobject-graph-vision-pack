@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
-  <POU Name="_ETcVnMorphologicalOperator" Id="{4ab1e0f4-6c56-09a8-21ee-344468a56821}"
-    SpecialFunc="None">
+  <POU Name="_ETcVnMorphologicalOperator" Id="{4ab1e0f4-6c56-09a8-21ee-344468a56821}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
@@ -23,8 +22,7 @@ END_VAR
       <Folder Name="Private" Id="{0a6917d4-3746-09ed-3837-a0a287b50a76}" />
       <Folder Name="Protected" Id="{f0d60536-b5af-00c6-0ddb-b736ff246915}" />
     </Folder>
-    <Method Name="AddLocalEnumeration" Id="{a5338993-670c-0145-098d-4d5e6675a300}"
-      FolderPath="Customize\Private\">
+    <Method Name="AddLocalEnumeration" Id="{a5338993-670c-0145-098d-4d5e6675a300}" FolderPath="Customize\Private\">
       <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
 VAR_INPUT
 	Enumeration : T_MAXSTRING;
@@ -66,8 +64,7 @@ END_VAR
 Clone := pClone^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{f40362a7-5531-0016-0ced-db909a4e8d3e}"
-      FolderPath="Customize\Constructor\">
+    <Method Name="FB_init" Id="{f40362a7-5531-0016-0ced-db909a4e8d3e}" FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -85,7 +82,7 @@ AddLocalEnumeration('TCVN_MO_DILATION', ETcVnMorphologicalOperator.TCVN_MO_DILAT
 AddLocalEnumeration('TCVN_MO_OPENING', ETcVnMorphologicalOperator.TCVN_MO_OPENING);
 AddLocalEnumeration('TCVN_MO_CLOSING', ETcVnMorphologicalOperator.TCVN_MO_CLOSING);
 AddLocalEnumeration('TCVN_MO_GRADIENT', ETcVnMorphologicalOperator.TCVN_MO_GRADIENT);
-AddLocalEnumeration('TCVN_MO_WHITE_TOPHAT', .TCVN_MO_WHITE_TOPHAT);
+AddLocalEnumeration('TCVN_MO_WHITE_TOPHAT', ETcVnMorphologicalOperator.TCVN_MO_WHITE_TOPHAT);
 AddLocalEnumeration('TCVN_MO_BLACK_TOPHAT', ETcVnMorphologicalOperator.TCVN_MO_BLACK_TOPHAT);
 AddLocalEnumeration('TCVN_MO_OPENING_BY_RECONSTRUCTION', ETcVnMorphologicalOperator.TCVN_MO_OPENING_BY_RECONSTRUCTION);
 AddLocalEnumeration('TCVN_MO_CLOSING_BY_RECONSTRUCTION', ETcVnMorphologicalOperator.TCVN_MO_CLOSING_BY_RECONSTRUCTION);
@@ -105,8 +102,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="IsEnumeratorValueEqual" Id="{b778d932-d482-0010-3ce3-9fc8b7df8bfd}"
-      FolderPath="Customize\Protected\">
+    <Method Name="IsEnumeratorValueEqual" Id="{b778d932-d482-0010-3ce3-9fc8b7df8bfd}" FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
 VAR_INPUT
 	Enumerator : I_KeyValueForwardEnumerator;
@@ -122,8 +118,7 @@ END_IF
 IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="MakeReferenceTo" Id="{284b87fd-6e7e-0319-3d33-92e6391868e2}"
-      FolderPath="Customize\">
+    <Method Name="MakeReferenceTo" Id="{284b87fd-6e7e-0319-3d33-92e6391868e2}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO ETcVnMorphologicalOperator;
@@ -134,8 +129,7 @@ END_VAR
 SetBaseDatatypeReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetBaseDatatypeReference" Id="{175bbfeb-4945-089b-3905-820748ecd609}"
-      FolderPath="Core\Protected\">
+    <Method Name="SetBaseDatatypeReference" Id="{175bbfeb-4945-089b-3905-820748ecd609}" FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
 VAR_INPUT
 END_VAR
@@ -155,8 +149,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{bca86c23-63e5-090d-384c-33f9b35d57da}"
-      FolderPath="Customize\">
+    <Method Name="TryMakeReferenceTo" Id="{bca86c23-63e5-090d-384c-33f9b35d57da}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_GetAffineTransformation" Id="{1b377ce0-06f6-01ad-02d2-72d0dee0b5c7}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_GetAffineTransformation EXTENDS VisionNode
+VAR
+	aSrcPoints : _TcVnArray3_Point2_REAL;
+    aDestPoints : _TcVnArray3_Point2_REAL;
+    aTransformationMatrix : _TcVnMatrix2x3_LREAL;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{195fb080-6f12-07d2-1f3c-1ef81940230b}" />
+    <Method Name="Clone" Id="{8d2fa4bc-8760-0607-2d96-e38a27c699ca}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_GetAffineTransformation;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_GetAffineTransformation);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{97086ae2-490e-0e28-3b59-1a0f89c09f91}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('aSrcPoints', aSrcPoints);
+AddInput('aDestPoints', aDestPoints);
+AddInput('hrPrev', hrPrev);
+AddOutput('aTransformationMatrix', aTransformationMatrix);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{8a05f6aa-60c9-06e0-38f8-cf18d3147b21}">
+      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_GetAffineTransformation(
+	aSrcPoints := aSrcPoints.Value, 
+	aDestPoints := aDestPoints.Value, 
+	aTransformationMatrix := aTransformationMatrix.Value, 
+	hrPrev := hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{2531275a-1bd8-055a-3888-b394a4630e48}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
