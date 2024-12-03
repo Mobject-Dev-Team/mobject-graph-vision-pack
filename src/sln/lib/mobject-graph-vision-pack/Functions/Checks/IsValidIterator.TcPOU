@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="IsValidIterator" Id="{fe2c5c3f-8d10-0565-0c59-737e9caa00d2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION IsValidIterator : BOOL
+VAR_INPUT
+    Iterator : ITcVnIteratorBase;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IsValidIterator := Iterator <> 0;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
