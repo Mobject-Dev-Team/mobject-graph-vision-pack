@@ -132,6 +132,10 @@
     <Folder Include="Datatypes\Interfaces\Containers\ITcVnRandomAccess" />
     <Folder Include="Datatypes\Interfaces\Containers\Iterators" />
     <Folder Include="Datatypes\Interfaces\Containers\ITcVnContainer" />
+    <Folder Include="Datatypes\Interfaces\Containers\Iterators\ITcVnBidirectionalIterator" />
+    <Folder Include="Datatypes\Interfaces\Containers\Iterators\ITcVnForwardIterator" />
+    <Folder Include="Datatypes\Interfaces\Containers\Iterators\ITcVnRandomAccessIterator" />
+    <Folder Include="Datatypes\Interfaces\Containers\Iterators\ITcVnIteratorBase" />
     <Folder Include="Datatypes\Interfaces\Images" />
     <Folder Include="Datatypes\Interfaces\Images\ITcVnImage" />
     <Folder Include="Datatypes\Structs" />
@@ -717,6 +721,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\Checks\IsValidImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\IsValidIterator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GVL_COLOURS.TcGVL">
@@ -2036,6 +2043,18 @@
     <Compile Include="Nodes\Container Statistics\MinElementwise\Node_F_VN_MinElementElementwise_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ApproximatePolygon.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourOrientationExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourExtremePoint.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_UprightBoundingRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourPerimeter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2054,6 +2073,9 @@
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourEccentricity.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_CheckIfPointIsInsideContour.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourRoundness.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2061,6 +2083,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourArea.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ConvexHullPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ConvexHullPointsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ConvexityDefects.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_EnclosingRectangle.TcPOU">
