@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
-  <POU Name="Node_F_VN_ContourOrientation" Id="{2df0dd1e-0b78-0ccf-265b-335876f2f1b6}" SpecialFunc="None">
+  <POU Name="Node_F_VN_UprightBoundingRectangle" Id="{6872f937-4404-0e00-16be-c645c7550c75}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_ContourOrientation EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_UprightBoundingRectangle EXTENDS VisionNode
 VAR
-    ipContour : _ITcVnContainer;
-    stOrientation : _TcVnRotatedRectangle;
+    ipPointSet : _ITcVnContainer;
+    stRectangle : _TcVnRectangle_UDINT;
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -15,18 +15,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{f7d18d9c-c40d-0834-32a2-8c7ff08e3004}" />
-    <Method Name="Clone" Id="{01ed077c-f375-0a97-1ad6-502ad584a133}">
+    <Folder Name="Constructor" Id="{63c182f8-92c9-05db-1dc4-6f80f73cacd2}" />
+    <Method Name="Clone" Id="{acb8f266-6f8f-0864-12bf-ccff3555e437}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_ContourOrientation;
+	pNode : POINTER TO Node_F_VN_UprightBoundingRectangle;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_ContourOrientation);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_UprightBoundingRectangle);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{e38391fe-11b9-0dcc-03c0-4b04a3e146eb}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{eda51280-9b55-0883-23df-70119f90c56b}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -34,35 +34,34 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('ipContour', ipContour);
+        <ST><![CDATA[AddInput('ipPointSet', ipPointSet);
 AddInput('hrPrev', hrPrev);
-AddOutput('stOrientation', stOrientation);
+AddOutput('stRectangle', stRectangle);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{5b78fbcd-1d3d-0723-27da-d6d18f83ed48}">
+    <Method Name="OnExecute" Id="{e5955091-a07d-0e52-1278-aa663c99dc16}">
       <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_ContourOrientation(
-	ipContour := ipContour.Value,
-    stOrientation := stOrientation.Value,
+        <ST><![CDATA[hresult.Value := F_VN_UprightBoundingRectangle(
+	ipPointSet := ipPointSet.Value,
+    stRectangle := stRectangle.Value,
 	hrPrev:= hrPrev.Value);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{fb662b89-5b03-099a-29c9-5486c1263389}">
+    <Method Name="PreExecutionCheck" Id="{e4926c8a-9938-065d-108a-f0cdcb9fb725}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Check.IsTrue(ipContour.IsValid, 'ipContour must be a valid container');
-Check.IsTrue((ipContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
-              ipContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL) OR
-              ipContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_LREAL)),
-              'ipContour contains incorrect type');
+        <ST><![CDATA[Check.IsTrue(ipPointSet.IsValid, 'ipPointSet must be a valid container');
+Check.IsTrue((ipPointSet.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipPointSet.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL)),
+              'ipPointSet contains incorrect type');
 ]]></ST>
       </Implementation>
     </Method>

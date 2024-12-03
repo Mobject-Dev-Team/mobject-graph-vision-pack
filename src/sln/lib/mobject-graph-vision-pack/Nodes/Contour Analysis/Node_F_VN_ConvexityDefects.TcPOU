@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
-  <POU Name="Node_F_VN_ContourOrientation" Id="{2df0dd1e-0b78-0ccf-265b-335876f2f1b6}" SpecialFunc="None">
+  <POU Name="Node_F_VN_ConvexityDefects" Id="{a3f1faa1-f766-0867-0ef5-b27dc52c47e7}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_ContourOrientation EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_ConvexityDefects EXTENDS VisionNode
 VAR
     ipContour : _ITcVnContainer;
-    stOrientation : _TcVnRotatedRectangle;
+    ipConvexityDefects : _ITcVnContainer;
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -15,18 +15,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{f7d18d9c-c40d-0834-32a2-8c7ff08e3004}" />
-    <Method Name="Clone" Id="{01ed077c-f375-0a97-1ad6-502ad584a133}">
+    <Folder Name="Constructor" Id="{24c672dd-08ae-004d-0e05-f0e0fa83ed77}" />
+    <Method Name="Clone" Id="{ccf7944d-7b2c-0b9d-0a49-8830ff5fb484}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_ContourOrientation;
+	pNode : POINTER TO Node_F_VN_ConvexityDefects;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_ContourOrientation);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ConvexityDefects);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{e38391fe-11b9-0dcc-03c0-4b04a3e146eb}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{5792a211-45ac-0f83-2cb1-223b2c57cef7}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -36,33 +36,30 @@ END_VAR
       <Implementation>
         <ST><![CDATA[AddInput('ipContour', ipContour);
 AddInput('hrPrev', hrPrev);
-AddOutput('stOrientation', stOrientation);
+AddOutput('ipConvexityDefects', ipConvexityDefects);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{5b78fbcd-1d3d-0723-27da-d6d18f83ed48}">
+    <Method Name="OnExecute" Id="{e9d30748-7a1c-084b-008b-61fdc6c9195a}">
       <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_ContourOrientation(
+        <ST><![CDATA[hresult.Value := F_VN_ConvexityDefects(
 	ipContour := ipContour.Value,
-    stOrientation := stOrientation.Value,
+    ipConvexityDefects := ipConvexityDefects.Value,
 	hrPrev:= hrPrev.Value);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{fb662b89-5b03-099a-29c9-5486c1263389}">
+    <Method Name="PreExecutionCheck" Id="{a00b80b2-ecf3-056c-16de-edafe02f341e}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipContour.IsValid, 'ipContour must be a valid container');
-Check.IsTrue((ipContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
-              ipContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL) OR
-              ipContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_LREAL)),
-              'ipContour contains incorrect type');
+Check.IsTrue(ipContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT), 'ipContour contains incorrect type');
 ]]></ST>
       </Implementation>
     </Method>
