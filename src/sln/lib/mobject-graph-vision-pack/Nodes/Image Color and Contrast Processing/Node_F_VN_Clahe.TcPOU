@@ -43,7 +43,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{7697d347-16a4-0fef-27a2-1adce1097b99}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_Clahe(
 	ipSrcImage := ipSrcImage.Value,

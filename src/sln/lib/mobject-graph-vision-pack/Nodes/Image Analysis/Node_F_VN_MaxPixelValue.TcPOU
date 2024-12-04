@@ -44,7 +44,7 @@ AddOutput('hresult', hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{8eb4dfcb-bc0b-01d9-3097-77fb498f99f1}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_MaxPixelValue(

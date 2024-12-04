@@ -41,7 +41,7 @@ AddOutput('hresult', hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{0c1fd4a6-97f0-03c0-0235-3ff2feb131ab}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_ResetRoi(

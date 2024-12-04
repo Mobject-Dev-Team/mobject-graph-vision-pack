@@ -45,7 +45,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{6f32259f-6ce8-0596-0946-3c2e79a78f93}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_WarpAffine(
 	ipSrcImage := ipSrcImage.Value, 

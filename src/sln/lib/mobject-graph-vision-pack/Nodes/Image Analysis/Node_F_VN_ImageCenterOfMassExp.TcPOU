@@ -44,7 +44,7 @@ AddOutput('hresult', hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{31855382-254c-0a58-124f-a87d6b63132d}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_ImageCenterOfMassExp(

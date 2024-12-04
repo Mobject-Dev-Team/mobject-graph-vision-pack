@@ -46,7 +46,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{1d938167-ccbc-0182-30c9-297999d21a90}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 VAR
     intersection : ETcVnRectangleIntersection;
 END_VAR]]></Declaration>

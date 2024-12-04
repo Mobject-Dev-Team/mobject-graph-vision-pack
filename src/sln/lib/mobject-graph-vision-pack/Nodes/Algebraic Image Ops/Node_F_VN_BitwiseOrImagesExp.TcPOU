@@ -46,7 +46,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{e2407ee9-2c8d-034e-1fbf-63b33ef93e6a}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_BitwiseOrImagesExp(
     ipSrcImage1 := ipSrcImage1.Value,

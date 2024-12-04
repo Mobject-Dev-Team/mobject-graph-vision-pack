@@ -61,7 +61,7 @@ AddOutput('hresult', hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{74a62bd3-0036-415b-b522-63c445e63c00}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_DrawArrowExp(

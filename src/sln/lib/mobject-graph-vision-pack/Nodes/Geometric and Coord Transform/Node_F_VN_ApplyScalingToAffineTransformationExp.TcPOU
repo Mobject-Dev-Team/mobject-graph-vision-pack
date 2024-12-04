@@ -47,7 +47,7 @@ AddOutput('hresult', hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{d9ec19e0-0c9b-04d7-341c-b699b7770693}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_ApplyScalingToAffineTransformationExp(
 	aTransformationMatrix := aTransformationMatrix.Value,

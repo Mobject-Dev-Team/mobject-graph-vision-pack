@@ -47,7 +47,7 @@ AddParameter('nThickness', nThickness);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{f0b1b74e-d5a2-070e-0a96-54c4e7c8c92d}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_DrawEllipse(

@@ -40,7 +40,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{a24b83fc-1fd0-0973-1123-551204ac53fe}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_GenerateAffineTransformationUnitMatrix2D(
 	aTransformationMatrix := aTransformationMatrix.Value,

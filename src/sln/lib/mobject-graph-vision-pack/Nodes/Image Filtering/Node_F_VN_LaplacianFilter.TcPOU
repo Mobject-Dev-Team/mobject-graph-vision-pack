@@ -44,7 +44,7 @@ AddParameter('eDestDepth', eDestDepth);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{0e14aa31-08be-0513-0ab6-f2d326d3028a}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_LaplacianFilter(
 	ipSrcImage := ipSrcImage.Value, 

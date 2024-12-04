@@ -53,7 +53,7 @@ AddParameter('nThickness', nThickness);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{1550631a-32f3-005b-1ee9-660e25c777e9}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_DrawRectangle(

@@ -45,7 +45,7 @@ AddParameter('eColorMapSize', eColorMapSize);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{7a45bbfe-3d8f-0629-14e9-194e60981cef}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_GenerateColorMap(
 	ipColorMap   := ipColorMap.Value,

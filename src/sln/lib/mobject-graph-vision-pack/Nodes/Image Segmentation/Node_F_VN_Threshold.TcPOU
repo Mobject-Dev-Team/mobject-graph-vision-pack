@@ -47,7 +47,7 @@ AddOutput('hresult',hresult);]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{34fdcd61-bc23-0040-09c7-acdd0eb6cb2c}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_Threshold(

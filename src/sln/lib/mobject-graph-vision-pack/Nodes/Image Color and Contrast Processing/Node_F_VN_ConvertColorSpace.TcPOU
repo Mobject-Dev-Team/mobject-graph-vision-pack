@@ -45,7 +45,7 @@ AddParameter('eTransform', eTransform);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{0faaad2b-dd3f-0d95-2f39-1f13ef681cd5}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_ConvertColorSpace(
 	ipSrcImage   := ipSrcImage.Value, 

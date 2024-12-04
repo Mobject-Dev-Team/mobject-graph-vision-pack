@@ -45,7 +45,7 @@ AddParameter('nFilterHeight', nFilterHeight);]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{93a34a9e-d55e-06cc-0483-a739e5bbac47}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_BoxFilter(
 	ipSrcImage:= ipSrcImage.Value, 
