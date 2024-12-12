@@ -8,7 +8,7 @@ FUNCTION_BLOCK Node_F_VN_ConvertColorSpace EXTENDS VisionNode
 VAR
 	ipSrcImage : _ITcVnImage;
     ipDestImage : _ITcVnImage;
-    eTransform : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_RGBA_TO_RGB);
+    eTransform : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_RGBA_TO_GRAY);
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR

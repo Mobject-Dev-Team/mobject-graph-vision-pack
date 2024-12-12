@@ -258,7 +258,7 @@ END_IF
 
 buffer := __NEW(BYTE, imageSizeInBytes);
 
-IF NOT Deserializer.TryGetKeyBase64('imageData', buffer, imageSizeInBytes, Feedback) THEN
+IF NOT Deserializer.TryGetKeyBase64('imageData', buffer, UDINT_TO_DINT(imageSizeInBytes), Feedback) THEN
 	__DELETE(buffer);
 	RETURN;
 END_IF
