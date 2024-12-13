@@ -665,7 +665,7 @@ VAR
     //F_VN_CompensateLensDistortionForPoints
     //F_VN_CompensateLensDistortionForPointsExp1
     //F_VN_CompensateLensDistortionForPointsExp2
-    //F_VN_DetectPatternPoints
+    node_F_VN_DetectPatternPoints : Node_F_VN_DetectPatternPoints;
     //F_VN_DetectPatternPointsExp
     //F_VN_GenerateCalibrationPatternReferencePoints
     //F_VN_ImagePointsWorldDistance
@@ -966,9 +966,9 @@ VAR
     //F_VN_LocateEllipseExp
     node_F_VN_MeasureAngleBetweenEdges : Node_F_VN_MeasureAngleBetweenEdges;
     //F_VN_MeasureAngleBetweenEdgesExp
-    //F_VN_MeasureEdgeDistance
+    node_F_VN_MeasureEdgeDistance : Node_F_VN_MeasureEdgeDistance;
     //F_VN_MeasureEdgeDistanceExp
-    //F_VN_MeasureMinEdgeDistance
+    node_F_VN_MeasureMinEdgeDistance : Node_F_VN_MeasureMinEdgeDistance;
     //F_VN_MeasureMinEdgeDistanceExp
     
     // Miscellaneous
@@ -1674,6 +1674,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_PadImageBorderExp',
 //F_VN_CompensateLensDistortionForPointsExp1
 //F_VN_CompensateLensDistortionForPointsExp2
 //F_VN_DetectPatternPoints
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_DetectPatternPoints', node_F_VN_DetectPatternPoints);
 //F_VN_DetectPatternPointsExp
 //F_VN_GenerateCalibrationPatternReferencePoints
 //F_VN_ImagePointsWorldDistance
@@ -1975,9 +1976,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_LocateEllipse', node_F_V
 //F_VN_LocateEllipseExp
 NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_MeasureAngleBetweenEdges', node_F_VN_MeasureAngleBetweenEdges);
 //F_VN_MeasureAngleBetweenEdgesExp
-//F_VN_MeasureEdgeDistance
+NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_MeasureEdgeDistance', node_F_VN_MeasureEdgeDistance);
 //F_VN_MeasureEdgeDistanceExp
-//F_VN_MeasureMinEdgeDistance
+NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_MeasureMinEdgeDistance', node_F_VN_MeasureMinEdgeDistance);
 //F_VN_MeasureMinEdgeDistanceExp
 
 // Miscellaneous

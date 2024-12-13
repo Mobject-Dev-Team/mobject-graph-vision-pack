@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_MeasureMinEdgeDistance" Id="{22eca274-d39f-4b24-a710-51baf40fbad4}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MeasureMinEdgeDistance EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+    fMinDistance : _REAL(0.0);
+    aStartPoint : _TcVnPoint2_REAL;
+    aEndPoint : _TcVnPoint2_REAL;
+	eEdgeDirection : _ETcVnEdgeDirection(ETcVnEdgeDirection.TCVN_ED_DARK_TO_LIGHT);
+    fMinStrength : _REAL(0.0);
+    nSearchLines : _UDINT(1);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{5f004719-b497-41bf-b0b9-49c3609191b2}" />
+    <Method Name="Clone" Id="{ad7c526d-f4c1-49f7-a561-771a696f716d}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_MeasureMinEdgeDistance;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MeasureMinEdgeDistance);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{d3722d26-b65b-4a19-a53d-29c8812298f3}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('aStartPoint', aStartPoint);
+AddInput('aEndPoint', aEndPoint);
+AddInput('hrPrev', hrPrev);
+AddParameter('eEdgeDirection', eEdgeDirection);
+AddParameter('fMinStrength', fMinStrength);
+AddParameter('nSearchLines', nSearchLines);
+AddOutput('fMinDistance', fMinDistance);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{2f3783e0-56b3-4a69-853d-65faf8d3419a}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MeasureMinEdgeDistance(
+	ipSrcImage := ipSrcImage.Value,
+    fMinDistance := fMinDistance.Value,
+	aStartPoint := aStartPoint.Value,
+    aEndPoint := aEndPoint.Value,
+    eEdgeDirection := eEdgeDirection.Value,
+	fMinStrength := fMinStrength.Value,
+	nSearchLines := nSearchLines.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{27efe0f1-0d98-4d2d-9758-eb9b7d930f98}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+Check.IsTrue(nSearchLines.IsOdd, 'nSearchLines must be an odd number');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
