@@ -61,7 +61,7 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
-Check.IsTrue(nFilterSize.isOdd, 'nFilterSize must be an odd number');
+Check.IsTrue(nFilterSize.IsOdd, 'nFilterSize must be an odd number');
 Check.IsTrue(nFilterSize.Value >= 3, 'nFilterSize must be greater than or equal to 3');
 
 IF (nFilterSize.Value = 3) OR (nFilterSize.Value = 5) THEN

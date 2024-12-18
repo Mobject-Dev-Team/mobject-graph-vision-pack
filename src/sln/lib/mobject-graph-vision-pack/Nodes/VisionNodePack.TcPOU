@@ -33,6 +33,7 @@ VAR
     node_F_VN_AddToContainerElements_TcVnVector4_DINT : Node_F_VN_AddToContainerElements_TcVnVector4_DINT;
     node_F_VN_AddToContainerElements_TcVnVector4_INT : Node_F_VN_AddToContainerElements_TcVnVector4_INT;
     node_F_VN_AddToContainerElements_TcVnVector4_LREAL : Node_F_VN_AddToContainerElements_TcVnVector4_LREAL;
+    node_F_VN_AddToContainerElements_TcVnVector4_REAL : Node_F_VN_AddToContainerElements_TcVnVector4_REAL;
     node_F_VN_AddToContainerElements_TcVnVector4_SINT : Node_F_VN_AddToContainerElements_TcVnVector4_SINT;
     node_F_VN_AddToContainerElements_TcVnVector4_UINT : Node_F_VN_AddToContainerElements_TcVnVector4_UINT;
     node_F_VN_AddToContainerElements_TcVnVector4_USINT : Node_F_VN_AddToContainerElements_TcVnVector4_USINT;
@@ -137,6 +138,7 @@ VAR
     node_F_VN_AppendToContainer_TcVnVector4_DINT : Node_F_VN_AppendToContainer_TcVnVector4_DINT;
     node_F_VN_AppendToContainer_TcVnVector4_INT : Node_F_VN_AppendToContainer_TcVnVector4_INT;
     node_F_VN_AppendToContainer_TcVnVector4_LREAL : Node_F_VN_AppendToContainer_TcVnVector4_LREAL;
+    node_F_VN_AppendToContainer_TcVnVector4_REAL : Node_F_VN_AppendToContainer_TcVnVector4_REAL;
     node_F_VN_AppendToContainer_TcVnVector4_SINT : Node_F_VN_AppendToContainer_TcVnVector4_SINT;
     node_F_VN_AppendToContainer_TcVnVector4_UINT : Node_F_VN_AppendToContainer_TcVnVector4_UINT;
     node_F_VN_AppendToContainer_TcVnVector4_USINT : Node_F_VN_AppendToContainer_TcVnVector4_USINT;
@@ -173,6 +175,7 @@ VAR
     node_F_VN_FillContainer_TcVnVector4_DINT : Node_F_VN_FillContainer_TcVnVector4_DINT;
     node_F_VN_FillContainer_TcVnVector4_INT : Node_F_VN_FillContainer_TcVnVector4_INT;
     node_F_VN_FillContainer_TcVnVector4_LREAL : Node_F_VN_FillContainer_TcVnVector4_LREAL;
+    node_F_VN_FillContainer_TcVnVector4_REAL : Node_F_VN_FillContainer_TcVnVector4_REAL;
     node_F_VN_FillContainer_TcVnVector4_SINT : Node_F_VN_FillContainer_TcVnVector4_SINT;
     node_F_VN_FillContainer_TcVnVector4_UINT : Node_F_VN_FillContainer_TcVnVector4_UINT;
     node_F_VN_FillContainer_TcVnVector4_USINT : Node_F_VN_FillContainer_TcVnVector4_USINT;
@@ -209,6 +212,7 @@ VAR
     node_F_VN_FillContainerExp_TcVnVector4_DINT : Node_F_VN_FillContainerExp_TcVnVector4_DINT;
     node_F_VN_FillContainerExp_TcVnVector4_INT : Node_F_VN_FillContainerExp_TcVnVector4_INT;
     node_F_VN_FillContainerExp_TcVnVector4_LREAL : Node_F_VN_FillContainerExp_TcVnVector4_LREAL;
+    node_F_VN_FillContainerExp_TcVnVector4_REAL : Node_F_VN_FillContainerExp_TcVnVector4_REAL;
     node_F_VN_FillContainerExp_TcVnVector4_SINT : Node_F_VN_FillContainerExp_TcVnVector4_SINT;
     node_F_VN_FillContainerExp_TcVnVector4_UINT : Node_F_VN_FillContainerExp_TcVnVector4_UINT;
     node_F_VN_FillContainerExp_TcVnVector4_USINT : Node_F_VN_FillContainerExp_TcVnVector4_USINT;
@@ -246,6 +250,7 @@ VAR
     node_F_VN_GetAt_TcVnVector4_DINT : Node_F_VN_GetAt_TcVnVector4_DINT;
     node_F_VN_GetAt_TcVnVector4_INT : Node_F_VN_GetAt_TcVnVector4_INT;
     node_F_VN_GetAt_TcVnVector4_LREAL : Node_F_VN_GetAt_TcVnVector4_LREAL;
+    node_F_VN_GetAt_TcVnVector4_REAL : Node_F_VN_GetAt_TcVnVector4_REAL;
     node_F_VN_GetAt_TcVnVector4_SINT : Node_F_VN_GetAt_TcVnVector4_SINT;
     node_F_VN_GetAt_TcVnVector4_UINT : Node_F_VN_GetAt_TcVnVector4_UINT;
     node_F_VN_GetAt_TcVnVector4_USINT : Node_F_VN_GetAt_TcVnVector4_USINT;
@@ -284,6 +289,7 @@ VAR
     node_F_VN_InsertIntoContainer_TcVnVector4_DINT : Node_F_VN_InsertIntoContainer_TcVnVector4_DINT;
     node_F_VN_InsertIntoContainer_TcVnVector4_INT : Node_F_VN_InsertIntoContainer_TcVnVector4_INT;
     node_F_VN_InsertIntoContainer_TcVnVector4_LREAL : Node_F_VN_InsertIntoContainer_TcVnVector4_LREAL;
+    node_F_VN_InsertIntoContainer_TcVnVector4_REAL : Node_F_VN_InsertIntoContainer_TcVnVector4_REAL;
     node_F_VN_InsertIntoContainer_TcVnVector4_SINT : Node_F_VN_InsertIntoContainer_TcVnVector4_SINT;
     node_F_VN_InsertIntoContainer_TcVnVector4_UINT : Node_F_VN_InsertIntoContainer_TcVnVector4_UINT;
     node_F_VN_InsertIntoContainer_TcVnVector4_USINT : Node_F_VN_InsertIntoContainer_TcVnVector4_USINT;
@@ -321,6 +327,7 @@ VAR
     node_F_VN_SetAt_TcVnVector4_DINT : Node_F_VN_SetAt_TcVnVector4_DINT;
     node_F_VN_SetAt_TcVnVector4_INT : Node_F_VN_SetAt_TcVnVector4_INT;
     node_F_VN_SetAt_TcVnVector4_LREAL : Node_F_VN_SetAt_TcVnVector4_LREAL;
+    node_F_VN_SetAt_TcVnVector4_REAL : Node_F_VN_SetAt_TcVnVector4_REAL;
     node_F_VN_SetAt_TcVnVector4_SINT : Node_F_VN_SetAt_TcVnVector4_SINT;
     node_F_VN_SetAt_TcVnVector4_UINT : Node_F_VN_SetAt_TcVnVector4_UINT;
     node_F_VN_SetAt_TcVnVector4_USINT : Node_F_VN_SetAt_TcVnVector4_USINT;
@@ -456,6 +463,7 @@ VAR
     node_F_VN_MaxElementElementwise_TcVnVector4_DINT : Node_F_VN_MaxElementElementwise_TcVnVector4_DINT;
     node_F_VN_MaxElementElementwise_TcVnVector4_INT : Node_F_VN_MaxElementElementwise_TcVnVector4_INT;
     node_F_VN_MaxElementElementwise_TcVnVector4_LREAL : Node_F_VN_MaxElementElementwise_TcVnVector4_LREAL;
+    node_F_VN_MaxElementElementwise_TcVnVector4_REAL : Node_F_VN_MaxElementElementwise_TcVnVector4_REAL;
     node_F_VN_MaxElementElementwise_TcVnVector4_SINT : Node_F_VN_MaxElementElementwise_TcVnVector4_SINT;
     node_F_VN_MaxElementElementwise_TcVnVector4_UINT : Node_F_VN_MaxElementElementwise_TcVnVector4_UINT;
     node_F_VN_MaxElementElementwise_TcVnVector4_USINT : Node_F_VN_MaxElementElementwise_TcVnVector4_USINT;
@@ -487,6 +495,7 @@ VAR
     node_F_VN_MedianElementElementwise_TcVnVector4_DINT : Node_F_VN_MedianElementElementwise_TcVnVector4_DINT;
     node_F_VN_MedianElementElementwise_TcVnVector4_INT : Node_F_VN_MedianElementElementwise_TcVnVector4_INT;
     node_F_VN_MedianElementElementwise_TcVnVector4_LREAL : Node_F_VN_MedianElementElementwise_TcVnVector4_LREAL;
+    node_F_VN_MedianElementElementwise_TcVnVector4_REAL : Node_F_VN_MedianElementElementwise_TcVnVector4_REAL;
     node_F_VN_MedianElementElementwise_TcVnVector4_SINT : Node_F_VN_MedianElementElementwise_TcVnVector4_SINT;
     node_F_VN_MedianElementElementwise_TcVnVector4_UINT : Node_F_VN_MedianElementElementwise_TcVnVector4_UINT;
     node_F_VN_MedianElementElementwise_TcVnVector4_USINT : Node_F_VN_MedianElementElementwise_TcVnVector4_USINT;
@@ -518,6 +527,7 @@ VAR
     node_F_VN_MinElementElementwise_TcVnVector4_DINT : Node_F_VN_MinElementElementwise_TcVnVector4_DINT;
     node_F_VN_MinElementElementwise_TcVnVector4_INT : Node_F_VN_MinElementElementwise_TcVnVector4_INT;
     node_F_VN_MinElementElementwise_TcVnVector4_LREAL : Node_F_VN_MinElementElementwise_TcVnVector4_LREAL;
+    node_F_VN_MinElementElementwise_TcVnVector4_REAL : Node_F_VN_MinElementElementwise_TcVnVector4_REAL;
     node_F_VN_MinElementElementwise_TcVnVector4_SINT : Node_F_VN_MinElementElementwise_TcVnVector4_SINT;
     node_F_VN_MinElementElementwise_TcVnVector4_UINT : Node_F_VN_MinElementElementwise_TcVnVector4_UINT;
     node_F_VN_MinElementElementwise_TcVnVector4_USINT : Node_F_VN_MinElementElementwise_TcVnVector4_USINT;
@@ -853,6 +863,7 @@ VAR
     //node_F_VN_DoubleThreshold : Node_F_VN_DoubleThreshold;
     node_F_VN_Threshold : Node_F_VN_Threshold;
     node_F_VN_WatershedSegmentationExp : Node_F_VN_WatershedSegmentationExp;
+    node_F_VN_SauvolaThreshold : Node_F_VN_SauvolaThreshold;
     
     // Keypoint Features
     //F_VN_FilterGoodMatches
@@ -1039,6 +1050,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_AddTo
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_AddToContainerElements/F_VN_AddToContainerElements_TcVnVector4_DINT', node_F_VN_AddToContainerElements_TcVnVector4_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_AddToContainerElements/F_VN_AddToContainerElements_TcVnVector4_INT', node_F_VN_AddToContainerElements_TcVnVector4_INT);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_AddToContainerElements/F_VN_AddToContainerElements_TcVnVector4_LREAL', node_F_VN_AddToContainerElements_TcVnVector4_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_AddToContainerElements/F_VN_AddToContainerElements_TcVnVector4_REAL', node_F_VN_AddToContainerElements_TcVnVector4_REAL);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_AddToContainerElements/F_VN_AddToContainerElements_TcVnVector4_SINT', node_F_VN_AddToContainerElements_TcVnVector4_SINT);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_AddToContainerElements/F_VN_AddToContainerElements_TcVnVector4_UINT', node_F_VN_AddToContainerElements_TcVnVector4_UINT);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_AddToContainerElements/F_VN_AddToContainerElements_TcVnVector4_USINT', node_F_VN_AddToContainerElements_TcVnVector4_USINT);
@@ -1143,6 +1155,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToC
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_TcVnVector4_DINT', node_F_VN_AppendToContainer_TcVnVector4_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_TcVnVector4_INT', node_F_VN_AppendToContainer_TcVnVector4_INT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_TcVnVector4_LREAL', node_F_VN_AppendToContainer_TcVnVector4_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_TcVnVector4_REAL', node_F_VN_AppendToContainer_TcVnVector4_REAL);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_TcVnVector4_SINT', node_F_VN_AppendToContainer_TcVnVector4_SINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_TcVnVector4_UINT', node_F_VN_AppendToContainer_TcVnVector4_UINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_AppendToContainer/F_VN_AppendToContainer_TcVnVector4_USINT', node_F_VN_AppendToContainer_TcVnVector4_USINT);
@@ -1179,6 +1192,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillConta
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillContainer/F_VN_FillContainer_TcVnVector4_DINT', node_F_VN_FillContainer_TcVnVector4_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillContainer/F_VN_FillContainer_TcVnVector4_INT', node_F_VN_FillContainer_TcVnVector4_INT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillContainer/F_VN_FillContainer_TcVnVector4_LREAL', node_F_VN_FillContainer_TcVnVector4_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillContainer/F_VN_FillContainer_TcVnVector4_REAL', node_F_VN_FillContainer_TcVnVector4_REAL);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillContainer/F_VN_FillContainer_TcVnVector4_SINT', node_F_VN_FillContainer_TcVnVector4_SINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillContainer/F_VN_FillContainer_TcVnVector4_UINT', node_F_VN_FillContainer_TcVnVector4_UINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillContainer/F_VN_FillContainer_TcVnVector4_USINT', node_F_VN_FillContainer_TcVnVector4_USINT);
@@ -1215,6 +1229,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillConta
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillContainerExp/F_VN_FillContainerExp_TcVnVector4_DINT', node_F_VN_FillContainerExp_TcVnVector4_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillContainerExp/F_VN_FillContainerExp_TcVnVector4_INT', node_F_VN_FillContainerExp_TcVnVector4_INT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillContainerExp/F_VN_FillContainerExp_TcVnVector4_LREAL', node_F_VN_FillContainerExp_TcVnVector4_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillContainerExp/F_VN_FillContainerExp_TcVnVector4_REAL', node_F_VN_FillContainerExp_TcVnVector4_REAL);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillContainerExp/F_VN_FillContainerExp_TcVnVector4_SINT', node_F_VN_FillContainerExp_TcVnVector4_SINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillContainerExp/F_VN_FillContainerExp_TcVnVector4_UINT', node_F_VN_FillContainerExp_TcVnVector4_UINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_FillContainerExp/F_VN_FillContainerExp_TcVnVector4_USINT', node_F_VN_FillContainerExp_TcVnVector4_USINT);
@@ -1252,6 +1267,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_GetAt/F_V
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_GetAt/F_VN_GetAt_TcVnVector4_DINT', node_F_VN_GetAt_TcVnVector4_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_GetAt/F_VN_GetAt_TcVnVector4_INT', node_F_VN_GetAt_TcVnVector4_INT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_GetAt/F_VN_GetAt_TcVnVector4_LREAL', node_F_VN_GetAt_TcVnVector4_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_GetAt/F_VN_GetAt_TcVnVector4_REAL', node_F_VN_GetAt_TcVnVector4_REAL);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_GetAt/F_VN_GetAt_TcVnVector4_SINT', node_F_VN_GetAt_TcVnVector4_SINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_GetAt/F_VN_GetAt_TcVnVector4_UINT', node_F_VN_GetAt_TcVnVector4_UINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_GetAt/F_VN_GetAt_TcVnVector4_USINT', node_F_VN_GetAt_TcVnVector4_USINT);
@@ -1290,6 +1306,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_InsertInt
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_InsertIntoContainer/F_VN_InsertIntoContainer_TcVnVector4_DINT', node_F_VN_InsertIntoContainer_TcVnVector4_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_InsertIntoContainer/F_VN_InsertIntoContainer_TcVnVector4_INT', node_F_VN_InsertIntoContainer_TcVnVector4_INT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_InsertIntoContainer/F_VN_InsertIntoContainer_TcVnVector4_LREAL', node_F_VN_InsertIntoContainer_TcVnVector4_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_InsertIntoContainer/F_VN_InsertIntoContainer_TcVnVector4_REAL', node_F_VN_InsertIntoContainer_TcVnVector4_REAL);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_InsertIntoContainer/F_VN_InsertIntoContainer_TcVnVector4_SINT', node_F_VN_InsertIntoContainer_TcVnVector4_SINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_InsertIntoContainer/F_VN_InsertIntoContainer_TcVnVector4_UINT', node_F_VN_InsertIntoContainer_TcVnVector4_UINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_InsertIntoContainer/F_VN_InsertIntoContainer_TcVnVector4_USINT', node_F_VN_InsertIntoContainer_TcVnVector4_USINT);
@@ -1327,6 +1344,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_V
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector4_DINT', node_F_VN_SetAt_TcVnVector4_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector4_INT', node_F_VN_SetAt_TcVnVector4_INT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector4_LREAL', node_F_VN_SetAt_TcVnVector4_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector4_REAL', node_F_VN_SetAt_TcVnVector4_REAL);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector4_SINT', node_F_VN_SetAt_TcVnVector4_SINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector4_UINT', node_F_VN_SetAt_TcVnVector4_UINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_TcVnVector4_USINT', node_F_VN_SetAt_TcVnVector4_USINT);
@@ -1462,6 +1480,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MaxElementEleme
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MaxElementElementwise/F_VN_MaxElementElementwise_TcVnVector4_DINT', node_F_VN_MaxElementElementwise_TcVnVector4_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MaxElementElementwise/F_VN_MaxElementElementwise_TcVnVector4_INT', node_F_VN_MaxElementElementwise_TcVnVector4_INT);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MaxElementElementwise/F_VN_MaxElementElementwise_TcVnVector4_LREAL', node_F_VN_MaxElementElementwise_TcVnVector4_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MaxElementElementwise/F_VN_MaxElementElementwise_TcVnVector4_REAL', node_F_VN_MaxElementElementwise_TcVnVector4_REAL);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MaxElementElementwise/F_VN_MaxElementElementwise_TcVnVector4_SINT', node_F_VN_MaxElementElementwise_TcVnVector4_SINT);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MaxElementElementwise/F_VN_MaxElementElementwise_TcVnVector4_UINT', node_F_VN_MaxElementElementwise_TcVnVector4_UINT);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MaxElementElementwise/F_VN_MaxElementElementwise_TcVnVector4_USINT', node_F_VN_MaxElementElementwise_TcVnVector4_USINT);
@@ -1494,6 +1513,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MedianElementEl
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MedianElementElementwise/F_VN_MedianElementElementwise_TcVnVector4_DINT', node_F_VN_MedianElementElementwise_TcVnVector4_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MedianElementElementwise/F_VN_MedianElementElementwise_TcVnVector4_INT', node_F_VN_MedianElementElementwise_TcVnVector4_INT);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MedianElementElementwise/F_VN_MedianElementElementwise_TcVnVector4_LREAL', node_F_VN_MedianElementElementwise_TcVnVector4_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MedianElementElementwise/F_VN_MedianElementElementwise_TcVnVector4_REAL', node_F_VN_MedianElementElementwise_TcVnVector4_REAL);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MedianElementElementwise/F_VN_MedianElementElementwise_TcVnVector4_SINT', node_F_VN_MedianElementElementwise_TcVnVector4_SINT);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MedianElementElementwise/F_VN_MedianElementElementwise_TcVnVector4_UINT', node_F_VN_MedianElementElementwise_TcVnVector4_UINT);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MedianElementElementwise/F_VN_MedianElementElementwise_TcVnVector4_USINT', node_F_VN_MedianElementElementwise_TcVnVector4_USINT);
@@ -1526,6 +1546,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElementEleme
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElementElementwise/F_VN_MinElementElementwise_TcVnVector4_DINT', node_F_VN_MinElementElementwise_TcVnVector4_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElementElementwise/F_VN_MinElementElementwise_TcVnVector4_INT', node_F_VN_MinElementElementwise_TcVnVector4_INT);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElementElementwise/F_VN_MinElementElementwise_TcVnVector4_LREAL', node_F_VN_MinElementElementwise_TcVnVector4_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElementElementwise/F_VN_MinElementElementwise_TcVnVector4_REAL', node_F_VN_MinElementElementwise_TcVnVector4_REAL);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElementElementwise/F_VN_MinElementElementwise_TcVnVector4_SINT', node_F_VN_MinElementElementwise_TcVnVector4_SINT);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElementElementwise/F_VN_MinElementElementwise_TcVnVector4_UINT', node_F_VN_MinElementElementwise_TcVnVector4_UINT);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElementElementwise/F_VN_MinElementElementwise_TcVnVector4_USINT', node_F_VN_MinElementElementwise_TcVnVector4_USINT);
@@ -1863,6 +1884,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_CheckColorRange',
 //NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_DoubleThreshold', node_F_VN_DoubleThreshold);
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_Threshold', node_F_VN_Threshold);
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_WatershedSegmentationExp', node_F_VN_WatershedSegmentationExp);
+NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_SauvolaThreshold', node_F_VN_SauvolaThreshold);
 
 // Keypoint Features
 //F_VN_FilterGoodMatches

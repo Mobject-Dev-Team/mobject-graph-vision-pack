@@ -271,6 +271,9 @@
     <Compile Include="Datatypes\Aliases\_TcVnVector4_INT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector4_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnVector4_SINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -357,6 +360,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Arrays\_Array0to3OfLREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to3OfREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Arrays\_Array0to3OfSINT.TcPOU">
@@ -808,6 +814,9 @@
     <Compile Include="Nodes\Algebraic Container Ops\AddTo\Node_F_VN_AddToContainerElements_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\AddTo\Node_F_VN_AddToContainerElements_TcVnVector4_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Algebraic Container Ops\AddTo\Node_F_VN_AddToContainerElements_TcVnVector4_SINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1075,6 +1084,9 @@
     <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_TcVnVector4_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_TcVnVector4_SINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1094,6 +1106,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_FillContainer_TcVnVector4_REAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\FillContainerExp\Node_F_VN_FillContainerExp_DINT.TcPOU">
@@ -1178,6 +1193,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\FillContainerExp\Node_F_VN_FillContainerExp_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\FillContainerExp\Node_F_VN_FillContainerExp_TcVnVector4_REAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\FillContainerExp\Node_F_VN_FillContainerExp_TcVnVector4_SINT.TcPOU">
@@ -1393,6 +1411,9 @@
     <Compile Include="Nodes\Basic Container Ops\GetAt\Node_F_VN_GetAt_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\GetAt\Node_F_VN_GetAt_TcVnVector4_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\GetAt\Node_F_VN_GetAt_TcVnVector4_SINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1499,6 +1520,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_TcVnVector4_REAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_TcVnVector4_SINT.TcPOU">
@@ -1610,6 +1634,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_TcVnVector4_REAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_TcVnVector4_SINT.TcPOU">
@@ -1836,6 +1863,9 @@
     <Compile Include="Nodes\Container Statistics\MaxElementwise\Node_F_VN_MaxElementElementwise_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Container Statistics\MaxElementwise\Node_F_VN_MaxElementElementwise_TcVnVector4_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Container Statistics\MaxElementwise\Node_F_VN_MaxElementElementwise_TcVnVector4_SINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1929,6 +1959,9 @@
     <Compile Include="Nodes\Container Statistics\MedianElementwise\Node_F_VN_MedianElementElementwise_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Container Statistics\MedianElementwise\Node_F_VN_MedianElementElementwise_TcVnVector4_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Container Statistics\MedianElementwise\Node_F_VN_MedianElementElementwise_TcVnVector4_SINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2020,6 +2053,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Container Statistics\MinElementwise\Node_F_VN_MinElementElementwise_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\MinElementwise\Node_F_VN_MinElementElementwise_TcVnVector4_REAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Container Statistics\MinElementwise\Node_F_VN_MinElementElementwise_TcVnVector4_SINT.TcPOU">
@@ -2429,6 +2465,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Segmentation\Node_F_VN_AdaptiveThresholdExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Segmentation\Node_F_VN_SauvolaThreshold.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Segmentation\Node_F_VN_WatershedSegmentationExp.TcPOU">
