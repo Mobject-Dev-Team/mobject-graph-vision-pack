@@ -2395,6 +2395,9 @@
     <Compile Include="Nodes\Image Filtering\Node_F_VN_CreateStructuringElement.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_MedianFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_MorphologicalOperator.TcPOU">
       <SubType>Code</SubType>
     </Compile>

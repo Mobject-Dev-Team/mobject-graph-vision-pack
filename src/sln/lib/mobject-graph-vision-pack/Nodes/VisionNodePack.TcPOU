@@ -833,7 +833,7 @@ VAR
     //F_VN_LaplacianFilterExp
     node_F_VN_LocalMaxima : Node_F_VN_LocalMaxima;
     node_F_VN_LocalMinima : Node_F_VN_LocalMinima;
-    //F_VN_MedianFilter
+    node_F_VN_MedianFilter : Node_F_VN_MedianFilter;
     node_F_VN_MorphologicalOperator : Node_F_VN_MorphologicalOperator;
     //F_VN_RemoveLocalMaxima
     //F_VN_RemoveLocalMinima
@@ -1843,7 +1843,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LaplacianFilter', no
 //F_VN_LaplacianFilterExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LocalMaxima', node_F_VN_LocalMaxima);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LocalMinima', node_F_VN_LocalMinima);
-//F_VN_MedianFilter
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_MedianFilter', node_F_VN_MedianFilter);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_MorphologicalOperator', node_F_VN_MorphologicalOperator);
 //F_VN_RemoveLocalMaxima
 //F_VN_RemoveLocalMinima
