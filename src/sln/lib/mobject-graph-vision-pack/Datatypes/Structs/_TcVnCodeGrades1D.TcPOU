@@ -9,7 +9,7 @@ VAR
 	localData : TcVnCodeGrades1D;
 	activeData : REFERENCE TO TcVnCodeGrades1D REF= localData;
     _fDecode : _REAL(localdata.fDecode);
-    _fSymbolContrast : _REAL(localdata_fSymbolContrast);
+    _fSymbolContrast : _REAL(localdata.fSymbolContrast);
     _fMinReflectance : _REAL(localdata.fMinReflectance);
     _fMinEdgeContrast : _REAL(localdata.fMinEdgeContrast);
     _fModulation : _REAL(localdata.fModulation);
@@ -201,7 +201,7 @@ _fMinReflectance.MakeReferenceTo(activeData.fMinReflectance);
 _fMinEdgeContrast.MakeReferenceTo(activeData.fMinEdgeContrast);
 _fModulation.MakeReferenceTo(activeData.fModulation);
 _fDefects.MakeReferenceTo(activeData.fDefects);
-_fDecodability.MakeReferenceTo(activeData..fDecodability);
+_fDecodability.MakeReferenceTo(activeData.fDecodability);
 _fOverall.MakeReferenceTo(activeData.fOverall);
 ]]></ST>
       </Implementation>

@@ -616,7 +616,7 @@ VAR
     node_F_VN_DrawPolygon : Node_F_VN_DrawPolygon;
     //F_VN_DrawPolygonExp
     node_F_VN_DrawRectangle : Node_F_VN_DrawRectangle;
-    //node_F_VN_DrawRectangle_TcVnRectangle_DINT : Node_F_VN_DrawRectangle_TcVnRectangle_DINT;
+    node_F_VN_DrawRectangle_TcVnRectangle_DINT : Node_F_VN_DrawRectangle_TcVnRectangle_DINT;
     node_F_VN_DrawRectangle_TcVnRectangle_UDINT : Node_F_VN_DrawRectangle_TcVnRectangle_UDINT;
     node_F_VN_DrawRotatedRectangle : Node_F_VN_DrawRotatedRectangle;
     node_F_VN_DrawRotatedRectangleExp : Node_F_VN_DrawRotatedRectangleExp;
@@ -1624,7 +1624,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawPoint', node_F_VN_DrawPo
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawPolygon', node_F_VN_DrawPolygon);
 //F_VN_DrawPolygonExp
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawRectangle', node_F_VN_DrawRectangle);
-//NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawRectangle_TcVnRectangle_DINT', node_F_VN_DrawRectangle_TcVnRectangle_DINT);
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawRectangle_TcVnRectangle_DINT', node_F_VN_DrawRectangle_TcVnRectangle_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawRectangle_TcVnRectangle_UDINT', node_F_VN_DrawRectangle_TcVnRectangle_UDINT);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawRotatedRectangle', node_F_VN_DrawRotatedRectangle);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawRotatedRectangleExp', node_F_VN_DrawRotatedRectangleExp);

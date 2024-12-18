@@ -196,7 +196,7 @@
     </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnArray33_UDINT.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnArray10_ITcVnImage.TcPOU">
       <SubType>Code</SubType>
@@ -400,7 +400,7 @@
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnBoostClassifierType.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnCalibrationPattern.TcPOU">
       <SubType>Code</SubType>
@@ -479,7 +479,7 @@
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnFeatureScalingType.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnFeatureScoreTypeORB.TcPOU">
       <SubType>Code</SubType>
@@ -498,7 +498,7 @@
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnInitializableFunction.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnInterpolationType.TcPOU">
       <SubType>Code</SubType>
@@ -511,7 +511,7 @@
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnKnn.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnLineType.TcPOU">
       <SubType>Code</SubType>
@@ -521,29 +521,29 @@
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnNbc.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnNormalizationType.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnOcrModelType.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnTimestamp.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnOcrOptions.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnOrientationMethod.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnPaddingMode.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnPixelConnectivity.TcPOU">
       <SubType>Code</SubType>
@@ -556,7 +556,7 @@
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnPrototypeClusterer.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnRectangleIntersection.TcPOU">
       <SubType>Code</SubType>
@@ -566,37 +566,37 @@
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnRTrees.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnSignedNormalization.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnSolvePnPMethod.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnSta.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnStructuringElementShape.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnSvm.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnSvmKernelType.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnSvmSgdClassifierMarginType.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnSvmSgdClassifierType.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnTemplateMatchMethod.TcPOU">
       <SubType>Code</SubType>
@@ -651,7 +651,7 @@
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnCodeGrades1D.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnMatrix.TcPOU">
       <SubType>Code</SubType>
@@ -2168,7 +2168,7 @@
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawRectangle_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawRectangle_TcVnRectangle_UDINT.TcPOU">
       <SubType>Code</SubType>
