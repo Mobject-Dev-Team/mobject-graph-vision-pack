@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_InverseDft" Id="{4900e319-72e2-0836-2f2f-8f4b8d1e9d9d}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_InverseDft EXTENDS VisionNode
+VAR
+    ipFrequencyImage : _ITcVnImage;
+    ipSpatialImage : _ITcVnImage;
+    bRealOutput : _BOOL(FALSE);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{5208d99b-b149-0a6e-2843-173ae98b13b2}" />
+    <Method Name="Clone" Id="{2c3052d6-87d5-01ef-0714-c8d578059f0c}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_InverseDft;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_InverseDft);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{0ce92f89-6756-072b-03c5-eb2303e304ea}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipFrequencyImage', ipFrequencyImage);
+AddParameter('bRealOutput', bRealOutput);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipSpatialImage', ipSpatialImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{ad6e5f33-39b3-02b3-1b60-d655f73e4287}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_InverseDft(
+	ipFrequencyImage := ipFrequencyImage.Value,
+    ipSpatialImage := ipSpatialImage.Value,
+    bRealOutput := bRealOutput.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{e8780b23-4713-03eb-0d9a-74afef165d10}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipFrequencyImage.IsValid, 'ipFrequencyImage must contain an image');
+Check.IsTrue((ipFrequencyImage.HasChannelCount(1) OR
+              ipFrequencyImage.HasChannelCount(2)), 'ipFrequencyImage must contain 1 or 2 channels');
+Check.IsTrue((ipFrequencyImage.IsPixelDepth(32) OR
+              ipFrequencyImage.IsPixelDepth(64)), 'ipFrequencyImage must have 32 or 64 bit pixel depth');
+              ]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

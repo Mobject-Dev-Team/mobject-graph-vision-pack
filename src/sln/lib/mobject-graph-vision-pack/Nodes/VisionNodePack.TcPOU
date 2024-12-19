@@ -350,7 +350,7 @@ VAR
     //F_VN_ExportContainer_String
     //F_VN_ExportContainerSize
     //F_VN_ExportSubContainer
-    //F_VN_ExportSubContainer_String
+    node_F_VN_ExportSubContainer_String : Node_F_VN_ExportSubContainer_String;
     //F_VN_ExportSubContainerSize
     //F_VN_ExtractContainerRange
     //F_VN_GetContainer
@@ -555,7 +555,7 @@ VAR
     node_F_VN_ContourCircularity : Node_F_VN_ContourCircularity;
     node_F_VN_ContourConvexity : Node_F_VN_ContourConvexity;
     node_F_VN_ContourEccentricity : Node_F_VN_ContourEccentricity;
-    //F_VN_ContourElongation
+    node_F_VN_ContourElongation : Node_F_VN_ContourElongation;
     node_F_VN_ContourExtremePoint : Node_F_VN_ContourExtremePoint;
     node_F_VN_ContourInertiaRatio : Node_F_VN_ContourInertiaRatio;
     node_F_VN_ContourMoments : Node_F_VN_ContourMoments;
@@ -652,8 +652,8 @@ VAR
     //F_VN_CreateHighpassGaussianFilter
     //F_VN_CreateLowpassButterworthFilter
     //F_VN_CreateLowpassGaussianFilter
-    //F_VN_Dft
-    //F_VN_InverseDft
+    node_F_VN_Dft : Node_F_VN_Dft;
+    node_F_VN_InverseDft : Node_F_VN_InverseDft;
     //F_VN_OptimalDftSize
     node_F_VN_PadImageBorder : Node_F_VN_PadImageBorder;
     node_F_VN_PadImageBorderExp : Node_F_VN_PadImageBorderExp;
@@ -860,7 +860,7 @@ VAR
     node_F_VN_AdaptiveThreshold : Node_F_VN_AdaptiveThreshold;
     node_F_VN_AdaptiveThresholdExp : Node_F_VN_AdaptiveThresholdExp;
     node_F_VN_CheckColorRange : Node_F_VN_CheckColorRange;
-    //node_F_VN_DoubleThreshold : Node_F_VN_DoubleThreshold;
+    node_F_VN_DoubleThreshold : Node_F_VN_DoubleThreshold;
     node_F_VN_Threshold : Node_F_VN_Threshold;
     node_F_VN_WatershedSegmentationExp : Node_F_VN_WatershedSegmentationExp;
     node_F_VN_SauvolaThreshold : Node_F_VN_SauvolaThreshold;
@@ -1005,7 +1005,7 @@ VAR
     //F_VN_UpdateTimestamp
     
     // OCR
-    //F_VN_OCR
+    //node_F_VN_OCR : Node_F_VN_OCR;
     //F_VN_OCRExp
     
     // Texture Analysis
@@ -1367,7 +1367,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_V
 //F_VN_ExportContainer_String
 //F_VN_ExportContainerSize
 //F_VN_ExportSubContainer
-//F_VN_ExportSubContainer_String
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_ExportSubContainer_String', node_F_VN_ExportSubContainer_String);
 //F_VN_ExportSubContainerSize
 //F_VN_ExtractContainerRange
 //F_VN_GetContainer
@@ -1574,7 +1574,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_ContourCenterOfMass
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_ContourCircularity', node_F_VN_ContourCircularity);
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_ContourConvexity', node_F_VN_ContourConvexity);
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_ContourEccentricity', node_F_VN_ContourEccentricity);
-//F_VN_ContourElongation
+NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_ContourElongation', node_F_VN_ContourElongation);
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_ContourExtremePoint', node_F_VN_ContourExtremePoint);
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_ContourInertiaRatio', node_F_VN_ContourInertiaRatio);
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_ContourMoments', node_F_VN_ContourMoments);
@@ -1671,8 +1671,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PutTextExp', node_F_VN_PutTe
 //F_VN_CreateHighpassGaussianFilter
 //F_VN_CreateLowpassButterworthFilter
 //F_VN_CreateLowpassGaussianFilter
-//F_VN_Dft
-//F_VN_InverseDft
+NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_Dft', node_F_VN_Dft);
+NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_InverseDft', node_F_VN_InverseDft);
 //F_VN_OptimalDftSize
 NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_PadImageBorder', node_F_VN_PadImageBorder);
 NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_PadImageBorderExp', node_F_VN_PadImageBorderExp);
@@ -1881,7 +1881,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_VarianceFilter', nod
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_AdaptiveThreshold', node_F_VN_AdaptiveThreshold);
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_AdaptiveThresholdExp', node_F_VN_AdaptiveThresholdExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_CheckColorRange', node_F_VN_CheckColorRange);
-//NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_DoubleThreshold', node_F_VN_DoubleThreshold);
+NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_DoubleThreshold', node_F_VN_DoubleThreshold);
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_Threshold', node_F_VN_Threshold);
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_WatershedSegmentationExp', node_F_VN_WatershedSegmentationExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_SauvolaThreshold', node_F_VN_SauvolaThreshold);
