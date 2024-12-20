@@ -2542,10 +2542,19 @@
     <Compile Include="Nodes\Measurement\Node_F_VN_MeasureMinEdgeDistance.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_FB_VN_InitializeFunction.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_DeinitializeFunction.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Miscellaneous\Node_F_VN_ClipLineToBoundary_ITcVnImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Miscellaneous\Node_F_VN_ClipLineToBoundary_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_CheckFunctionInitialization.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Miscellaneous\Node_F_VN_RotatedRectangleCorners.TcPOU">
@@ -2575,7 +2584,7 @@
     </Compile>
     <Compile Include="Nodes\OCR\Node_F_VN_OCR.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\VisionNodePack.TcPOU">
       <SubType>Code</SubType>

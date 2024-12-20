@@ -983,7 +983,7 @@ VAR
     //F_VN_MeasureMinEdgeDistanceExp
     
     // Miscellaneous
-    //F_VN_CheckFunctionInitialization
+    node_F_VN_CheckFunctionInitialization : Node_F_VN_CheckFunctionInitialization;
     node_F_VN_ClipLineToBoundary : Node_F_VN_ClipLineToBoundary;
     node_F_VN_ClipLineToBoundary_ITcVnImage : Node_F_VN_ClipLineToBoundary_ITcVnImage;
     node_F_VN_ClipLineToBoundary_TcVnRectangle_DINT : Node_F_VN_ClipLineToBoundary_TcVnRectangle_DINT;
@@ -991,7 +991,7 @@ VAR
     //F_VN_ConvertITcUnknownToITcVnContainer
     //F_VN_ConvertITcUnknownToITcVnImage
     //F_VN_ConvertITcUnknownToITcVnMlModel
-    //F_VN_DeinitializeFunction
+    node_F_VN_DeinitializeFunction : Node_F_VN_DeinitializeFunction;
     //F_VN_GetTimestamp
     node_F_VN_HuMomentInvariants : Node_F_VN_HuMomentInvariants;
     //F_VN_InitMatrixStruct
@@ -1004,8 +1004,10 @@ VAR
     //F_VN_SetRngSeed
     //F_VN_UpdateTimestamp
     
+    node_FB_VN_InitializeFunction : Node_FB_VN_InitializeFunction;
+    
     // OCR
-    //node_F_VN_OCR : Node_F_VN_OCR;
+    node_F_VN_OCR : Node_F_VN_OCR;
     //F_VN_OCRExp
     
     // Texture Analysis
@@ -2004,7 +2006,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_MeasureMinEdgeDistance',
 //F_VN_MeasureMinEdgeDistanceExp
 
 // Miscellaneous
-//F_VN_CheckFunctionInitialization
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_CheckFunctionInitialization', node_F_VN_CheckFunctionInitialization);
 NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_ClipLineToBoundary', node_F_VN_ClipLineToBoundary);
 NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_ClipLineToBoundary_ITcVnImage', node_F_VN_ClipLineToBoundary_ITcVnImage);
 NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_ClipLineToBoundary_TcVnRectangle_DINT', node_F_VN_ClipLineToBoundary_TcVnRectangle_DINT);
@@ -2012,7 +2014,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_ClipLineToBoundary_TcV
 //F_VN_ConvertITcUnknownToITcVnContainer
 //F_VN_ConvertITcUnknownToITcVnImage
 //F_VN_ConvertITcUnknownToITcVnMlModel
-//F_VN_DeinitializeFunction
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_DeinitializeFunction', node_F_VN_DeinitializeFunction);
 //F_VN_GetTimestamp
 NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_HuMomentInvariants', node_F_VN_HuMomentInvariants);
 //F_VN_InitMatrixStruct
@@ -2025,8 +2027,10 @@ NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_RotatedRectangleInters
 //F_VN_SetRngSeed
 //F_VN_UpdateTimestamp
 
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/FB_VN_InitializeFunction', node_FB_VN_InitializeFunction);
+
 // OCR
-//NodeFactory.AddNodeAsPrototype('Vision/OCR/F_VN_OCR', node_F_VN_OCR);
+NodeFactory.AddNodeAsPrototype('Vision/OCR/F_VN_OCR', node_F_VN_OCR);
 //NodeFactory.AddNodeAsPrototype('Vision/OCR/F_VN_OCRExp', node_F_VN_OCRExp);
 
 // Texture Analysis
