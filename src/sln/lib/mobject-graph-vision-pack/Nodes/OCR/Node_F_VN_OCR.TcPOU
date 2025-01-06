@@ -12,8 +12,7 @@ VAR
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
-
-//TODO This function requires the use of FB_InitializeFunction function block.]]></Declaration>
+]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
@@ -66,7 +65,7 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[result := F_VN_CheckFunctionInitialization(ETcVnInitializableFunction.TCVN_IF_OCR, eModel.Value, S_OK);
-Check.IsTrue(SUCCEEDED(result), 'Invalid OCR model');
+Check.IsTrue((result = S_OK), 'Invalid OCR model');
 
 Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
 Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
