@@ -7,10 +7,9 @@
 FUNCTION_BLOCK Node_FB_VN_InitializeFunction EXTENDS VisionNode
 VAR
     eFunction : _ETcVnInitializableFunction(ETcVnInitializableFunction.TCVN_IF_OCR);
-    //nOptions : _ULINT(0);
-    //bStart : 
+    nOptions : _ULINT(0);
+    bStart : _BOOL(FALSE);
     //nTimeout : 
-    hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
 ]]></Declaration>
@@ -37,71 +36,44 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddParameter('eFunction', eFunction);
-//AddInput('nOptions', nOptions);
-//AddInput('bStart', bStart);
+AddInput('nOptions', nOptions);
+AddInput('bStart', bStart);
 //AddParameter('nTimeout', nTimeout);
-AddInput('hrPrev', hrPrev);
 AddOutput('hresult', hresult);
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{5600bdbe-a65e-0035-1e1d-751f798e7f4a}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute
-//VAR
-//    init : BOOL;
-//    hr : HRESULT;
-//END_VAR
+VAR
+END_VAR
 VAR_INST
-    initialized : BOOL;
-    //oldOptions : ULINT;
-    fbInit : FB_VN_InitializeFunction;
+    fbInitializeFunction : FB_VN_InitializeFunction;
+    result : HRESULT := -1;
+    executed : BOOL;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[//hrPrev.Value ?
-
-// Load OCR Model
-IF NOT initialized THEN
-	fbInit(eFunction := TCVN_IF_OCR, nOptions := ETcVnOcrModelType.TCVN_OMT_NUMBERS_SC_UCLETTERS OR ETcVnOcrModelType.TCVN_OMT_NUMBERS_SC OR ETcVnOcrModelType.TCVN_OMT_UCLETTERS, bStart := TRUE);
-	
-	IF NOT fbInit.bBusy THEN
-		fbInit(bStart := FALSE);
-		IF NOT fbInit.bError THEN
-			initialized := TRUE;
-		END_IF
-	END_IF
+        <ST><![CDATA[IF NOT bStart.Value THEN
+    executed := FALSE;
 END_IF
 
-IF NOT initialized THEN
-    hresult.Value := S_FALSE;
-    RETURN;
+IF bStart.Value AND NOT executed THEN
+    
+    //ETcVnOcrModelType.TCVN_OMT_NUMBERS_SC_UCLETTERS OR ETcVnOcrModelType.TCVN_OMT_NUMBERS_SC OR ETcVnOcrModelType.TCVN_OMT_UCLETTERS
+    fbInitializeFunction(eFunction := TCVN_IF_OCR, nOptions := nOptions.Value, bStart := TRUE);
+    IF NOT fbInitializeFunction.bBusy THEN
+        fbInitializeFunction(bStart := FALSE);
+        IF NOT fbInitializeFunction.bError THEN
+            result := S_OK;
+        ELSE
+            result := -1;
+        END_IF
+        executed := TRUE;
+    END_IF
 END_IF
 
-hresult.Value := S_OK;
-
-//IF (oldOptions <> nOptions.Value) THEN
-//	oldOptions := nOptions.Value;
-//	init := TRUE;
-//END_IF
-
-//fbInit(
-//	eFunction := eFunction.Value,
-//    //nOptions := nOptions.Value,
-//    nOptions := ETcVnOcrModelType.TCVN_OMT_NUMBERS_SC_UCLETTERS OR ETcVnOcrModelType.TCVN_OMT_NUMBERS_SC OR ETcVnOcrModelType.TCVN_OMT_UCLETTERS,
-//    bStart := init,
-//    nTimeout := T#500MS);
-
-//IF fbInit.bBusy THEN
-//    init := FALSE;
-//END_IF
-
-//IF NOT fbInit.bBusy AND NOT fbInit.bError THEN
-//	hr := S_OK;
-//ELSE
-//    hr := S_FALSE;
-//END_IF
-
-//hresult.Value := hr;
+hresult.Value := result;
 ]]></ST>
       </Implementation>
     </Method>
