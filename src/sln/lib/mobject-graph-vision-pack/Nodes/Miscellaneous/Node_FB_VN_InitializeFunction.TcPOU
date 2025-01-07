@@ -45,31 +45,30 @@ AddOutput('hresult', hresult);
     </Method>
     <Method Name="OnExecute" Id="{5600bdbe-a65e-0035-1e1d-751f798e7f4a}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute
-VAR
-END_VAR
 VAR_INST
-    fbInitializeFunction : FB_VN_InitializeFunction;
+    fbInit : FB_VN_InitializeFunction;
+    fbStart : R_TRIG;
+    execute : BOOL;
     result : HRESULT := -1;
-    executed : BOOL;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT bStart.Value THEN
-    executed := FALSE;
+        <ST><![CDATA[fbStart(CLK := bStart.Value);
+
+IF fbStart.Q AND NOT execute THEN
+    execute := TRUE;
 END_IF
 
-IF bStart.Value AND NOT executed THEN
-    
-    //ETcVnOcrModelType.TCVN_OMT_NUMBERS_SC_UCLETTERS OR ETcVnOcrModelType.TCVN_OMT_NUMBERS_SC OR ETcVnOcrModelType.TCVN_OMT_UCLETTERS
-    fbInitializeFunction(eFunction := TCVN_IF_OCR, nOptions := nOptions.Value, bStart := TRUE);
-    IF NOT fbInitializeFunction.bBusy THEN
-        fbInitializeFunction(bStart := FALSE);
-        IF NOT fbInitializeFunction.bError THEN
+IF execute THEN
+    fbInit(eFunction := TCVN_IF_OCR, nOptions := nOptions.Value, bStart := TRUE);
+    IF NOT fbInit.bBusy THEN
+        fbInit(bStart := FALSE);
+        IF NOT fbInit.bError THEN
             result := S_OK;
         ELSE
             result := -1;
         END_IF
-        executed := TRUE;
+        execute := FALSE;
     END_IF
 END_IF
 
