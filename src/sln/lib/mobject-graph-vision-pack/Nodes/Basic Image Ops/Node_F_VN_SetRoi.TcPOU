@@ -86,7 +86,7 @@ roiRectangle.nY := nY.Value;
 roiRectangle.nWidth := nWidth.Value;
 roiRectangle.nHeight := nHeight.Value;
 
-Check.IsTrue(IsRoiSizeOK(roiRectangle, imgWidth, imgHeight), 'ROI must fit within image');
+Check.IsTrue(IsRoiSizeOK_Udint(roiRectangle, imgWidth, imgHeight), 'ROI must fit within image');
 ]]></ST>
       </Implementation>
     </Method>

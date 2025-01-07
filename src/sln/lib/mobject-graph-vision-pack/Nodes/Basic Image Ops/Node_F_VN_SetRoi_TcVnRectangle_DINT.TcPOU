@@ -73,11 +73,7 @@ END_IF
 ipDestImage.Value.GetWidth(imageWidth);
 ipDestImage.Value.GetHeight(imageHeight);
 
-//TODO Use an IsRoiSizeOK check function?
-Check.IsTrue((stRoi.Value.nWidth < imageWidth), 'ROI width must be less than image width');
-Check.IsTrue((stRoi.Value.nWidth <= (imageWidth - stRoi.Value.nX)), 'ROI too wide to fit within image');
-Check.IsTrue((stRoi.Value.nHeight < imageHeight), 'ROI height must be less than image height');
-Check.IsTrue((stRoi.Value.nHeight <= (imageHeight - stRoi.Value.nY)), 'ROI too high to fit within image');
+Check.IsTrue(IsRoiSizeOK_Dint(stRoi.Value, imageWidth, imageHeight), 'ROI must fit within image');
 ]]></ST>
       </Implementation>
     </Method>

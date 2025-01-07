@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="IsRoiSizeOK_Dint" Id="{96080696-cb86-0eb9-15ba-3c04f533f819}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION IsRoiSizeOK_Dint : BOOL
+VAR_INPUT
+    RoiRectangle : TcVnRectangle_DINT;
+    ImageWidth : UDINT;
+    ImageHeight : UDINT;
+END_VAR
+VAR
+    width : REFERENCE TO DINT;
+    height : REFERENCE TO DINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT TryConvert_UDINT_TO_DINT(ImageWidth, width) THEN
+    RETURN;
+END_IF
+
+IF NOT TryConvert_UDINT_TO_DINT(ImageHeight, height) THEN
+    RETURN;
+END_IF
+
+IF NOT (RoiRectangle.nX < width) THEN
+	RETURN;
+END_IF
+
+IF NOT (RoiRectangle.nY < height) THEN
+	RETURN;
+END_IF
+
+IF NOT (RoiRectangle.nWidth <= (width - RoiRectangle.nX)) THEN
+	RETURN;
+END_IF
+
+IF NOT (RoiRectangle.nHeight <= (height - RoiRectangle.nY)) THEN
+	RETURN;
+END_IF
+
+IsRoiSizeOK_Dint := TRUE;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

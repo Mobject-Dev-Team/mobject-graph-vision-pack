@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="IsRoiSizeOK_Udint" Id="{b638c6eb-8eba-0128-1111-5151f88af721}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION IsRoiSizeOK_Udint : BOOL
+VAR_INPUT
+    RoiRectangle : TcVnRectangle_UDINT;
+    ImageWidth : UDINT;
+    ImageHeight : UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT (RoiRectangle.nX < ImageWidth) THEN
+	RETURN;
+END_IF
+
+IF NOT (RoiRectangle.nY < ImageHeight) THEN
+	RETURN;
+END_IF
+
+IF NOT (RoiRectangle.nWidth <= (ImageWidth - RoiRectangle.nX)) THEN
+	RETURN;
+END_IF
+
+IF NOT (RoiRectangle.nHeight <= (ImageHeight - RoiRectangle.nY)) THEN
+	RETURN;
+END_IF
+
+IsRoiSizeOK_Udint := TRUE;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
