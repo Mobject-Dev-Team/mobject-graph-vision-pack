@@ -42,10 +42,10 @@ VAR
     node_F_VN_AddToContainerElements_ULINT : Node_F_VN_AddToContainerElements_ULINT;
     node_F_VN_AddToContainerElements_USINT : Node_F_VN_AddToContainerElements_USINT;
     node_F_VN_AddContainers : Node_F_VN_AddContainers;
-    //F_VN_BitwiseAndContainers
-    //F_VN_BitwiseNotContainer
-    //F_VN_BitwiseOrContainers
-    //F_VN_BitwiseXorContainers
+    node_F_VN_BitwiseAndContainers : Node_F_VN_BitwiseAndContainers;
+    node_F_VN_BitwiseNotContainer : Node_F_VN_BitwiseNotContainer;
+    node_F_VN_BitwiseOrContainers : Node_F_VN_BitwiseOrContainers;
+    node_F_VN_BitwiseXorContainers : Node_F_VN_BitwiseXorContainers;
     node_F_VN_DivideContainers : Node_F_VN_DivideContainers;
     node_F_VN_DivideContainersExp : Node_F_VN_DivideContainersExp;
     node_F_VN_MaxContainer : Node_F_VN_MaxContainer;
@@ -55,7 +55,7 @@ VAR
     //F_VN_MultiplyWithContainerElements2
     //F_VN_MultiplyWithContainerElements3
     //F_VN_MultiplyWithContainerElements4
-    //F_VN_NegateContainer
+    node_F_VN_NegateContainer : Node_F_VN_NegateContainer;
     node_F_VN_SubtractContainers : Node_F_VN_SubtractContainers;
    
     // Algebraic Image Operations
@@ -400,11 +400,15 @@ VAR
     node_F_VN_SetPixels : Node_F_VN_SetPixels;
     node_F_VN_SetPixelsExp : Node_F_VN_SetPixelsExp;
     node_F_VN_SetRoi : Node_F_VN_SetRoi;
-    //node_F_VN_SetRoi_TcVnRectangle_DINT : Node_F_VN_SetRoi_TcVnRectangle_DINT;
+    node_F_VN_SetRoi_TcVnRectangle_DINT : Node_F_VN_SetRoi_TcVnRectangle_DINT;
     node_F_VN_SetRoi_TcVnRectangle_UDINT : Node_F_VN_SetRoi_TcVnRectangle_UDINT;
     //F_VN_SplitImageChannels
     //node_F_VN_TransformIntoDisplayableImage : Node_F_VN_TransformIntoDisplayableImage;
     //node_F_VN_TransformIntoDisplayableImageExp : Node_F_VN_TransformIntoDisplayableImageExp;
+    //F_VN_CreateNDimensionalImage
+    //F_VN_CreateNDimensionalImageAndSetPixels
+    //F_VN_CreateNDimensionalImageFromArray
+    node_F_VN_GetLayoutInfo : Node_F_VN_GetLayoutInfo;
     
     // Code Quality
     //F_VN_GradeBarcode
@@ -654,7 +658,7 @@ VAR
     //F_VN_CreateLowpassGaussianFilter
     node_F_VN_Dft : Node_F_VN_Dft;
     node_F_VN_InverseDft : Node_F_VN_InverseDft;
-    //F_VN_OptimalDftSize
+    node_F_VN_OptimalDftSize : Node_F_VN_OptimalDftSize;
     node_F_VN_PadImageBorder : Node_F_VN_PadImageBorder;
     node_F_VN_PadImageBorderExp : Node_F_VN_PadImageBorderExp;
     
@@ -1061,10 +1065,10 @@ NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_AddTo
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_AddToContainerElements/F_VN_AddToContainerElements_ULINT', node_F_VN_AddToContainerElements_ULINT);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_AddToContainerElements/F_VN_AddToContainerElements_USINT', node_F_VN_AddToContainerElements_USINT);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_AddContainers', node_F_VN_AddContainers);
-//F_VN_BitwiseAndContainers
-//F_VN_BitwiseNotContainer
-//F_VN_BitwiseOrContainers
-//F_VN_BitwiseXorContainers
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_BitwiseAndContainers', node_F_VN_BitwiseAndContainers);
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_BitwiseNotContainer', node_F_VN_BitwiseNotContainer);
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_BitwiseOrContainers', node_F_VN_BitwiseOrContainers);
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_BitwiseXorContainers', node_F_VN_BitwiseXorContainers);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_DivideContainers', node_F_VN_DivideContainers);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_DivideContainersExp', node_F_VN_DivideContainersExp);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_MaxContainer', node_F_VN_MaxContainer);
@@ -1074,7 +1078,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_Multi
 //NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_MultiplyWithContainerElements2', node_F_VN_MultiplyWithContainerElements2);
 //NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_MultiplyWithContainerElements3', node_F_VN_MultiplyWithContainerElements3);
 //NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_MultiplyWithContainerElements4', node_F_VN_MultiplyWithContainerElements4);
-//NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_NegateContainer', node_F_VN_NegateContainer);
+NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_NegateContainer', node_F_VN_NegateContainer);
 NodeFactory.AddNodeAsPrototype('Vision/Algebraic Container Operations/F_VN_SubtractContainers', node_F_VN_SubtractContainers);
 
 // Algebraic Image Operations
@@ -1419,11 +1423,16 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetPixel', no
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetPixels', node_F_VN_SetPixels);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetPixelsExp', node_F_VN_SetPixelsExp);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi', node_F_VN_SetRoi);
-//NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi_TcVnRectangle_DINT', node_F_VN_SetRoi_TcVnRectangle_DINT);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi_TcVnRectangle_DINT', node_F_VN_SetRoi_TcVnRectangle_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi_TcVnRectangle_UDINT', node_F_VN_SetRoi_TcVnRectangle_UDINT);
 //F_VN_SplitImageChannels
 //NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_TransformIntoDisplayableImage', node_F_VN_TransformIntoDisplayableImage); 
 //NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_TransformIntoDisplayableImageExp', node_F_VN_TransformIntoDisplayableImageExp); 
+//F_VN_CreateNDimensionalImage
+//F_VN_CreateNDimensionalImageAndSetPixels
+//F_VN_CreateNDimensionalImageFromArray
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetLayoutInfo', node_F_VN_GetLayoutInfo);
+
 
 // Code Quality
 //F_VN_GradeBarcode
@@ -1675,7 +1684,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PutTextExp', node_F_VN_PutTe
 //F_VN_CreateLowpassGaussianFilter
 NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_Dft', node_F_VN_Dft);
 NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_InverseDft', node_F_VN_InverseDft);
-//F_VN_OptimalDftSize
+NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_OptimalDftSize', node_F_VN_OptimalDftSize);
 NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_PadImageBorder', node_F_VN_PadImageBorder);
 NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_PadImageBorderExp', node_F_VN_PadImageBorderExp);
 

@@ -723,7 +723,10 @@
     <Compile Include="Functions\Checks\IsImage1WidthEqualToImage2Width.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Functions\Checks\IsRoiSizeOK.TcPOU">
+    <Compile Include="Functions\Checks\IsRoiSizeOK_Udint.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\IsRoiSizeOK_Dint.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\Checks\IsValidImage.TcPOU">
@@ -841,7 +844,19 @@
     <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_AddContainers.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_BitwiseNotContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_BitwiseOrContainers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_BitwiseXorContainers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_DivideContainersExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_BitwiseAndContainers.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_MaxContainer.TcPOU">
@@ -854,6 +869,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_DivideContainers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_NegateContainer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_SubtractContainers.TcPOU">
@@ -1678,6 +1696,9 @@
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ExportImageAsBmpSize.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_GetLayoutInfo.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetImageChannel.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1741,7 +1762,7 @@
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetRoi_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetRoi_TcVnRectangle_UDINT.TcPOU">
       <SubType>Code</SubType>
@@ -2273,6 +2294,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_PutTextExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_OptimalDftSize.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Fourier Analysis\Node_F_VN_InverseDft.TcPOU">

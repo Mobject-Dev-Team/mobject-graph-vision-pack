@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_BitwiseAndContainers" Id="{d9f0532c-af1c-00f5-3d03-786c0fd5f95d}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_BitwiseAndContainers EXTENDS VisionNode
+VAR
+    ipSrcContainer1 : _ITcVnContainer;
+    ipSrcContainer2 : _ITcVnContainer;
+    ipDestContainer : _ITcVnContainer;
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{9447db24-edb6-0597-30a9-04d93bf971b9}" />
+    <Method Name="Clone" Id="{bafa91a0-e5f0-03a5-38b6-a1f78395b3ee}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_BitwiseAndContainers;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_BitwiseAndContainers);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{d6623197-b273-00b6-1803-5474877600b2}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcContainer1', ipSrcContainer1);
+AddInput('ipSrcContainer2', ipSrcContainer2);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestContainer', ipDestContainer);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{96c2bb51-8cfa-00f9-1f1b-4d350f05e085}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_BitwiseAndContainers(
+    ipSrcContainer1 := ipSrcContainer1.Value,
+    ipSrcContainer2 := ipSrcContainer2.Value,
+    ipDestContainer := ipDestContainer.Value,
+    hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{c16c85df-5503-08b9-0fd3-d5b8647ea019}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    elementType1 : GUID;
+    elementType2 : GUID;
+    elementNum1 : ULINT;
+    elementNum2 : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcContainer1.IsValid, 'ipSrcContainer1 must be a valid container');
+Check.IsTrue(ipSrcContainer2.IsValid, 'ipSrcContainer2 must be a valid container');
+
+IF Check.Failed THEN
+    RETURN;
+END_IF
+
+ipSrcContainer1.Value.GetElementTypeGuid(elementType1);
+ipSrcContainer2.Value.GetElementTypeGuid(elementType2);
+Check.IsTrue(GuidsEqualByVal(elementType1, elementType2), 'Source containers must contain the same type');
+
+F_VN_GetNumberOfElements(ipSrcContainer1.Value, elementNum1, S_OK);
+F_VN_GetNumberOfElements(ipSrcContainer2.Value, elementNum2, S_OK);
+Check.IsTrue((elementNum1 = elementNum2), 'Source containers must contain the same number of elements');
+
+//TODO Need to check that container has integer values only.
+// SINT, USINT, INT, UINT, DINT, UDINT, ULINT only?
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
