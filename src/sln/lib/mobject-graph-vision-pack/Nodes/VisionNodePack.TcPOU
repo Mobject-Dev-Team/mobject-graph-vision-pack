@@ -337,7 +337,7 @@ VAR
     node_F_VN_SetAt_USINT : Node_F_VN_SetAt_USINT;
     
     //F_VN_AdvanceIterator
-    //F_VN_CheckIfEmpty
+    node_F_VN_CheckIfEmpty : Node_F_VN_CheckIfEmpty;
     //F_VN_CheckIfIteratorIsAtEnd
     //F_VN_ConvertContainerType
     //F_VN_CopyContainer
@@ -361,7 +361,7 @@ VAR
     //F_VN_IncrementIterator
     //F_VN_IteratorDistance
     //F_VN_ReserveContainerMemory
-    //F_VN_ReverseContainer
+    node_F_VN_ReverseContainer : Node_F_VN_ReverseContainer;
     //F_VN_SetContainer
     //F_VN_SetIteratorToBegin
     
@@ -1360,7 +1360,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_V
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_VN_SetAt_USINT', node_F_VN_SetAt_USINT);
 
 //F_VN_AdvanceIterator
-//F_VN_CheckIfEmpty
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_CheckIfEmpty', node_F_VN_CheckIfEmpty);
 //F_VN_CheckIfIteratorIsAtEnd
 //F_VN_ConvertContainerType
 //F_VN_CopyContainer
@@ -1384,7 +1384,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_GetNumber
 //F_VN_IncrementIterator
 //F_VN_IteratorDistance
 //F_VN_ReserveContainerMemory
-//F_VN_ReverseContainer
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_ReverseContainer', node_F_VN_ReverseContainer);
 //F_VN_SetContainer
 //F_VN_SetIteratorToBegin
 

@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
-  <POU Name="Node_F_VN_AppendToContainer_ITcVnContainer" Id="{16faa72d-9e4b-4692-b20a-b0f3b6fa5e87}" SpecialFunc="None">
+  <POU Name="Node_F_VN_ReverseContainer" Id="{ca9e5c8d-14d0-0904-36e0-f00e1a1c9b5b}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_AppendToContainer_ITcVnContainer EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_ReverseContainer EXTENDS VisionNode
 VAR
-    ipElement : _ITcVnContainer;
     ipContainer : _ITcVnContainer;
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
@@ -15,18 +14,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{ae4da694-88f2-47ef-8374-be6125b8ea3d}" />
-    <Method Name="Clone" Id="{c03d167a-5f53-48c3-88bb-1a3c34f9a65d}">
+    <Folder Name="Constructor" Id="{5bcf6d11-a4ce-0d59-089d-66eb04b4e4ba}" />
+    <Method Name="Clone" Id="{0457956e-1128-059c-001c-75096c0aeb9c}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_AppendToContainer_ITcVnContainer;
+	pNode : POINTER TO Node_F_VN_ReverseContainer;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_AppendToContainer_ITcVnContainer);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ReverseContainer);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{1caf2c53-8deb-414f-8e3e-db88aa8762d7}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{1f01e3b0-253e-048c-3bdd-44c44fac4821}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -34,33 +33,29 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('ipElement', ipElement);
-AddInput('ipContainer', ipContainer);
+        <ST><![CDATA[AddInput('ipContainer', ipContainer);
 AddInput('hrPrev', hrPrev);
-AddOutput('ipContainer', ipContainer);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{2717e6aa-8ffd-4f75-9c1a-704121a9e3f9}">
+    <Method Name="OnExecute" Id="{f3cb073a-4b3f-07fa-025e-f996952fb7f3}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_AppendToContainer_ITcVnContainer(
-    ipElement := ipElement.Value,
+        <ST><![CDATA[hresult.Value := F_VN_ReverseContainer(
 	ipContainer := ipContainer.Value,
 	hrPrev:= hrPrev.Value);
     ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{254e989a-e7d1-409c-9da0-c05029184d0f}">
+    <Method Name="PreExecutionCheck" Id="{9d1cc820-23ea-0db1-2919-1f22ddc7e924}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
-
-//TODO check if container have same element types.]]></ST>
+]]></ST>
       </Implementation>
     </Method>
   </POU>

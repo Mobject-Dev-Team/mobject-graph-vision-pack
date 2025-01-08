@@ -1564,10 +1564,16 @@
     <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\Node_F_VN_ReverseContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\Node_F_VN_GetNumberOfElements.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\Node_F_VN_ExportSubContainer_String.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\Node_F_VN_CheckIfEmpty.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_DINT.TcPOU">

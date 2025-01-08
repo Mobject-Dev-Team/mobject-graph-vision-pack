@@ -474,6 +474,48 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="TryCheckIfBasicContainer" Id="{efb0d0d4-359f-025f-38bd-5366b73bd41c}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCheckIfBasicContainer : BOOL
+VAR_INPUT
+	Result : REFERENCE TO BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Result := FALSE;
+
+IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+IF activeData.CheckIfBasicContainer() = S_OK THEN
+    Result := TRUE;
+END_IF
+
+TryCheckIfBasicContainer := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryCheckIfEmpty" Id="{edae55a9-08ee-0bf8-0882-d88f32bc282c}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCheckIfEmpty : BOOL
+VAR_INPUT
+	Result : REFERENCE TO BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Result := FALSE;
+
+IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+IF activeData.CheckIfEmpty() = S_OK THEN
+    Result := TRUE;
+END_IF
+
+TryCheckIfEmpty := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TryCopyContentFrom" Id="{6130f86b-d6bd-0a88-1ba0-51e0c0a096dc}">
       <Declaration><![CDATA[METHOD PUBLIC TryCopyContentFrom : BOOL
 VAR_INPUT
