@@ -2302,6 +2302,30 @@
     <Compile Include="Nodes\Drawing\Node_F_VN_PutTextExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateBandrejectButterworthFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateBandpassGaussianFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateBandrejectGaussianFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateHighpassButterworthFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateBandpassButterworthFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateLowpassGaussianFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateHighpassGaussianFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateLowpassButterworthFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Fourier Analysis\Node_F_VN_OptimalDftSize.TcPOU">
       <SubType>Code</SubType>
     </Compile>

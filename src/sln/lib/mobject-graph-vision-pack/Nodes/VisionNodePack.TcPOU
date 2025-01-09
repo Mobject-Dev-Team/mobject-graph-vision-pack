@@ -648,14 +648,14 @@ VAR
     node_F_VN_PutTextExp : Node_F_VN_PutTextExp;
     
     // Fourier Analysis
-    //F_VN_CreateBandpassButterworthFilter
-    //F_VN_CreateBandpassGaussianFilter
-    //F_VN_CreateBandrejectButterworthFilter
-    //F_VN_CreateBandrejectGaussianFilter
-    //F_VN_CreateHighpassButterworthFilter
-    //F_VN_CreateHighpassGaussianFilter
-    //F_VN_CreateLowpassButterworthFilter
-    //F_VN_CreateLowpassGaussianFilter
+    node_F_VN_CreateBandpassButterworthFilter : Node_F_VN_CreateBandpassButterworthFilter;
+    node_F_VN_CreateBandpassGaussianFilter : Node_F_VN_CreateBandpassGaussianFilter;
+    node_F_VN_CreateBandrejectButterworthFilter : Node_F_VN_CreateBandrejectButterworthFilter;
+    node_F_VN_CreateBandrejectGaussianFilter : Node_F_VN_CreateBandrejectGaussianFilter;
+    node_F_VN_CreateHighpassButterworthFilter : Node_F_VN_CreateHighpassButterworthFilter;
+    node_F_VN_CreateHighpassGaussianFilter : Node_F_VN_CreateHighpassGaussianFilter;
+    node_F_VN_CreateLowpassButterworthFilter : Node_F_VN_CreateLowpassButterworthFilter;
+    node_F_VN_CreateLowpassGaussianFilter : Node_F_VN_CreateLowpassGaussianFilter;
     node_F_VN_Dft : Node_F_VN_Dft;
     node_F_VN_InverseDft : Node_F_VN_InverseDft;
     node_F_VN_OptimalDftSize : Node_F_VN_OptimalDftSize;
@@ -1674,14 +1674,14 @@ NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PutText', node_F_VN_PutText)
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_PutTextExp', node_F_VN_PutTextExp);
 
 // Fourier Analysis
-//F_VN_CreateBandpassButterworthFilter
-//F_VN_CreateBandpassGaussianFilter
-//F_VN_CreateBandrejectButterworthFilter
-//F_VN_CreateBandrejectGaussianFilter
-//F_VN_CreateHighpassButterworthFilter
-//F_VN_CreateHighpassGaussianFilter
-//F_VN_CreateLowpassButterworthFilter
-//F_VN_CreateLowpassGaussianFilter
+NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_CreateBandpassButterworthFilter', node_F_VN_CreateBandpassButterworthFilter);
+NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_CreateBandpassGaussianFilter', node_F_VN_CreateBandpassGaussianFilter);
+NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_CreateBandrejectButterworthFilter', node_F_VN_CreateBandrejectButterworthFilter);
+NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_CreateBandrejectGaussianFilter', node_F_VN_CreateBandrejectGaussianFilter);
+NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_CreateHighpassButterworthFilter', node_F_VN_CreateHighpassButterworthFilter);
+NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_CreateHighpassGaussianFilter', node_F_VN_CreateHighpassGaussianFilter);
+NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_CreateLowpassButterworthFilter', node_F_VN_CreateLowpassButterworthFilter);
+NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_CreateLowpassGaussianFilter', node_F_VN_CreateLowpassGaussianFilter);
 NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_Dft', node_F_VN_Dft);
 NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_InverseDft', node_F_VN_InverseDft);
 NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_OptimalDftSize', node_F_VN_OptimalDftSize);
