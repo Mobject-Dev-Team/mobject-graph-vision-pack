@@ -1306,7 +1306,7 @@
 				<Cpu CpuId="3"/>
 			</Settings>
 			<Tasks>
-				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" DisableFpExceptions="true" WatchdogStackCapacity="10" AdtTasks="true">
 					<Name>PlcTask</Name>
 				</Task>
 			</Tasks>
