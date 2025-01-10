@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_KeyPointsAndDescriptorsBRISKExp" Id="{4225f596-bd8b-05bd-1bb3-dd973888b06b}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_KeyPointsAndDescriptorsBRISKExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipKeyPoints : _ITcVnContainer;
+    ipDescriptors : _ITcVnImage;
+    ipMask : _ITcVnImage;
+    stParams : _TcVnParamsBRISK;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{9a452bf0-c09d-01f3-21a3-0b18ee311175}" />
+    <Method Name="Clone" Id="{62fb9006-b40b-0845-0766-413de87779c4}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_KeyPointsAndDescriptorsBRISKExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_KeyPointsAndDescriptorsBRISKExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{6e76adad-8b37-0725-2c53-bc570c4f46d4}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('ipMask', ipMask);
+AddInput('stParams', stParams);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipKeyPoints', ipKeyPoints);
+AddOutput('ipDescriptors', ipDescriptors);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{4f3959d6-f0a7-045d-240e-b14dc4c2978b}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_KeyPointsAndDescriptorsBRISKExp(
+	ipSrcImage := ipSrcImage.Value,
+    ipKeyPoints := ipKeyPoints.Value,
+    ipDescriptors := ipDescriptors.Value,
+    ipMask := ipMask.Value,
+    stParams := stParams.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{ddb0d4c6-539a-095f-22a0-5aa7f363ee3f}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

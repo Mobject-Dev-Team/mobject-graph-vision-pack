@@ -881,30 +881,30 @@ VAR
     //F_VN_FindReferenceKeyPointsInImageORBExp
     //F_VN_GetMatchCoordinates
     node_F_VN_KeyPointsAGAST : Node_F_VN_KeyPointsAGAST;
-    //F_VN_KeyPointsAGASTExp
-    //F_VN_KeyPointsAndDescriptorsAKAZE
-    //F_VN_KeyPointsAndDescriptorsAKAZEExp
-    //F_VN_KeyPointsAndDescriptorsBRISK
-    //F_VN_KeyPointsAndDescriptorsBRISKExp
-    //F_VN_KeyPointsAndDescriptorsKAZE
-    //F_VN_KeyPointsAndDescriptorsKAZEExp
-    //F_VN_KeyPointsAndDescriptorsORB
-    //F_VN_KeyPointsAndDescriptorsORBExp
+    node_F_VN_KeyPointsAGASTExp : Node_F_VN_KeyPointsAGASTExp;
+    node_F_VN_KeyPointsAndDescriptorsAKAZE : Node_F_VN_KeyPointsAndDescriptorsAKAZE;
+    node_F_VN_KeyPointsAndDescriptorsAKAZEExp : Node_F_VN_KeyPointsAndDescriptorsAKAZEExp;
+    node_F_VN_KeyPointsAndDescriptorsBRISK : Node_F_VN_KeyPointsAndDescriptorsBRISK;
+    node_F_VN_KeyPointsAndDescriptorsBRISKExp : Node_F_VN_KeyPointsAndDescriptorsBRISKExp;
+    node_F_VN_KeyPointsAndDescriptorsKAZE : Node_F_VN_KeyPointsAndDescriptorsKAZE;
+    node_F_VN_KeyPointsAndDescriptorsKAZEExp : Node_F_VN_KeyPointsAndDescriptorsKAZEExp;
+    node_F_VN_KeyPointsAndDescriptorsORB : Node_F_VN_KeyPointsAndDescriptorsORB;
+    node_F_VN_KeyPointsAndDescriptorsORBExp : Node_F_VN_KeyPointsAndDescriptorsORBExp;
     node_F_VN_KeyPointsFAST : Node_F_VN_KeyPointsFAST;
-    //F_VN_KeyPointsFASTExp
+    node_F_VN_KeyPointsFASTExp : Node_F_VN_KeyPointsFASTExp;
     node_F_VN_KeyPointsGFTT : Node_F_VN_KeyPointsGFTT;
-    //F_VN_KeyPointsGFTTExp
+    node_F_VN_KeyPointsGFTTExp : Node_F_VN_KeyPointsGFTTExp;
     node_F_VN_KeyPointsMSER : Node_F_VN_KeyPointsMSER;
-    //F_VN_KeyPointsMSERExp
+    node_F_VN_KeyPointsMSERExp : Node_F_VN_KeyPointsMSERExp;
     node_F_VN_KeyPointsSB : Node_F_VN_KeyPointsSB;
-    //F_VN_KeyPointsSBExp
-    //F_VN_MatchDescriptorsBF
+    node_F_VN_KeyPointsSBExp : Node_F_VN_KeyPointsSBExp;
+    node_F_VN_MatchDescriptorsBF : Node_F_VN_MatchDescriptorsBF;
     //F_VN_MatchDescriptorsBFExp
-    //F_VN_MatchDescriptorsFlannLsh
+    node_F_VN_MatchDescriptorsFlannLsh : Node_F_VN_MatchDescriptorsFlannLsh;
     //F_VN_MatchDescriptorsFlannLshExp
-    //F_VN_MatchDescriptorsKnnBF
+    node_F_VN_MatchDescriptorsKnnBF : Node_F_VN_MatchDescriptorsKnnBF;
     //F_VN_MatchDescriptorsKnnBFExp
-    //F_VN_MatchDescriptorsKnnFlannLsh
+    node_F_VN_MatchDescriptorsKnnFlannLsh : Node_F_VN_MatchDescriptorsKnnFlannLsh;
     //F_VN_MatchDescriptorsKnnFlannLshExp
     node_F_VN_RegionsMSER : Node_F_VN_RegionsMSER;
     node_F_VN_RegionsMSERExp : Node_F_VN_RegionsMSERExp;
@@ -1909,30 +1909,30 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_SauvolaThreshold'
 //F_VN_FindReferenceKeyPointsInImageORBExp
 //F_VN_GetMatchCoordinates
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAGAST', node_F_VN_KeyPointsAGAST);
-//F_VN_KeyPointsAGASTExp
-//F_VN_KeyPointsAndDescriptorsAKAZE
-//F_VN_KeyPointsAndDescriptorsAKAZEExp
-//F_VN_KeyPointsAndDescriptorsBRISK
-//F_VN_KeyPointsAndDescriptorsBRISKExp
-//F_VN_KeyPointsAndDescriptorsKAZE
-//F_VN_KeyPointsAndDescriptorsKAZEExp
-//F_VN_KeyPointsAndDescriptorsORB
-//F_VN_KeyPointsAndDescriptorsORBExp
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAGASTExp', node_F_VN_KeyPointsAGASTExp);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAndDescriptorsAKAZE', node_F_VN_KeyPointsAndDescriptorsAKAZE);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAndDescriptorsAKAZEExp', node_F_VN_KeyPointsAndDescriptorsAKAZEExp);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAndDescriptorsBRISK', node_F_VN_KeyPointsAndDescriptorsBRISK);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAndDescriptorsBRISKExp', node_F_VN_KeyPointsAndDescriptorsBRISKExp);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAndDescriptorsKAZE', node_F_VN_KeyPointsAndDescriptorsKAZE);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAndDescriptorsKAZEExp', node_F_VN_KeyPointsAndDescriptorsKAZEExp);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAndDescriptorsORB', node_F_VN_KeyPointsAndDescriptorsORB);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAndDescriptorsORBExp', node_F_VN_KeyPointsAndDescriptorsORBExp);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsFAST', node_F_VN_KeyPointsFAST);
-//F_VN_KeyPointsFASTExp
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsFASTExp', node_F_VN_KeyPointsFASTExp);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsGFTT', node_F_VN_KeyPointsGFTT);
-//F_VN_KeyPointsGFTTExp
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsGFTTExp', node_F_VN_KeyPointsGFTTExp);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsMSER', node_F_VN_KeyPointsMSER);
-//F_VN_KeyPointsMSERExp
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsMSERExp', node_F_VN_KeyPointsMSERExp);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsSB', node_F_VN_KeyPointsSB);
-//F_VN_KeyPointsSBExp
-//F_VN_MatchDescriptorsBF
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsSBExp', node_F_VN_KeyPointsSBExp);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsBF', node_F_VN_MatchDescriptorsBF);
 //F_VN_MatchDescriptorsBFExp
-//F_VN_MatchDescriptorsFlannLsh
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsFlannLsh', node_F_VN_MatchDescriptorsFlannLsh);
 //F_VN_MatchDescriptorsFlannLshExp
-//F_VN_MatchDescriptorsKnnBF
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsKnnBF', node_F_VN_MatchDescriptorsKnnBF);
 //F_VN_MatchDescriptorsKnnBFExp
-//F_VN_MatchDescriptorsKnnFlannLsh
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsKnnFlannLsh', node_F_VN_MatchDescriptorsKnnFlannLsh);
 //F_VN_MatchDescriptorsKnnFlannLshExp
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_RegionsMSER', node_F_VN_RegionsMSER);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_RegionsMSERExp', node_F_VN_RegionsMSERExp);

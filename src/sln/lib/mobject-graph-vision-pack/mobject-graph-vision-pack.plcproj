@@ -2554,13 +2554,64 @@
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAGAST.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAGASTExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsAKAZE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsAKAZEExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsBRISKExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsBRISK.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsKAZEExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsKAZE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsORBExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsORB.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsFASTExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsBF.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsGFTTExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsGFTT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsFAST.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsMSERExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsMSER.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsSBExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsFlannLsh.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsKnnBF.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsKnnFlannLsh.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_RegionsMSER.TcPOU">
