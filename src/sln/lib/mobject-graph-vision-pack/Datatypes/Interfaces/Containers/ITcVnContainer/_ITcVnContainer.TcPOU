@@ -551,6 +551,21 @@ END_VAR
         <ST><![CDATA[// not yet implemented.  This will just be a reverse of the serialization code.]]></ST>
       </Implementation>
     </Method>
+    <Method Name="TryGetElementNum" Id="{ea8ce650-b087-030c-1096-99ea42c934b8}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetElementNum : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO ULINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetElementNum := SUCCEEDED(activeData.GetElementNum(Destination));
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TryGetTypeName" Id="{1f9f0949-b4f8-0a9d-0079-cfde54baf053}">
       <Declaration><![CDATA[METHOD PUBLIC TryGetTypeName : BOOL
 VAR_INPUT
