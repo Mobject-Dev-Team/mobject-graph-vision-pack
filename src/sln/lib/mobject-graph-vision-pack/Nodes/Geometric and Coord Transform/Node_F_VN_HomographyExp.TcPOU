@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_HomographyExp" Id="{d1fdd4aa-b2cb-0fce-25e5-2dbe6912a207}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_HomographyExp EXTENDS VisionNode
+VAR
+	ipSrcPoints : _ITcVnContainer;
+    ipDestPoints : _ITcVnContainer;
+    aPerspectiveTransform : _TcVnMatrix3x3_LREAL;
+    eAlgorithm : _ETcVnEstimationAlgorithm(ETcVnEstimationAlgorithm.TCVN_EA_DEFAULT);
+    fReprojThreshold : _LREAL(0.0);
+    ipInlierMask : _ITcVnContainer;
+    nMaxIterations : _UDINT(0);
+    fConfidence : _LREAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{403e7ced-0698-04ec-0fa5-56f36aa5463c}" />
+    <Method Name="Clone" Id="{35f353a1-5a57-0b86-18a4-20d4d923289b}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_HomographyExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_HomographyExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{75d6b174-a427-067b-2ca7-a70150582ca0}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcPoints', ipSrcPoints);
+AddInput('ipDestPoints', ipDestPoints);
+AddParameter('eAlgorithm', eAlgorithm);
+AddInput('fReprojThreshold', fReprojThreshold);
+AddInput('nMaxIterations', nMaxIterations);
+AddInput('fConfidence', fConfidence);
+AddInput('hrPrev', hrPrev);
+AddOutput('aPerspectiveTransform', aPerspectiveTransform);
+AddOutput('ipInlierMask', ipInlierMask);
+AddOutput('hresult', hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{d248e483-e472-054d-24ef-4e35334cf4bf}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_HomographyExp(
+	ipSrcPoints := ipSrcPoints.Value,
+	ipDestPoints := ipDestPoints.Value,
+	aPerspectiveTransform := aPerspectiveTransform.Value,
+    eAlgorithm := eAlgorithm.Value,
+    fReprojThreshold := fReprojThreshold.Value,
+    ipInlierMask := ipInlierMask.Value,
+    nMaxIterations := nMaxIterations.Value,
+    fConfidence := fConfidence.Value,
+	hrPrev := hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{423d2280-dd27-0a77-005c-f068a343ddb0}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    elementNumSrc : ULINT;
+    elementNumDest : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcPoints.IsValid, 'ipSrcPoints must be a valid container');
+Check.IsTrue(ipSrcPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL), 'ipSrcPoints contains incorrect type');
+
+ipSrcPoints.TryGetElementNum(elementNumSrc);
+Check.IsTrue(elementNumSrc >= 4, 'ipSrcPoints must contain at least 4 elements');
+
+Check.IsTrue(ipDestPoints.IsValid, 'ipDestPoints must be a valid container');
+Check.IsTrue(ipDestPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL), 'ipDestPoints contains incorrect type');
+
+ipDestPoints.TryGetElementNum(elementNumDest);
+Check.IsTrue(elementNumSrc = elementNumDest, 'ipDestPoints must contain the same number of elements as ipSrcPoints');
+
+Check.IsFalse((fConfidence.Value >= 0 OR fConfidence.Value <= 1), 'fConfidence must be between 0 and 1');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

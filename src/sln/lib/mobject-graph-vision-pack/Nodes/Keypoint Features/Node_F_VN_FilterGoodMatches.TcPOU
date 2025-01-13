@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_FilterGoodMatches" Id="{6c733b6a-636f-0491-2347-ae67154f8bbf}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_FilterGoodMatches EXTENDS VisionNode
+VAR
+    ipMatches : _ITcVnContainer;
+    ipGoodMatches : _ITcVnContainer;
+    fMaxDist : _REAL(0.0);
+    fMaxKnnRatio : _REAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{2bb533c8-7709-03f6-0c99-126d2339c2af}" />
+    <Method Name="Clone" Id="{089106fa-3ad0-016d-3240-d5f03d26134d}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_FilterGoodMatches;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_FilterGoodMatches);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{57a4e2dd-5543-004d-0ed2-d19dbee75d5e}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipMatches', ipMatches);
+AddParameter('fMaxDist', fMaxDist);
+AddParameter('fMaxKnnRatio', fMaxKnnRatio);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipGoodMatches', ipGoodMatches);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{ca1b97ff-2b22-01cd-34bb-6dd884011cc6}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_FilterGoodMatches(
+    ipMatches := ipMatches.Value,
+    ipGoodMatches := ipGoodMatches.Value,
+    fMaxDist := fMaxDist.Value,
+    fMaxKnnRatio := fMaxKnnRatio.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{50859157-d167-0858-0c35-f17d46d09c30}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipMatches.IsValid, 'ipMatches must be a valid container');
+Check.IsTrue((ipMatches.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnDMatch) OR
+              ipMatches.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_Vector_TcVnDMatch)),
+              'ipMatches contains incorrect type');
+              
+Check.IsTrue(fMaxDist.Value >= -1, 'fMaxDist must be greater than or equal to -1');
+Check.IsTrue((fMaxKnnRatio.Value >= -1 OR fMaxDist.Value <= 1), 'fMaxDist must be within -1 to 1');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

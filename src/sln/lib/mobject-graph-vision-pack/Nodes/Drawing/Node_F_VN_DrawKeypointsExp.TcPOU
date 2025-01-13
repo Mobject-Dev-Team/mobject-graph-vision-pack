@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_DrawKeypointsExp" Id="{5f9a2d92-2e44-0ca2-3dae-78e17a8c9ade}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_DrawKeypointsExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipKeyPoints : _ITcVnContainer;
+    ipDestImage : _ITcVnImage;
+    aColor : _TcVnVector4_LREAL;
+    eFlags : _ETcVnDrawMatchesFlags(ETcVnDrawMatchesFlags.TCVN_DMF_DEFAULT);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{6c45f6e3-86d8-02e3-1b2b-00753a5440b3}" />
+    <Method Name="Clone" Id="{fb452ee8-ad32-0c39-096e-21ba9618b5c5}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_DrawKeypointsExp
+;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawKeypointsExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{06df07eb-aa4e-0c02-3ba8-a121282a0e02}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('ipKeyPoints', ipKeyPoints);
+AddInput('aColor', aColor);
+AddParameter('eFlags', eFlags);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{87ccc559-5f93-0eb7-165b-80aef30596fc}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_DrawKeypointsExp(
+    ipSrcImage := ipSrcImage.Value,
+    ipKeyPoints := ipKeyPoints.Value,
+	ipDestImage := ipDestImage.Value,
+    aColor := aColor.Value,
+    eFlags := eFlags.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{beaf302b-8c07-0794-2fa1-cbf11bc24bf4}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+Check.IsTrue(ipKeyPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnKeyPoint), 'ipKeyPoints contains incorrect type');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

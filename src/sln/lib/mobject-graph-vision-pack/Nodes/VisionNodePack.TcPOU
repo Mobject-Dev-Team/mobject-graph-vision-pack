@@ -610,7 +610,7 @@ VAR
     node_F_VN_DrawEllipse : Node_F_VN_DrawEllipse;
     node_F_VN_DrawEllipseExp : Node_F_VN_DrawEllipseExp;
     node_F_VN_DrawKeypoints : Node_F_VN_DrawKeypoints;
-    //F_VN_DrawKeypointsExp
+    node_F_VN_DrawKeypointsExp : Node_F_VN_DrawKeypointsExp;
     node_F_VN_DrawLine : Node_F_VN_DrawLine;
     node_F_VN_DrawLine_TcVnVector4_DINT : Node_F_VN_DrawLine_TcVnVector4_DINT;
     node_F_VN_DrawLine_TcVnVector4_LREAL : Node_F_VN_DrawLine_TcVnVector4_LREAL;
@@ -625,7 +625,7 @@ VAR
     //F_VN_DrawOrientationExp
     node_F_VN_DrawPoint : Node_F_VN_DrawPoint;
     //F_VN_DrawPointExp
-    //F_VN_DrawPoints
+    node_F_VN_DrawPoints : Node_F_VN_DrawPoints;
     //F_VN_DrawPointsExp
     node_F_VN_DrawPolygon : Node_F_VN_DrawPolygon;
     //F_VN_DrawPolygonExp
@@ -726,8 +726,8 @@ VAR
     //F_VN_GetAffineTransformation2D
     //F_VN_GetAffineTransformation2DExp
     //F_VN_GetPerspectiveTransformation
-    //F_VN_Homography
-    //F_VN_HomographyExp
+    node_F_VN_Homography : Node_F_VN_Homography;
+    node_F_VN_HomographyExp : Node_F_VN_HomographyExp;
     node_F_VN_InvertAffineTransformation : Node_F_VN_InvertAffineTransformation;
     //F_VN_PerspectiveTransformation
     node_F_VN_PyramidDown : Node_F_VN_PyramidDown;
@@ -870,7 +870,7 @@ VAR
     node_F_VN_SauvolaThreshold : Node_F_VN_SauvolaThreshold;
     
     // Keypoint Features
-    //F_VN_FilterGoodMatches
+    node_F_VN_FilterGoodMatches : Node_F_VN_FilterGoodMatches;
     //F_VN_FindReferenceKeyPointsInImage
     //F_VN_FindReferenceKeyPointsInImageAKAZE
     //F_VN_FindReferenceKeyPointsInImageAKAZEExp
@@ -879,7 +879,7 @@ VAR
     //F_VN_FindReferenceKeyPointsInImageExp
     //F_VN_FindReferenceKeyPointsInImageORB
     //F_VN_FindReferenceKeyPointsInImageORBExp
-    //F_VN_GetMatchCoordinates
+    node_F_VN_GetMatchCoordinates : Node_F_VN_GetMatchCoordinates;
     node_F_VN_KeyPointsAGAST : Node_F_VN_KeyPointsAGAST;
     node_F_VN_KeyPointsAGASTExp : Node_F_VN_KeyPointsAGASTExp;
     node_F_VN_KeyPointsAndDescriptorsAKAZE : Node_F_VN_KeyPointsAndDescriptorsAKAZE;
@@ -1636,7 +1636,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawContours', node_F_VN_Dra
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawEllipse', node_F_VN_DrawEllipse);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawEllipseExp', node_F_VN_DrawEllipseExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawKeypoints', node_F_VN_DrawKeypoints);
-//F_VN_DrawKeypointsExp
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawKeypointsExp', node_F_VN_DrawKeypointsExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLine', node_F_VN_DrawLine);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLine_TcVnVector4_DINT', node_F_VN_DrawLine_TcVnVector4_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLine_TcVnVector4_LREAL', node_F_VN_DrawLine_TcVnVector4_LREAL);
@@ -1651,7 +1651,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawOrientation', node_F_VN_
 //F_VN_DrawOrientationExp
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawPoint', node_F_VN_DrawPoint);
 //F_VN_DrawPointExp
-//F_VN_DrawPoints
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawPoints', node_F_VN_DrawPoints);
 //F_VN_DrawPointsExp
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawPolygon', node_F_VN_DrawPolygon);
 //F_VN_DrawPolygonExp
@@ -1754,7 +1754,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 //F_VN_GetAffineTransformation2DExp
 //F_VN_GetPerspectiveTransformation
 //F_VN_Homography
-//F_VN_HomographyExp
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_Homography', node_F_VN_Homography);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_HomographyExp', node_F_VN_HomographyExp);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_InvertAffineTransformation', node_F_VN_InvertAffineTransformation);
 //F_VN_PerspectiveTransformation
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_PyramidDown', node_F_VN_PyramidDown);
@@ -1898,7 +1899,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_WatershedSegmenta
 NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_SauvolaThreshold', node_F_VN_SauvolaThreshold);
 
 // Keypoint Features
-//F_VN_FilterGoodMatches
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FilterGoodMatches', node_F_VN_FilterGoodMatches);
 //F_VN_FindReferenceKeyPointsInImage
 //F_VN_FindReferenceKeyPointsInImageAKAZE
 //F_VN_FindReferenceKeyPointsInImageAKAZEExp
@@ -1907,7 +1908,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_SauvolaThreshold'
 //F_VN_FindReferenceKeyPointsInImageExp
 //F_VN_FindReferenceKeyPointsInImageORB
 //F_VN_FindReferenceKeyPointsInImageORBExp
-//F_VN_GetMatchCoordinates
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_GetMatchCoordinates', node_F_VN_GetMatchCoordinates);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAGAST', node_F_VN_KeyPointsAGAST);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAGASTExp', node_F_VN_KeyPointsAGASTExp);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAndDescriptorsAKAZE', node_F_VN_KeyPointsAndDescriptorsAKAZE);

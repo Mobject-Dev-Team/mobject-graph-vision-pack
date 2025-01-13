@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_GetMatchCoordinates" Id="{9ba8de43-d720-0e96-3f20-8fd639c060ca}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_GetMatchCoordinates EXTENDS VisionNode
+VAR
+    ipQueryKeyPoints : _ITcVnContainer;
+    ipTrainKeyPoints : _ITcVnContainer;
+    ipMatches : _ITcVnContainer;
+    ipQueryCoordinates : _ITcVnContainer;
+    ipTrainCoordinates : _ITcVnContainer;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{7abd5b68-daef-0f5b-3499-9d4ea60bf652}" />
+    <Method Name="Clone" Id="{26588e2b-9334-0d6b-2e80-ba990fbe1565}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_GetMatchCoordinates;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_GetMatchCoordinates);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{4daca81e-ec27-0f10-02a8-6e6320e931d3}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipQueryKeyPoints', ipQueryKeyPoints);
+AddInput('ipTrainKeyPoints', ipTrainKeyPoints);
+AddInput('ipMatches', ipMatches);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipQueryCoordinates', ipQueryCoordinates);
+AddOutput('ipTrainCoordinates', ipTrainCoordinates);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{06519d3c-d09e-05f7-1a1b-e8ecb11fb48f}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_GetMatchCoordinates(
+	ipQueryKeyPoints := ipQueryKeyPoints.Value,
+    ipTrainKeyPoints := ipTrainKeyPoints.Value,
+    ipMatches := ipMatches.Value,
+    ipQueryCoordinates := ipQueryCoordinates.Value,
+    ipTrainCoordinates := ipTrainCoordinates.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{70699426-29e7-0469-284c-f5a5bab026ee}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipQueryKeyPoints.IsValid, 'ipQueryKeyPoints must be a valid container');
+Check.IsTrue(ipQueryKeyPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnKeyPoint), 'ipQueryKeyPoints contains incorrect type');
+
+Check.IsTrue(ipTrainKeyPoints.IsValid, 'ipTrainKeyPoints must be a valid container');
+Check.IsTrue(ipTrainKeyPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnKeyPoint), 'ipTrainKeyPoints contains incorrect type');
+
+Check.IsTrue(ipMatches.IsValid, 'ipMatches must be a valid container');
+Check.IsTrue(ipMatches.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnDMatch), 'ipMatches contains incorrect type');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
