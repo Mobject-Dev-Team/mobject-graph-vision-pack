@@ -12,9 +12,12 @@ TestSerializeTypeWith();
 TestSerializeWith_Empty();
 TestSerializeWith_Vector_REAL();
 TestTryDeserializeFrom();
-TestTryCheckIfEmpty();
 TestTryCheckIfBasicContainer();
-TestTryGetelementNum();
+TestTryCheckIfEmpty();
+TestTryGetElementNum();
+TestTryGetElementSize();
+TestTryGetElementTypeGuid();
+TestTryGetExportSize();
 TestTryGetTypeName_Vector_REAL();
 TestHasType_Vector_REAL();
 ]]></ST>
@@ -322,6 +325,103 @@ AssertTrue(
 AssertEquals_ULINT(Expected := expected,
              Actual := actual,
              Message := 'Container did not return correct number of elements.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryGetElementSize" Id="{6277adfc-71c3-0fbf-276a-411e6fd537e9}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryGetElementSize
+VAR
+    _type : _ITcVnContainer;
+    data : ARRAY [0..4] OF REAL := [0.0, 1.1, 2.2, 3.3, 4.4];
+    expected : ULINT := 4; // REAL is 4 bytes (32 bits) in size.
+    actual : ULINT;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryGetElementSize');
+
+F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 5, hrPrev := S_OK);
+
+result := _type.TryGetElementSize(actual);
+
+AssertTrue(
+	Condition := result,
+	Message := 'Get container element size failed.'
+);
+
+AssertEquals_ULINT(Expected := expected,
+             Actual := actual,
+             Message := 'Container did not return correct size of element.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryGetElementTypeGuid" Id="{097935b0-f09c-09bf-2dfd-20abef52f993}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryGetElementTypeGuid
+VAR
+    _type : _ITcVnContainer;
+    data : ARRAY [0..4] OF REAL := [0.0, 1.1, 2.2, 3.3, 4.4];
+    expected : STRING := '18071995-0000-0000-0000-00000000000D';
+    actual : GUID;
+    actualString : STRING;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryGetElementTypeGuid');
+
+F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 5, hrPrev := S_OK);
+
+result := _type.TryGetElementTypeGuid(actual);
+
+AssertTrue(
+	Condition := result,
+	Message := 'Get container element type GUID failed.'
+);
+
+actualString := GUID_TO_STRING(actual);
+
+AssertEquals_STRING(Expected := expected,
+             Actual := actualString,
+             Message := 'Container did not return correct element type GUID.'
+);
+
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryGetExportSize" Id="{4bf22025-6ebd-00a7-3331-586feaa3087a}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryGetExportSize
+VAR
+    _type : _ITcVnContainer;
+    data : ARRAY [0..4] OF REAL := [0.0, 1.1, 2.2, 3.3, 4.4];
+    expected : ULINT := 20;
+    actual : ULINT;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryGetExportSize');
+
+F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 5, hrPrev := S_OK);
+
+result := _type.TryGetExportSize(actual);
+
+AssertTrue(
+	Condition := result,
+	Message := 'Get container export size failed.'
+);
+
+AssertEquals_ULINT(Expected := expected,
+             Actual := actual,
+             Message := 'Container did not return correct export size.'
 );
 
 TEST_FINISHED();

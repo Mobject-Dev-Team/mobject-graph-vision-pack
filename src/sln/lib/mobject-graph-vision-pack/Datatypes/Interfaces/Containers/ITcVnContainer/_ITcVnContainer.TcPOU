@@ -566,6 +566,51 @@ TryGetElementNum := SUCCEEDED(activeData.GetElementNum(Destination));
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="TryGetElementSize" Id="{05a95840-b261-07a7-38c8-f74bf727bc98}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetElementSize : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO ULINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetElementSize := SUCCEEDED(activeData.GetElementSize(Destination));
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetElementTypeGuid" Id="{7584b35e-f96f-0790-217e-63bd3d220495}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetElementTypeGuid : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO GUID;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetElementTypeGuid := SUCCEEDED(activeData.GetElementTypeGuid(Destination));
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetExportSize" Id="{1c0d96eb-7e61-0b69-2072-9f29f79f3a30}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetExportSize : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO ULINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetExportSize := SUCCEEDED(activeData.GetExportSize(Destination));
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TryGetTypeName" Id="{1f9f0949-b4f8-0a9d-0079-cfde54baf053}">
       <Declaration><![CDATA[METHOD PUBLIC TryGetTypeName : BOOL
 VAR_INPUT
