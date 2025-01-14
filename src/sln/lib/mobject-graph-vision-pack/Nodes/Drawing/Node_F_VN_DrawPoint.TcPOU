@@ -40,9 +40,9 @@ END_VAR
         <ST><![CDATA[AddInput('nX', nX);
 AddInput('nY', nY);
 AddInput('ipDestImage', ipDestImage);
+AddParameter('eShape', eShape);
 AddInput('aColor', aColor);
 AddInput('hrPrev', hrPrev);
-AddParameter('eShape', eShape);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
 ]]></ST>

@@ -441,6 +441,7 @@ VAR
     node_RGBA_BLUE : Node_RGBA_BLUE;
     node_RGBA_MAGENTA : Node_RGBA_MAGENTA;
     node_RGBA_WHITE : Node_RGBA_WHITE;
+    node_RGBA_RANDOM : Node_RGBA_RANDOM;
     
     // Container Statistics
     node_F_VN_MaxElementElementwise_DINT : Node_F_VN_MaxElementElementwise_DINT;
@@ -603,10 +604,10 @@ VAR
     node_F_VN_DrawCirclesExp : Node_F_VN_DrawCirclesExp;
     node_F_VN_DrawCircularArc : Node_F_VN_DrawCircularArc;
     node_F_VN_DrawCircularArcExp : Node_F_VN_DrawCircularArcExp;
-    //F_VN_DrawComponents
-    //F_VN_DrawComponentsExp
+    node_F_VN_DrawComponents : Node_F_VN_DrawComponents;
+    node_F_VN_DrawComponentsExp : Node_F_VN_DrawComponentsExp;
     node_F_VN_DrawContours : Node_F_VN_DrawContours;
-    //F_VN_DrawContoursExp
+    node_F_VN_DrawContoursExp : Node_F_VN_DrawContoursExp;
     node_F_VN_DrawEllipse : Node_F_VN_DrawEllipse;
     node_F_VN_DrawEllipseExp : Node_F_VN_DrawEllipseExp;
     node_F_VN_DrawKeypoints : Node_F_VN_DrawKeypoints;
@@ -617,18 +618,18 @@ VAR
     node_F_VN_DrawLineExp : Node_F_VN_DrawLineExp;
     node_F_VN_DrawLineExp_TcVnVector4_DINT : Node_F_VN_DrawLineExp_TcVnVector4_DINT;
     node_F_VN_DrawLineExp_TcVnVector4_LREAL : Node_F_VN_DrawLineExp_TcVnVector4_LREAL;
-    //F_VN_DrawLines
-    //F_VN_DrawLinesExp
-    //F_VN_DrawMatches
-    //F_VN_DrawMatchesExp
+    node_F_VN_DrawLines : Node_F_VN_DrawLines;
+    node_F_VN_DrawLinesExp : Node_F_VN_DrawLinesExp;
+    node_F_VN_DrawMatches : Node_F_VN_DrawMatches;
+    node_F_VN_DrawMatchesExp : Node_F_VN_DrawMatchesExp;
     node_F_VN_DrawOrientation : Node_F_VN_DrawOrientation;
-    //F_VN_DrawOrientationExp
+    node_F_VN_DrawOrientationExp : Node_F_VN_DrawOrientationExp;
     node_F_VN_DrawPoint : Node_F_VN_DrawPoint;
-    //F_VN_DrawPointExp
+    node_F_VN_DrawPointExp : Node_F_VN_DrawPointExp;
     node_F_VN_DrawPoints : Node_F_VN_DrawPoints;
-    //F_VN_DrawPointsExp
+    node_F_VN_DrawPointsExp : Node_F_VN_DrawPointsExp;
     node_F_VN_DrawPolygon : Node_F_VN_DrawPolygon;
-    //F_VN_DrawPolygonExp
+    node_F_VN_DrawPolygonExp : Node_F_VN_DrawPolygonExp;
     node_F_VN_DrawRectangle : Node_F_VN_DrawRectangle;
     node_F_VN_DrawRectangle_TcVnRectangle_DINT : Node_F_VN_DrawRectangle_TcVnRectangle_DINT;
     node_F_VN_DrawRectangle_TcVnRectangle_UDINT : Node_F_VN_DrawRectangle_TcVnRectangle_UDINT;
@@ -1016,7 +1017,7 @@ VAR
     
     // Texture Analysis
     //F_VN_Granulometry
-    //F_VN_HaralickFeatures
+    node_F_VN_HaralickFeatures : Node_F_VN_HaralickFeatures;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -1465,6 +1466,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Constants/RGBA_CYAN', node_RGBA_CYAN);
 NodeFactory.AddNodeAsPrototype('Vision/Constants/RGBA_BLUE', node_RGBA_BLUE);
 NodeFactory.AddNodeAsPrototype('Vision/Constants/RGBA_MAGENTA', node_RGBA_MAGENTA);
 NodeFactory.AddNodeAsPrototype('Vision/Constants/RGBA_WHITE', node_RGBA_WHITE);
+NodeFactory.AddNodeAsPrototype('Vision/Constants/RGBA_RANDOM', node_RGBA_RANDOM);
 
 // Container Statistics
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MaxElementElementwise/F_VN_MaxElementElementwise_DINT', node_F_VN_MaxElementElementwise_DINT);
@@ -1629,10 +1631,10 @@ NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawCircles', node_F_VN_Draw
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawCirclesExp', node_F_VN_DrawCirclesExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawCircularArc', node_F_VN_DrawCircularArc);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawCircularArcExp', node_F_VN_DrawCircularArcExp);
-//F_VN_DrawComponents
-//F_VN_DrawComponentsExp
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawComponents', node_F_VN_DrawComponents);
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawComponentsExp', node_F_VN_DrawComponentsExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawContours', node_F_VN_DrawContours);
-//F_VN_DrawContoursExp
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawContoursExp', node_F_VN_DrawContoursExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawEllipse', node_F_VN_DrawEllipse);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawEllipseExp', node_F_VN_DrawEllipseExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawKeypoints', node_F_VN_DrawKeypoints);
@@ -1643,18 +1645,18 @@ NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLine_TcVnVector4_LREAL',
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLineExp', node_F_VN_DrawLineExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLineExp_TcVnVector4_DINT', node_F_VN_DrawLineExp_TcVnVector4_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLineExp_TcVnVector4_LREAL', node_F_VN_DrawLineExp_TcVnVector4_LREAL);
-//F_VN_DrawLines
-//F_VN_DrawLinesExp
-//F_VN_DrawMatches
-//F_VN_DrawMatchesExp
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLines', node_F_VN_DrawLines);
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawLinesExp', node_F_VN_DrawLinesExp);
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawMatches', node_F_VN_DrawMatches);
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawMatchesExp', node_F_VN_DrawMatchesExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawOrientation', node_F_VN_DrawOrientation);
-//F_VN_DrawOrientationExp
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawOrientationExp', node_F_VN_DrawOrientationExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawPoint', node_F_VN_DrawPoint);
-//F_VN_DrawPointExp
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawPointExp', node_F_VN_DrawPointExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawPoints', node_F_VN_DrawPoints);
-//F_VN_DrawPointsExp
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawPointsExp', node_F_VN_DrawPointsExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawPolygon', node_F_VN_DrawPolygon);
-//F_VN_DrawPolygonExp
+NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawPolygonExp', node_F_VN_DrawPolygonExp);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawRectangle', node_F_VN_DrawRectangle);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawRectangle_TcVnRectangle_DINT', node_F_VN_DrawRectangle_TcVnRectangle_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawRectangle_TcVnRectangle_UDINT', node_F_VN_DrawRectangle_TcVnRectangle_UDINT);
@@ -2045,7 +2047,7 @@ NodeFactory.AddNodeAsPrototype('Vision/OCR/F_VN_OCR', node_F_VN_OCR);
 
 // Texture Analysis
 //NodeFactory.AddNodeAsPrototype('Vision/Texture Analysis/F_VN_Granulometry', node_F_VN_Granulometry);
-//NodeFactory.AddNodeAsPrototype('Vision/Texture Analysis/F_VN_HaralickFeatures', node_F_VN_HaralickFeatures);
+NodeFactory.AddNodeAsPrototype('Vision/Texture Analysis/F_VN_HaralickFeatures', node_F_VN_HaralickFeatures);
 ]]></ST>
       </Implementation>
     </Method>

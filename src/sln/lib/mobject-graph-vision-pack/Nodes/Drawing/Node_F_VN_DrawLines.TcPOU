@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
-  <POU Name="Node_F_VN_DrawPoints" Id="{21f961e9-ab7f-041f-0325-035b95434fed}" SpecialFunc="None">
+  <POU Name="Node_F_VN_DrawLines" Id="{c817b75d-e070-0d56-1723-97be2e3432b3}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_DrawPoints EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_DrawLines EXTENDS VisionNode
 VAR
-    ipPoints : _ITcVnContainer;
+    ipLines : _ITcVnContainer;
+    nLineIndex : _DINT(0);
     ipDestImage : _ITcVnImage;
-    eShape : _ETcVnDrawShape(ETcVnDrawShape.TCVN_DS_CIRCLE);
     aColor : _TcVnVector4_LREAL;
+    nThickness : _DINT(1);
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -17,18 +18,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{fb84f928-1693-0621-3c4b-5cc3b866e1b5}" />
-    <Method Name="Clone" Id="{7589a694-a049-0b33-2e4c-2d8defbb3e7a}">
+    <Folder Name="Constructor" Id="{77f4399a-c80c-00ba-3739-8b642ff15c04}" />
+    <Method Name="Clone" Id="{9ac89637-e732-0ba2-0c9e-c24e4480334d}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_DrawPoints;
+	pNode : POINTER TO Node_F_VN_DrawLineExp;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawPoints);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawLineExp);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{ef6d4d23-ac9c-0ba4-3a6f-7984cd801e40}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{bcee5488-7992-0f86-1329-8509c03d55f0}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -36,39 +37,43 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('ipPoints', ipPoints);
+        <ST><![CDATA[AddInput('ipLines', ipLines);
+AddParameter('nLineIndex', nLineIndex);
 AddInput('ipDestImage', ipDestImage);
-AddParameter('eShape', eShape);
 AddInput('aColor', aColor);
+AddParameter('nThickness', nThickness);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{d405b788-6b1a-0e0c-1710-dfbb159c71c4}">
+    <Method Name="OnExecute" Id="{ad504b70-737b-0aa2-2989-016ad0304d7f}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_DrawPoints(
-    ipPoints := ipPoints.Value,
+        <ST><![CDATA[hresult.Value := F_VN_DrawLines(
+    ipLines := ipLines.Value,
+    nLineIndex := nLineIndex.Value,
 	ipDestImage := ipDestImage.Value,
-    eShape := eShape.Value,
     aColor := aColor.Value,
+    nThickness := nThickness.Value,
 	hrPrev:= hrPrev.Value);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{2383b19f-fb8a-0fda-226a-f63f3a8f62d2}">
+    <Method Name="PreExecutionCheck" Id="{2ef2ea0f-9823-013d-32b9-85b4908b23dd}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Check.IsTrue(ipPoints.IsValid, 'ipPoints must be a valid container');
-Check.IsTrue((ipPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
-              ipPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL)),
-              'ipPoints contains incorrect type');
+        <ST><![CDATA[Check.IsTrue(ipLines.IsValid, 'ipLines must be a valid container');
+
+Check.IsTrue((ipLines.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_REAL) OR
+              ipLines.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_LREAL) OR
+              ipLines.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_DINT)),
+              'ipLines contains incorrect type');
               
 Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
 ]]></ST>

@@ -1797,6 +1797,9 @@
     <Compile Include="Nodes\Code Reading\Node_F_VN_ReadPharmaCode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Constants\Node_RGBA_RANDOM.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Constants\Node_RGBA_BLUE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2202,13 +2205,25 @@
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawCircularArcExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawComponentsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawContoursExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawEllipseExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawArrow.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawComponents.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawKeypointsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawMatches.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawLineExp.TcPOU">
@@ -2220,13 +2235,34 @@
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawLineExp_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawLines.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawLinesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawMatchesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawOrientation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawCircularArc.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawOrientationExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawPointExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawPointsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawPolygonExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_FillEllipse.TcPOU">
@@ -2708,6 +2744,9 @@
     <Compile Include="Nodes\OCR\Node_F_VN_OCR.TcPOU">
       <SubType>Code</SubType>
       <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Texture Analysis\Node_F_VN_HaralickFeatures.TcPOU">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\VisionNodePack.TcPOU">
       <SubType>Code</SubType>
