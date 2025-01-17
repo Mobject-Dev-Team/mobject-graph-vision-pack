@@ -35,7 +35,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('fScalar', fScalar);
+        <ST><![CDATA[AddParameter('fScalar', fScalar);
 AddInput('ipSrcImage', ipSrcImage);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);

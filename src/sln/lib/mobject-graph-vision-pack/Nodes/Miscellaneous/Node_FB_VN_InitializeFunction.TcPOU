@@ -36,8 +36,8 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddParameter('eFunction', eFunction);
-AddInput('nOptions', nOptions);
-AddInput('bStart', bStart);
+AddParameter('nOptions', nOptions);
+AddParameter('bStart', bStart);
 //AddParameter('nTimeout', nTimeout);
 AddOutput('hresult', hresult);
 ]]></ST>

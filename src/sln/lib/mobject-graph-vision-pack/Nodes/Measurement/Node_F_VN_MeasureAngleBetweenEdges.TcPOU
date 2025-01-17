@@ -44,10 +44,10 @@ END_VAR
 AddInput('aInnerPoint', aInnerPoint);
 AddInput('aOuterPoint1', aOuterPoint1);
 AddInput('aOuterPoint2', aOuterPoint2);
-AddInput('hrPrev', hrPrev);
 AddParameter('eEdgeDirection', eEdgeDirection);
 AddParameter('fMinStrength', fMinStrength);
 AddParameter('nSearchLines', nSearchLines);
+AddInput('hrPrev', hrPrev);
 AddOutput('fAngle', fAngle);
 AddOutput('hresult',hresult);
 ]]></ST>

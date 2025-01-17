@@ -39,10 +39,10 @@ END_VAR
         <ST><![CDATA[AddInput('stRectangle', stRectangle);
 AddInput('ipDestImage', ipDestImage);
 AddInput('aColor', aColor);
+AddParameter('nThickness', nThickness);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
-AddParameter('nThickness', nThickness);
 ]]></ST>
       </Implementation>
     </Method>

@@ -36,10 +36,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('eDestDepth', eDestDepth);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
-AddParameter('eDestDepth', eDestDepth);
 ]]></ST>
       </Implementation>
     </Method>

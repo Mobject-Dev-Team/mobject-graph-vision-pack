@@ -47,7 +47,6 @@ END_VAR
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
 AddInput('aStartPoint', aStartPoint);
 AddInput('aEndPoint', aEndPoint);
-AddInput('hrPrev', hrPrev);
 AddParameter('eEdgeDirection', eEdgeDirection);
 AddParameter('fMinStrength', fMinStrength);
 AddParameter('nSearchLines', nSearchLines);
@@ -56,6 +55,7 @@ AddParameter('nMaxThickness', nMaxThickness);
 AddParameter('nSubpixelsIterations', nSubpixelsIterations);
 AddParameter('fApproxPrecision', fApproxPrecision);
 AddParameter('eAlgorithm', eAlgorithm);
+AddInput('hrPrev', hrPrev);
 AddOutput('ipEdgePoints', ipEdgePoints);
 AddOutput('hresult',hresult);
 ]]></ST>

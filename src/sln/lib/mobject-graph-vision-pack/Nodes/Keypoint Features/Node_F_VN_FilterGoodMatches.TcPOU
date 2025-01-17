@@ -68,8 +68,13 @@ Check.IsTrue((ipMatches.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnDM
               ipMatches.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_Vector_TcVnDMatch)),
               'ipMatches contains incorrect type');
               
-Check.IsTrue(fMaxDist.Value >= -1, 'fMaxDist must be greater than or equal to -1');
-Check.IsTrue((fMaxKnnRatio.Value >= -1 OR fMaxDist.Value <= 1), 'fMaxDist must be within -1 to 1');
+IF NOT (fMaxDist.Value = -1) THEN
+    Check.IsTrue(fMaxDist.Value >= 0, 'fMaxDist must be greater than or equal to 0');
+END_IF
+
+IF NOT (fMaxKnnRatio.Value = -1) THEN
+    Check.IsTrue((fMaxKnnRatio.Value >= 0 OR fMaxDist.Value <= 1), 'fMaxDist must be within 0 to 1');
+END_IF
 ]]></ST>
       </Implementation>
     </Method>

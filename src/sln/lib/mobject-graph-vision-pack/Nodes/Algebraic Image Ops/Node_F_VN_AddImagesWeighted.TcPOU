@@ -40,10 +40,10 @@ END_VAR
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage1', ipSrcImage1);
 AddInput('ipSrcImage2', ipSrcImage2);
-AddInput('hrPrev', hrPrev);
 AddParameter('fWeight1', fWeight1);
 AddParameter('fWeight2', fWeight2);
 AddParameter('fDelta', fDelta);
+AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
 ]]></ST>

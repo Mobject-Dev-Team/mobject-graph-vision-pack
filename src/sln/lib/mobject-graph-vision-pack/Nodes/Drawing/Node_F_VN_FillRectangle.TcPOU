@@ -38,10 +38,10 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('nTopLeftX', nTopLeftX);
-AddInput('nTopLeftY', nTopLeftY);
-AddInput('nBottomRightX', nBottomRightX);
-AddInput('nBottomRightY', nBottomRightY);
+        <ST><![CDATA[AddParameter('nTopLeftX', nTopLeftX);
+AddParameter('nTopLeftY', nTopLeftY);
+AddParameter('nBottomRightX', nBottomRightX);
+AddParameter('nBottomRightY', nBottomRightY);
 AddInput('ipDestImage', ipDestImage);
 AddInput('aColor', aColor);
 AddInput('hrPrev', hrPrev);

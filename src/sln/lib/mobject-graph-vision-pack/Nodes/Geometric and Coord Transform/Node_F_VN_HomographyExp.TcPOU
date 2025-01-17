@@ -43,9 +43,9 @@ END_VAR
         <ST><![CDATA[AddInput('ipSrcPoints', ipSrcPoints);
 AddInput('ipDestPoints', ipDestPoints);
 AddParameter('eAlgorithm', eAlgorithm);
-AddInput('fReprojThreshold', fReprojThreshold);
-AddInput('nMaxIterations', nMaxIterations);
-AddInput('fConfidence', fConfidence);
+AddParameter('fReprojThreshold', fReprojThreshold);
+AddParameter('nMaxIterations', nMaxIterations);
+AddParameter('fConfidence', fConfidence);
 AddInput('hrPrev', hrPrev);
 AddOutput('aPerspectiveTransform', aPerspectiveTransform);
 AddOutput('ipInlierMask', ipInlierMask);

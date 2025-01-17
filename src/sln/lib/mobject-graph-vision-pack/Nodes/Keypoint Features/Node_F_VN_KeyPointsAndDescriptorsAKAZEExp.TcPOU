@@ -67,6 +67,11 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+
+IF ((stParams.Value.eDescrType = ETcVnFeatureDescriptorTypeAKAZE.TCVN_FDT_AKAZE_MLDB) OR 
+    (stParams.Value.eDescrType = ETcVnFeatureDescriptorTypeAKAZE.TCVN_FDT_AKAZE_MLDB_UPRIGHT)) THEN
+    Check.IsTrue(stParams.Value.nDescrChannels = 3, 'nDescrChannels must be 3 when using AKAZE_MLDB');
+END_IF
 ]]></ST>
       </Implementation>
     </Method>

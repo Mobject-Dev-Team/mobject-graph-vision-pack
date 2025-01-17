@@ -38,7 +38,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
 AddInput('stBlobDetectionParams', stBlobDetectionParams);
-AddInput('nNumberOfPoints', nNumberOfPoints);
+AddParameter('nNumberOfPoints', nNumberOfPoints);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipPatternPoints', ipPatternPoints);
 AddOutput('hresult',hresult);

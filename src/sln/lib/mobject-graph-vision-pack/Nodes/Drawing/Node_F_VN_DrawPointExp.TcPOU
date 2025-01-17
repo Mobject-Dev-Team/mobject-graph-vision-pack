@@ -40,8 +40,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('nX', nX);
-AddInput('nY', nY);
+        <ST><![CDATA[AddParameter('nX', nX);
+AddParameter('nY', nY);
 AddInput('ipDestImage', ipDestImage);
 AddParameter('eShape', eShape);
 AddInput('aColor', aColor);

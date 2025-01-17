@@ -42,10 +42,10 @@ END_VAR
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
 AddInput('aStartPoint', aStartPoint);
 AddInput('aEndPoint', aEndPoint);
-AddInput('hrPrev', hrPrev);
 AddParameter('eEdgeDirection', eEdgeDirection);
 AddParameter('fMinStrength', fMinStrength);
 AddParameter('nSearchLines', nSearchLines);
+AddInput('hrPrev', hrPrev);
 AddOutput('fMinDistance', fMinDistance);
 AddOutput('hresult',hresult);
 ]]></ST>

@@ -38,8 +38,8 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
-AddInput('nWidth', nWidth);
-AddInput('nHeight', nHeight);
+AddParameter('nWidth', nWidth);
+AddParameter('nHeight', nHeight);
 AddParameter('eInterpolationType', eInterpolationType);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);

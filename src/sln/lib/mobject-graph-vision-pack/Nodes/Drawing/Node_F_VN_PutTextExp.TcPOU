@@ -42,7 +42,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('sText', sText);
+        <ST><![CDATA[AddParameter('sText', sText);
 AddInput('ipDestImage', ipDestImage);
 AddParameter('nX', nX);
 AddParameter('nY', nY);

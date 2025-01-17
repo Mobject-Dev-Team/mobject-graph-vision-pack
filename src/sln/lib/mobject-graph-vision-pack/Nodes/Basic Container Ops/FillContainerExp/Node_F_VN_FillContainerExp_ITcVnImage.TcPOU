@@ -38,8 +38,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[AddInput('ipContainer', ipContainer);
 AddInput('ipValue', ipValue);
-AddInput('nStartIdx', nStartIdx);
-AddInput('nCount', nCount);
+AddParameter('nStartIdx', nStartIdx);
+AddParameter('nCount', nCount);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipContainer', ipContainer);
 AddOutput('hresult',hresult);

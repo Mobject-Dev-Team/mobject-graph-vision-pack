@@ -38,10 +38,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
-AddInput('hrPrev', hrPrev);
 AddParameter('eElementType', eElementType);
 AddParameter('fScaleFactor', fScaleFactor);
 AddParameter('fDelta', fDelta);
+AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
 ]]></ST>

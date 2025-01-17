@@ -40,10 +40,10 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('nX1', nX1);
-AddInput('nY1', nY1);
-AddInput('nX2', nX2);
-AddInput('nY2', nY2);
+        <ST><![CDATA[AddParameter('nX1', nX1);
+AddParameter('nY1', nY1);
+AddParameter('nX2', nX2);
+AddParameter('nY2', nY2);
 AddInput('ipDestImage', ipDestImage);
 AddInput('aColor', aColor);
 AddParameter('nThickness', nThickness);

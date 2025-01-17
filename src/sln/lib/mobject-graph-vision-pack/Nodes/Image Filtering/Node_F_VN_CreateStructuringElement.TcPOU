@@ -36,10 +36,10 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('hrPrev', hrPrev);
-AddParameter('eShape', eShape);
+        <ST><![CDATA[AddParameter('eShape', eShape);
 AddParameter('nWidth', nWidth);
 AddParameter('nHeight', nHeight);
+AddInput('hrPrev', hrPrev);
 AddOutput('ipStructuringElement', ipStructuringElement);
 AddOutput('hresult',hresult);
 ]]></ST>

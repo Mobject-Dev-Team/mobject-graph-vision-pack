@@ -38,10 +38,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
-AddInput('hrPrev', hrPrev);
 AddParameter('fThreshold', fThreshold);
 AddParameter('fMaxValue', fMaxValue);
 AddParameter('eThresholdType', eThresholdType);
+AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);]]></ST>
       </Implementation>

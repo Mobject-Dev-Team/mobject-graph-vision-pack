@@ -40,7 +40,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipLabelImage', ipLabelImage);
-AddInput('nLabelID', nLabelID);
+AddParameter('nLabelID', nLabelID);
 AddInput('bShowLabelID', bShowLabelID);
 AddInput('aColor', aColor);
 AddParameter('nThickness', nThickness);

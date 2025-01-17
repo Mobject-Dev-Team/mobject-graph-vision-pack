@@ -67,6 +67,9 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(stParams.Value.fPyramidScale > 1, 'fPyramidScale must be greater than 1');
+Check.IsTrue(stParams.Value.nFirstLevel = 0, 'nFirstLevel must be equal to 0');
+Check.IsTrue((stParams.Value.nBriefPoints >= 2) AND (stParams.Value.nBriefPoints <= 4), 'nBriefPoints must be between 2 and 4');
 ]]></ST>
       </Implementation>
     </Method>

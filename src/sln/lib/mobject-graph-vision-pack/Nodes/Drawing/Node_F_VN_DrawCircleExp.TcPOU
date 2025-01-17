@@ -39,9 +39,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('nCenterX', nCenterX);
-AddInput('nCenterY', nCenterY);
-AddInput('nRadius', nRadius);
+        <ST><![CDATA[AddParameter('nCenterX', nCenterX);
+AddParameter('nCenterY', nCenterY);
+AddParameter('nRadius', nRadius);
 AddInput('ipDestImage', ipDestImage);
 AddInput('aColor', aColor);
 AddParameter('nThickness', nThickness);

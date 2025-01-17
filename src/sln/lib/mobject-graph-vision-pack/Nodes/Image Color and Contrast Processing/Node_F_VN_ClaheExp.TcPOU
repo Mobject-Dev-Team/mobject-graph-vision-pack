@@ -39,9 +39,9 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
-AddInput('fClipLimit', fClipLimit);
-AddInput('nTilesX', nTilesX);
-AddInput('nTilesY', nTilesY);
+AddParameter('fClipLimit', fClipLimit);
+AddParameter('nTilesX', nTilesX);
+AddParameter('nTilesY', nTilesY);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);

@@ -37,11 +37,12 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('nFilterWidth', nFilterWidth);
+AddParameter('nFilterHeight', nFilterHeight);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
-AddParameter('nFilterWidth', nFilterWidth);
-AddParameter('nFilterHeight', nFilterHeight);]]></ST>
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{44457520-db85-0ad6-003f-a500edf9da17}">

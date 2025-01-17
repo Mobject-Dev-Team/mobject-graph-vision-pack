@@ -37,9 +37,9 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipContainer', ipContainer);
-AddInput('nValue', nValue);
-AddInput('nStartIdx', nStartIdx);
-AddInput('nCount', nCount);
+AddParameter('nValue', nValue);
+AddParameter('nStartIdx', nStartIdx);
+AddParameter('nCount', nCount);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipContainer', ipContainer);
 AddOutput('hresult',hresult);

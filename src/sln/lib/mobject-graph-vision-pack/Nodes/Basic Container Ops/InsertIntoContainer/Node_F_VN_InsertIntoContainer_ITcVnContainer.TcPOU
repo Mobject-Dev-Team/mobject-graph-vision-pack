@@ -37,7 +37,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[AddInput('ipElement', ipElement);
 AddInput('ipContainer', ipContainer);
-AddInput('nIndex', nIndex);
+AddParameter('nIndex', nIndex);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipContainer', ipContainer);
 AddOutput('hresult',hresult);

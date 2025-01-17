@@ -39,7 +39,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipContours', ipContours);
-AddInput('nContourIndex', nContourIndex);
+AddParameter('nContourIndex', nContourIndex);
 AddInput('ipDestImage', ipDestImage);
 AddInput('aColor', aColor);
 AddParameter('nThickness', nThickness);
