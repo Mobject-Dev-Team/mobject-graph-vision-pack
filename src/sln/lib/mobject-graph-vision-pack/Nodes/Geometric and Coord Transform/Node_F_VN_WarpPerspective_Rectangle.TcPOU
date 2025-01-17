@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_WarpPerspective_Rectangle" Id="{81bb9fc8-979b-0fe4-158b-06885952aa9a}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_WarpPerspective_Rectangle EXTENDS VisionNode
+VAR
+	nTopLeftX : _UDINT(0);
+    nTopLeftY : _UDINT(0);
+    nBottomRightX : _UDINT(0);
+    nBottomRightY : _UDINT(0);
+    ipDestPoints : _ITcVnContainer;
+    aTransformationMatrix : _TcVnMatrix3x3_LREAL;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{366eb140-0ff2-0ff3-07bf-98feebe241fe}" />
+    <Method Name="Clone" Id="{20a25844-cd21-0afd-085a-fee37f81a3ae}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_WarpPerspective_Rectangle;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_WarpPerspective_Rectangle);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ebfa00b5-70e2-0d1b-31e2-b60fea1f2661}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddParameter('nTopLeftX', nTopLeftX);
+AddParameter('nTopLeftY', nTopLeftY);
+AddParameter('nBottomRightX', nBottomRightX);
+AddParameter('nBottomRightY', nBottomRightY);
+AddInput('aTransformationMatrix', aTransformationMatrix);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestPoints', ipDestPoints);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{3989643e-93eb-0b22-355c-d192a331a7a1}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_WarpPerspective_Rectangle(
+	nTopLeftX := nTopLeftX.Value,
+    nTopLeftY := nTopLeftY.Value,
+    nBottomRightX := nBottomRightX.Value,
+    nBottomRightY := nBottomRightY.Value,
+	ipDestPoints := ipDestPoints.Value, 
+	aTransformationMatrix := aTransformationMatrix.Value, 
+	hrPrev := hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{f97ae682-a33e-0819-0ed0-577460031541}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

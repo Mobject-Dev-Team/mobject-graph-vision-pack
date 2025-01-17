@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_GetPerspectiveTransformation" Id="{567f5044-920d-0acb-274a-82a5d35ae21f}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_GetPerspectiveTransformation EXTENDS VisionNode
+VAR
+	aSrcPoints : _TcVnArray4_Point2_REAL;
+    aDestPoints : _TcVnArray4_Point2_REAL;
+    aTransformationMatrix : _TcVnMatrix3x3_LREAL;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{fb4ef7d4-23d2-0c39-1ac1-2772d4756ae8}" />
+    <Method Name="Clone" Id="{65856fbb-4028-0894-01f7-4c9dbae27a33}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_GetPerspectiveTransformation;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_GetPerspectiveTransformation);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{cd38384d-66e6-001e-27f8-32166a65315e}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('aSrcPoints', aSrcPoints);
+AddInput('aDestPoints', aDestPoints);
+AddInput('hrPrev', hrPrev);
+AddOutput('aTransformationMatrix', aTransformationMatrix);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{ed155c21-c46a-0c11-2c99-78f308492c7d}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_GetPerspectiveTransformation(
+	aSrcPoints := aSrcPoints.Value, 
+	aDestPoints := aDestPoints.Value, 
+	aTransformationMatrix := aTransformationMatrix.Value, 
+	hrPrev := hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{fe563e84-b150-0705-0ef7-55d01b26df10}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

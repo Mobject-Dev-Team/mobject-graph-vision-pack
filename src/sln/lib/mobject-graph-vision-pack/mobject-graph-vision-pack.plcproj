@@ -175,6 +175,7 @@
     <Folder Include="Nodes\Measurement" />
     <Folder Include="Nodes\Miscellaneous" />
     <Folder Include="Nodes\Constants" />
+    <Folder Include="Nodes\Neural Network" />
     <Folder Include="Nodes\OCR" />
     <Folder Include="Nodes\Texture Analysis" />
     <Folder Include="Nodes\VisionNode" />
@@ -2115,6 +2116,9 @@
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_ApproximatePolygon.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_MatchContours1vsN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourElongation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2122,6 +2126,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourExtremePoint.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_MatchContours1vsNExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_UprightBoundingRectangle.TcPOU">
@@ -2410,7 +2417,16 @@
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyRotationToAffineTransformation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_DecomposeAffineTransformationExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_GenerateAffineTransformationUnitMatrix2D.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_DecomposeAffineTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_GetPerspectiveTransformation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_Homography.TcPOU">
@@ -2419,10 +2435,25 @@
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_HomographyExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_RemapImageToLogPolarSpace.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_RemapImageToPolarSpace.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ResizeImageExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_RotateImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ResizeImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_RotateImageExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_RotateImageExp2.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpAffine.TcPOU">
@@ -2444,6 +2475,24 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_GetAffineTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpAffine_Container.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective_Rectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective_Point.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective_Container.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpAffine_Rectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpAffine_Point.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective.TcPOU">
@@ -2740,6 +2789,18 @@
     </Compile>
     <Compile Include="Nodes\Miscellaneous\Node_F_VN_RotatedRectangleIntersection.TcPOU">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Neural Network\Node_F_VN_Sigmoid.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Neural Network\Node_F_VN_SigmoidExp.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Neural Network\Node_F_VN_SoftMax.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\OCR\Node_F_VN_OCR.TcPOU">
       <SubType>Code</SubType>

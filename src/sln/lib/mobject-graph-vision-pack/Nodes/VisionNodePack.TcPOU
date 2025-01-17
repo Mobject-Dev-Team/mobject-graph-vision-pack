@@ -581,8 +581,8 @@ VAR
     //F_VN_FitLineExp
     //F_VN_FourierDescriptors
     //F_VN_MatchContours
-    //F_VN_MatchContours1vsN
-    //F_VN_MatchContours1vsNExp
+    node_F_VN_MatchContours1vsN : Node_F_VN_MatchContours1vsN;
+    node_F_VN_MatchContours1vsNExp : Node_F_VN_MatchContours1vsNExp;
     //F_VN_MatchContoursExp
     node_F_VN_UprightBoundingRectangle : Node_F_VN_UprightBoundingRectangle;
     
@@ -718,7 +718,8 @@ VAR
     //F_VN_ConvertPolarToCartesianPoints
     //F_VN_ConvertPolarToCartesianPointsExp
     //F_VN_DecomposeAffineTransformation
-    //F_VN_DecomposeAffineTransformationExp
+    node_F_VN_DecomposeAffineTransformation : Node_F_VN_DecomposeAffineTransformation;
+    node_F_VN_DecomposeAffineTransformationExp : Node_F_VN_DecomposeAffineTransformationExp;
     //F_VN_DecomposeHomography
     //F_VN_DecomposeHomographyExp
     node_F_VN_FlipImage : Node_F_VN_FlipImage;
@@ -726,33 +727,33 @@ VAR
     node_F_VN_GetAffineTransformation : Node_F_VN_GetAffineTransformation;
     //F_VN_GetAffineTransformation2D
     //F_VN_GetAffineTransformation2DExp
-    //F_VN_GetPerspectiveTransformation
+    node_F_VN_GetPerspectiveTransformation : Node_F_VN_GetPerspectiveTransformation;
     node_F_VN_Homography : Node_F_VN_Homography;
     node_F_VN_HomographyExp : Node_F_VN_HomographyExp;
     node_F_VN_InvertAffineTransformation : Node_F_VN_InvertAffineTransformation;
-    //F_VN_PerspectiveTransformation
+    //node_F_VN_PerspectiveTransformation : Node_F_VN_PerspectiveTransformation;
     node_F_VN_PyramidDown : Node_F_VN_PyramidDown;
     node_F_VN_PyramidUp : Node_F_VN_PyramidUp;
-    //F_VN_RemapImageToLogPolarSpace
+    node_F_VN_RemapImageToLogPolarSpace : Node_F_VN_RemapImageToLogPolarSpace;
     //F_VN_RemapImageToLogPolarSpaceExp
     //F_VN_RemapImageToLogPolarSpaceExp2
-    //F_VN_RemapImageToPolarSpace
+    node_F_VN_RemapImageToPolarSpace : Node_F_VN_RemapImageToPolarSpace;
     //F_VN_RemapImageToPolarSpaceExp
     //F_VN_RemapImageToPolarSpaceExp2
     node_F_VN_ResizeImage : Node_F_VN_ResizeImage;
-    //F_VN_ResizeImageExp
+    node_F_VN_ResizeImageExp : Node_F_VN_ResizeImageExp;
     node_F_VN_RotateImage : Node_F_VN_RotateImage;
-    //F_VN_RotateImageExp
-    //F_VN_RotateImageExp2
+    node_F_VN_RotateImageExp : Node_F_VN_RotateImageExp;
+    node_F_VN_RotateImageExp2 : Node_F_VN_RotateImageExp2;
     node_F_VN_WarpAffine : Node_F_VN_WarpAffine;
-    //F_VN_WarpAffine_Container
-    //F_VN_WarpAffine_Point
-    //F_VN_WarpAffine_Rectangle
+    node_F_VN_WarpAffine_Container : Node_F_VN_WarpAffine_Container;
+    node_F_VN_WarpAffine_Point : Node_F_VN_WarpAffine_Point;
+    node_F_VN_WarpAffine_Rectangle : Node_F_VN_WarpAffine_Rectangle;
     //F_VN_WarpAffineExp
     node_F_VN_WarpPerspective : Node_F_VN_WarpPerspective;
-    //F_VN_WarpPerspective_Container
-    //F_VN_WarpPerspective_Point
-    //F_VN_WarpPerspective_Rectangle
+    node_F_VN_WarpPerspective_Container : Node_F_VN_WarpPerspective_Container;
+    node_F_VN_WarpPerspective_Point : Node_F_VN_WarpPerspective_Point;
+    node_F_VN_WarpPerspective_Rectangle : Node_F_VN_WarpPerspective_Rectangle;
     //F_VN_WarpPerspectiveExp
     
     // Image Analysis
@@ -1016,8 +1017,23 @@ VAR
     //F_VN_OCRExp
     
     // Texture Analysis
-    //F_VN_Granulometry
+    //node_F_VN_Granulometry : Node_F_VN_Granulometry;
     node_F_VN_HaralickFeatures : Node_F_VN_HaralickFeatures;
+    
+    // Neural Network
+    //F_VN_ConvertDataLayout
+    //F_VN_ExecuteNeuralNetwork
+    //F_VN_ExecuteNeuralNetwork_MultiLayerOutput
+    //F_VN_ExecuteNeuralNetwork_SingleLayerOutput
+    //F_VN_GetNeuralNetworkLayerNames
+    //F_VN_NonMaxSuppression
+    //F_VN_NonMaxSuppressionExp
+    //F_VN_Reduce
+    //F_VN_ReduceArg
+    //F_VN_ReshapeImage
+    //node_F_VN_Sigmoid : Node_F_VN_Sigmoid;
+    //node_F_VN_SigmoidExp : Node_F_VN_SigmoidExp;
+    //node_F_VN_SoftMax : Node_F_VN_SoftMax;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -1608,8 +1624,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_FitLine', node_F_VN
 //F_VN_FitLineExp
 //F_VN_FourierDescriptors
 //F_VN_MatchContours
-//F_VN_MatchContours1vsN
-//F_VN_MatchContours1vsNExp
+NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_MatchContours1vsN', node_F_VN_MatchContours1vsN);
+NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_MatchContours1vsNExp', node_F_VN_MatchContours1vsNExp);
 //F_VN_MatchContoursExp
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_UprightBoundingRectangle', node_F_VN_UprightBoundingRectangle);
 
@@ -1707,7 +1723,6 @@ NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_PadImageBorderExp',
 //F_VN_CompensateLensDistortionForPoints
 //F_VN_CompensateLensDistortionForPointsExp1
 //F_VN_CompensateLensDistortionForPointsExp2
-//F_VN_DetectPatternPoints
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_DetectPatternPoints', node_F_VN_DetectPatternPoints);
 //F_VN_DetectPatternPointsExp
 //F_VN_GenerateCalibrationPatternReferencePoints
@@ -1745,8 +1760,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 //F_VN_ConvertPolarToCartesianImagesExp
 //F_VN_ConvertPolarToCartesianPoints
 //F_VN_ConvertPolarToCartesianPointsExp
-//F_VN_DecomposeAffineTransformation
-//F_VN_DecomposeAffineTransformationExp
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_DecomposeAffineTransformation', node_F_VN_DecomposeAffineTransformation);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_DecomposeAffineTransformationExp', node_F_VN_DecomposeAffineTransformationExp);
 //F_VN_DecomposeHomography
 //F_VN_DecomposeHomographyExp
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_FlipImage', node_F_VN_FlipImage);
@@ -1754,34 +1769,33 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_GetAffineTransformation', node_F_VN_GetAffineTransformation);
 //F_VN_GetAffineTransformation2D
 //F_VN_GetAffineTransformation2DExp
-//F_VN_GetPerspectiveTransformation
-//F_VN_Homography
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_GetPerspectiveTransformation', node_F_VN_GetPerspectiveTransformation);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_Homography', node_F_VN_Homography);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_HomographyExp', node_F_VN_HomographyExp);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_InvertAffineTransformation', node_F_VN_InvertAffineTransformation);
-//F_VN_PerspectiveTransformation
+//NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_PerspectiveTransformation', node_F_VN_PerspectiveTransformation);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_PyramidDown', node_F_VN_PyramidDown);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_PyramidUp', node_F_VN_PyramidUp);
-//F_VN_RemapImageToLogPolarSpace
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_RemapImageToLogPolarSpace', node_F_VN_RemapImageToLogPolarSpace);
 //F_VN_RemapImageToLogPolarSpaceExp
 //F_VN_RemapImageToLogPolarSpaceExp2
-//F_VN_RemapImageToPolarSpace
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_RemapImageToPolarSpace', node_F_VN_RemapImageToPolarSpace);
 //F_VN_RemapImageToPolarSpaceExp
 //F_VN_RemapImageToPolarSpaceExp2
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ResizeImage', node_F_VN_ResizeImage);
-//F_VN_ResizeImageExp
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ResizeImageExp', node_F_VN_ResizeImageExp);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_RotateImage', node_F_VN_RotateImage);
-//F_VN_RotateImageExp
-//F_VN_RotateImageExp2
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_RotateImageExp', node_F_VN_RotateImageExp);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_RotateImageExp2', node_F_VN_RotateImageExp2);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpAffine', node_F_VN_WarpAffine);
-//F_VN_WarpAffine_Container
-//F_VN_WarpAffine_Point
-//F_VN_WarpAffine_Rectangle
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpAffine_Container', node_F_VN_WarpAffine_Container);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpAffine_Point', node_F_VN_WarpAffine_Point);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpAffine_Rectangle', node_F_VN_WarpAffine_Rectangle);
 //F_VN_WarpAffineExp
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpPerspective', node_F_VN_WarpPerspective);
-//F_VN_WarpPerspective_Container
-//F_VN_WarpPerspective_Point
-//F_VN_WarpPerspective_Rectangle
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpPerspective_Container', node_F_VN_WarpPerspective_Container);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpPerspective_Point', node_F_VN_WarpPerspective_Point);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpPerspective_Rectangle', node_F_VN_WarpPerspective_Rectangle);
 //F_VN_WarpPerspectiveExp
 
 // Image Analysis
@@ -2048,6 +2062,21 @@ NodeFactory.AddNodeAsPrototype('Vision/OCR/F_VN_OCR', node_F_VN_OCR);
 // Texture Analysis
 //NodeFactory.AddNodeAsPrototype('Vision/Texture Analysis/F_VN_Granulometry', node_F_VN_Granulometry);
 NodeFactory.AddNodeAsPrototype('Vision/Texture Analysis/F_VN_HaralickFeatures', node_F_VN_HaralickFeatures);
+
+// Neural Network
+//F_VN_ConvertDataLayout
+//F_VN_ExecuteNeuralNetwork
+//F_VN_ExecuteNeuralNetwork_MultiLayerOutput
+//F_VN_ExecuteNeuralNetwork_SingleLayerOutput
+//F_VN_GetNeuralNetworkLayerNames
+//F_VN_NonMaxSuppression
+//F_VN_NonMaxSuppressionExp
+//F_VN_Reduce
+//F_VN_ReduceArg
+//F_VN_ReshapeImage
+//NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_Sigmoid', node_F_VN_Sigmoid);
+//NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_SigmoidExp', node_F_VN_SigmoidExp);
+//NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_SoftMax', node_F_VN_SoftMax);
 ]]></ST>
       </Implementation>
     </Method>
