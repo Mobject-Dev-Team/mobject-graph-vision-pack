@@ -39,18 +39,18 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
-AddInput('hrPrev', hrPrev);
 AddInput('aCenter', aCenter);
 AddParameter('fSearchRadius', fSearchRadius);
 AddParameter('eEdgeDirection', eEdgeDirection);
 AddParameter('fMinStrength', fMinStrength);
+AddInput('hrPrev', hrPrev);
 AddOutput('stEllipse', stEllipse);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{383c5446-eefc-0f37-372c-c5fb79029c21}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_LocateEllipse(

@@ -42,7 +42,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{ee3bb618-d9a4-0da1-0a26-f3c6850f1bef}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_GetImageWidth(
     ipImage := ipImage.Value,

@@ -44,7 +44,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{f9b43590-8a56-0b4e-02b0-807e251fd181}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_AddImages(
     ipSrcImage1 := ipSrcImage1.Value,
@@ -62,6 +62,7 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage1.IsValid, 'ipSrcImage1 must contain an image');
 Check.IsTrue(ipSrcImage2.IsValid, 'ipSrcImage2 must contain an image');
+Check.IsTrue(IsImage1SizeEqualToImage2Size(ipSrcImage1.Value, ipSrcImage2.Value), 'ipSrcImage1 must be the same size as ipSrcImage2');
 ]]></ST>
       </Implementation>
     </Method>

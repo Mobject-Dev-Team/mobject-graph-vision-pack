@@ -38,20 +38,20 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('nCenterX', nCenterX);
-AddInput('nCenterY', nCenterY);
-AddInput('nRadius', nRadius);
+        <ST><![CDATA[AddParameter('nCenterX', nCenterX);
+AddParameter('nCenterY', nCenterY);
+AddParameter('nRadius', nRadius);
 AddInput('ipDestImage', ipDestImage);
 AddInput('aColor', aColor);
+AddParameter('nThickness', nThickness);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
-AddParameter('nThickness', nThickness);
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{15a910b2-c59d-00da-041a-c5dc11c496c9}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_DrawCircle(

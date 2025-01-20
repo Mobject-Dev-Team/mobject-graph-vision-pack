@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_DrawOrientationExp" Id="{b2cdc6e3-9ca2-0e59-0350-affe478b4e71}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_DrawOrientationExp EXTENDS VisionNode
+VAR
+    stOrientation : _TcVnRotatedRectangle;
+    ipDestImage : _ITcVnImage;
+    aColorMainAxis : _TcVnVector4_LREAL;
+    nThickness : _DINT(1);
+    aColorHorizontalAxis : _TcVnVector4_LREAL;
+    fFontScale : _LREAL(1.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{7e85fc01-f079-01ae-2663-dc60ab250e73}" />
+    <Method Name="Clone" Id="{e26c3737-09f9-0e79-2e2d-c0bdad3eb562}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_DrawOrientationExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawOrientationExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{677aa33d-8b55-0706-0768-a25b0e7b0cef}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('stOrientation', stOrientation);
+AddInput('ipDestImage', ipDestImage);
+AddInput('aColorMainAxis', aColorMainAxis);
+AddParameter('nThickness', nThickness);
+AddInput('aColorHorizontalAxis', aColorHorizontalAxis);
+AddParameter('fFontScale', fFontScale);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{8e81bf63-b283-06ee-24c1-68be927d14a6}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_DrawOrientationExp(
+    stOrientation := stOrientation.Value,
+	ipDestImage := ipDestImage.Value,
+    aColorMainAxis := aColorMainAxis.Value,
+    nThickness := nThickness.Value,
+    aColorHorizontalAxis := aColorHorizontalAxis.Value,
+    fFontScale := fFontScale.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{d9d55a34-02e0-0a72-191a-8e981b04a5ed}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

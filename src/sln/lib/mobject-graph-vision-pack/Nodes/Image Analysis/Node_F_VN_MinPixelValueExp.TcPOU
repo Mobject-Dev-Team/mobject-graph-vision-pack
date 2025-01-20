@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_MinPixelValueExp" Id="{d6db1333-800a-0f6a-19ef-c4d916cdba2c}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MinPixelValueExp EXTENDS VisionNode
+VAR
+    ipImage : _ITcVnImage;
+    aMinValue : _TcVnVector4_LREAL;
+    aPosition : _TcVnPoint2_DINT;
+    ipMask : _ITcVnImage;
+    eVectorCompareMethod : _ETcVnVectorCompareMethod(ETcVnVectorCompareMethod.TCVN_VCM_EUCLIDEAN);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{9cce1a8a-f785-077b-0083-5d1f1f68cca1}" />
+    <Method Name="Clone" Id="{b3712804-254f-0cb3-3795-bf50409df0be}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_MinPixelValueExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MinPixelValueExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{d3f3ae60-705f-0735-2c29-b39681c28aa5}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipImage', ipImage);
+AddInput('ipMask', ipMask);
+AddParameter('eVectorCompareMethod', eVectorCompareMethod);
+AddInput('hrPrev', hrPrev);
+AddOutput('aMinValue', aMinValue);
+AddOutput('aPosition', aPosition);
+AddOutput('hresult', hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{ced9639c-a8e6-0a1f-2d42-dcaa6974e8bb}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MinPixelValueExp(
+	ipImage := ipImage.Value,
+    aMinValue := aMinValue.Value,
+    aPosition := aPosition.Value,
+    ipMask := ipMask.Value,
+    eVectorCompareMethod := eVectorCompareMethod.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{4df3c82e-b654-0c86-1a0f-831e4101b952}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipImage.IsValid, 'ipImage must contain an image');
+Check.IsTrue((ipImage.HasChannelCount(1) OR
+              ipImage.HasChannelCount(2) OR
+              ipImage.HasChannelCount(3) OR
+              ipImage.HasChannelCount(4)), 'ipImage must contain 1, 2, 3 or 4 channels');
+
+// ipMask : Optional mask to specify which pixel positions are considered (USINT, set parameter to 0 if not required)
+IF NOT IsValidImage(ipMask.Value) THEN
+    RETURN;
+END_IF
+
+Check.IsTrue(ipMask.IsValid, 'ipMask must contain an image');
+Check.IsTrue(ipMask.HasChannelCount(1), 'ipMask must have 1 channel');
+Check.IsTrue(ipMask.IsPixelDepth(8), 'ipMask must have 8 bit pixel depth');
+Check.IsTrue(IsImage1SizeEqualToImage2Size(ipMask.Value, ipImage.Value), 'ipMask must be the same size as ipImage');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

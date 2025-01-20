@@ -36,7 +36,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipContainer', ipContainer);
-AddInput('nIndex', nIndex);
+AddParameter('nIndex', nIndex);
 AddInput('hrPrev', hrPrev);
 AddOutput('aElement', aElement);
 AddOutput('hresult',hresult);
@@ -44,7 +44,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{cf38534d-3da9-4b1d-b695-258b7c82f62f}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_GetAt_TcVnPoint3_LREAL(
     ipContainer := ipContainer.Value,

@@ -43,7 +43,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{61349d5d-4863-4c67-86d3-1ab83ab51011}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_AddToContainerElements_TcVnRectangle_DINT(
     stValue := stValue.Value,

@@ -37,15 +37,16 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('nFilterWidth', nFilterWidth);
+AddParameter('nFilterHeight', nFilterHeight);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
-AddParameter('nFilterWidth', nFilterWidth);
-AddParameter('nFilterHeight', nFilterHeight);]]></ST>
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{44457520-db85-0ad6-003f-a500edf9da17}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_GaussianFilter(
@@ -64,7 +65,8 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
 Check.IsTrue(nFilterWidth.isOdd, 'nFilterWidth must be an odd number');
-Check.IsTrue(nFilterHeight.isOdd, 'nFilterHeight must be an odd number');]]></ST>
+Check.IsTrue(nFilterHeight.isOdd, 'nFilterHeight must be an odd number');
+]]></ST>
       </Implementation>
     </Method>
   </POU>

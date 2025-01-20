@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_AlignRotatedImageRegion" Id="{640ce6b4-4fc0-0a0e-3fef-71ec077a2f72}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_AlignRotatedImageRegion EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    stRegion : _TcVnRotatedRectangle;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{f86de750-bc01-00ed-0051-72939ef5d8ea}" />
+    <Method Name="Clone" Id="{d4522db3-3d98-0526-04e4-a36d777a7711}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_AlignRotatedImageRegion;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_AlignRotatedImageRegion);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ee8b3720-6d06-08db-37d4-e46068a9141f}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('stRegion', stRegion);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{82c8777c-ad08-06cf-2f86-808fcd64a401}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_AlignRotatedImageRegion(
+    ipSrcImage := ipSrcImage.Value,
+	ipDestImage := ipDestImage.Value,
+    stRegion := stRegion.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{38822be4-3d0c-0d33-08dc-49d52a1809b1}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

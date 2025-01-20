@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_FillContours" Id="{99ad3670-80d6-093b-1b99-cc6fa6e149c1}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_FillContours EXTENDS VisionNode
+VAR
+    ipContours : _ITcVnContainer;
+    nContourIndex : _DINT(0);
+    ipDestImage : _ITcVnImage;
+    aColor : _TcVnVector4_LREAL;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{4986b844-3941-04fa-262c-43fd669bb798}" />
+    <Method Name="Clone" Id="{28c88806-8e0f-0a95-2d83-748a53e4aa24}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_FillContours
+;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_FillContours);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{2191c824-fa67-06c4-14c9-144f1d2c4e6b}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipContours', ipContours);
+AddInput('nContourIndex', nContourIndex);
+AddInput('ipDestImage', ipDestImage);
+AddInput('aColor', aColor);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{7dd0de88-bcaa-0e89-0649-7dc678d3e042}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_FillContours(
+    ipContours := ipContours.Value,
+    nContourIndex := nContourIndex.Value,
+	ipDestImage := ipDestImage.Value,
+    aColor := aColor.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{a931b589-3a06-0e51-1d36-1e00a4119ac4}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    containerElements : ULINT;
+    maxIndexNumber : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipContours.IsValid, 'ipContours must be a valid container');
+Check.IsTrue((ipContours.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipContours.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_Vector_TcVnPoint2_DINT)),
+              'ipContours contains incorrect type');
+
+F_VN_GetNumberOfElements(ipContours.Value, containerElements, S_OK);
+
+Check.IsTrue((containerElements > 0), 'ipContours is empty');
+
+IF Check.Failed THEN
+    RETURN;
+END_IF
+
+maxIndexNumber := containerElements - 1;
+
+IF (nContourIndex.Value > -1) THEN
+    Check.IsTrue((DINT_TO_ULINT(nContourIndex.Value) <= maxIndexNumber), 'nContourIndex out of range.');
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

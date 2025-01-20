@@ -43,7 +43,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{2717e6aa-8ffd-4f75-9c1a-704121a9e3f9}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_AppendToContainer_ITcVnContainer(
     ipElement := ipElement.Value,
@@ -59,7 +59,8 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
-]]></ST>
+
+//TODO check if container have same element types.]]></ST>
       </Implementation>
     </Method>
   </POU>

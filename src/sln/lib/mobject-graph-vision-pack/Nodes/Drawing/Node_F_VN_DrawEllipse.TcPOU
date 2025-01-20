@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_DrawEllipse" Id="{df050e45-2488-098c-2810-1f7fb5e5e65a}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_DrawEllipse EXTENDS VisionNode
+VAR
+    stEllipse : _TcVnRotatedRectangle;
+    ipDestImage : _ITcVnImage;
+    aColor : _TcVnVector4_LREAL;
+    nThickness : _DINT(1);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{72525d79-2d2f-0401-268c-0b9ad12af302}" />
+    <Method Name="Clone" Id="{a84bc0f3-3006-000a-37fe-36e3b1b13fa0}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_DrawEllipse;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawEllipse);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{051e6551-d0d1-0de6-2101-52191b7251cd}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('stEllipse', stEllipse);
+AddInput('ipDestImage', ipDestImage);
+AddInput('aColor', aColor);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+AddParameter('nThickness', nThickness);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{f0b1b74e-d5a2-070e-0a96-54c4e7c8c92d}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_DrawEllipse(
+    stEllipse := stEllipse.Value,
+	ipDestImage := ipDestImage.Value,
+    aColor := aColor.Value,
+    nThickness := nThickness.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{4cf9adca-152c-06f2-3c45-391e81cc2e62}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

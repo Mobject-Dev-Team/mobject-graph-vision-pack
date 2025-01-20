@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_ApplyRotationToAffineTransformationExp" Id="{985f0670-c9fd-0229-372d-c37396983658}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ApplyRotationToAffineTransformationExp EXTENDS VisionNode
+VAR
+    aTransformationMatrix : _TcVnMatrix2x3_LREAL;
+    fAngle : _LREAL(0.0);
+    bUsePreMultiplication : _BOOL(FALSE);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{7c0b4d48-8566-0336-3904-96d7fd8d9949}" />
+    <Method Name="Clone" Id="{c30e7348-d235-043e-39d2-8b6f0a8f0fcd}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ApplyRotationToAffineTransformationExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ApplyRotationToAffineTransformationExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{5839c189-f510-09e1-1195-5f48003778b4}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('aTransformationMatrix', aTransformationMatrix);
+AddParameter('fAngle', fAngle);
+AddParameter('bUsePreMultiplication', bUsePreMultiplication);
+AddInput('hrPrev', hrPrev);
+AddOutput('aTransformationMatrix', aTransformationMatrix);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{9b5ed60b-fb30-027c-0eb0-1b8a451cff7f}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ApplyRotationToAffineTransformationExp(
+	aTransformationMatrix := aTransformationMatrix.Value,
+    fAngle := fAngle.Value,
+    bUsePreMultiplication := bUsePreMultiplication.Value,
+	hrPrev := hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{62a3935d-9fcb-056f-1bcc-2f190f1ebd71}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -35,7 +35,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipContainer', ipContainer);
-AddInput('nMedian', nMedian);
+AddParameter('nMedian', nMedian);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipContainer', ipContainer);
 AddOutput('hresult',hresult);
@@ -43,7 +43,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{e32f94a5-2da3-4b12-a11a-7dfb5dcfd2e6}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_MedianElementElementwise_USINT(
     ipContainer := ipContainer.Value,

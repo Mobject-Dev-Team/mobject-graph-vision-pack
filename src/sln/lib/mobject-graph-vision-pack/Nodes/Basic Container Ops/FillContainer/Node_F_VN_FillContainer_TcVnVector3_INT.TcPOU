@@ -43,7 +43,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{72a9979d-6c61-4a50-8795-c05d98515950}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_FillContainer_TcVnVector3_INT(
     ipContainer := ipContainer.Value,
@@ -59,6 +59,7 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
+Check.IsTrue(ipContainer.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_INT), 'ipContainer contains incorrect type');
 ]]></ST>
       </Implementation>
     </Method>

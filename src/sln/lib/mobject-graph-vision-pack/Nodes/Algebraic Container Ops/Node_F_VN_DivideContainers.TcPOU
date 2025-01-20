@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_DivideContainers" Id="{370cb713-1e27-06a9-240b-c87c6341c687}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_DivideContainers EXTENDS VisionNode
+VAR
+    ipSrcContainer1 : _ITcVnContainer;
+    ipSrcContainer2 : _ITcVnContainer;
+    ipDestContainer : _ITcVnContainer;
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{3db362eb-6368-074d-2ef2-7bbf7af1a046}" />
+    <Method Name="Clone" Id="{6d688baf-2723-0e97-1390-dd995427eae4}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_DivideContainers;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DivideContainers);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{596b6727-0edf-0e07-297e-e58f848ebf3e}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcContainer1', ipSrcContainer1);
+AddInput('ipSrcContainer2', ipSrcContainer2);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestContainer', ipDestContainer);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{6cc660f0-d60d-09c5-3726-a84d37a4ed27}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_DivideContainers(
+    ipSrcContainer1 := ipSrcContainer1.Value,
+    ipSrcContainer2 := ipSrcContainer2.Value,
+    ipDestContainer := ipDestContainer.Value,
+    hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{b7f2e488-8192-0c6f-3d98-dface6aef70a}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    elementType1 : GUID;
+    elementType2 : GUID;
+    elementNum1 : ULINT;
+    elementNum2 : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcContainer1.IsValid, 'ipSrcContainer1 must be a valid container');
+Check.IsTrue(ipSrcContainer2.IsValid, 'ipSrcContainer2 must be a valid container');
+
+IF Check.Failed THEN
+    RETURN;
+END_IF
+
+ipSrcContainer1.Value.GetElementTypeGuid(elementType1);
+ipSrcContainer2.Value.GetElementTypeGuid(elementType2);
+Check.IsTrue(GuidsEqualByVal(elementType1, elementType2), 'Source containers must contain the same type');
+
+F_VN_GetNumberOfElements(ipSrcContainer1.Value, elementNum1, S_OK);
+F_VN_GetNumberOfElements(ipSrcContainer2.Value, elementNum2, S_OK);
+Check.IsTrue((elementNum1 = elementNum2), 'Source containers must contain the same number of elements');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

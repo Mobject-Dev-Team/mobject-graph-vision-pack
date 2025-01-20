@@ -38,8 +38,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[AddInput('ipContainer', ipContainer);
 AddInput('stValue', stValue);
-AddInput('nStartIdx', nStartIdx);
-AddInput('nCount', nCount);
+AddParameter('nStartIdx', nStartIdx);
+AddParameter('nCount', nCount);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipContainer', ipContainer);
 AddOutput('hresult',hresult);
@@ -47,7 +47,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{6c420f5c-4740-4aef-82e1-3e6b5a8bc6dc}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_FillContainerExp_TcVnKeyPoint(
     ipContainer := ipContainer.Value,

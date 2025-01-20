@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_KeyPointsAndDescriptorsORBExp" Id="{7cb8a922-f5e2-06dc-2ad6-25d81f7d3428}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_KeyPointsAndDescriptorsORBExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipKeyPoints : _ITcVnContainer;
+    ipDescriptors : _ITcVnImage;
+    ipMask : _ITcVnImage;
+    stParams : _TcVnParamsORB;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{9c65bbbd-e2db-0312-2c55-7041a5b4eb64}" />
+    <Method Name="Clone" Id="{de78931a-de96-0a1a-30d6-60b971322ab0}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_KeyPointsAndDescriptorsORBExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_KeyPointsAndDescriptorsORBExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{1c046bcb-5beb-03e9-01ee-f0b8816a155b}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('ipMask', ipMask);
+AddInput('stParams', stParams);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipKeyPoints', ipKeyPoints);
+AddOutput('ipDescriptors', ipDescriptors);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{1d29a6cc-31bd-03b1-179d-f613ab5b3ca4}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_KeyPointsAndDescriptorsORBExp(
+	ipSrcImage := ipSrcImage.Value,
+    ipKeyPoints := ipKeyPoints.Value,
+    ipDescriptors := ipDescriptors.Value,
+    ipMask := ipMask.Value,
+    stParams := stParams.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{6d96a30e-5524-0da0-07ca-37b24f5b3a3b}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(stParams.Value.fPyramidScale > 1, 'fPyramidScale must be greater than 1');
+Check.IsTrue(stParams.Value.nFirstLevel = 0, 'nFirstLevel must be equal to 0');
+Check.IsTrue((stParams.Value.nBriefPoints >= 2) AND (stParams.Value.nBriefPoints <= 4), 'nBriefPoints must be between 2 and 4');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

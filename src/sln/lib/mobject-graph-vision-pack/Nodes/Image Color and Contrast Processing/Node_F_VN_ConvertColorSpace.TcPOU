@@ -8,7 +8,7 @@ FUNCTION_BLOCK Node_F_VN_ConvertColorSpace EXTENDS VisionNode
 VAR
 	ipSrcImage : _ITcVnImage;
     ipDestImage : _ITcVnImage;
-    eTransform : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_RGBA_TO_RGB);
+    eTransform : _ETcVnColorSpaceTransform(ETcVnColorSpaceTransform.TCVN_CST_RGBA_TO_GRAY);
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -45,7 +45,7 @@ AddParameter('eTransform', eTransform);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{0faaad2b-dd3f-0d95-2f39-1f13ef681cd5}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_ConvertColorSpace(
 	ipSrcImage   := ipSrcImage.Value, 

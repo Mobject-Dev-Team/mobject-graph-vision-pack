@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK _ITcVnContainer EXTENDS InterfaceDatatypeBase
+FUNCTION_BLOCK _ITcVnContainer EXTENDS InterfaceDatatypeBase IMPLEMENTS I_InterfaceDatatype_ITcVnContainer
 VAR
 	localData : ITcVnContainer;
 	activeData : REFERENCE TO ITcVnContainer REF= localData;
@@ -474,6 +474,70 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="TryCheckIfBasicContainer" Id="{efb0d0d4-359f-025f-38bd-5366b73bd41c}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCheckIfBasicContainer : BOOL
+VAR_INPUT
+	Result : REFERENCE TO BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Result := FALSE;
+
+IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+IF activeData.CheckIfBasicContainer() = S_OK THEN
+    Result := TRUE;
+END_IF
+
+TryCheckIfBasicContainer := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryCheckIfEmpty" Id="{edae55a9-08ee-0bf8-0882-d88f32bc282c}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCheckIfEmpty : BOOL
+VAR_INPUT
+	Result : REFERENCE TO BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Result := FALSE;
+
+IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+IF activeData.CheckIfEmpty() = S_OK THEN
+    Result := TRUE;
+END_IF
+
+TryCheckIfEmpty := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryCopyContentFrom" Id="{6130f86b-d6bd-0a88-1ba0-51e0c0a096dc}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCopyContentFrom : BOOL
+VAR_INPUT
+	Source : I_InterfaceDatatype;
+END_VAR
+VAR
+	ipSrcContainer : I_InterfaceDatatype_ITcVnContainer;
+	hresult : HRESULT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT __QUERYINTERFACE(Source, ipSrcContainer) THEN
+	RETURN;
+END_IF
+
+hresult := F_VN_CopyContainer(
+    ipSrcContainer := ipSrcContainer.Value,
+	ipDestContainer := Value,
+	hrPrev:= S_OK);
+    
+TryCopyContentFrom := SUCCEEDED(hresult);]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TryDeserializeFrom" Id="{0b0f32ca-3c06-0d78-39fb-8c8d3ba75da5}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryDeserializeFrom : BOOL
 VAR_INPUT
@@ -485,6 +549,66 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// not yet implemented.  This will just be a reverse of the serialization code.]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetElementNum" Id="{ea8ce650-b087-030c-1096-99ea42c934b8}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetElementNum : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO ULINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetElementNum := SUCCEEDED(activeData.GetElementNum(Destination));
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetElementSize" Id="{05a95840-b261-07a7-38c8-f74bf727bc98}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetElementSize : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO ULINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetElementSize := SUCCEEDED(activeData.GetElementSize(Destination));
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetElementTypeGuid" Id="{7584b35e-f96f-0790-217e-63bd3d220495}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetElementTypeGuid : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO GUID;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetElementTypeGuid := SUCCEEDED(activeData.GetElementTypeGuid(Destination));
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetExportSize" Id="{1c0d96eb-7e61-0b69-2072-9f29f79f3a30}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetExportSize : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO ULINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetExportSize := SUCCEEDED(activeData.GetExportSize(Destination));
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="TryGetTypeName" Id="{1f9f0949-b4f8-0a9d-0079-cfde54baf053}">

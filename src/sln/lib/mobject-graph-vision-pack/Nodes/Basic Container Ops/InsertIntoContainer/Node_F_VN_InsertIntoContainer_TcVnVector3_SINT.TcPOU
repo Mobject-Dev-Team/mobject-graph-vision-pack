@@ -37,7 +37,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[AddInput('aElement', aElement);
 AddInput('ipContainer', ipContainer);
-AddInput('nIndex', nIndex);
+AddParameter('nIndex', nIndex);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipContainer', ipContainer);
 AddOutput('hresult',hresult);
@@ -45,7 +45,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{98ba8cab-6561-4385-83ea-6815b12deeb7}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_InsertIntoContainer_TcVnVector3_SINT(
     aElement := aElement.Value,
@@ -62,6 +62,7 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
+Check.IsTrue(ipContainer.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_SINT), 'ipContainer contains incorrect type');
 ]]></ST>
       </Implementation>
     </Method>

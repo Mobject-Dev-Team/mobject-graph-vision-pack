@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_RotatedRectangleIntersection" Id="{a8dbe5b7-5e32-0c79-07b8-1321a9711ba1}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_RotatedRectangleIntersection EXTENDS VisionNode
+VAR
+    stRect1 : _TcVnRotatedRectangle;
+    stRect2 : _TcVnRotatedRectangle;
+    ipIntersection : _ITcVnContainer;
+    eIntersection : _ETcVnRectangleIntersection(ETcVnRectangleIntersection.TCVN_RI_NONE);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{efcd27ac-5a1e-0d92-1ebf-acee66e31c89}" />
+    <Method Name="Clone" Id="{d8b5c7f8-4a10-0100-0d2e-98f13c7c7061}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_RotatedRectangleIntersection;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_RotatedRectangleIntersection);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{f4641a57-4e3c-0e31-3ec2-227e693dc008}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('stRect1', stRect1);
+AddInput('stRect2', stRect2);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipIntersection', ipIntersection);
+AddOutput('eIntersection', eIntersection);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{1d938167-ccbc-0182-30c9-297999d21a90}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    intersection : ETcVnRectangleIntersection;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_RotatedRectangleIntersection(
+    stRect1 := stRect1.Value,
+    stRect2 := stRect2.Value,
+    ipIntersection := ipIntersection.Value,
+    eIntersection := intersection,
+	hrPrev:= hrPrev.Value);
+
+ eIntersection.Value := intersection;
+ ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{ab4eaf93-53eb-095b-05fa-075c05ae01e5}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

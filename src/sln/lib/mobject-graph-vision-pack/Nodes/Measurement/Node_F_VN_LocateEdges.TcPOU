@@ -44,19 +44,19 @@ END_VAR
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
 AddInput('aStartPoint', aStartPoint);
 AddInput('aEndPoint', aEndPoint);
-AddInput('hrPrev', hrPrev);
 AddParameter('nNumEdges', nNumEdges);
 AddParameter('eEdgeDirection', eEdgeDirection);
 AddParameter('bAlternateDirection', bAlternateDirection);
 AddParameter('fMinStrength', fMinStrength);
 AddParameter('nSearchLines', nSearchLines);
+AddInput('hrPrev', hrPrev);
 AddOutput('ipEdgePoints', ipEdgePoints);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{6f94ef24-40d7-03b0-1f76-94fbe57437ea}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_LocateEdges(

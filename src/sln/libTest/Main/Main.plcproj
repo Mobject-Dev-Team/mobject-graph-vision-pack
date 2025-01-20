@@ -61,6 +61,7 @@
     <Folder Include="Tests" />
     <Folder Include="Tests\Enums" />
     <Folder Include="Tests\Interfaces" />
+    <Folder Include="Tests\Functions" />
     <Folder Include="Tests\Structs" />
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +127,7 @@
           <Value>255</Value>
         </Parameter>
       </Parameters>
+      <Namespace>Tc2_Utilities</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -179,10 +181,10 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <LibraryReference Include="mobject-core,0.5.0,mobject">
+    <LibraryReference Include="mobject-core,0.6.0,mobject">
       <Namespace>mobject_core</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph-vision-pack,0.7.0,mobject">
+    <LibraryReference Include="mobject-graph-vision-pack,0.8.0,mobject">
       <Namespace>mobject_graph_vision_pack</Namespace>
     </LibraryReference>
   </ItemGroup>
@@ -194,8 +196,8 @@
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-        <Data>
-          <o xml:space="preserve" t="OptionKey">
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
@@ -223,7 +225,7 @@
           <d n="SubKeys" t="Hashtable" />
           <d n="Values" t="Hashtable" ckt="String" cvt="String">
             <v>DisabledWarningIds</v>
-            <v>394</v>
+            <v>355,394</v>
           </d>
         </o>
         <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>
@@ -238,13 +240,13 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-        </Data>
-        <TypeList>
-          <Type n="Hashtable">System.Collections.Hashtable</Type>
-          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-          <Type n="String">System.String</Type>
-        </TypeList>
-      </XmlArchive>
+  </Data>
+  <TypeList>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

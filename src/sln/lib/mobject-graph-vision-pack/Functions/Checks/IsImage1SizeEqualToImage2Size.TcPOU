@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="IsImage1SizeEqualToImage2Size" Id="{6d962482-71a3-03fb-2f01-fae513dc7061}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION IsImage1SizeEqualToImage2Size : BOOL
+VAR_INPUT
+    Image1 : ITcVnImage;
+    Image2 : ITcVnImage;
+END_VAR
+VAR
+    image1Width : UDINT;
+    image1Height : UDINT;
+    image2Width : UDINT;
+    image2Height : UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT IsValidImage(Image1) THEN
+    RETURN;
+END_IF
+
+IF NOT IsValidImage(Image2) THEN
+    RETURN;
+END_IF
+
+Image1.GetWidth(image1Width);
+Image1.GetHeight(image1Height);
+
+Image2.GetWidth(image2Width);
+Image2.GetHeight(image2Height);
+
+IF (image1Width <> image2Width) OR_ELSE (image1Height <> image2Height) THEN
+    RETURN;
+END_IF
+
+IsImage1SizeEqualToImage2Size := TRUE;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

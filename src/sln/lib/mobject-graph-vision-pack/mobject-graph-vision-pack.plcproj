@@ -19,7 +19,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-graph-vision-pack</Title>
-    <ProjectVersion>0.7.0</ProjectVersion>
+    <ProjectVersion>0.8.0</ProjectVersion>
     <DefaultNamespace>mobject-graph-vision-pack</DefaultNamespace>
     <Placeholder>mobject-graph-vision-pack</Placeholder>
     <Author>mobject dev team</Author>
@@ -37,13 +37,13 @@
     </SelectedLibraryCategories>
   </PropertyGroup>
   <ItemGroup>
-    <LibraryReference Include="mobject-core,0.5.0,mobject">
+    <LibraryReference Include="mobject-core,0.6.0,mobject">
       <Namespace>mobject_core</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph,0.14.0,mobject">
+    <LibraryReference Include="mobject-graph,0.15.0,mobject">
       <Namespace>mobject_graph</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph-plc-pack,0.15.0,mobject">
+    <LibraryReference Include="mobject-graph-plc-pack,0.16.0,mobject">
       <Namespace>mobject_graph_plc_pack</Namespace>
     </LibraryReference>
   </ItemGroup>
@@ -127,7 +127,20 @@
     <Folder Include="Datatypes\Arrays" />
     <Folder Include="Datatypes\Enums" />
     <Folder Include="Datatypes\Interfaces" />
+    <Folder Include="Datatypes\Interfaces\Containers" />
+    <Folder Include="Datatypes\Interfaces\Containers\ITcVnAccess" />
+    <Folder Include="Datatypes\Interfaces\Containers\ITcVnRandomAccess" />
+    <Folder Include="Datatypes\Interfaces\Containers\Iterators" />
+    <Folder Include="Datatypes\Interfaces\Containers\ITcVnContainer" />
+    <Folder Include="Datatypes\Interfaces\Containers\Iterators\ITcVnBidirectionalIterator" />
+    <Folder Include="Datatypes\Interfaces\Containers\Iterators\ITcVnForwardIterator" />
+    <Folder Include="Datatypes\Interfaces\Containers\Iterators\ITcVnRandomAccessIterator" />
+    <Folder Include="Datatypes\Interfaces\Containers\Iterators\ITcVnIteratorBase" />
+    <Folder Include="Datatypes\Interfaces\Images" />
+    <Folder Include="Datatypes\Interfaces\Images\ITcVnImage" />
     <Folder Include="Datatypes\Structs" />
+    <Folder Include="Functions" />
+    <Folder Include="Functions\Checks" />
     <Folder Include="Nodes" />
     <Folder Include="Nodes\Algebraic Container Ops" />
     <Folder Include="Nodes\Algebraic Container Ops\AddTo" />
@@ -162,6 +175,7 @@
     <Folder Include="Nodes\Measurement" />
     <Folder Include="Nodes\Miscellaneous" />
     <Folder Include="Nodes\Constants" />
+    <Folder Include="Nodes\Neural Network" />
     <Folder Include="Nodes\OCR" />
     <Folder Include="Nodes\Texture Analysis" />
     <Folder Include="Nodes\VisionNode" />
@@ -183,7 +197,7 @@
     </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnArray33_UDINT.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnArray10_ITcVnImage.TcPOU">
       <SubType>Code</SubType>
@@ -256,6 +270,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnVector4_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_TcVnVector4_REAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Aliases\_TcVnVector4_SINT.TcPOU">
@@ -346,6 +363,9 @@
     <Compile Include="Datatypes\Arrays\_Array0to3OfLREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Arrays\_Array0to3OfREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Arrays\_Array0to3OfSINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -387,7 +407,7 @@
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnBoostClassifierType.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnCalibrationPattern.TcPOU">
       <SubType>Code</SubType>
@@ -466,7 +486,7 @@
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnFeatureScalingType.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnFeatureScoreTypeORB.TcPOU">
       <SubType>Code</SubType>
@@ -485,7 +505,7 @@
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnInitializableFunction.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnInterpolationType.TcPOU">
       <SubType>Code</SubType>
@@ -498,7 +518,7 @@
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnKnn.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnLineType.TcPOU">
       <SubType>Code</SubType>
@@ -508,29 +528,29 @@
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnNbc.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnNormalizationType.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnOcrModelType.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnTimestamp.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnOcrOptions.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnOrientationMethod.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnPaddingMode.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnPixelConnectivity.TcPOU">
       <SubType>Code</SubType>
@@ -543,7 +563,7 @@
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnPrototypeClusterer.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnRectangleIntersection.TcPOU">
       <SubType>Code</SubType>
@@ -553,37 +573,37 @@
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnRTrees.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnSignedNormalization.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnSolvePnPMethod.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnSta.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnStructuringElementShape.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnSvm.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnSvmKernelType.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnSvmSgdClassifierMarginType.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnSvmSgdClassifierType.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnTemplateMatchMethod.TcPOU">
       <SubType>Code</SubType>
@@ -603,14 +623,31 @@
     <Compile Include="Datatypes\Enums\_GEV_CAMERA_STATE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Datatypes\Interfaces\_ITcVnContainer.TcPOU">
+    <Compile Include="Datatypes\Interfaces\Containers\ITcVnContainer\I_InterfaceDatatype_ITcVnContainer.TcIO">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
-    <Compile Include="Datatypes\Interfaces\_ITcVnImage.TcPOU">
+    <Compile Include="Datatypes\Interfaces\Containers\ITcVnContainer\_ITcVnContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Interfaces\Images\ITcVnImage\I_InterfaceDatatype_ITcVnImage.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Interfaces\Images\ITcVnImage\_ITcVnImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_GVSP_LEADER_PAYLOAD_IMAGE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_GVSP_IMAGE_INFO.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnMoments.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnDMatch.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_GVSP_PIXEL_FORMAT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnKeyPoint.TcPOU">
@@ -620,6 +657,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnCodeGrades1D.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnMatrix.TcPOU">
       <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
@@ -675,6 +716,24 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\VisionDatatypePack.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\IsImage1SizeEqualToImage2Size.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\IsImage1WidthEqualToImage2Width.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\IsRoiSizeOK_Udint.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\IsRoiSizeOK_Dint.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\IsValidImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\IsValidIterator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GVL_COLOURS.TcGVL">
@@ -759,6 +818,9 @@
     <Compile Include="Nodes\Algebraic Container Ops\AddTo\Node_F_VN_AddToContainerElements_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\AddTo\Node_F_VN_AddToContainerElements_TcVnVector4_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Algebraic Container Ops\AddTo\Node_F_VN_AddToContainerElements_TcVnVector4_SINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -780,7 +842,97 @@
     <Compile Include="Nodes\Algebraic Container Ops\AddTo\Node_F_VN_AddToContainerElements_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_AddContainers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_BitwiseNotContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_BitwiseOrContainers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_BitwiseXorContainers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_DivideContainersExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_BitwiseAndContainers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_MaxContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_MinContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_MultiplyContainers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_DivideContainers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_NegateContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\Node_F_VN_SubtractContainers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_AddImages.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_AddImagesWeighted.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_AddImagesWeightedExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_AddVectorToImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseAndImagesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseNotImageExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MaxImageExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseXorImagesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseOrImagesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseAndScalarWithImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseXorVectorWithImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseXorScalarWithImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseOrVectorWithImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseOrScalarWithImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_BitwiseAndVectorWithImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_DivideImageByScalar.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_DivideVectorByImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_DivideScalarByImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_DivideImageByVector.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_ElementwiseExp.TcPOU">
@@ -789,7 +941,40 @@
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_ElementwiseLog.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MaxImageWithScalarExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MaxImageWithVectorExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MinImageWithVectorExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MinImageWithScalarExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MinImageExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MaxImageWithScalar.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MinImageWithVector.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MinImageWithScalar.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MaxImageWithVector.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MultiplyImageWithScalar.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_MultiplyImageWithVector.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_SubtractImageFromVector.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_SubtractScalarFromImage.TcPOU">
@@ -826,6 +1011,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_AddScalarToImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Image Ops\Node_F_VN_SubtractVectorFromImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_DINT.TcPOU">
@@ -915,6 +1103,9 @@
     <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_TcVnVector4_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_TcVnVector4_SINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -934,6 +1125,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_FillContainer_TcVnVector4_REAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\FillContainerExp\Node_F_VN_FillContainerExp_DINT.TcPOU">
@@ -1018,6 +1212,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\FillContainerExp\Node_F_VN_FillContainerExp_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\FillContainerExp\Node_F_VN_FillContainerExp_TcVnVector4_REAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\FillContainerExp\Node_F_VN_FillContainerExp_TcVnVector4_SINT.TcPOU">
@@ -1233,6 +1430,9 @@
     <Compile Include="Nodes\Basic Container Ops\GetAt\Node_F_VN_GetAt_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\GetAt\Node_F_VN_GetAt_TcVnVector4_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\GetAt\Node_F_VN_GetAt_TcVnVector4_SINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1341,6 +1541,9 @@
     <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_TcVnVector4_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_TcVnVector4_SINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1362,7 +1565,16 @@
     <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\Node_F_VN_ReverseContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\Node_F_VN_GetNumberOfElements.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\Node_F_VN_ExportSubContainer_String.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\Node_F_VN_CheckIfEmpty.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_DINT.TcPOU">
@@ -1452,6 +1664,9 @@
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_TcVnVector4_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_TcVnVector4_SINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1473,6 +1688,34 @@
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_FuseImages.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CopyImageRegion.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CopyImageRegionToRegion.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ExportImageSize.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ExportImageAsBmpSize.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_GetLayoutInfo.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetImageChannel.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetPixelsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_TransformIntoDisplayableImage.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ConvertElementType.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1482,10 +1725,25 @@
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CopyImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateImageAndSetPixels.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateEmptyImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_GetPixelFormat.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ResetRoi.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetPixels.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_GetPixel.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetRoi.TcPOU">
@@ -1506,14 +1764,41 @@
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_GetRoi.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetPixel.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetRoi_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetRoi_TcVnRectangle_UDINT.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_TransformIntoDisplayableImageExp.TcPOU">
+      <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CopyIntoDisplayableImage.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateAssociatedImage.TcPOU">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Code Reading\Node_F_VN_ReadQRCode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Code Reading\Node_F_VN_ReadDataMatrixCode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadBarcode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadPharmaCode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_RGBA_RANDOM.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Constants\Node_RGBA_BLUE.TcPOU">
@@ -1612,6 +1897,9 @@
     <Compile Include="Nodes\Container Statistics\MaxElementwise\Node_F_VN_MaxElementElementwise_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Container Statistics\MaxElementwise\Node_F_VN_MaxElementElementwise_TcVnVector4_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Container Statistics\MaxElementwise\Node_F_VN_MaxElementElementwise_TcVnVector4_SINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1703,6 +1991,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Container Statistics\MedianElementwise\Node_F_VN_MedianElementElementwise_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\MedianElementwise\Node_F_VN_MedianElementElementwise_TcVnVector4_REAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Container Statistics\MedianElementwise\Node_F_VN_MedianElementElementwise_TcVnVector4_SINT.TcPOU">
@@ -1798,6 +2089,9 @@
     <Compile Include="Nodes\Container Statistics\MinElementwise\Node_F_VN_MinElementElementwise_TcVnVector4_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Container Statistics\MinElementwise\Node_F_VN_MinElementElementwise_TcVnVector4_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Container Statistics\MinElementwise\Node_F_VN_MinElementElementwise_TcVnVector4_SINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1819,7 +2113,212 @@
     <Compile Include="Nodes\Container Statistics\MinElementwise\Node_F_VN_MinElementElementwise_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ApproximatePolygon.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_MatchContours1vsN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourElongation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourOrientationExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourExtremePoint.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_MatchContours1vsNExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_UprightBoundingRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourPerimeter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourInertiaRatio.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourCircularity.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourCenterOfMass.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourConvexity.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourEccentricity.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_CheckIfPointIsInsideContour.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourRoundness.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourOrientation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourArea.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ConvexHullPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ConvexHullPointsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ConvexityDefects.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_EnclosingRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_EnclosingTriangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_FitLine.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_EnclosingCircle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourMoments.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_FitEllipse.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawArrowExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawArrowExp_TcVnVector4_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawArrow_TcVnVector4_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawCircleExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawCircles.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawCirclesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawCircularArcExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawComponentsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawContoursExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawEllipseExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawArrow.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawComponents.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawKeypointsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawMatches.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawLineExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawLineExp_TcVnVector4_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawLineExp_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawLines.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawLinesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawMatchesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawOrientation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawCircularArc.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawOrientationExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawPointExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawPointsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawPolygonExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_FillEllipse.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawKeypoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawLine_TcVnVector4_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawPolygon.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawRectangle_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawRectangle_TcVnRectangle_UDINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawRotatedRectangleExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawEllipse.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_FillPolygon.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_FillContours.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawRotatedRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_FillRotatedRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_PlotIntensityProfile.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_FillRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_FillCircle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawContours.TcPOU">
@@ -1831,13 +2330,133 @@
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawCircle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_DrawPoint.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_DrawLine_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_PlotIntensityProfileExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_PutLabel.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_PutLabelExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Drawing\Node_F_VN_PutText.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Drawing\Node_F_VN_PutTextExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateBandrejectButterworthFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateBandpassGaussianFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateBandrejectGaussianFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateHighpassButterworthFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateBandpassButterworthFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateLowpassGaussianFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateHighpassGaussianFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_CreateLowpassButterworthFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_OptimalDftSize.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_InverseDft.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_PadImageBorder.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_PadImageBorderExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_Dft.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_DetectPatternPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyRotationToAffineTransformationExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyScalingToAffineTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyScalingToAffineTransformationExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyTranslationToAffineTransformationExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyTranslationToAffineTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyYAxisInversionToAffineTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_AlignRotatedImageRegion.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyRotationToAffineTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_DecomposeAffineTransformationExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_GenerateAffineTransformationUnitMatrix2D.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_DecomposeAffineTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_GetPerspectiveTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_Homography.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_HomographyExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_RemapImageToLogPolarSpace.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_RemapImageToPolarSpace.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ResizeImageExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_RotateImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ResizeImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_RotateImageExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_RotateImageExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpAffine.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_PyramidDown.TcPOU">
@@ -1846,16 +2465,115 @@
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_FlipImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyYAxisInversionToAffineTransformationExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_PyramidUp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_InvertAffineTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_GetAffineTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpAffine_Container.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective_Rectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective_Point.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective_Container.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpAffine_Rectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpAffine_Point.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_CannyEdgeDetectionExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_CountNonZeroPixels.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_DistanceTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAverage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAverageStdDev.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAverageExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAverageStdDevExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_CannyEdgeDetection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageCenterOfMass.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageCenterOfMassExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_RegionOrientation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageMedianExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageMoments.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageMedian.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_MaxPixelValue.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_MaxPixelValueExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_MinPixelValueExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_MinPixelValue.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_RegionOrientationExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_DetectBlobs.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_DetectBlobsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ApplyColorMap.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_Clahe.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ClaheExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_Histogram.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_HistogramEqualization.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_InvertImageColor.TcPOU">
@@ -1868,6 +2586,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_NormalizeImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_NormalizeImageForDisplay.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_CreateStructuringElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_MedianFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_MorphologicalOperator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_VarianceFilter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_LocalMaxima.TcPOU">
@@ -1894,10 +2627,70 @@
     <Compile Include="Nodes\Image Filtering\Node_F_VN_LocalMinima.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Segmentation\Node_F_VN_AdaptiveThresholdExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Segmentation\Node_F_VN_SauvolaThreshold.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Segmentation\Node_F_VN_DoubleThreshold.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Segmentation\Node_F_VN_WatershedSegmentationExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Segmentation\Node_F_VN_CheckColorRange.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Segmentation\Node_F_VN_AdaptiveThreshold.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Segmentation\Node_F_VN_Threshold.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_FilterGoodMatches.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAGAST.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAGASTExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_GetMatchCoordinates.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsAKAZE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsAKAZEExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsBRISKExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsBRISK.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsKAZEExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsKAZE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsORBExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsAndDescriptorsORB.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsFASTExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsBF.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsGFTTExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsGFTT.TcPOU">
@@ -1906,10 +2699,31 @@
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsFAST.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsMSERExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsMSER.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsSBExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsFlannLsh.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsKnnBF.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsKnnFlannLsh.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_RegionsMSER.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_KeyPointsSB.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_RegionsMSERExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Measurement\Node_F_VN_LocateEdge.TcPOU">
@@ -1924,7 +2738,75 @@
     <Compile Include="Nodes\Measurement\Node_F_VN_LocateEdgesExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_MeasureAngleBetweenEdges.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Measurement\Node_F_VN_LocateEllipse.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_MeasureEdgeDistance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_MeasureMinEdgeDistance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_FB_VN_InitializeFunction.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_DeinitializeFunction.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_ClipLineToBoundary_ITcVnImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_ClipLineToBoundary_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_CheckFunctionInitialization.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_RotatedRectangleCorners.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_HuMomentInvariants.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_InvertMatrix3x3.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_ClipLineToBoundary.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_MultiplyMatrices.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_LineIntersectionPoint.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_LineIntersectionPointAndAngle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_RotatedRectangleIntersection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Neural Network\Node_F_VN_Sigmoid.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Neural Network\Node_F_VN_SigmoidExp.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Neural Network\Node_F_VN_SoftMax.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\OCR\Node_F_VN_OCR.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Texture Analysis\Node_F_VN_HaralickFeatures.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\VisionNodePack.TcPOU">
@@ -1974,7 +2856,7 @@
           <d n="SubKeys" t="Hashtable" />
           <d n="Values" t="Hashtable" ckt="String" cvt="String">
             <v>DisabledWarningIds</v>
-            <v>394</v>
+            <v>355,394</v>
           </d>
         </o>
         <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>

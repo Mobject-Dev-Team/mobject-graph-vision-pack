@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_MorphologicalOperator" Id="{952ce992-d572-0737-28d3-4a31f08b6f71}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MorphologicalOperator EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    eOperator : _ETcVnMorphologicalOperator(ETcVnMorphologicalOperator.TCVN_MO_EROSION);
+    ipStructuringElement : _ITcVnImage;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{c58d0b20-6354-033c-2a88-e925c6a02653}" />
+    <Method Name="Clone" Id="{2012799d-78e5-0e8b-2198-898781b9ea71}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_MorphologicalOperator;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MorphologicalOperator);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{9f9315f2-2a4d-0ef1-3060-4f4b0f98f05d}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('eOperator', eOperator);
+AddInput('ipStructuringElement', ipStructuringElement);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{94a156db-0fe8-0658-31c0-0811ee246330}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MorphologicalOperator(
+	ipSrcImage:= ipSrcImage.Value, 
+	ipDestImage:= ipDestImage.Value, 
+	eOperator:= eOperator.Value, 
+	ipStructuringElement:= ipStructuringElement.Value, 
+	hrPrev:= hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{f61d62bb-93e7-0967-0db3-7a603cf773ff}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
+Check.IsTrue(ipStructuringElement.IsValid, 'ipStructuringElement must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

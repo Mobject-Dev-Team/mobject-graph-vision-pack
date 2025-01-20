@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_MatchContours1vsNExp" Id="{53d376c0-b674-0ed8-0b92-670e593740ef}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MatchContours1vsNExp EXTENDS VisionNode
+VAR
+    ipRefContour : _ITcVnContainer;
+    ipContours : _ITcVnContainer;
+    ipMatchIndexes : _ITcVnContainer;
+    ipDissimilarities : _ITcVnContainer;
+    fDissimilarityThreshold : _LREAL(0.0);
+    eComparisonMethod : _ETcVnContoursMatchComparisonMethod(ETcVnContoursMatchComparisonMethod.TCVN_CMCM_CONTOURS_MATCH_I1);
+    fAreaFactor : _LREAL(0.0);
+    fAbsPositionFactor : _LREAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{10af7291-b602-08ee-1048-c0df8c2f530e}" />
+    <Method Name="Clone" Id="{b40c6eb1-5161-0584-38e5-5fb1a233172f}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_MatchContours1vsNExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MatchContours1vsNExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{4be42b32-c244-07ad-1955-faa6d04e5ff4}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipRefContour', ipRefContour);
+AddInput('ipContours', ipContours);
+AddParameter('fDissimilarityThreshold', fDissimilarityThreshold);
+AddParameter('eComparisonMethod', eComparisonMethod);
+AddParameter('fAreaFactor', fAreaFactor);
+AddParameter('fAbsPositionFactor', fAbsPositionFactor);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipMatchIndexes', ipMatchIndexes);
+AddOutput('ipDissimilarities', ipDissimilarities);
+AddOutput('hresult', hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{fc68840b-d84e-0442-3f1a-96b56cec9cd1}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MatchContours1vsNExp(
+	ipRefContour := ipRefContour.Value,
+    ipContours := ipContours.Value,
+    ipMatchIndexes := ipMatchIndexes.Value,
+    ipDissimilarities := ipDissimilarities.Value,
+    fDissimilarityThreshold := fDissimilarityThreshold.Value,
+    eComparisonMethod := eComparisonMethod.Value,
+    fAreaFactor := fAreaFactor.Value,
+    fAbsPositionFactor := fAbsPositionFactor.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{764ed756-919b-0af2-3909-1d6f6cfe805b}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipRefContour.IsValid, 'ipRefContour must be a valid container');
+Check.IsTrue((ipRefContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipRefContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL)),
+              'ipRefContour contains incorrect type');
+              
+Check.IsTrue(ipContours.IsValid, 'ipContours must be a valid container');
+Check.IsTrue(ipContours.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_Vector_TcVnPoint2_DINT), 'ipContours contains incorrect type');
+
+Check.IsTrue(fAreaFactor.Value >= 0, 'fAreaFactor must be greater than or equal to 0');
+Check.IsTrue(fAbsPositionFactor.Value >= 0, 'fAbsPositionFactor must be greater than or equal to 0');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

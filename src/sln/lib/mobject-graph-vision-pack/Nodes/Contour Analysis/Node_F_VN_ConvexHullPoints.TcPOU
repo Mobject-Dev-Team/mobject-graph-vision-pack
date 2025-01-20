@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_ConvexHullPoints" Id="{51293896-4d4b-07a3-1128-f305c39d480f}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ConvexHullPoints EXTENDS VisionNode
+VAR
+    ipPointSet : _ITcVnContainer;
+    ipConvexHull : _ITcVnContainer;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{050fc972-808c-087c-2e10-e6b0c587690b}" />
+    <Method Name="Clone" Id="{e596c0aa-e6a9-0f2f-2f84-b5d2914d7665}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ConvexHullPoints;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ConvexHullPoints);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{abe8c629-07ea-03f3-0276-b87b69b416d2}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipPointSet', ipPointSet);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipConvexHull', ipConvexHull);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{09be0611-ea9f-01ef-2325-2414aecc6912}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ConvexHullPoints(
+	ipPointSet := ipPointSet.Value,
+    ipConvexHull := ipConvexHull.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{80d69589-41a6-03f9-0af2-f10093cccaae}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipPointSet.IsValid, 'ipPointSet must be a valid container');
+Check.IsTrue((ipPointSet.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipPointSet.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL)),
+              'ipPointSet contains incorrect type');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

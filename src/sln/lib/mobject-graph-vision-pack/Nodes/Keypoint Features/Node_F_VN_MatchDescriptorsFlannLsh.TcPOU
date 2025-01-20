@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_MatchDescriptorsFlannLsh" Id="{78bd0cb0-8ad9-0a41-06de-0751ab8313df}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MatchDescriptorsFlannLsh EXTENDS VisionNode
+VAR
+    ipQueryDescriptors : _ITcVnImage;
+    ipTrainDescriptors : _ITcVnImage;
+    ipMatches : _ITcVnContainer;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{12082ac6-2fe9-0973-1414-3c63c5752e21}" />
+    <Method Name="Clone" Id="{eae8076c-d30f-01a7-09ab-fe1375f0066a}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_MatchDescriptorsFlannLsh;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MatchDescriptorsFlannLsh);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{a93fedd6-de0e-0ff2-2e66-312b1ba9ffa3}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipQueryDescriptors', ipQueryDescriptors);
+AddInput('ipTrainDescriptors', ipTrainDescriptors);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipMatches', ipMatches);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{e23382b6-d7bd-06fc-34b9-fe57c28687b6}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MatchDescriptorsFlannLsh(
+	ipQueryDescriptors := ipQueryDescriptors.Value,
+    ipTrainDescriptors := ipTrainDescriptors.Value,
+    ipMatches := ipMatches.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{f28bab46-47ed-008e-0e59-7a273bf4afcf}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipQueryDescriptors.IsValid, 'ipQueryDescriptors must contain an image');
+Check.IsTrue(ipTrainDescriptors.IsValid, 'ipTrainDescriptors must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

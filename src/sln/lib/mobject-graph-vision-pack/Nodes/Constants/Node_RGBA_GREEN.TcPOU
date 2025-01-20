@@ -36,7 +36,7 @@ END_VAR
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{4148d0f4-ef24-09dd-34f6-40389dade783}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[out.Value := GVL_COLOURS.RGBA_GREEN;

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_MaxPixelValue" Id="{7f90ef42-6bed-0b2b-08a1-6123566b2a33}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MaxPixelValue EXTENDS VisionNode
+VAR
+    ipImage : _ITcVnImage;
+    aMaxValue : _TcVnVector4_LREAL;
+    aPosition : _TcVnPoint2_DINT;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{49bd8f14-3b3f-002c-000c-98f02263d610}" />
+    <Method Name="Clone" Id="{9b615c68-f665-0311-244a-b7314aaaaafa}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_MaxPixelValue;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MaxPixelValue);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{63fc0cb3-eab2-0d3b-2441-2c7ba3f5275a}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipImage', ipImage);
+AddInput('hrPrev', hrPrev);
+AddOutput('aMaxValue', aMaxValue);
+AddOutput('aPosition', aPosition);
+AddOutput('hresult', hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{8eb4dfcb-bc0b-01d9-3097-77fb498f99f1}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MaxPixelValue(
+	ipImage := ipImage.Value,
+    aMaxValue := aMaxValue.Value,
+    aPosition := aPosition.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{b8bad80a-9fce-0976-2220-a1485f2d59b1}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipImage.IsValid, 'ipImage must contain an image');
+Check.IsTrue((ipImage.HasChannelCount(1) OR
+              ipImage.HasChannelCount(2) OR
+              ipImage.HasChannelCount(3) OR
+              ipImage.HasChannelCount(4)), 'ipImage must contain 1, 2, 3 or 4 channels');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

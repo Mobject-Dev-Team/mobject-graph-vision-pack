@@ -34,7 +34,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('nValue', nValue);
+        <ST><![CDATA[AddParameter('nValue', nValue);
 AddInput('ipContainer', ipContainer);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipContainer', ipContainer);
@@ -43,7 +43,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{7e8e3da2-4c7e-4d91-825e-6ede6ca8b40f}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_AddToContainerElements_USINT(
     nValue := nValue.Value,

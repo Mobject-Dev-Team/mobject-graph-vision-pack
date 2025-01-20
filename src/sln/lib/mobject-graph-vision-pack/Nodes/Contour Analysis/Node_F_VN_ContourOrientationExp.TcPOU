@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_ContourOrientationExp" Id="{3ab382dc-b8f0-0a7f-397c-315ceabf30c6}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ContourOrientationExp EXTENDS VisionNode
+VAR
+    ipContour : _ITcVnContainer;
+    stOrientation : _TcVnRotatedRectangle;
+    eMethod : _ETcVnOrientationMethod(ETcVnOrientationMethod.TCVN_OM_PCA);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{b4e8b06f-e2c8-092b-1b51-531847370156}" />
+    <Method Name="Clone" Id="{8f5831f4-fae1-0533-3867-085f80ad2a0e}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ContourOrientationExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ContourOrientationExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{13517210-2414-0e65-1b4f-aaa5e236e43a}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipContour', ipContour);
+AddParameter('eMethod', eMethod);
+AddInput('hrPrev', hrPrev);
+AddOutput('stOrientation', stOrientation);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{78a40f01-c20d-0898-139e-26fd41cc2253}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ContourOrientationExp(
+	ipContour := ipContour.Value,
+    stOrientation := stOrientation.Value,
+    eMethod := eMethod.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{f9e18d6f-7618-03e1-3e58-fb9a535315e9}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue((ipContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL) OR
+              ipContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_LREAL)),
+              'ipContour contains incorrect type');
+              ]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

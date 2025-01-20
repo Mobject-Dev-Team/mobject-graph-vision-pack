@@ -44,7 +44,7 @@ AddParameter('nChannelIndex', nChannelIndex);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{b37a9723-2623-069a-1441-85c9d871bc73}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_GetImageChannel(
     ipSrcImage := ipSrcImage.Value,

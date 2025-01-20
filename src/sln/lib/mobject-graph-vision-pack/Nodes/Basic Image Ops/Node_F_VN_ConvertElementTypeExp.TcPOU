@@ -38,17 +38,17 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
-AddInput('hrPrev', hrPrev);
 AddParameter('eElementType', eElementType);
 AddParameter('fScaleFactor', fScaleFactor);
 AddParameter('fDelta', fDelta);
+AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{96549d2d-7836-0c52-3b6b-0321b40e7267}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_ConvertElementTypeExp(
     ipSrcImage := ipSrcImage.Value,

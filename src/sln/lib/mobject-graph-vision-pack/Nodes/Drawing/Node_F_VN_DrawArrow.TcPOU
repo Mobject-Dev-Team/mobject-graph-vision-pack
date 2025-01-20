@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_DrawArrow" Id="{6595072e-3ea1-0bdf-2729-249a5090ff83}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_DrawArrow EXTENDS VisionNode
+VAR
+    nX1 : _UDINT(0);
+    nY1 : _UDINT(0);
+    nX2 : _UDINT(0);
+    nY2 : _UDINT(0);
+    ipDestImage : _ITcVnImage;
+    aColor : _TcVnVector4_LREAL;
+    nThickness : _DINT(1);
+    bDoubleHead : _BOOL(FALSE);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{7c7c8c3b-eae9-0592-19fe-139201b5d605}" />
+    <Method Name="Clone" Id="{e2748833-1e55-0c97-2847-dcd7d293497f}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_DrawArrow;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawArrow);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{8187b1fe-c8a3-049a-2830-509833ff2fc5}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddParameter('nX1', nX1);
+AddParameter('nY1', nY1);
+AddParameter('nX2', nX2);
+AddParameter('nY2', nY2);
+AddInput('ipDestImage', ipDestImage);
+AddInput('aColor', aColor);
+AddParameter('nThickness', nThickness);
+AddParameter('bDoubleHead', bDoubleHead);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{6c51d53f-35e9-050e-1013-f8a543a92909}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_DrawArrow(
+    nX1 := nX1.Value,
+    nY1 := nY1.Value,
+    nX2 := nX2.Value,
+    nY2 := nY2.Value,
+	ipDestImage := ipDestImage.Value,
+    aColor := aColor.Value,
+    nThickness := nThickness.Value,
+    bDoubleHead := bDoubleHead.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{643a86bd-53bc-0df6-3dd8-468f4f10de0c}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

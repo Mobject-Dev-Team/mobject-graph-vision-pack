@@ -34,13 +34,14 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipImage', ipImage);
+AddInput('hrPrev', hrPrev);
 AddOutput('ipImage', ipImage);
-AddOutput('hresult',hresult);
+AddOutput('hresult', hresult);
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{0c1fd4a6-97f0-03c0-0235-3ff2feb131ab}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_ResetRoi(

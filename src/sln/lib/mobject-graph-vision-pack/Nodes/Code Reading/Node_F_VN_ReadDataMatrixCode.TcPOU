@@ -42,7 +42,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{e2f83839-48f4-0c14-279f-5561be136c3b}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_ReadDataMatrixCode(
 	ipSrcImage := ipSrcImage.Value,
@@ -58,7 +58,7 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
-Check.IsTrue((ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3)), 'ipSrcImage must have 1 channel');
+Check.IsTrue((ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3)), 'ipSrcImage must have 1 or 3 channels');
 Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
 ]]></ST>
       </Implementation>

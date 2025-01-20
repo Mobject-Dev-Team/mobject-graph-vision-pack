@@ -43,7 +43,7 @@ AddOutput('hresult',hresult);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{89ac33e8-e612-08fb-05bc-1b770e9a7769}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_SetRoi_TcVnRectangle_DINT(
@@ -58,9 +58,22 @@ AddOutput('hresult',hresult);
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    imageWidth : UDINT;
+    imageHeight : UDINT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
+
+IF Check.Failed THEN
+    RETURN;
+END_IF
+
+ipDestImage.Value.GetWidth(imageWidth);
+ipDestImage.Value.GetHeight(imageHeight);
+
+Check.IsTrue(IsRoiSizeOK_Dint(stRoi.Value, imageWidth, imageHeight), 'ROI must fit within image');
 ]]></ST>
       </Implementation>
     </Method>

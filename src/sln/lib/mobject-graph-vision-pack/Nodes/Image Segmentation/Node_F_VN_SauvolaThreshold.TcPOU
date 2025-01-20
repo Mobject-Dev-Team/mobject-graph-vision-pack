@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_SauvolaThreshold" Id="{e266b393-ae84-0e92-1543-897ae7d78e67}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_SauvolaThreshold EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+    pipDestImage : _ITcVnImage;
+    nBlockSize : _UDINT(3);
+    fParamK : _LREAL(0.0);
+    fMaxSigma : _LREAL(0.0);
+    eThresholdType : _ETcVnThresholdType(ETcVnThresholdType.TCVN_TT_BINARY);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{564ca433-44a3-0c42-1235-51a4a9918d9d}" />
+    <Method Name="Clone" Id="{53ff1757-2275-0361-3f42-1686acb2a59c}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_SauvolaThreshold;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_SauvolaThreshold);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{5a669145-1d90-0bed-20e0-6718af9a830c}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('nBlockSize', nBlockSize);
+AddParameter('fParamK', fParamK);
+AddParameter('fMaxSigma', fMaxSigma);
+AddParameter('eThresholdType', eThresholdType);
+AddInput('hrPrev', hrPrev);
+AddOutput('pipDestImage', pipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{df0bcb46-8190-0489-38e8-ab9978a5ff35}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_SauvolaThreshold(
+	ipSrcImage := ipSrcImage.Value,
+	pipDestImage := pipDestImage.Value,
+    nBlockSize := nBlockSize.Value,
+    fParamK := fParamK.Value,
+    fMaxSigma := fMaxSigma.Value,
+    eThresholdType := eThresholdType.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{a3c97033-0b9e-0ff0-2c58-5b2379d6a6ea}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
+
+Check.IsTrue((ipSrcImage.IsPixelDepth(8) OR
+              ipSrcImage.IsPixelDepth(16) OR
+              ipSrcImage.IsPixelDepth(32) OR
+              ipSrcImage.IsPixelDepth(6432)), 'ipSrcImage must have 8, 16, 32, or 64 bit pixel depth');
+
+Check.IsTrue(nBlockSize.IsOdd, 'nBlockSize must be an odd number');
+Check.IsTrue(nBlockSize.Value >= 3, 'nBlockSize must be greater than or equal to 3');
+
+Check.IsTrue((fParamK.Value >= 0.0), 'fMaxValue must be greater than or equal to 0');
+Check.IsTrue((fParamK.Value <= 1.0), 'fMaxValue must be less than or equal to 1');
+
+Check.IsTrue((fMaxSigma.Value >= 0.0), 'fMaxValue must be greater than or equal to 0');
+
+Check.IsTrue((eThresholdType.Value = ETcVnThresholdType.TCVN_TT_BINARY OR 
+              eThresholdType.Value = ETcVnThresholdType.TCVN_TT_BINARY_INV), 'eThresholdType must be TCVN_TT_BINARY or TCVN_TT_BINARY_INV');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -39,21 +39,21 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AddInput('sText', sText);
+        <ST><![CDATA[AddParameter('sText', sText);
 AddInput('ipDestImage', ipDestImage);
-AddInput('aColor', aColor);
-AddInput('hrPrev', hrPrev);
-AddOutput('ipDestImage', ipDestImage);
-AddOutput('hresult',hresult);
 AddParameter('nX', nX);
 AddParameter('nY', nY);
 AddParameter('eFontType', eFontType);
 AddParameter('fFontScale', fFontScale);
+AddInput('aColor', aColor);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{a44f2922-7f9d-0a5f-0dfa-fd8ca1736e22}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_PutText(

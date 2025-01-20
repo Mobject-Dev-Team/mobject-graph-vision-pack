@@ -39,18 +39,18 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipContours', ipContours);
-AddInput('nContourIndex', nContourIndex);
+AddParameter('nContourIndex', nContourIndex);
 AddInput('ipDestImage', ipDestImage);
 AddInput('aColor', aColor);
+AddParameter('nThickness', nThickness);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
-AddParameter('nThickness', nThickness);
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{ef1597a4-9cfe-058a-226a-4fbb85125199}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_DrawContours(
@@ -77,15 +77,6 @@ END_VAR]]></Declaration>
 Check.IsTrue((ipContours.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
               ipContours.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_Vector_TcVnPoint2_DINT)),
               'ipContours contains incorrect type');
-
-F_VN_GetNumberOfElements(ipContours.Value, containerElements, S_OK);
-
-Check.IsTrue((containerElements > 0), 'ipContours is empty');
-
-IF NOT Check.Failed THEN
-    maxIndexNumber := containerElements - 1;
-    Check.IsTrue((DINT_TO_ULINT(nContourIndex.Value) <= maxIndexNumber), 'nContourIndex out of range.');
-END_IF
 ]]></ST>
       </Implementation>
     </Method>

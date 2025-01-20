@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_DetectPatternPoints" Id="{d08819c7-039f-474f-b126-7bbfdf21db0c}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_DetectPatternPoints EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipPatternPoints : _ITcVnContainer;
+    stBlobDetectionParams : _TcVnParamsBlobDetection;
+    nNumberOfPoints : _UDINT(0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{a8dbdc8c-bb8b-436a-8742-64fe5e61e9e5}" />
+    <Method Name="Clone" Id="{f60b5708-a9c4-41a5-9dd3-089e84728bce}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_DetectPatternPoints;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DetectPatternPoints);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{fcc79579-ff39-40f0-8e82-85d4d746f3e3}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('stBlobDetectionParams', stBlobDetectionParams);
+AddParameter('nNumberOfPoints', nNumberOfPoints);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipPatternPoints', ipPatternPoints);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{ba8ea71b-56e8-40f2-95e8-fbdec2ae56ac}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_DetectPatternPoints(
+    ipSrcImage := ipSrcImage.Value,
+	ipPatternPoints := ipPatternPoints.Value,
+    stBlobDetectionParams := stBlobDetectionParams.Value,
+    nNumberOfPoints := nNumberOfPoints.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{118425fb-2f43-4d63-a494-0c72e3c5ca73}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

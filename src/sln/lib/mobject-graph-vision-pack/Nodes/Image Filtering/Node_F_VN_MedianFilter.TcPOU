@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_MedianFilter" Id="{9025872c-f06e-0aab-037a-200e6759f166}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MedianFilter EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    nFilterSize : _UDINT(3);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{8ad032be-5afe-0769-263d-9cfdfdcc56cf}" />
+    <Method Name="Clone" Id="{1018fe2d-63f2-0dbc-0fa0-2c7e6fc712e1}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_MedianFilter;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MedianFilter);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{bb2dd64d-43c2-0be6-2f89-10b36d04901d}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('nFilterSize', nFilterSize);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{68ece6b6-f004-0fcf-3b18-2ff5dad40517}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MedianFilter(
+    ipSrcImage := ipSrcImage.Value,
+	ipDestImage := ipDestImage.Value,
+    nFilterSize := nFilterSize.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{45d55321-d675-0c04-1632-4ac470077b1a}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(nFilterSize.IsOdd, 'nFilterSize must be an odd number');
+Check.IsTrue(nFilterSize.Value >= 3, 'nFilterSize must be greater than or equal to 3');
+
+IF (nFilterSize.Value = 3) OR (nFilterSize.Value = 5) THEN
+    Check.IsTrue((ipSrcImage.IsPixelDepth(8) OR
+                  ipSrcImage.IsPixelDepth(16) OR
+                  ipSrcImage.IsPixelDepth(32)), 'ipSrcImage must have 8, 16, or 32 bit pixel depth');
+ELSE
+    Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

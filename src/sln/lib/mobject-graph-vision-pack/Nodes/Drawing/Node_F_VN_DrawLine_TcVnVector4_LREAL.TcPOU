@@ -47,7 +47,7 @@ AddParameter('nThickness', nThickness);
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{a3cdf037-404e-02af-16df-fab0e9f8a499}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_DrawLine_TcVnVector4_LREAL(

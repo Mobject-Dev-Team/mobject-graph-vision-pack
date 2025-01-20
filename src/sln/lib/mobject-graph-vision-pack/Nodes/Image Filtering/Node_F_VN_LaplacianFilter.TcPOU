@@ -36,15 +36,15 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('eDestDepth', eDestDepth);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
-AddParameter('eDestDepth', eDestDepth);
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{0e14aa31-08be-0513-0ab6-f2d326d3028a}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT]]></Declaration>
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_LaplacianFilter(
 	ipSrcImage := ipSrcImage.Value, 
@@ -61,7 +61,7 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
-]]></ST>
+//TODO]]></ST>
       </Implementation>
     </Method>
   </POU>

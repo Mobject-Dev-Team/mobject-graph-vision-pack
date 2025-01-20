@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_FB_VN_InitializeFunction" Id="{81dcaabb-16eb-0a21-0b7d-9e0b30687d2d}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_FB_VN_InitializeFunction EXTENDS VisionNode
+VAR
+    eFunction : _ETcVnInitializableFunction(ETcVnInitializableFunction.TCVN_IF_OCR);
+    nOptions : _ULINT(0);
+    bStart : _BOOL(FALSE);
+    //nTimeout : 
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{1d65190d-0365-048f-0e3c-580fa4c504d4}" />
+    <Method Name="Clone" Id="{fb52ccad-99d5-05b8-2a54-203e6b543320}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_FB_VN_InitializeFunction;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_FB_VN_InitializeFunction);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{f6f869c5-3cdc-07b1-14eb-a66c5d1ea1c0}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddParameter('eFunction', eFunction);
+AddParameter('nOptions', nOptions);
+AddParameter('bStart', bStart);
+//AddParameter('nTimeout', nTimeout);
+AddOutput('hresult', hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{5600bdbe-a65e-0035-1e1d-751f798e7f4a}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR_INST
+    fbInit : FB_VN_InitializeFunction;
+    fbStart : R_TRIG;
+    execute : BOOL;
+    result : HRESULT := -1;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbStart(CLK := bStart.Value);
+
+IF fbStart.Q AND NOT execute THEN
+    execute := TRUE;
+END_IF
+
+IF execute THEN
+    fbInit(eFunction := TCVN_IF_OCR, nOptions := nOptions.Value, bStart := TRUE);
+    IF NOT fbInit.bBusy THEN
+        fbInit(bStart := FALSE);
+        IF NOT fbInit.bError THEN
+            result := S_OK;
+        ELSE
+            result := -1;
+        END_IF
+        execute := FALSE;
+    END_IF
+END_IF
+
+hresult.Value := result;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{db86eb7b-05a7-0790-31da-36a4ba4c9b5e}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

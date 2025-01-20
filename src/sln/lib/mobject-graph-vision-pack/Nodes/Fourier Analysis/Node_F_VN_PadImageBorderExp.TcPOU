@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_PadImageBorderExp" Id="{e16408a5-b2bd-056a-1ad1-bbcb481cfa82}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_PadImageBorderExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipPaddedImage : _ITcVnImage;
+    nTopBorder : _UDINT(0);
+    nBottomBorder : _UDINT(0);
+    nLeftBorder : _UDINT(0);
+    nRightBorder : _UDINT(0);
+    ePaddingType : _ETcVnBorderInterpolationMethod(ETcVnBorderInterpolationMethod.TCVN_BIM_CONSTANT);
+    aPaddingValue : _TcVnVector4_LREAL;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{bdbaba8b-b3a7-0736-2d67-45e3cc62aa6b}" />
+    <Method Name="Clone" Id="{de189c2b-cef8-0d25-36b2-d3a65d7e9590}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_PadImageBorderExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_PadImageBorderExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{b5af1313-78f2-0a80-21a6-8a0ee35c88a1}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('nTopBorder', nTopBorder);
+AddParameter('nBottomBorder', nBottomBorder);
+AddParameter('nLeftBorder', nLeftBorder);
+AddParameter('nRightBorder', nRightBorder);
+AddParameter('ePaddingType', ePaddingType);
+AddInput('aPaddingValue', aPaddingValue);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipPaddedImage', ipPaddedImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{f7736d7d-0ad8-08e5-193b-76362756f5e2}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_PadImageBorderExp(
+    ipSrcImage := ipSrcImage.Value,
+	ipPaddedImage := ipPaddedImage.Value,
+    nTopBorder := nTopBorder.Value,
+    nBottomBorder := nBottomBorder.Value,
+    nLeftBorder := nLeftBorder.Value,
+    nRightBorder := nRightBorder.Value,
+    ePaddingType := ePaddingType.Value,
+    aPaddingValue := aPaddingValue.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{e8dacdda-2e58-0207-0e11-5fe617a10155}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

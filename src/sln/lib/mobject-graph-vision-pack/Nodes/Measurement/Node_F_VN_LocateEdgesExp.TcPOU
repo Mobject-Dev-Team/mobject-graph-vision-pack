@@ -49,7 +49,6 @@ END_VAR
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
 AddInput('aStartPoint', aStartPoint);
 AddInput('aEndPoint', aEndPoint);
-AddInput('hrPrev', hrPrev);
 AddParameter('nNumEdges', nNumEdges);
 AddParameter('eEdgeDirection', eEdgeDirection);
 AddParameter('bAlternateDirection', bAlternateDirection);
@@ -60,13 +59,14 @@ AddParameter('nMaxThickness', nMaxThickness);
 AddParameter('nSubpixelsIterations', nSubpixelsIterations);
 AddParameter('fApproxPrecision', fApproxPrecision);
 AddParameter('eAlgorithm', eAlgorithm);
+AddInput('hrPrev', hrPrev);
 AddOutput('ipEdgePoints', ipEdgePoints);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{4f2bf090-73e6-05c9-15fe-500b9326dc60}">
-      <Declaration><![CDATA[METHOD PROTECTED  OnExecute : HRESULT
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_LocateEdgesExp(

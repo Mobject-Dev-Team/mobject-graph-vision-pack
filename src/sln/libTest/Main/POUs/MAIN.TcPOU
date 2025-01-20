@@ -75,6 +75,8 @@ VAR
     //_ETcVnWorldCoordinateSystem_TestSuite : _ETcVnWorldCoordinateSystem_TestSuite;
     //_ETcWatchdogAccumulationType_TestSuite : _ETcWatchdogAccumulationType_TestSuite;
     //_GEV_CAMERA_STATE_TestSuite : _GEV_CAMERA_STATE_TestSuite;
+
+    // functions
     
     //structs
     _TcVnSize2_REAL_TestSuite : _TcVnSize2_REAL_TestSuite;

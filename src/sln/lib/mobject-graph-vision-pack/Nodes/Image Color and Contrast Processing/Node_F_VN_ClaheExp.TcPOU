@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_ClaheExp" Id="{23c8bea1-7ae7-04a4-1da7-333df05916d2}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ClaheExp EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    fClipLimit  : _LREAL(0.0);
+    nTilesX     : _UDINT(0);
+    nTilesY     : _UDINT(0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{9de5ea55-b002-0c74-31e8-54d2fae8f5a0}" />
+    <Method Name="Clone" Id="{fdbc01fb-f8c5-083c-0748-67fba9130923}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ClaheExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ClaheExp);
+Clone := pNode^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{335f3ee6-706d-0101-3794-99bda70f4135}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('fClipLimit', fClipLimit);
+AddParameter('nTilesX', nTilesX);
+AddParameter('nTilesY', nTilesY);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{1b8a6bda-f090-0d95-2d3e-9972d4e3b406}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ClaheExp(
+	ipSrcImage := ipSrcImage.Value,
+    fClipLimit := fClipLimit.Value,
+    nTilesX := nTilesX.Value,
+    nTilesY := nTilesY.Value,
+    ipDestImage   := ipDestImage.Value,
+	hrPrev := hrPrev.Value);
+  ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{58936052-8517-08c9-0792-fd049889fcc2}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    colorMapSize : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
+Check.IsTrue((ipSrcImage.IsPixelDepth(8) OR
+              ipSrcImage.IsPixelDepth(16)), 'ipSrcImage must have 8 or 16 bit pixel depth');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

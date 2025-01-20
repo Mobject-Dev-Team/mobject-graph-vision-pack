@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_DrawComponents" Id="{133a1008-762e-0287-03c9-08a6ea899c31}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_DrawComponents EXTENDS VisionNode
+VAR
+    ipLabelImage : _ITcVnImage;
+    nLabelID : _DINT(0);
+    ipDestImage : _ITcVnImage;
+    bShowLabelID : _BOOL(FALSE);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{ad076ec6-fe24-015e-3282-2c63f8346902}" />
+    <Method Name="Clone" Id="{acdf7dc2-f34f-0367-3714-9ade87534271}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_DrawComponents;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawComponents);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{04a4310e-0eba-0831-0933-0f07be286634}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipLabelImage', ipLabelImage);
+AddParameter('nLabelID', nLabelID);
+AddParameter('bShowLabelID', bShowLabelID);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{d4923f2f-6a89-0e62-216c-3f5dfefa2132}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_DrawComponents(
+	ipLabelImage := ipLabelImage.Value,
+    nLabelID := nLabelID.Value,
+    ipDestImage := ipDestImage.Value,
+    bShowLabelID := bShowLabelID.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{0cbc801b-35f5-0be1-20ae-894c2251ae0d}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipLabelImage.IsValid, 'ipLabelImage must contain an image');
+Check.IsTrue(ipLabelImage.HasChannelCount(1), 'ipLabelImage must have 1 channel');
+Check.IsTrue((ipLabelImage.IsPixelDepth(16)  OR
+              ipLabelImage.IsPixelDepth(32)), 'ipLabelImage must have 16 or 32 bit pixel depth');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

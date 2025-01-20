@@ -12,6 +12,12 @@ TestSerializeTypeWith();
 TestSerializeWith_Empty();
 TestSerializeWith_Vector_REAL();
 TestTryDeserializeFrom();
+TestTryCheckIfBasicContainer();
+TestTryCheckIfEmpty();
+TestTryGetElementNum();
+TestTryGetElementSize();
+TestTryGetElementTypeGuid();
+TestTryGetExportSize();
 TestTryGetTypeName_Vector_REAL();
 TestHasType_Vector_REAL();
 ]]></ST>
@@ -170,6 +176,102 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="TestTryCheckIfBasicContainer" Id="{1088d48a-e23b-0ae8-10a5-7f674c481cf1}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryCheckIfBasicContainer
+VAR
+    _typeBasicData : _ITcVnContainer;
+    _typeComplexData : _ITcVnContainer;
+    basicData : ARRAY [0..4] OF REAL := [0.0, 1.1, 2.2, 3.3, 4.4];
+    actual : BOOL;
+    result : BOOL;
+    hr : HRESULT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryCheckIfBasicContainer');
+
+// Create container with basic data.
+F_VN_CreateContainerFromArray(pData := ADR(basicData), ipContainer := _typeBasicData.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 5, hrPrev := S_OK);
+
+result := _typeBasicData.TryCheckIfBasicContainer(actual);
+
+AssertTrue(
+	Condition := result,
+	Message := 'Check if basic container failed.'
+);
+
+AssertTrue(
+	Condition := actual,
+	Message := 'Container did not contain basic elements.'
+);
+
+// Create container for complex data. (Container of containers. Note the Vector_Vector type.)
+hr := F_VN_CreateContainer(ipContainer := _typeComplexData.Value, nTypeGuid := ContainerType_Vector_Vector_REAL, nElementNum := 1, hrPrev := S_OK);
+hr := F_VN_SetAt_ITcVnContainer(ipElement := _typeBasicData.Value, ipContainer := _typeComplexData.Value, nIndex := 0, hrPrev := hr);
+
+result := _typeComplexData.TryCheckIfBasicContainer(actual);
+
+AssertTrue(
+	Condition := result,
+	Message := 'Check if basic container failed.'
+);
+
+AssertFalse(
+	Condition := actual,
+	Message := 'Container did not contain complex (Container of Container) elements.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryCheckIfEmpty" Id="{808e93ca-1835-0aa1-3116-eb7eaaadc4d9}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryCheckIfEmpty
+VAR
+    _typeEmpty : _ITcVnContainer;
+    _typeData : _ITcVnContainer;
+    data : ARRAY [0..4] OF REAL := [0.0, 1.1, 2.2, 3.3, 4.4];
+    actual : BOOL;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryCheckIfEmpty');
+
+// Create container with no data.
+F_VN_CreateContainer(ipContainer := _typeEmpty.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 0, hrPrev := S_OK);
+
+result := _typeEmpty.TryCheckIfEmpty(actual);
+
+AssertTrue(
+	Condition := result,
+	Message := 'Container check if empty failed.'
+);
+
+AssertTrue(
+	Condition := actual,
+	Message := 'Container was not empty.'
+);
+
+// Create container with data.
+F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _typeData.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 5, hrPrev := S_OK);
+
+result := _typeData.TryCheckIfEmpty(actual);
+
+AssertTrue(
+	Condition := result,
+	Message := 'Container check if empty failed.'
+);
+
+AssertFalse(
+	Condition := actual,
+	Message := 'Container was empty.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TestTryDeserializeFrom" Id="{5be8ee3a-e230-4f18-891f-7b24b67d0252}">
       <Declaration><![CDATA[METHOD PUBLIC TestTryDeserializeFrom
 VAR
@@ -192,6 +294,134 @@ AssertEquals(
     Expected := expected,
     Actual := actual,
     Message := 'Type did not deserialize correctly.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryGetElementNum" Id="{aab25c5f-baec-0d4c-0c3f-9f278014ae79}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryGetElementNum
+VAR
+    _type : _ITcVnContainer;
+    data : ARRAY [0..4] OF REAL := [0.0, 1.1, 2.2, 3.3, 4.4];
+    expected : ULINT := 5;
+    actual : ULINT;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryGetElementNum');
+
+F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 5, hrPrev := S_OK);
+
+result := _type.TryGetElementNum(actual);
+
+AssertTrue(
+	Condition := result,
+	Message := 'Get container element number failed.'
+);
+
+AssertEquals_ULINT(Expected := expected,
+             Actual := actual,
+             Message := 'Container did not return correct number of elements.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryGetElementSize" Id="{6277adfc-71c3-0fbf-276a-411e6fd537e9}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryGetElementSize
+VAR
+    _type : _ITcVnContainer;
+    data : ARRAY [0..4] OF REAL := [0.0, 1.1, 2.2, 3.3, 4.4];
+    expected : ULINT := 4; // REAL is 4 bytes (32 bits) in size.
+    actual : ULINT;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryGetElementSize');
+
+F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 5, hrPrev := S_OK);
+
+result := _type.TryGetElementSize(actual);
+
+AssertTrue(
+	Condition := result,
+	Message := 'Get container element size failed.'
+);
+
+AssertEquals_ULINT(Expected := expected,
+             Actual := actual,
+             Message := 'Container did not return correct size of element.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryGetElementTypeGuid" Id="{097935b0-f09c-09bf-2dfd-20abef52f993}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryGetElementTypeGuid
+VAR
+    _type : _ITcVnContainer;
+    data : ARRAY [0..4] OF REAL := [0.0, 1.1, 2.2, 3.3, 4.4];
+    expected : STRING := '18071995-0000-0000-0000-00000000000D';
+    actual : GUID;
+    actualString : STRING;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryGetElementTypeGuid');
+
+F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 5, hrPrev := S_OK);
+
+result := _type.TryGetElementTypeGuid(actual);
+
+AssertTrue(
+	Condition := result,
+	Message := 'Get container element type GUID failed.'
+);
+
+actualString := GUID_TO_STRING(actual);
+
+AssertEquals_STRING(Expected := expected,
+             Actual := actualString,
+             Message := 'Container did not return correct element type GUID.'
+);
+
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryGetExportSize" Id="{4bf22025-6ebd-00a7-3331-586feaa3087a}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryGetExportSize
+VAR
+    _type : _ITcVnContainer;
+    data : ARRAY [0..4] OF REAL := [0.0, 1.1, 2.2, 3.3, 4.4];
+    expected : ULINT := 20;
+    actual : ULINT;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryGetExportSize');
+
+F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := ContainerType_Vector_REAL, nElementNum := 5, hrPrev := S_OK);
+
+result := _type.TryGetExportSize(actual);
+
+AssertTrue(
+	Condition := result,
+	Message := 'Get container export size failed.'
+);
+
+AssertEquals_ULINT(Expected := expected,
+             Actual := actual,
+             Message := 'Container did not return correct export size.'
 );
 
 TEST_FINISHED();

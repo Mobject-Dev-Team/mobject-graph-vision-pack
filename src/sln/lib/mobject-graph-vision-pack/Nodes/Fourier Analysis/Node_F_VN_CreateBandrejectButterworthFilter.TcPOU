@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_CreateBandrejectButterworthFilter" Id="{adde4548-ee83-0862-2696-5be14ed4d707}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_CreateBandrejectButterworthFilter EXTENDS VisionNode
+VAR
+    ipFilter : _ITcVnImage;
+    nWidth : _UDINT(2);
+    nHeight : _UDINT(2);
+    bDoublePrecision : _BOOL(FALSE);
+    bOriginAtCenter : _BOOL(FALSE);
+    fCutoffDistance : _LREAL(1.0);
+    fBandWidth : _LREAL(1.0);
+    nOrder : _UDINT(1);
+    fScale : _LREAL(1.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{0e95b286-0aa6-0c67-1f05-52fd7159bc05}" />
+    <Method Name="Clone" Id="{81039add-c3c0-0217-0b0a-4693c1754645}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_CreateBandrejectButterworthFilter;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_CreateBandrejectButterworthFilter);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{fabc51de-71d1-0cdd-3d50-01847b067946}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddParameter('nWidth', nWidth);
+AddParameter('nHeight', nHeight);
+AddParameter('bDoublePrecision', bDoublePrecision);
+AddParameter('bOriginAtCenter', bOriginAtCenter);
+AddParameter('fCutoffDistance', fCutoffDistance);
+AddParameter('fBandWidth', fBandWidth);
+AddParameter('nOrder', nOrder);
+AddParameter('fScale', fScale);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipFilter', ipFilter);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{f1f47a02-02f8-0965-0897-f8d17b32b21b}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_CreateBandrejectButterworthFilter(
+    ipFilter := ipFilter.Value,
+	nWidth := nWidth.Value,
+    nHeight := nHeight.Value,
+    bDoublePrecision := bDoublePrecision.Value,
+    bOriginAtCenter := bOriginAtCenter.Value,
+    fCutoffDistance := fCutoffDistance.Value,
+    fBandWidth := fBandWidth.Value,
+    nOrder := nOrder.Value,
+    fScale := fScale.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{c3db95cc-11ff-0024-3976-b07f4e1f6d93}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(nWidth.IsEven, 'nWidth must be an even number');
+Check.IsTrue(nHeight.IsEven, 'nHeight must be an even number');
+Check.IsTrue((nWidth.Value >= 2), 'nWidth must be greater than or equal to 2');
+Check.IsTrue((nHeight.Value >= 2), 'nWidth must be greater than or equal to 2');
+Check.IsTrue((fCutoffDistance.Value > 0), 'nCutoffDistance must be greater than 0');
+Check.IsTrue((fBandWidth.Value > 0), 'fBandWidth must be greater than 0');
+Check.IsTrue((nOrder.Value > 0), 'nOrder must be greater than 0');
+Check.IsTrue((fScale.Value > 0), 'fScale must be greater than 0');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

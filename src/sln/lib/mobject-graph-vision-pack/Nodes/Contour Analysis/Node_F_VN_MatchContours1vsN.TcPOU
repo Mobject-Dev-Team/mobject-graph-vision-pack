@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_MatchContours1vsN" Id="{f3ef6208-78d6-07b9-3917-8d8e26161702}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MatchContours1vsN EXTENDS VisionNode
+VAR
+    ipRefContour : _ITcVnContainer;
+    ipContours : _ITcVnContainer;
+    ipMatchIndexes : _ITcVnContainer;
+    ipDissimilarities : _ITcVnContainer;
+    fDissimilarityThreshold : _LREAL(0.0);
+    eComparisonMethod : _ETcVnContoursMatchComparisonMethod(ETcVnContoursMatchComparisonMethod.TCVN_CMCM_CONTOURS_MATCH_I1);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{1ad2ebe5-8952-0915-22d2-98082ea4b003}" />
+    <Method Name="Clone" Id="{fadcc0e3-aa9b-0ac7-1570-4cb216782200}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_MatchContours1vsN;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MatchContours1vsN);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{e53eef33-44b6-0232-0b97-c66af5716025}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipRefContour', ipRefContour);
+AddInput('ipContours', ipContours);
+AddParameter('fDissimilarityThreshold', fDissimilarityThreshold);
+AddParameter('eComparisonMethod', eComparisonMethod);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipMatchIndexes', ipMatchIndexes);
+AddOutput('ipDissimilarities', ipDissimilarities);
+AddOutput('hresult', hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{56ea18f8-48e0-0d72-322a-0f299c579b93}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MatchContours1vsN(
+	ipRefContour := ipRefContour.Value,
+    ipContours := ipContours.Value,
+    ipMatchIndexes := ipMatchIndexes.Value,
+    ipDissimilarities := ipDissimilarities.Value,
+    fDissimilarityThreshold := fDissimilarityThreshold.Value,
+    eComparisonMethod := eComparisonMethod.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{c8afdda7-003a-062b-237f-dadf1349e3a2}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipRefContour.IsValid, 'ipRefContour must be a valid container');
+Check.IsTrue((ipRefContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipRefContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL)),
+              'ipRefContour contains incorrect type');
+              
+Check.IsTrue(ipContours.IsValid, 'ipContours must be a valid container');
+Check.IsTrue(ipContours.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_Vector_TcVnPoint2_DINT), 'ipContours contains incorrect type');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

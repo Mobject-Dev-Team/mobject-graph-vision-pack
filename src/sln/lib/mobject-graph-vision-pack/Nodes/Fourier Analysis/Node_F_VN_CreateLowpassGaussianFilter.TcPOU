@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_CreateLowpassGaussianFilter" Id="{203204b7-fd91-0c67-2324-45d52658dc87}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_CreateLowpassGaussianFilter EXTENDS VisionNode
+VAR
+    ipFilter : _ITcVnImage;
+    nWidth : _UDINT(2);
+    nHeight : _UDINT(2);
+    bDoublePrecision : _BOOL(FALSE);
+    bOriginAtCenter : _BOOL(FALSE);
+    fCutoffDistance : _LREAL(1.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{16297a22-d14f-08be-0241-7850ad82c440}" />
+    <Method Name="Clone" Id="{e4c82a5c-8124-0328-10fa-98cfd4a9058b}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_CreateLowpassGaussianFilter;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_CreateLowpassGaussianFilter);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{6e208cab-e19e-0d31-28d6-8ae26b54b683}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddParameter('nWidth', nWidth);
+AddParameter('nHeight', nHeight);
+AddParameter('bDoublePrecision', bDoublePrecision);
+AddParameter('bOriginAtCenter', bOriginAtCenter);
+AddParameter('fCutoffDistance', fCutoffDistance);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipFilter', ipFilter);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{9312c619-c50e-033f-0c4c-5b2c04ac6403}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_CreateLowpassGaussianFilter(
+    ipFilter := ipFilter.Value,
+	nWidth := nWidth.Value,
+    nHeight := nHeight.Value,
+    bDoublePrecision := bDoublePrecision.Value,
+    bOriginAtCenter := bOriginAtCenter.Value,
+    fCutoffDistance := fCutoffDistance.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{6b168178-2ba5-059a-3f7a-00172f29b7e9}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(nWidth.IsEven, 'nWidth must be an even number');
+Check.IsTrue(nHeight.IsEven, 'nHeight must be an even number');
+Check.IsTrue((nWidth.Value >= 2), 'nWidth must be greater than or equal to 2');
+Check.IsTrue((nHeight.Value >= 2), 'nWidth must be greater than or equal to 2');
+Check.IsTrue((fCutoffDistance.Value > 0), 'nCutoffDistance must be greater than 0');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

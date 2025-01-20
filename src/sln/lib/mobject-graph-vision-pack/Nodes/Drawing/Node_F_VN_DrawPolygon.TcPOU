@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_DrawPolygon" Id="{0b476af9-af7c-04c2-1f5a-5a6db2d788d5}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_DrawPolygon EXTENDS VisionNode
+VAR
+    ipPoints : _ITcVnContainer;
+    ipDestImage : _ITcVnImage;
+    aColor : _TcVnVector4_LREAL;
+    nThickness : _DINT(1);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{aa03d0af-04f9-0e61-3b67-0dcf0676504f}" />
+    <Method Name="Clone" Id="{3aa3a038-3c2c-0853-3b76-2a090112b055}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_DrawPolygon
+;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawPolygon);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{3522e270-3be4-0d81-2b04-babbb78fc6dd}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipPoints', ipPoints);
+AddInput('ipDestImage', ipDestImage);
+AddInput('aColor', aColor);
+AddParameter('nThickness', nThickness);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{8a74dbc8-01ba-0623-0b21-ece9102a67eb}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_DrawPolygon(
+    ipPoints := ipPoints.Value,
+	ipDestImage := ipDestImage.Value,
+    aColor := aColor.Value,
+    nThickness := nThickness.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{f6402b2a-a810-0fba-09bd-4eb557e7e971}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipPoints.IsValid, 'ipContours must be a valid container');
+Check.IsTrue((ipPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL) OR
+              ipPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_LREAL)),
+              'ipPoints contains incorrect type');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

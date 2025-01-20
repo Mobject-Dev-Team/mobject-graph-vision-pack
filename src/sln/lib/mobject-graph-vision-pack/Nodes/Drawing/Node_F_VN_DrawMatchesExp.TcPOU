@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_DrawMatchesExp" Id="{bf050b17-050f-0284-1611-e7be83f57e62}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_DrawMatchesExp EXTENDS VisionNode
+VAR
+    ipSrcImage1 : _ITcVnImage;
+    ipKeyPoints1 : _ITcVnContainer;
+    ipSrcImage2 : _ITcVnImage;
+    ipKeyPoints2 : _ITcVnContainer;
+    ipMatches1To2 : _ITcVnContainer;
+    ipDestImage : _ITcVnImage;
+    aMatchColor : _TcVnVector4_LREAL;
+    aSingleColor : _TcVnVector4_LREAL;
+    ipMatchesMask : _ITcVnContainer;
+    eFlags : _ETcVnDrawMatchesFlags(ETcVnDrawMatchesFlags.TCVN_DMF_DEFAULT);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{8fae9cf1-ab1c-0aaa-1146-9e6fc1ab78e1}" />
+    <Method Name="Clone" Id="{c109e963-8362-0432-1084-802157bbc700}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_DrawMatchesExp
+;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawMatchesExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{6819b33f-0ac7-084d-1e04-538062c32743}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage1', ipSrcImage1);
+AddInput('ipKeyPoints1', ipKeyPoints1);
+AddInput('ipSrcImage2', ipSrcImage2);
+AddInput('ipKeyPoints2', ipKeyPoints2);
+AddInput('ipMatches1To2', ipMatches1To2);
+AddInput('aMatchColor', aMatchColor);
+AddInput('aSingleColor', aSingleColor);
+AddInput('ipMatchesMask', ipMatchesMask);
+AddParameter('eFlags', eFlags);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{8e381844-f77c-0cf4-2a4e-b8d79ed6246b}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_DrawMatchesExp(
+    ipSrcImage1 := ipSrcImage1.Value,
+    ipKeyPoints1 := ipKeyPoints1.Value,
+    ipSrcImage2 := ipSrcImage2.Value,
+    ipKeyPoints2 := ipKeyPoints2.Value,
+    ipMatches1To2 := ipMatches1To2.Value,
+	ipDestImage := ipDestImage.Value,
+    aMatchColor := aMatchColor.Value,
+    aSingleColor := aSingleColor.Value,
+    ipMatchesMask := ipMatchesMask.Value,
+    eFlags := eFlags.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{d83edda6-469c-0f79-10e4-aee400b4b0f1}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    srcImage1PixelFormat : TcVnPixelFormat;
+    srcImage2PixelFormat : TcVnPixelFormat;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage1.IsValid, 'ipSrcImage1 must contain an image');
+Check.IsTrue(ipSrcImage1.IsPixelDepth(8), 'ipSrcImage1 must have 8 bit pixel depth');
+Check.IsTrue(ipSrcImage1.TryGetPixelFormat(srcImage1PixelFormat), 'Failed to get ipSrcImage1 pixel format');
+
+Check.IsTrue(ipSrcImage2.IsValid, 'ipSrcImage2 must contain an image');
+Check.IsTrue(ipSrcImage2.IsPixelDepth(8), 'ipSrcImage2 must have 8 bit pixel depth');
+Check.IsTrue(ipSrcImage2.TryGetPixelFormat(srcImage2PixelFormat), 'Failed to get ipSrcImage2 pixel format');
+
+Check.IsTrue((srcImage1PixelFormat.nChannels = srcImage2PixelFormat.nChannels), 'ipSrcImage2 must have same number of channels as ipSrcImage1');
+
+Check.IsTrue(ipKeyPoints1.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnKeyPoint), 'ipKeyPoints1 contains incorrect type');
+Check.IsTrue(ipKeyPoints2.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnKeyPoint), 'ipKeyPoints2 contains incorrect type');
+Check.IsTrue(ipMatches1To2.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnDMatch), 'ipMatches1To2 contains incorrect type');
+
+IF ipMatchesMask.IsValid THEN
+    Check.IsTrue(ipMatchesMask.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_SINT), 'ipMatchesMask contains incorrect type');
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
