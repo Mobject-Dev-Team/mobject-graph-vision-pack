@@ -19,7 +19,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-graph-vision-pack</Title>
-    <ProjectVersion>0.8.0</ProjectVersion>
+    <ProjectVersion>0.9.0</ProjectVersion>
     <DefaultNamespace>mobject-graph-vision-pack</DefaultNamespace>
     <Placeholder>mobject-graph-vision-pack</Placeholder>
     <Author>mobject dev team</Author>
@@ -1688,6 +1688,12 @@
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateNDimensionalImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateNDimensionalImageAndSetPixels.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_FuseImages.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2426,6 +2432,9 @@
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_DecomposeAffineTransformation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_GetAffineTransformation2D.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_GetPerspectiveTransformation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2478,6 +2487,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpAffine_Container.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_PerspectiveTransformation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective_Rectangle.TcPOU">
