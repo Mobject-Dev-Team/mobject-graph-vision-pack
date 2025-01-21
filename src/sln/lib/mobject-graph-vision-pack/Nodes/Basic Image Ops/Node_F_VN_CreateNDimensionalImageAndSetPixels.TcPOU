@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_CreateNDimensionalImageAndSetPixels" Id="{cf4b3bb3-1636-0d53-1eaa-78a25939a321}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_CreateNDimensionalImageAndSetPixels EXTENDS VisionNode
+VAR
+    ipImage : _ITcVnImage;
+    aShape : _TcVnArray33_UDINT;
+    ePixelType : _ETcVnElementType(ETcVnElementType.TCVN_ET_USINT);
+    fValue : _LREAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{4df68378-0f35-0e8e-344c-85298fd73c6e}" />
+    <Method Name="Clone" Id="{6b5c5a5d-f0c0-0a78-261a-4b7c78b5eafe}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_CreateNDimensionalImageAndSetPixels;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_CreateNDimensionalImageAndSetPixels);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{a76ae431-a845-08f6-36ff-8fb0c5854e97}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddParameter('aShape', aShape);
+AddParameter('ePixelType', ePixelType);
+AddParameter('fValue', fValue);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipImage', ipImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{93059fb3-38e9-06c9-30f3-bdeef426c10c}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_CreateNDimensionalImageAndSetPixels(
+    ipImage := ipImage.Value,
+    aShape := aShape.Value,
+    ePixelType := ePixelType.Value,
+    fValue := fValue.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{e8799356-8ec8-06e6-0d84-b18bc2cb84bc}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

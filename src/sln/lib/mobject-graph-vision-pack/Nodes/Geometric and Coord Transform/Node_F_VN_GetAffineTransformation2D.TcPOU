@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_GetAffineTransformation2D" Id="{9fcc6970-8acb-0455-0adf-baeea3fcb4b1}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_GetAffineTransformation2D EXTENDS VisionNode
+VAR
+	ipSrcPoints : _ITcVnContainer;
+    ipDestPoints : _ITcVnContainer;
+    aAffineTransform : _TcVnMatrix2x3_LREAL;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{59b5386f-e96b-0043-1c9b-bd64e33ef8d0}" />
+    <Method Name="Clone" Id="{6d95f12c-2c57-0aad-2201-ff93ad0eec1e}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_GetAffineTransformation2D
+;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_GetAffineTransformation2D);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{06fea5ef-49a5-04ed-0c48-079289e349b6}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcPoints', ipSrcPoints);
+AddInput('ipDestPoints', ipDestPoints);
+AddInput('hrPrev', hrPrev);
+AddOutput('aAffineTransform', aAffineTransform);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{588a2724-cf0d-07ce-3346-0e389a09a419}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_GetAffineTransformation2D(
+	ipSrcPoints := ipSrcPoints.Value,
+	ipDestPoints := ipDestPoints.Value,
+	aAffineTransform := aAffineTransform.Value,
+	hrPrev := hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{b5cb61fa-19c4-0010-3603-eb03f3ef680d}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    elementNum : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcPoints.IsValid, 'ipSrcPoints must be a valid container');
+Check.IsTrue(ipSrcPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL), 'ipSrcPoints contains incorrect type');
+Check.IsTrue((ipSrcPoints.TryGetElementNum(elementNum) AND (elementNum >= 3)), 'ipSrcPoints must contain at least 3 points');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

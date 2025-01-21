@@ -405,8 +405,8 @@ VAR
     //F_VN_SplitImageChannels
     //node_F_VN_TransformIntoDisplayableImage : Node_F_VN_TransformIntoDisplayableImage;
     //node_F_VN_TransformIntoDisplayableImageExp : Node_F_VN_TransformIntoDisplayableImageExp;
-    //F_VN_CreateNDimensionalImage
-    //F_VN_CreateNDimensionalImageAndSetPixels
+    node_F_VN_CreateNDimensionalImage : Node_F_VN_CreateNDimensionalImage;
+    node_F_VN_CreateNDimensionalImageAndSetPixels : Node_F_VN_CreateNDimensionalImageAndSetPixels;
     //F_VN_CreateNDimensionalImageFromArray
     node_F_VN_GetLayoutInfo : Node_F_VN_GetLayoutInfo;
     
@@ -725,13 +725,13 @@ VAR
     node_F_VN_FlipImage : Node_F_VN_FlipImage;
     node_F_VN_GenerateAffineTransformationUnitMatrix2D : Node_F_VN_GenerateAffineTransformationUnitMatrix2D;
     node_F_VN_GetAffineTransformation : Node_F_VN_GetAffineTransformation;
-    //F_VN_GetAffineTransformation2D
+    node_F_VN_GetAffineTransformation2D : Node_F_VN_GetAffineTransformation2D;
     //F_VN_GetAffineTransformation2DExp
     node_F_VN_GetPerspectiveTransformation : Node_F_VN_GetPerspectiveTransformation;
     node_F_VN_Homography : Node_F_VN_Homography;
     node_F_VN_HomographyExp : Node_F_VN_HomographyExp;
     node_F_VN_InvertAffineTransformation : Node_F_VN_InvertAffineTransformation;
-    //node_F_VN_PerspectiveTransformation : Node_F_VN_PerspectiveTransformation;
+    node_F_VN_PerspectiveTransformation : Node_F_VN_PerspectiveTransformation;
     node_F_VN_PyramidDown : Node_F_VN_PyramidDown;
     node_F_VN_PyramidUp : Node_F_VN_PyramidUp;
     node_F_VN_RemapImageToLogPolarSpace : Node_F_VN_RemapImageToLogPolarSpace;
@@ -1445,8 +1445,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi_TcVnRe
 //F_VN_SplitImageChannels
 //NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_TransformIntoDisplayableImage', node_F_VN_TransformIntoDisplayableImage); 
 //NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_TransformIntoDisplayableImageExp', node_F_VN_TransformIntoDisplayableImageExp); 
-//F_VN_CreateNDimensionalImage
-//F_VN_CreateNDimensionalImageAndSetPixels
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CreateNDimensionalImage', node_F_VN_CreateNDimensionalImage);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CreateNDimensionalImageAndSetPixels', node_F_VN_CreateNDimensionalImageAndSetPixels);
 //F_VN_CreateNDimensionalImageFromArray
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetLayoutInfo', node_F_VN_GetLayoutInfo);
 
@@ -1767,13 +1767,13 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_FlipImage', node_F_VN_FlipImage);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_GenerateAffineTransformationUnitMatrix2D', node_F_VN_GenerateAffineTransformationUnitMatrix2D);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_GetAffineTransformation', node_F_VN_GetAffineTransformation);
-//F_VN_GetAffineTransformation2D
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_GetAffineTransformation2D', node_F_VN_GetAffineTransformation2D);
 //F_VN_GetAffineTransformation2DExp
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_GetPerspectiveTransformation', node_F_VN_GetPerspectiveTransformation);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_Homography', node_F_VN_Homography);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_HomographyExp', node_F_VN_HomographyExp);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_InvertAffineTransformation', node_F_VN_InvertAffineTransformation);
-//NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_PerspectiveTransformation', node_F_VN_PerspectiveTransformation);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_PerspectiveTransformation', node_F_VN_PerspectiveTransformation);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_PyramidDown', node_F_VN_PyramidDown);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_PyramidUp', node_F_VN_PyramidUp);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_RemapImageToLogPolarSpace', node_F_VN_RemapImageToLogPolarSpace);

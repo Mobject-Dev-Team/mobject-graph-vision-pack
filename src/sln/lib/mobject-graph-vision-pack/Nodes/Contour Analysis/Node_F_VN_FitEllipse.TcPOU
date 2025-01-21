@@ -65,10 +65,7 @@ END_VAR]]></Declaration>
 Check.IsTrue((ipPointSet.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
               ipPointSet.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL)),
               'ipPointSet contains incorrect type');
-
-F_VN_GetNumberOfElements(ipPointSet.Value, elementNum, S_OK);
-
-Check.IsTrue((elementNum >= 5), 'ipPointSet must contain at least 5 points');
+Check.IsTrue((ipPointSet.TryGetElementNum(elementNum) AND (elementNum >= 5)), 'ipPointSet must contain at least 5 points');
 ]]></ST>
       </Implementation>
     </Method>

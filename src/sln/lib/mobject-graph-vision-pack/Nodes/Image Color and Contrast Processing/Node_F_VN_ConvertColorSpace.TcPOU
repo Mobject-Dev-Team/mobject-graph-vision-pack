@@ -138,7 +138,7 @@ CASE eTransform.Value OF
 
         Check.IsTrue(ipSrcImage.HasChannelCount(4), 'ipSrcImage must have 4 channels');
     
-    // Bayer (3 channels)
+    // Bayer (1 channel)
     ETcVnColorSpaceTransform.TCVN_CST_BAYER_RG_TO_BGR,
     //ETcVnColorSpaceTransform.TCVN_CST_BAYER_BG_TO_RGB, // duplicate
     ETcVnColorSpaceTransform.TCVN_CST_BAYER_GR_TO_BGR,
@@ -176,7 +176,7 @@ CASE eTransform.Value OF
     //ETcVnColorSpaceTransform.TCVN_CST_BAYER_BG_TO_RGBA, // duplicate
     //ETcVnColorSpaceTransform.TCVN_CST_BAYER_GB_TO_RGBA : // duplicate
 
-        Check.IsTrue(ipSrcImage.HasChannelCount(3), 'ipSrcImage must have 3 channels');
+        Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
     
     // Gray (1 channel)
     ETcVnColorSpaceTransform.TCVN_CST_GRAY_TO_BGR,
