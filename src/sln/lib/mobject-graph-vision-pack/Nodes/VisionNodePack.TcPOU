@@ -340,7 +340,7 @@ VAR
     node_F_VN_CheckIfEmpty : Node_F_VN_CheckIfEmpty;
     //F_VN_CheckIfIteratorIsAtEnd
     //F_VN_ConvertContainerType
-    //F_VN_CopyContainer
+    node_F_VN_CopyContainer : Node_F_VN_CopyContainer;
     //F_VN_CopyContainerElementsConditional_ITcVnContainer
     //F_VN_CopyContainerElementsConditional_ITcVnForwardIterator
     //F_VN_CreateContainer
@@ -353,6 +353,7 @@ VAR
     node_F_VN_ExportSubContainer_String : Node_F_VN_ExportSubContainer_String;
     //F_VN_ExportSubContainerSize
     //F_VN_ExtractContainerRange
+    node_F_VN_ExtractContainerRange : Node_F_VN_ExtractContainerRange;
     //F_VN_GetContainer
     //F_VN_GetContainerExp
     //F_VN_GetForwardIterator
@@ -413,9 +414,9 @@ VAR
     // Code Quality
     //F_VN_GradeBarcode
     //F_VN_GradeBarcodeExp
-    //F_VN_GradeDataMatrixCode
+    node_F_VN_GradeDataMatrixCode : Node_F_VN_GradeDataMatrixCode;
     //F_VN_GradeDataMatrixCodeExp
-    //F_VN_GradeQRCode
+    node_F_VN_GradeQRCode : Node_F_VN_GradeQRCode;
     //F_VN_GradeQRCodeExp
     
     // Code Reading
@@ -800,6 +801,9 @@ VAR
     node_F_VN_MinPixelValueExp : Node_F_VN_MinPixelValueExp;
     node_F_VN_RegionOrientation : Node_F_VN_RegionOrientation;
     node_F_VN_RegionOrientationExp : Node_F_VN_RegionOrientationExp;
+    node_F_VN_ImageAbsoluteAverage : Node_F_VN_ImageAbsoluteAverage;
+    //F_VN_UprightInnerRectangle
+    //F_VN_UprightInnerRectangleExp
     
     // Image Color and Contrast Processing
     node_F_VN_ApplyColorMap : Node_F_VN_ApplyColorMap;
@@ -1380,7 +1384,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_SetAt/F_V
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_CheckIfEmpty', node_F_VN_CheckIfEmpty);
 //F_VN_CheckIfIteratorIsAtEnd
 //F_VN_ConvertContainerType
-//F_VN_CopyContainer
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_CopyContainer', node_F_VN_CopyContainer);
 //F_VN_CopyContainerElementsConditional_ITcVnContainer
 //F_VN_CopyContainerElementsConditional_ITcVnForwardIterator
 //F_VN_CreateContainer
@@ -1392,7 +1396,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_CheckIfEm
 //F_VN_ExportSubContainer
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_ExportSubContainer_String', node_F_VN_ExportSubContainer_String);
 //F_VN_ExportSubContainerSize
-//F_VN_ExtractContainerRange
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_ExtractContainerRange', node_F_VN_ExtractContainerRange);
 //F_VN_GetContainer
 //F_VN_GetContainerExp
 //F_VN_GetForwardIterator
@@ -1455,8 +1459,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetLayoutInfo
 //F_VN_GradeBarcode
 //F_VN_GradeBarcodeExp
 //F_VN_GradeDataMatrixCode
+NodeFactory.AddNodeAsPrototype('Vision/Code Quality/F_VN_GradeDataMatrixCode', node_F_VN_GradeDataMatrixCode);
 //F_VN_GradeDataMatrixCodeExp
-//F_VN_GradeQRCode
+NodeFactory.AddNodeAsPrototype('Vision/Code Quality/F_VN_GradeQRCode', node_F_VN_GradeQRCode);
 //F_VN_GradeQRCodeExp
 
 // Code Reading
@@ -1843,6 +1848,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_MinPixelValue', node_
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_MinPixelValueExp', node_F_VN_MinPixelValueExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_RegionOrientation', node_F_VN_RegionOrientation);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_RegionOrientationExp', node_F_VN_RegionOrientationExp);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ImageAbsoluteAverage', node_F_VN_ImageAbsoluteAverage);
+//NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_UprightInnerRectangle', node_F_VN_UprightInnerRectangle);
+//NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_UprightInnerRectangleExp', node_F_VN_UprightInnerRectangleExp);
 
 // Image Color and Contrast Processing
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ApplyColorMap', node_F_VN_ApplyColorMap);

@@ -641,6 +641,12 @@
     <Compile Include="Datatypes\Structs\_GVSP_IMAGE_INFO.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnCodeGradesDM.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnCodeGradesQR.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Structs\_TcVnMoments.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1565,6 +1571,9 @@
     <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\Node_F_VN_ExtractContainerRange.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\Node_F_VN_ReverseContainer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1575,6 +1584,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\Node_F_VN_CheckIfEmpty.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\Node_F_VN_CopyContainer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_DINT.TcPOU">
@@ -1790,6 +1802,12 @@
       <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateAssociatedImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Quality\Node_F_VN_GradeQRCode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Quality\Node_F_VN_GradeDataMatrixCode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Code Reading\Node_F_VN_ReadQRCode.TcPOU">
@@ -2565,6 +2583,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_RegionOrientationExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAbsoluteAverage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_DetectBlobs.TcPOU">

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_ExtractContainerRange" Id="{c2561dc9-54fd-0037-06e0-7b1b9ac16f71}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ExtractContainerRange EXTENDS VisionNode
+VAR
+    ipSrcContainer : _ITcVnContainer;
+    ipDestContainer : _ITcVnContainer;
+    nFirstIdx : _ULINT(0);
+    nLastIdx : _ULINT(0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{be860551-16a7-0ab8-009e-b39518fa5d3e}" />
+    <Method Name="Clone" Id="{aab36b25-e410-05a2-364c-fd3e59dcb4df}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ExtractContainerRange;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ExtractContainerRange);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{14f1dca7-d38e-09fe-275e-2f2c985a61ac}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcContainer', ipSrcContainer);
+AddParameter('nFirstIdx', nFirstIdx);
+AddParameter('nLastIdx', nLastIdx);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestContainer', ipDestContainer);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{38869e94-6bc3-0845-18d3-f2f2a5046b18}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ExtractContainerRange(
+	ipSrcContainer := ipSrcContainer.Value,
+    ipDestContainer := ipDestContainer.Value,
+    nFirstIdx := nFirstIdx.Value,
+    nLastIdx := nLastIdx.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{052f6bc8-ce47-060a-3e7f-7023bdbb1ef1}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    empty : BOOL;
+    elementNum : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcContainer.IsValid, 'ipSrcContainer must be a valid container');
+Check.IsTrue(ipSrcContainer.TryGetElementNum(elementNum) AND (elementNum > 0), 'ipSrcContainer must not be empty');
+Check.IsTrue(nLastIdx.Value >= nFirstIdx.Value, 'nLastIdx must be greater than or equal to nFirstIdx');
+Check.IsTrue((nLastIdx.Value <= (elementNum - 1)), 'nLastIdx out of range');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
