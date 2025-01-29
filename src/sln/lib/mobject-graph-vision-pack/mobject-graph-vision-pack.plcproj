@@ -1571,6 +1571,9 @@
     <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\Node_F_VN_ExportContainer_String.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\Node_F_VN_ExtractContainerRange.TcPOU">
       <SubType>Code</SubType>
     </Compile>

@@ -347,7 +347,7 @@ VAR
     //F_VN_CreateContainerFromArray
     //F_VN_EraseFromContainer
     //F_VN_ExportContainer
-    //F_VN_ExportContainer_String
+    node_F_VN_ExportContainer_String : Node_F_VN_ExportContainer_String;
     //F_VN_ExportContainerSize
     //F_VN_ExportSubContainer
     node_F_VN_ExportSubContainer_String : Node_F_VN_ExportSubContainer_String;
@@ -1391,7 +1391,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_CopyConta
 //F_VN_CreateContainerFromArray
 //F_VN_EraseFromContainer
 //F_VN_ExportContainer
-//F_VN_ExportContainer_String
+NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_ExportContainer_String', node_F_VN_ExportContainer_String);
 //F_VN_ExportContainerSize
 //F_VN_ExportSubContainer
 NodeFactory.AddNodeAsPrototype('Vision/Basic Container Operations/F_VN_ExportSubContainer_String', node_F_VN_ExportSubContainer_String);
