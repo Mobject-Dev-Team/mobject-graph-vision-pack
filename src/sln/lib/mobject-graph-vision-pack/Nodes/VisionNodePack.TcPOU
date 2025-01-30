@@ -855,9 +855,9 @@ VAR
     node_F_VN_LocalMinima : Node_F_VN_LocalMinima;
     node_F_VN_MedianFilter : Node_F_VN_MedianFilter;
     node_F_VN_MorphologicalOperator : Node_F_VN_MorphologicalOperator;
-    //F_VN_RemoveLocalMaxima
-    //F_VN_RemoveLocalMinima
-    //F_VN_ScharrFilter
+    node_F_VN_RemoveLocalMaxima : Node_F_VN_RemoveLocalMaxima;
+    node_F_VN_RemoveLocalMinima : Node_F_VN_RemoveLocalMinima;
+    node_F_VN_ScharrFilter : Node_F_VN_ScharrFilter;
     //F_VN_ScharrFilterExp
     //F_VN_SeparableCustomFilter
     //F_VN_SeparableCustomFilterExp
@@ -1021,7 +1021,7 @@ VAR
     //F_VN_OCRExp
     
     // Texture Analysis
-    //node_F_VN_Granulometry : Node_F_VN_Granulometry;
+    node_F_VN_Granulometry : Node_F_VN_Granulometry;
     node_F_VN_HaralickFeatures : Node_F_VN_HaralickFeatures;
     
     // Neural Network
@@ -1902,9 +1902,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LocalMaxima', node_F
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LocalMinima', node_F_VN_LocalMinima);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_MedianFilter', node_F_VN_MedianFilter);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_MorphologicalOperator', node_F_VN_MorphologicalOperator);
-//F_VN_RemoveLocalMaxima
-//F_VN_RemoveLocalMinima
-//F_VN_ScharrFilter
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_RemoveLocalMaxima', node_F_VN_RemoveLocalMaxima);
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_RemoveLocalMinima', node_F_VN_RemoveLocalMinima);
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_ScharrFilter', node_F_VN_ScharrFilter);
 //F_VN_ScharrFilterExp
 //F_VN_SeparableCustomFilter
 //F_VN_SeparableCustomFilterExp
@@ -2068,7 +2068,7 @@ NodeFactory.AddNodeAsPrototype('Vision/OCR/F_VN_OCR', node_F_VN_OCR);
 //NodeFactory.AddNodeAsPrototype('Vision/OCR/F_VN_OCRExp', node_F_VN_OCRExp);
 
 // Texture Analysis
-//NodeFactory.AddNodeAsPrototype('Vision/Texture Analysis/F_VN_Granulometry', node_F_VN_Granulometry);
+NodeFactory.AddNodeAsPrototype('Vision/Texture Analysis/F_VN_Granulometry', node_F_VN_Granulometry);
 NodeFactory.AddNodeAsPrototype('Vision/Texture Analysis/F_VN_HaralickFeatures', node_F_VN_HaralickFeatures);
 
 // Neural Network

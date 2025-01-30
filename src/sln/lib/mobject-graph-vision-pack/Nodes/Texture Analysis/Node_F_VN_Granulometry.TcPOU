@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_Granulometry" Id="{48cdbfdf-a2e7-08f6-2bd9-69887c0078d0}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_Granulometry EXTENDS VisionNode
+VAR
+    ipImage : _ITcVnImage;
+    ipIntensityDiffs : _ITcVnContainer;
+    eMorphType : _ETcVnMorphologicalOperator(ETcVnMorphologicalOperator.TCVN_MO_CLOSING);
+    nMinSize : _UDINT(3);
+    nMaxSize : _UDINT(3);
+    nStep : _UDINT(2);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{4f4efd7d-8b8f-065d-0ba0-ba6a70469467}" />
+    <Method Name="Clone" Id="{d1941ff7-28f2-0025-372d-91570bce8054}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_Granulometry;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_Granulometry);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{a0211c6f-9e5b-0760-3099-d5d07c7f8cb8}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipImage', ipImage);
+AddParameter('eMorphType', eMorphType);
+AddParameter('nMinSize', nMinSize);
+AddParameter('nMaxSize', nMaxSize);
+AddParameter('nStep', nStep);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipIntensityDiffs', ipIntensityDiffs);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{226d35d6-f607-0d9c-23e9-1a388d2b89c8}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_Granulometry(
+    ipImage := ipImage.Value,
+    ipIntensityDiffs := ipIntensityDiffs.Value,
+    eMorphType := eMorphType.Value,
+    nMinSize := nMinSize.Value,
+    nMaxSize := nMaxSize.Value,
+    nStep := nStep.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{2a45f80e-6945-0dec-0f66-bc19e8bcb97f}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipImage.IsValid, 'ipImage must contain an image');
+Check.IsTrue(ipImage.HasChannelCount(1), 'ipImage must have 1 channel');
+
+Check.IsTrue((eMorphType.Value = ETcVnMorphologicalOperator.TCVN_MO_OPENING) OR
+             (eMorphType.Value = ETcVnMorphologicalOperator.TCVN_MO_CLOSING), 'eMorphType must be OPENING or CLOSING');
+
+Check.IsTrue(nMinSize.IsOdd, 'nMinSize must be an odd number');
+Check.IsTrue(nMinSize.Value >= 3, 'nMinSize must be greater than or equal to 3');
+
+Check.IsTrue(nMaxSize.Value >= nMinSize.Value, 'nMaxSize must be greater than or equal to nMinSize');
+
+Check.IsTrue(nStep.IsEven, 'nStep must be an even number');
+Check.IsTrue(nStep.Value >= 2, 'nStep must be greater than or equal to 2');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
