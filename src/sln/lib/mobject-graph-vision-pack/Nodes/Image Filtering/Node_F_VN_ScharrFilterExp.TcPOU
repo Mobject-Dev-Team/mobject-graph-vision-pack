@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_ScharrFilterExp" Id="{edc371aa-f3ab-4558-9145-73b34d61a455}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ScharrFilterExp EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    eDestDepth : _ETcVnElementType(ETcVnElementType.TCVN_ET_SAME_AS_SOURCE);
+    eFilterDirection : _ETcVnFilterDirection(ETcVnFilterDirection.TCVN_FD_X);
+    fScale : _LREAL(1.0);
+    fDelta : _LREAL(0.0);
+    eBorderType : _ETcVnBorderInterpolationMethod(ETcVnBorderInterpolationMethod.TCVN_BIM_DEFAULT);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{e7777e6a-35ba-41c6-b343-db2f1d5d974b}" />
+    <Method Name="Clone" Id="{c26f78d5-e388-4c69-ae48-1bfaedcf1c4c}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ScharrFilterExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ScharrFilterExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{4f33e0f0-8389-495f-a5f4-73652e47bf98}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('eDestDepth', eDestDepth);
+AddParameter('eFilterDirection', eFilterDirection);
+AddParameter('fScale', fScale);
+AddParameter('fDelta', fDelta);
+AddParameter('eBorderType', eBorderType);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{c4cf70eb-7fc5-4dc4-90a1-5fb536457f81}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ScharrFilterExp(
+	ipSrcImage:= ipSrcImage.Value,
+	ipDestImage:= ipDestImage.Value,
+	eDestDepth:= eDestDepth.Value,
+	eFilterDirection:= eFilterDirection.Value,
+    fScale := fScale.Value,
+    fDelta := fDelta.Value,
+    eBorderType := eBorderType.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{3a402427-0fd9-46bb-ac5b-f837de8eacef}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

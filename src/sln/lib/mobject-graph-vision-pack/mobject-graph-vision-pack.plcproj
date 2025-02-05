@@ -2597,6 +2597,12 @@
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_DetectBlobsExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindContours.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindContoursExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ApplyColorMap.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2643,6 +2649,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_RemoveLocalMinima.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_ScharrFilterExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_VarianceFilter.TcPOU">

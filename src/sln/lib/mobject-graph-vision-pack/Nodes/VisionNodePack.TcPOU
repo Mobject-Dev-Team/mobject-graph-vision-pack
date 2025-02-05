@@ -762,8 +762,8 @@ VAR
     node_F_VN_DetectBlobs : Node_F_VN_DetectBlobs;
     node_F_VN_DetectBlobsExp : Node_F_VN_DetectBlobsExp;
     //F_VN_FindContourHierarchyExp
-    //F_VN_FindContours
-    //F_VN_FindContoursExp
+    node_F_VN_FindContours : Node_F_VN_FindContours;
+    node_F_VN_FindContoursExp : Node_F_VN_FindContoursExp;
     //F_VN_HoughCircles
     //F_VN_HoughCirclesExp
     //F_VN_HoughLines
@@ -858,7 +858,7 @@ VAR
     node_F_VN_RemoveLocalMaxima : Node_F_VN_RemoveLocalMaxima;
     node_F_VN_RemoveLocalMinima : Node_F_VN_RemoveLocalMinima;
     node_F_VN_ScharrFilter : Node_F_VN_ScharrFilter;
-    //F_VN_ScharrFilterExp
+    node_F_VN_ScharrFilterExp : Node_F_VN_ScharrFilterExp;
     //F_VN_SeparableCustomFilter
     //F_VN_SeparableCustomFilterExp
     //F_VN_SobelFilter
@@ -1808,8 +1808,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_DetectBlobs', node_F_VN_DetectBlobs);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_DetectBlobsExp', node_F_VN_DetectBlobsExp);
 //F_VN_FindContourHierarchyExp
-//F_VN_FindContours
-//F_VN_FindContoursExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindContours', node_F_VN_FindContours);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindContoursExp', node_F_VN_FindContoursExp);
 //F_VN_HoughCircles
 //F_VN_HoughCirclesExp
 //F_VN_HoughLines
@@ -1905,7 +1905,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_MorphologicalOperato
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_RemoveLocalMaxima', node_F_VN_RemoveLocalMaxima);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_RemoveLocalMinima', node_F_VN_RemoveLocalMinima);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_ScharrFilter', node_F_VN_ScharrFilter);
-//F_VN_ScharrFilterExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_ScharrFilterExp', node_F_VN_ScharrFilterExp);
 //F_VN_SeparableCustomFilter
 //F_VN_SeparableCustomFilterExp
 //F_VN_SobelFilter
