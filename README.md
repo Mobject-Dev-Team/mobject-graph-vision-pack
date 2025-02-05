@@ -10,6 +10,10 @@
 
 This is an extension to [mobject-graph](https://graph.mobject.org) library. This library contains nodes and datatypes designed for TwinCAT Vision.
 
+## Installation
+
+The latest version of the library is found in the root of the repo. To install in to TwinCAT 4024, simply navigate to the repo folder and double click on `install-library.bat`
+
 ## What is mobject?
 
 Pronounced mob-ject.
