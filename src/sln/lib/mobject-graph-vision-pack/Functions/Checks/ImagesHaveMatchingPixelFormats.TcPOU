@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="ImagesHaveMatchingPixelFormats" Id="{cdda8bb5-4a0c-46d6-82e0-378c99721990}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ImagesHaveMatchingPixelFormats : BOOL
+VAR_INPUT
+	Image1 : ITcVnImage;
+	Image2 : ITcVnImage;
+END_VAR
+VAR
+	pixelFormat_1: TcVnPixelFormat;
+	pixelFormat_2: TcVnPixelFormat;
+	pointer_1 : POINTER TO BYTE;
+	pointer_2 : POINTER TO BYTE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT IsValidImage(Image1) THEN
+	RETURN;
+END_IF
+
+IF NOT IsValidImage(Image2) THEN
+	RETURN;
+END_IF
+
+Image1.GetPixelFormat(pixelFormat_1);
+Image2.GetPixelFormat(pixelFormat_2);
+
+pointer_1 := ADR(pixelFormat_1);
+pointer_2 := ADR(pixelFormat_2);
+
+ImagesHaveMatchingPixelFormats := (MEMCMP(pointer_1, pointer_2, SIZEOF(pixelFormat_1)) = 0);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

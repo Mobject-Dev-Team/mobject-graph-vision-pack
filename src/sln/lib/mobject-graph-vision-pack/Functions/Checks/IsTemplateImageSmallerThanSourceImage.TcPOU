@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="IsTemplateImageSmallerThanSourceImage" Id="{e3cd2c7d-5404-463e-80f0-50f9201333e3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION IsTemplateImageSmallerThanSourceImage : BOOL
+VAR_INPUT
+    SourceImage : ITcVnImage;
+    TemplateImage : ITcVnImage;
+END_VAR
+VAR
+    sourceWidth : UDINT;
+    sourceHeight : UDINT;
+    templateWidth : UDINT;
+    templateHeight : UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT IsValidImage(SourceImage) THEN
+    RETURN;
+END_IF
+
+IF NOT IsValidImage(TemplateImage) THEN
+    RETURN;
+END_IF
+
+SourceImage.GetWidth(sourceWidth);
+SourceImage.GetHeight(sourceHeight);
+TemplateImage.GetWidth(templateWidth);
+TemplateImage.GetHeight(templateHeight);
+
+IF (templateWidth >= sourceWidth) THEN
+    RETURN;
+END_IF
+
+IF (templateHeight >= sourceHeight) THEN
+    RETURN;
+END_IF
+
+IsTemplateImageSmallerThanSourceImage := TRUE;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
