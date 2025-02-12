@@ -724,10 +724,19 @@
     <Compile Include="Datatypes\VisionDatatypePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Functions\Checks\ImagesHaveMatchingChannels.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\ImagesHaveMatchingPixelFormats.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Functions\Checks\IsImage1SizeEqualToImage2Size.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\Checks\IsImage1WidthEqualToImage2Width.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\IsTemplateImageSmallerThanSourceImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\Checks\IsRoiSizeOK_Udint.TcPOU">
@@ -2540,6 +2549,9 @@
     <Compile Include="Nodes\Image Analysis\Node_F_VN_DistanceTransformation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ConnectedComponents.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAverage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2601,6 +2613,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindContoursExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_HoughCircles.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_HoughLines.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_HoughLinesP.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MatchTemplate.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MatchTemplateAndEvaluate.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ApplyColorMap.TcPOU">

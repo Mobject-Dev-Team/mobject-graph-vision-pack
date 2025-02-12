@@ -764,20 +764,20 @@ VAR
     //F_VN_FindContourHierarchyExp
     node_F_VN_FindContours : Node_F_VN_FindContours;
     node_F_VN_FindContoursExp : Node_F_VN_FindContoursExp;
-    //F_VN_HoughCircles
+    node_F_VN_HoughCircles : Node_F_VN_HoughCircles;
     //F_VN_HoughCirclesExp
-    //F_VN_HoughLines
+    node_F_VN_HoughLines : Node_F_VN_HoughLines;
     //F_VN_HoughLinesExp
-    //F_VN_HoughLinesP
+    node_F_VN_HoughLinesP : Node_F_VN_HoughLinesP;
     //F_VN_HoughLinesPExp
     //F_VN_MatchImageHuMoments
-    //F_VN_MatchTemplate
-    //F_VN_MatchTemplateAndEvaluate
+    node_F_VN_MatchTemplate : Node_F_VN_MatchTemplate;
+    node_F_VN_MatchTemplateAndEvaluate : Node_F_VN_MatchTemplateAndEvaluate;
     //F_VN_MatchTemplateAndEvaluateExp
     //F_VN_MatchTemplateExp
     node_F_VN_CannyEdgeDetection : Node_F_VN_CannyEdgeDetection;
     node_F_VN_CannyEdgeDetectionExp : Node_F_VN_CannyEdgeDetectionExp;
-    //F_VN_ConnectedComponents
+    node_F_VN_ConnectedComponents : Node_F_VN_ConnectedComponents;
     //F_VN_ConnectedComponentsExp
     //F_VN_ConnectedComponentsWithStats
     //F_VN_ConnectedComponentsWithStatsExp
@@ -1810,21 +1810,20 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_Dete
 //F_VN_FindContourHierarchyExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindContours', node_F_VN_FindContours);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindContoursExp', node_F_VN_FindContoursExp);
-//F_VN_HoughCircles
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughCircles', node_F_VN_HoughCircles);
 //F_VN_HoughCirclesExp
-//F_VN_HoughLines
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughLines', node_F_VN_HoughLines);
 //F_VN_HoughLinesExp
-//F_VN_HoughLinesP
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughLinesP', node_F_VN_HoughLinesP);
 //F_VN_HoughLinesPExp
 //F_VN_MatchImageHuMoments
-//F_VN_MatchTemplate
-//F_VN_MatchTemplateAndEvaluate
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplate', node_F_VN_MatchTemplate);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateAndEvaluate', node_F_VN_MatchTemplateAndEvaluate);
 //F_VN_MatchTemplateAndEvaluateExp
 //F_VN_MatchTemplateExp
-//F_VN_CannyEdgeDetection
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CannyEdgeDetection', node_F_VN_CannyEdgeDetection);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CannyEdgeDetectionExp', node_F_VN_CannyEdgeDetectionExp);
-//F_VN_ConnectedComponents
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ConnectedComponents', node_F_VN_ConnectedComponents);
 //F_VN_ConnectedComponentsExp
 //F_VN_ConnectedComponentsWithStats
 //F_VN_ConnectedComponentsWithStatsExp
