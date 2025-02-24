@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="IsMaxValueCompatibleWithPixelDepth" Id="{e6abc2a6-8c21-0896-2f00-4b0c8ff292ab}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION IsMaxValueCompatibleWithPixelDepth : BOOL
+VAR_INPUT
+    Value : LREAL;
+    PixelDepth : UINT;
+END_VAR
+VAR
+    minimumAllowedValue : LREAL;
+    maximumAllowedValue : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE PixelDepth OF
+    8:
+        minimumAllowedValue := 0.0;
+        TryConvert_USINT_TO_LREAL(DatatypeLimits.USINT_MAX_VALUE, maximumAllowedValue);
+    16:
+        minimumAllowedValue := 0.0;
+        TryConvert_UINT_TO_LREAL(DatatypeLimits.UINT_MAX_VALUE, maximumAllowedValue);
+    32:
+        TryConvert_REAL_TO_LREAL(DatatypeLimits.REAL_MIN_VALUE, minimumAllowedValue);
+        TryConvert_REAL_TO_LREAL(DatatypeLimits.REAL_MAX_VALUE, maximumAllowedValue);
+        
+    64:
+        minimumAllowedValue := DatatypeLimits.LREAL_MIN_VALUE;
+        maximumAllowedValue := DatatypeLimits.LREAL_MAX_VALUE;
+ELSE
+    ;
+END_CASE
+
+IF (Value < minimumAllowedValue) OR (Value > maximumAllowedValue) THEN
+    RETURN;
+END_IF
+
+IsMaxValueCompatibleWithPixelDepth := TRUE;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
