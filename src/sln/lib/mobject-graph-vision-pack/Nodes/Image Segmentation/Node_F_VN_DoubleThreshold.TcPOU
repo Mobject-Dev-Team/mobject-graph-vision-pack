@@ -66,16 +66,20 @@ AddOutput('hresult',hresult);
 VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR
-]]></Declaration>
+VAR
+    pixelFormat : TcVnPixelFormat;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
 Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
 Check.IsTrue((ipSrcImage.IsPixelDepth(8) OR
               ipSrcImage.IsPixelDepth(16) OR
               ipSrcImage.IsPixelDepth(32) OR
-              ipSrcImage.IsPixelDepth(6432)), 'ipSrcImage must have 8, 16, 32, or 64 bit pixel depth');
+              ipSrcImage.IsPixelDepth(64)), 'ipSrcImage must have 8, 16, 32, or 64 bit pixel depth');
 
-//TODO The max values for fMaxValue will not be 255 if pixel depths other than 8 bit are used.]]></ST>
+ipSrcImage.TryGetPixelFormat(pixelFormat);
+Check.IsTrue(IsMaxValueCompatibleWithPixelDepth(fMaxValue.Value, pixelFormat.nElementSize), 'fMaxValue is not compatible with pixel depth');
+]]></ST>
       </Implementation>
     </Method>
   </POU>

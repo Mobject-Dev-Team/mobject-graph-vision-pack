@@ -736,6 +736,9 @@
     <Compile Include="Functions\Checks\IsImage1WidthEqualToImage2Width.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Functions\Checks\IsMaxValueCompatibleWithPixelDepth.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Functions\Checks\IsTemplateImageSmallerThanSourceImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>

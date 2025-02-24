@@ -67,6 +67,7 @@ VAR_INPUT
 END_VAR
 VAR
     dynamicThresholding : BOOL;
+    pixelFormat : TcVnPixelFormat;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
@@ -86,18 +87,20 @@ CASE eThresholdType.Value OF
 END_CASE
 
 IF dynamicThresholding THEN
-    Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
-    Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+    Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel when using dynamic thresholding');
+    Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth when using dynamic thresholding');
 ELSE
     Check.IsTrue((ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3)), 'ipSrcImage must have 1 or 3 channels');
-    Check.IsTrue((fThreshold.Value >= 0.0), 'fThreshold must be greater than or equal to 0');
-    Check.IsTrue((fThreshold.Value <= 255.0), 'fThreshold must be less than or equal to 255');
+    //Check.IsTrue((fThreshold.Value >= 0.0), 'fThreshold must be greater than or equal to 0');
+    //Check.IsTrue((fThreshold.Value <= 255.0), 'fThreshold must be less than or equal to 255');
 END_IF
 
-Check.IsTrue((fMaxValue.Value >= 0.0), 'fMaxValue must be greater than or equal to 0');
-Check.IsTrue((fMaxValue.Value <= 255.0), 'fMaxValue must be less than or equal to 255');
+//Check.IsTrue((fMaxValue.Value >= 0.0), 'fMaxValue must be greater than or equal to 0');
+//Check.IsTrue((fMaxValue.Value <= 255.0), 'fMaxValue must be less than or equal to 255');
 
-//TODO The max values for fThreshold and fMaxValue will not be 255 if pixel depths other than 8 bit are used.]]></ST>
+ipSrcImage.TryGetPixelFormat(pixelFormat);
+Check.IsTrue(IsMaxValueCompatibleWithPixelDepth(fMaxValue.Value, pixelFormat.nElementSize), 'fMaxValue is not compatible with pixel depth');
+]]></ST>
       </Implementation>
     </Method>
   </POU>
