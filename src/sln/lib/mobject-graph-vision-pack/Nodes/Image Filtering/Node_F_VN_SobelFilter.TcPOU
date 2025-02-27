@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_SobelFilter" Id="{37fb8950-1306-0063-2ef8-ce354708ae4c}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_SobelFilter EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    eDestDepth : _ETcVnElementType(ETcVnElementType.TCVN_ET_SAME_AS_SOURCE);
+    nXOrder : _UDINT(0);
+    nYOrder : _UDINT(0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{f7b22ad2-c9cf-0811-3f7f-6a166548decd}" />
+    <Method Name="Clone" Id="{477fae82-096d-061b-0db9-4ce3e16021b7}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_SobelFilter;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_SobelFilter);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{1ef90474-c943-0629-1161-8560a694939a}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('eDestDepth', eDestDepth);
+AddParameter('nXOrder', nXOrder);
+AddParameter('nYOrder', nYOrder);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{e0cf27d7-4546-040e-320c-302ab5613499}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_SobelFilter(
+	ipSrcImage:= ipSrcImage.Value,
+	ipDestImage:= ipDestImage.Value,
+	eDestDepth:= eDestDepth.Value,
+	nXOrder:= nXOrder.Value,
+    nYOrder:= nYOrder.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{d870062e-6902-0540-3993-8a7e99da3a5a}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue((nXOrder.Value <= 2), 'nXOrder must be less than or equal to 2');
+Check.IsTrue((nYOrder.Value <= 2), 'nYOrder must be less than or equal to 2');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

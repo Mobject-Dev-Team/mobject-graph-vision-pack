@@ -2632,6 +2632,12 @@
     <Compile Include="Nodes\Image Filtering\Node_F_VN_ScharrFilterExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_SobelFilterExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_SobelFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_VarianceFilter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2657,6 +2663,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_LocalMinima.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_VarianceFilterExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Segmentation\Node_F_VN_AdaptiveThresholdExp.TcPOU">
