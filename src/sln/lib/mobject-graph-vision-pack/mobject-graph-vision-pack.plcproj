@@ -1684,6 +1684,9 @@
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ExportImageAsBmpSize.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_MixImageChannels.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_GetLayoutInfo.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2377,6 +2380,27 @@
     <Compile Include="Nodes\Fourier Analysis\Node_F_VN_Dft.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CompensateLensDistortion.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CompensateLensDistortionExp1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CompensateLensDistortionExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CompensateLensDistortionForPointsExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CompensateLensDistortionForPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CompensateLensDistortionForPointsExp1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_SortDetectedPatternPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_DetectPatternPoints.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2402,6 +2426,24 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyRotationToAffineTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ConvertCartesianToPolarAnglesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ConvertCartesianToPolarMagnitudes.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ConvertCartesianToPolarPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ConvertCartesianToPolarPointsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ConvertPolarToCartesianPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ConvertPolarToCartesianPointsExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_DecomposeAffineTransformationExp.TcPOU">
@@ -2471,6 +2513,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_PerspectiveTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ConvertCartesianToPolarAngles.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective_Rectangle.TcPOU">
@@ -2611,6 +2656,12 @@
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_NormalizeImageForDisplay.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_BilateralFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_GaussianFilterExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_ScharrFilter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2630,6 +2681,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_ScharrFilterExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_BilateralFilterExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_SobelFilterExp.TcPOU">

@@ -394,7 +394,7 @@ VAR
     node_F_VN_GetPixel : Node_F_VN_GetPixel;
     node_F_VN_GetPixelFormat : Node_F_VN_GetPixelFormat;
     node_F_VN_GetRoi : Node_F_VN_GetRoi;
-    //F_VN_MixImageChannels
+    node_F_VN_MixImageChannels : Node_F_VN_MixImageChannels;
     node_F_VN_ResetRoi : Node_F_VN_ResetRoi;
     node_F_VN_SetImageChannel : Node_F_VN_SetImageChannel;
     node_F_VN_SetPixel : Node_F_VN_SetPixel;
@@ -675,19 +675,19 @@ VAR
     //F_VN_CalibrateCameraPlanarExp
     //F_VN_CalibrateLinescanCamera
     //F_VN_CalibrateLinescanCameraExp
-    //F_VN_CompensateLensDistortion
-    //F_VN_CompensateLensDistortionExp1
-    //F_VN_CompensateLensDistortionExp2
-    //F_VN_CompensateLensDistortionForPoints
-    //F_VN_CompensateLensDistortionForPointsExp1
-    //F_VN_CompensateLensDistortionForPointsExp2
+    node_F_VN_CompensateLensDistortion : Node_F_VN_CompensateLensDistortion;
+    node_F_VN_CompensateLensDistortionExp1 : Node_F_VN_CompensateLensDistortionExp1;
+    node_F_VN_CompensateLensDistortionExp2 : Node_F_VN_CompensateLensDistortionExp2;
+    node_F_VN_CompensateLensDistortionForPoints : Node_F_VN_CompensateLensDistortionForPoints;
+    node_F_VN_CompensateLensDistortionForPointsExp1 : Node_F_VN_CompensateLensDistortionForPointsExp1;
+    node_F_VN_CompensateLensDistortionForPointsExp2 : Node_F_VN_CompensateLensDistortionForPointsExp2;
     node_F_VN_DetectPatternPoints : Node_F_VN_DetectPatternPoints;
     //F_VN_DetectPatternPointsExp
     //F_VN_GenerateCalibrationPatternReferencePoints
     //F_VN_ImagePointsWorldDistance
     //F_VN_SolvePnP
     //F_VN_SolvePnPExp
-    //F_VN_SortDetectedPatternPoints
+    node_F_VN_SortDetectedPatternPoints : Node_F_VN_SortDetectedPatternPoints;
     //F_VN_TransformCoordinatesImageToWorld_Container
     //F_VN_TransformCoordinatesImageToWorld_Point
     //F_VN_TransformCoordinatesPlanar_Container
@@ -706,18 +706,18 @@ VAR
     node_F_VN_ApplyYAxisInversionToAffineTransformationExp : Node_F_VN_ApplyYAxisInversionToAffineTransformationExp;
     //F_VN_ConvertCartesianToPolarAngleImage
     //F_VN_ConvertCartesianToPolarAngleImageExp
-    //F_VN_ConvertCartesianToPolarAngles
-    //F_VN_ConvertCartesianToPolarAnglesExp
+    node_F_VN_ConvertCartesianToPolarAngles : Node_F_VN_ConvertCartesianToPolarAngles;
+    node_F_VN_ConvertCartesianToPolarAnglesExp : Node_F_VN_ConvertCartesianToPolarAnglesExp;
     //F_VN_ConvertCartesianToPolarImages
     //F_VN_ConvertCartesianToPolarImagesExp
     //F_VN_ConvertCartesianToPolarMagnitudeImage
-    //F_VN_ConvertCartesianToPolarMagnitudes
-    //F_VN_ConvertCartesianToPolarPoints
-    //F_VN_ConvertCartesianToPolarPointsExp
+    node_F_VN_ConvertCartesianToPolarMagnitudes : Node_F_VN_ConvertCartesianToPolarMagnitudes;
+    node_F_VN_ConvertCartesianToPolarPoints : Node_F_VN_ConvertCartesianToPolarPoints;
+    node_F_VN_ConvertCartesianToPolarPointsExp : Node_F_VN_ConvertCartesianToPolarPointsExp;
     //F_VN_ConvertPolarToCartesianImages
     //F_VN_ConvertPolarToCartesianImagesExp
-    //F_VN_ConvertPolarToCartesianPoints
-    //F_VN_ConvertPolarToCartesianPointsExp
+    node_F_VN_ConvertPolarToCartesianPoints : Node_F_VN_ConvertPolarToCartesianPoints;
+    node_F_VN_ConvertPolarToCartesianPointsExp : Node_F_VN_ConvertPolarToCartesianPointsExp;
     //F_VN_DecomposeAffineTransformation
     node_F_VN_DecomposeAffineTransformation : Node_F_VN_DecomposeAffineTransformation;
     node_F_VN_DecomposeAffineTransformationExp : Node_F_VN_DecomposeAffineTransformationExp;
@@ -837,8 +837,8 @@ VAR
     //F_VN_WhiteBalance
     
     // Image Filtering
-    //F_VN_BilateralFilter
-    //F_VN_BilateralFilterExp
+    node_F_VN_BilateralFilter : Node_F_VN_BilateralFilter;
+    node_F_VN_BilateralFilterExp : Node_F_VN_BilateralFilterExp;
     node_F_VN_BoxFilter : Node_F_VN_BoxFilter;
     //F_VN_BoxFilterExp
     node_F_VN_BrightBorderObjects : Node_F_VN_BrightBorderObjects;
@@ -848,7 +848,7 @@ VAR
     node_F_VN_DarkBorderObjects : Node_F_VN_DarkBorderObjects;
     node_F_VN_FillHoles : Node_F_VN_FillHoles;
     node_F_VN_GaussianFilter : Node_F_VN_GaussianFilter;
-    //F_VN_GaussianFilterExp
+    node_F_VN_GaussianFilterExp : Node_F_VN_GaussianFilterExp;
     node_F_VN_LaplacianFilter : Node_F_VN_LaplacianFilter;
     //F_VN_LaplacianFilterExp
     node_F_VN_LocalMaxima : Node_F_VN_LocalMaxima;
@@ -1437,7 +1437,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetImageWidth
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetPixel', node_F_VN_GetPixel);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetPixelFormat', node_F_VN_GetPixelFormat);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetRoi', node_F_VN_GetRoi);
-//F_VN_MixImageChannels
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_MixImageChannels', node_F_VN_MixImageChannels);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_ResetRoi', node_F_VN_ResetRoi);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetImageChannel', node_F_VN_SetImageChannel);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetPixel', node_F_VN_SetPixel);
@@ -1722,19 +1722,19 @@ NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_PadImageBorderExp',
 //F_VN_CalibrateCameraPlanarExp
 //F_VN_CalibrateLinescanCamera
 //F_VN_CalibrateLinescanCameraExp
-//F_VN_CompensateLensDistortion
-//F_VN_CompensateLensDistortionExp1
-//F_VN_CompensateLensDistortionExp2
-//F_VN_CompensateLensDistortionForPoints
-//F_VN_CompensateLensDistortionForPointsExp1
-//F_VN_CompensateLensDistortionForPointsExp2
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_CompensateLensDistortion', node_F_VN_CompensateLensDistortion);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_CompensateLensDistortionExp1', node_F_VN_CompensateLensDistortionExp1);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_CompensateLensDistortionExp2', node_F_VN_CompensateLensDistortionExp2);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_CompensateLensDistortionForPoints', node_F_VN_CompensateLensDistortionForPoints);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_CompensateLensDistortionForPointsExp1', node_F_VN_CompensateLensDistortionForPointsExp1);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_CompensateLensDistortionForPointsExp2', node_F_VN_CompensateLensDistortionForPointsExp2);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_DetectPatternPoints', node_F_VN_DetectPatternPoints);
 //F_VN_DetectPatternPointsExp
 //F_VN_GenerateCalibrationPatternReferencePoints
 //F_VN_ImagePointsWorldDistance
 //F_VN_SolvePnP
 //F_VN_SolvePnPExp
-//F_VN_SortDetectedPatternPoints
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_SortDetectedPatternPoints', node_F_VN_SortDetectedPatternPoints);
 //F_VN_TransformCoordinatesImageToWorld_Container
 //F_VN_TransformCoordinatesImageToWorld_Point
 //F_VN_TransformCoordinatesPlanar_Container
@@ -1753,18 +1753,18 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ApplyYAxisInversionToAffineTransformationExp', node_F_VN_ApplyYAxisInversionToAffineTransformationExp);
 //F_VN_ConvertCartesianToPolarAngleImage
 //F_VN_ConvertCartesianToPolarAngleImageExp
-//F_VN_ConvertCartesianToPolarAngles
-//F_VN_ConvertCartesianToPolarAnglesExp
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ConvertCartesianToPolarAngles', node_F_VN_ConvertCartesianToPolarAngles);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ConvertCartesianToPolarAnglesExp', node_F_VN_ConvertCartesianToPolarAnglesExp);
 //F_VN_ConvertCartesianToPolarImages
 //F_VN_ConvertCartesianToPolarImagesExp
 //F_VN_ConvertCartesianToPolarMagnitudeImage
-//F_VN_ConvertCartesianToPolarMagnitudes
-//F_VN_ConvertCartesianToPolarPoints
-//F_VN_ConvertCartesianToPolarPointsExp
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ConvertCartesianToPolarMagnitudes', node_F_VN_ConvertCartesianToPolarMagnitudes);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ConvertCartesianToPolarPoints', node_F_VN_ConvertCartesianToPolarPoints);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ConvertCartesianToPolarPointsExp', node_F_VN_ConvertCartesianToPolarPointsExp);
 //F_VN_ConvertPolarToCartesianImages
 //F_VN_ConvertPolarToCartesianImagesExp
-//F_VN_ConvertPolarToCartesianPoints
-//F_VN_ConvertPolarToCartesianPointsExp
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ConvertPolarToCartesianPoints', node_F_VN_ConvertPolarToCartesianPoints);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ConvertPolarToCartesianPointsExp', node_F_VN_ConvertPolarToCartesianPointsExp);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_DecomposeAffineTransformation', node_F_VN_DecomposeAffineTransformation);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_DecomposeAffineTransformationExp', node_F_VN_DecomposeAffineTransformationExp);
 //F_VN_DecomposeHomography
@@ -1883,8 +1883,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_
 //F_VN_WhiteBalance
 
 // Image Filtering
-//F_VN_BilateralFilter
-//F_VN_BilateralFilterExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BilateralFilter', node_F_VN_BilateralFilter);
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BilateralFilterExp', node_F_VN_BilateralFilterExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BoxFilter', node_F_VN_BoxFilter);
 //F_VN_BoxFilterExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BrightBorderObjects', node_F_VN_BrightBorderObjects);
@@ -1894,7 +1894,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_CreateStructuringEle
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_DarkBorderObjects', node_F_VN_DarkBorderObjects);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_FillHoles', node_F_VN_FillHoles);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_GaussianFilter', node_F_VN_GaussianFilter);
-//F_VN_GaussianFilterExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_GaussianFilterExp', node_F_VN_GaussianFilterExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LaplacianFilter', node_F_VN_LaplacianFilter);
 //F_VN_LaplacianFilterExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LocalMaxima', node_F_VN_LocalMaxima);

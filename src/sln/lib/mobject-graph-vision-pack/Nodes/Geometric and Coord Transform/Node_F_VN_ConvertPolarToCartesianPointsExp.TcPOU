@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_ConvertPolarToCartesianPointsExp" Id="{63622d8e-239d-077a-3965-6eacd84452d8}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ConvertPolarToCartesianPointsExp EXTENDS VisionNode
+VAR
+	ipSrcPointsPolar : _ITcVnContainer;
+    ipDestPointsCart : _ITcVnContainer;
+    bAngleInDegrees : _BOOL(FALSE);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{d59a3f7e-1bf7-07c4-1e39-71a111d21519}" />
+    <Method Name="Clone" Id="{7d0b7cc7-a1f9-0ce2-10bb-c7a05b30a9da}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ConvertPolarToCartesianPointsExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ConvertPolarToCartesianPointsExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{19f8e871-51b1-09b9-2851-9cd4b36df041}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcPointsPolar', ipSrcPointsPolar);
+AddParameter('bAngleInDegrees', bAngleInDegrees);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestPointsCart', ipDestPointsCart);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{e5ae78a0-db5b-0bdb-28c4-eeb08b6e28b2}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ConvertPolarToCartesianPointsExp(
+	ipSrcPointsPolar := ipSrcPointsPolar.Value,
+	ipDestPointsCart := ipDestPointsCart.Value,
+    bAngleInDegrees := bAngleInDegrees.Value,
+	hrPrev := hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{0dbedac2-fefe-0331-2b2e-e38eebce7c1c}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcPointsPolar.IsValid, 'ipSrcPointsPolar must be a valid container');
+Check.IsTrue((ipSrcPointsPolar.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL) OR
+              ipSrcPointsPolar.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_LREAL)),
+              'ipSrcPointsPolar contains incorrect type');
+        ]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

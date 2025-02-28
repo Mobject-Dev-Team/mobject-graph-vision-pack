@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
-  <POU Name="Node_F_VN_GaussianFilter" Id="{d97ed0c2-f8f6-0041-3003-3e3836b2a419}" SpecialFunc="None">
+  <POU Name="Node_F_VN_CompensateLensDistortionExp1" Id="{e3a8051b-8851-0073-3775-37d2ca4dbb0d}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_GaussianFilter EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_CompensateLensDistortionExp1 EXTENDS VisionNode
 VAR
-	ipSrcImage : _ITcVnImage;
+    ipSrcImage : _ITcVnImage;
     ipDestImage : _ITcVnImage;
-    nFilterWidth : _UDINT(1);
-    nFilterHeight : _UDINT(1);
+    aCameraMatrix : _TcVnMatrix3x3_LREAL;
+    aDistortionCoefficients : _TcVnArray8_LREAL;
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -17,18 +17,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{9720be69-c526-083c-3bb4-2f50b478001a}" />
-    <Method Name="Clone" Id="{1eb2c151-3ad2-08c9-20c2-8e966c0897e6}">
+    <Folder Name="Constructor" Id="{573f2f31-f72f-0692-2b39-8dd636415df8}" />
+    <Method Name="Clone" Id="{ed10214a-327e-09e9-18bd-c339db4a7b96}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_GaussianFilter;
+	pNode : POINTER TO Node_F_VN_CompensateLensDistortionExp1;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_GaussianFilter);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_CompensateLensDistortionExp1);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{9520eb36-65a5-0311-008e-d8ed11dd7d06}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{a0df9156-eccb-0d47-1c47-2c90a3b8dd61}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -37,35 +37,33 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
-AddParameter('nFilterWidth', nFilterWidth);
-AddParameter('nFilterHeight', nFilterHeight);
+AddInput('aCameraMatrix', aCameraMatrix);
+AddInput('aDistortionCoefficients', aDistortionCoefficients);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{44457520-db85-0ad6-003f-a500edf9da17}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute
-]]></Declaration>
+    <Method Name="OnExecute" Id="{316d58f2-e33d-04e0-1f73-9a7bf628402d}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_GaussianFilter(
-	ipSrcImage:= ipSrcImage.Value, 
-	ipDestImage:= ipDestImage.Value, 
-	nFilterWidth:= nFilterWidth.Value, 
-	nFilterHeight:= nFilterHeight.Value, 
-	hrPrev:= hrPrev.Value);]]></ST>
+        <ST><![CDATA[hresult.Value := F_VN_CompensateLensDistortionExp1(
+    ipSrcImage := ipSrcImage.Value,
+	ipDestImage := ipDestImage.Value,
+    aCameraMatrix := aCameraMatrix.Value,
+    aDistortionCoefficients := aDistortionCoefficients.Value,
+	hrPrev := hrPrev.Value);
+]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{0367bb1e-a304-0104-34c5-e64a1c8174b8}">
+    <Method Name="PreExecutionCheck" Id="{f77b988a-c45d-0da3-1b63-c5388b2347b9}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
-Check.IsTrue(nFilterWidth.IsOdd, 'nFilterWidth must be an odd number');
-Check.IsTrue(nFilterHeight.IsOdd, 'nFilterHeight must be an odd number');
 ]]></ST>
       </Implementation>
     </Method>

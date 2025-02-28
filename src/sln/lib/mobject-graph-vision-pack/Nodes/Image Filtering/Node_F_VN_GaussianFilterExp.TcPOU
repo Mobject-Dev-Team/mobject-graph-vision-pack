@@ -1,15 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
-  <POU Name="Node_F_VN_GaussianFilter" Id="{d97ed0c2-f8f6-0041-3003-3e3836b2a419}" SpecialFunc="None">
+  <POU Name="Node_F_VN_GaussianFilterExp" Id="{7a70e77e-3100-0441-1ec5-05e1b18f4581}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_GaussianFilter EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_GaussianFilterExp EXTENDS VisionNode
 VAR
 	ipSrcImage : _ITcVnImage;
     ipDestImage : _ITcVnImage;
     nFilterWidth : _UDINT(1);
     nFilterHeight : _UDINT(1);
+    fSigmaX : _LREAL(0.0);
+    fSigmaY : _LREAL(0.0);
+    eBorderType : _ETcVnBorderInterpolationMethod(ETcVnBorderInterpolationMethod.TCVN_BIM_DEFAULT);
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -17,18 +20,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{9720be69-c526-083c-3bb4-2f50b478001a}" />
-    <Method Name="Clone" Id="{1eb2c151-3ad2-08c9-20c2-8e966c0897e6}">
+    <Folder Name="Constructor" Id="{97ba2879-3db2-0421-11a4-f95ee5638170}" />
+    <Method Name="Clone" Id="{e085c6ef-7166-080d-3c8b-84b055dcf803}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_GaussianFilter;
+	pNode : POINTER TO Node_F_VN_GaussianFilterExp;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_GaussianFilter);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_GaussianFilterExp);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{9520eb36-65a5-0311-008e-d8ed11dd7d06}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{a06a42fe-9184-00a5-11b2-a65d7671a8e4}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -39,25 +42,32 @@ END_VAR
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
 AddParameter('nFilterWidth', nFilterWidth);
 AddParameter('nFilterHeight', nFilterHeight);
+AddParameter('fSigmaX', fSigmaX);
+AddParameter('fSigmaY', fSigmaY);
+AddParameter('eBorderType', eBorderType);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{44457520-db85-0ad6-003f-a500edf9da17}">
+    <Method Name="OnExecute" Id="{64cf7006-36c6-02bf-23ff-7e11019527c1}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_GaussianFilter(
-	ipSrcImage:= ipSrcImage.Value, 
-	ipDestImage:= ipDestImage.Value, 
-	nFilterWidth:= nFilterWidth.Value, 
-	nFilterHeight:= nFilterHeight.Value, 
-	hrPrev:= hrPrev.Value);]]></ST>
+        <ST><![CDATA[hresult.Value := F_VN_GaussianFilterExp(
+	ipSrcImage := ipSrcImage.Value,
+	ipDestImage := ipDestImage.Value,
+	nFilterWidth := nFilterWidth.Value,
+	nFilterHeight := nFilterHeight.Value,
+    fSigmaX := fSigmaX.Value,
+    fSigmaY := fSigmaY.Value,
+    eBorderType := eBorderType.Value,
+	hrPrev := hrPrev.Value);
+]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{0367bb1e-a304-0104-34c5-e64a1c8174b8}">
+    <Method Name="PreExecutionCheck" Id="{32c0e213-a803-0d93-2102-d0d8d2f0924c}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
@@ -66,6 +76,8 @@ END_VAR]]></Declaration>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
 Check.IsTrue(nFilterWidth.IsOdd, 'nFilterWidth must be an odd number');
 Check.IsTrue(nFilterHeight.IsOdd, 'nFilterHeight must be an odd number');
+Check.IsTrue((fSigmaX.Value >= 0), 'fSigmaX must be greater than or equal to 0');
+Check.IsTrue((fSigmaY.Value >= 0), 'fSigmaY must be greater than or equal to 0');
 ]]></ST>
       </Implementation>
     </Method>

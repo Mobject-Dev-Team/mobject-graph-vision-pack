@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_BilateralFilterExp" Id="{4d2c131c-e29e-0907-2e21-e84936c82606}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_BilateralFilterExp EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    nDiameter : _DINT(1);
+    fSigmaColor : _LREAL(10.0);
+    fSigmaSpace : _LREAL(10.0);
+    eBorderType : _ETcVnBorderInterpolationMethod(ETcVnBorderInterpolationMethod.TCVN_BIM_DEFAULT);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{c80ea5f1-ab49-0982-3f01-078625c0688d}" />
+    <Method Name="Clone" Id="{bd71caac-d297-0a32-3f8a-b44438ad761f}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_BilateralFilterExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_BilateralFilterExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{dbefcfd1-b5ef-0d4e-0046-448286096837}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('nDiameter', nDiameter);
+AddParameter('fSigmaColor', fSigmaColor);
+AddParameter('fSigmaSpace', fSigmaSpace);
+AddParameter('eBorderType', eBorderType);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{511e5246-13a2-0334-1f09-223aee056f76}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_BilateralFilterExp(
+	ipSrcImage:= ipSrcImage.Value,
+	ipDestImage:= ipDestImage.Value,
+	nDiameter:= nDiameter.Value,
+    fSigmaColor := fSigmaColor.Value,
+    fSigmaSpace := fSigmaSpace.Value,
+    eBorderType := eBorderType.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{b670e234-ac40-0464-04af-14a28dec5f9d}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue((ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3)), 'ipSrcImage must have 1 or 3 channels');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+Check.IsTrue((nDiameter.IsOdd OR nDiameter.Value = 0),'nDiameter must be odd or 0');
+Check.IsTrue(fSigmaColor.Value > 0, 'fSigmaColor must be greater than 0');
+Check.IsTrue(fSigmaSpace.Value > 0, 'fSigmaSpace must be greater than 0');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

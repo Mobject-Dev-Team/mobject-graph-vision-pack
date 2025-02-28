@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_SortDetectedPatternPoints" Id="{a23bfade-b71b-0714-2d27-03b0b01203c4}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_SortDetectedPatternPoints EXTENDS VisionNode
+VAR
+	ipImagePoints : _ITcVnContainer;
+    ipPatternPoints : _ITcVnContainer;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{b9e41dfc-2d9b-0019-11ec-0d7f1eb86239}" />
+    <Method Name="Clone" Id="{5f1ca47f-00a1-0d68-043f-6b33f7ffb215}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_SortDetectedPatternPoints;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_SortDetectedPatternPoints);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ea744490-41ab-0901-09f9-68436758f3c8}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipImagePoints', ipImagePoints);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipPatternPoints', ipPatternPoints);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{fd8bba8c-3b46-0242-0abc-c98c03b55f69}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_SortDetectedPatternPoints(
+	ipImagePoints := ipImagePoints.Value,
+	ipPatternPoints := ipPatternPoints.Value,
+	hrPrev := hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{db976891-2dfd-0f69-1754-48f55b978fe4}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipPatternPoints.IsValid, 'ipPatternPoints must be a valid container');
+Check.IsTrue(ipPatternPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL), 'ipPatternPoints contains incorrect type');
+         ]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
