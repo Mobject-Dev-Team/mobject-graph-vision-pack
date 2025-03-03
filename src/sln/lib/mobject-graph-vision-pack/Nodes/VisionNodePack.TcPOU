@@ -412,7 +412,7 @@ VAR
     node_F_VN_GetLayoutInfo : Node_F_VN_GetLayoutInfo;
     
     // Code Quality
-    //F_VN_GradeBarcode
+    node_F_VN_GradeBarcode : Node_F_VN_GradeBarcode;
     //F_VN_GradeBarcodeExp
     node_F_VN_GradeDataMatrixCode : Node_F_VN_GradeDataMatrixCode;
     //F_VN_GradeDataMatrixCodeExp
@@ -1456,9 +1456,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetLayoutInfo
 
 
 // Code Quality
-//F_VN_GradeBarcode
+NodeFactory.AddNodeAsPrototype('Vision/Code Quality/F_VN_GradeBarcode', node_F_VN_GradeBarcode);
 //F_VN_GradeBarcodeExp
-//F_VN_GradeDataMatrixCode
 NodeFactory.AddNodeAsPrototype('Vision/Code Quality/F_VN_GradeDataMatrixCode', node_F_VN_GradeDataMatrixCode);
 //F_VN_GradeDataMatrixCodeExp
 NodeFactory.AddNodeAsPrototype('Vision/Code Quality/F_VN_GradeQRCode', node_F_VN_GradeQRCode);

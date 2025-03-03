@@ -1770,6 +1770,9 @@
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateAssociatedImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Code Quality\Node_F_VN_GradeBarcode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Code Quality\Node_F_VN_GradeQRCode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
