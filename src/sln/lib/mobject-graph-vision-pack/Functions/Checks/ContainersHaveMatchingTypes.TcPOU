@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="ContainersHaveMatchingTypes" Id="{114795c9-b4e1-4c90-9a48-9e6bddfc8a4b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ContainersHaveMatchingTypes : BOOL
+VAR_INPUT
+	Container1 : ITcVnContainer;
+	Container2 : ITcVnContainer;
+END_VAR
+VAR
+    guid1 : GUID;
+    guid2 : GUID;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT IsValidContainer(Container1) THEN
+	RETURN;
+END_IF
+
+IF NOT IsValidContainer(Container2) THEN
+	RETURN;
+END_IF
+
+IF NOT SUCCEEDED(Container1.GetTypeGuid(guid1)) THEN
+    RETURN;
+END_IF
+
+IF NOT SUCCEEDED(Container2.GetTypeGuid(guid2)) THEN
+    RETURN;
+END_IF
+
+ContainersHaveMatchingTypes := GuidsEqualByVal(guid1, guid2);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

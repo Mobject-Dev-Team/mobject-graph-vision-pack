@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="GetETcVnElementTypeFromImage" Id="{70c612cb-42fe-4c61-9753-ed58c7225e5a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION GetETcVnElementTypeFromImage : ETcVnElementType
+VAR_INPUT
+	sourceImage : ITcVnImage;
+END_VAR
+VAR
+	pixelFormat : TcVnPixelFormat;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT IsValidImage(sourceImage) THEN
+	RETURN;
+END_IF
+
+sourceImage.GetPixelFormat(pixelFormat);
+
+IF pixelFormat.nElementSize = 8 AND NOT pixelFormat.bSigned THEN
+	GetETcVnElementTypeFromImage := ETcVnElementType.TCVN_ET_USINT;
+ELSIF pixelFormat.nElementSize = 8 AND pixelFormat.bSigned THEN
+	GetETcVnElementTypeFromImage := ETcVnElementType.TCVN_ET_SINT;
+ELSIF pixelFormat.nElementSize = 16 AND NOT pixelFormat.bSigned THEN
+	GetETcVnElementTypeFromImage := ETcVnElementType.TCVN_ET_UINT;
+ELSIF pixelFormat.nElementSize = 16 AND pixelFormat.bSigned THEN
+	GetETcVnElementTypeFromImage := ETcVnElementType.TCVN_ET_INT;
+ELSIF pixelFormat.nElementSize = 32 AND NOT pixelFormat.bFloat THEN
+	GetETcVnElementTypeFromImage := ETcVnElementType.TCVN_ET_DINT;
+ELSIF pixelFormat.nElementSize = 32 AND pixelFormat.bFloat THEN
+	GetETcVnElementTypeFromImage := ETcVnElementType.TCVN_ET_REAL;
+ELSIF pixelFormat.nElementSize = 64 THEN
+	GetETcVnElementTypeFromImage := ETcVnElementType.TCVN_ET_LREAL;
+ELSE
+	GetETcVnElementTypeFromImage := TCVN_ET_SAME_AS_SOURCE;
+END_IF
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
