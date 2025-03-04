@@ -1,33 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
-  <POU Name="Node_F_VN_HistogramEqualization" Id="{e5494efa-6075-0d37-28e3-5d232a6a50fc}" SpecialFunc="None">
+  <POU Name="Node_F_VN_HistogramEqualizationExp" Id="{9351f287-c768-45af-92a8-d2508306b058}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_HistogramEqualization EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_HistogramEqualizationExp EXTENDS VisionNode
 VAR
 	ipSrcImage : _ITcVnImage;
     ipDestImage : _ITcVnImage;
     hrPrev : _HRESULT(S_OK);
+    nChannelIdx : _INT(-1);
 	hresult : _HRESULT(S_OK);
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{f0b1aa67-865e-0632-2a70-cef295d64c0a}" />
-    <Method Name="Clone" Id="{19001e92-ea4d-004e-09ba-38b3f636fdb8}">
+    <Folder Name="Constructor" Id="{e2d2c7b9-9fd5-412b-800a-a0916e579d9a}" />
+    <Method Name="Clone" Id="{c29c4ca5-9e58-42d5-b3c8-d08dbfb1b41e}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_HistogramEqualization;
+	pNode : POINTER TO Node_F_VN_HistogramEqualizationExp;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_HistogramEqualization);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_HistogramEqualizationExp);
 Clone := pNode^;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{7814c119-0a90-0caa-0776-cae2621dfaac}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{1ffb83e9-ac0b-429d-b4c0-72b6ba8df7f1}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -36,23 +37,25 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('nChannelIdx', nChannelIdx);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{3c9ecc22-916f-0d55-2d93-e931f1fa45e8}">
+    <Method Name="OnExecute" Id="{b915e1ef-ef3a-4b65-8eee-a64bed75ee80}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_HistogramEqualization(
+        <ST><![CDATA[hresult.Value := F_VN_HistogramEqualizationExp(
 	ipSrcImage   := ipSrcImage.Value,
     ipDestImage   := ipDestImage.Value,
+    nChannelIdx := nChannelIdx.Value,
 	hrPrev := hrPrev.Value);
-    ]]></ST>
+  ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{f968c360-b3c4-01b0-2097-1297e92edace}">
+    <Method Name="PreExecutionCheck" Id="{c80a9d98-c8ac-4c6d-af6f-c599c5fd17fa}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
@@ -60,7 +63,13 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
-Check.IsTrue((ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3)), 'ipSrcImage must have 1 or 3 channels');
+Check.IsTrue(nChannelIdx.Value >= -1, 'nChannelIdx must be greater than or equal to -1');
+
+IF nChannelIdx.Value = -1 THEN
+    Check.IsTrue(ipSrcImage.HasChannelCount(3), 'ipSrcImage must have 3 channels');
+ELSE
+    Check.IsTrue((ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3)), 'ipSrcImage must have 1 or 3 channels');
+END_IF
 ]]></ST>
       </Implementation>
     </Method>

@@ -57,9 +57,7 @@ AddOutput('hresult',hresult);
 VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR
-VAR
-    colorMapSize : ULINT;
-END_VAR]]></Declaration>
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
 ]]></ST>

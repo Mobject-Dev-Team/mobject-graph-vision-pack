@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_BoxFilterExp" Id="{083bd99b-4fac-44bb-b7dc-0b7f33188dd5}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_BoxFilterExp EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    nFilterWidth : _UDINT(1);
+    nFilterHeight : _UDINT(1);
+    eDestDepth : _ETcVnElementType(ETcVnElementType.TCVN_ET_SAME_AS_SOURCE);
+    bNormalize : _BOOL(FALSE);
+    eBorderType : _ETcVnBorderInterpolationMethod(ETcVnBorderInterpolationMethod.TCVN_BIM_DEFAULT);
+    aAnchor : _TcVnPoint;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{1141cc01-dc76-4677-a403-84bb9e7880d6}" />
+    <Method Name="Clone" Id="{bbfd0ea2-21bc-4b46-bb95-7def93260052}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_BoxFilterExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_BoxFilterExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{f86ee3c1-735e-4cd1-804f-3c01ea394ce9}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('nFilterWidth', nFilterWidth);
+AddParameter('nFilterHeight', nFilterHeight);
+AddParameter('eDestDepth', eDestDepth);
+AddParameter('bNormalize', bNormalize);
+AddParameter('eBorderType', eBorderType);
+AddInput('aAnchor', aAnchor);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{c8011d08-9f31-4583-8a06-9e79e4c4cf22}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_BoxFilterExp(
+	ipSrcImage:= ipSrcImage.Value, 
+	ipDestImage:= ipDestImage.Value, 
+	nFilterWidth:= nFilterWidth.Value, 
+	nFilterHeight:= nFilterHeight.Value,
+    eDestDepth := eDestDepth.Value,
+    aAnchor := aAnchor.Value,
+    bNormalize := bNormalize.Value,
+    eBorderType := eBorderType.Value,
+	hrPrev := hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{1385ea7a-a107-483c-84de-3cde35facd21}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue((nFilterWidth.Value >= 1), 'nFilterWidth must be >= 1');
+Check.IsTrue((nFilterHeight.Value >= 1), 'nFilterHeight must be >= 1');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

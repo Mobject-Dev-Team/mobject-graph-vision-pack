@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="VisionNodePack" Id="{257fc325-f932-4b89-a50a-e9a0a38418f4}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -815,7 +815,7 @@ VAR
     //F_VN_GenerateCustomColorMap
     node_F_VN_Histogram : Node_F_VN_Histogram;
     node_F_VN_HistogramEqualization : Node_F_VN_HistogramEqualization;
-    //F_VN_HistogramEqualizationExp
+    node_F_VN_HistogramEqualizationExp : Node_F_VN_HistogramEqualizationExp;
     //F_VN_HistogramExp
     node_F_VN_InvertImageColor : Node_F_VN_InvertImageColor;
     //F_VN_InvertImageColorExp
@@ -840,7 +840,7 @@ VAR
     node_F_VN_BilateralFilter : Node_F_VN_BilateralFilter;
     node_F_VN_BilateralFilterExp : Node_F_VN_BilateralFilterExp;
     node_F_VN_BoxFilter : Node_F_VN_BoxFilter;
-    //F_VN_BoxFilterExp
+    node_F_VN_BoxFilterExp : Node_F_VN_BoxFilterExp;
     node_F_VN_BrightBorderObjects : Node_F_VN_BrightBorderObjects;
     node_F_VN_CreateStructuringElement : Node_F_VN_CreateStructuringElement;
     //F_VN_CustomFilter
@@ -850,7 +850,7 @@ VAR
     node_F_VN_GaussianFilter : Node_F_VN_GaussianFilter;
     node_F_VN_GaussianFilterExp : Node_F_VN_GaussianFilterExp;
     node_F_VN_LaplacianFilter : Node_F_VN_LaplacianFilter;
-    //F_VN_LaplacianFilterExp
+    node_F_VN_LaplacianFilterExp : Node_F_VN_LaplacianFilterExp;
     node_F_VN_LocalMaxima : Node_F_VN_LocalMaxima;
     node_F_VN_LocalMinima : Node_F_VN_LocalMinima;
     node_F_VN_MedianFilter : Node_F_VN_MedianFilter;
@@ -975,7 +975,7 @@ VAR
     //F_VN_TrainSampleVector
 
     // Measurement
-    //F_VN_AdjustSearchWindowOrientationToLinearEdge
+    node_F_VN_AdjustSearchWindowOrientationToLinearEdge : Node_F_VN_AdjustSearchWindowOrientationToLinearEdge;
     //F_VN_ClosestPointsBF
     //F_VN_LocateCircularArc
     //F_VN_LocateCircularArcExp
@@ -1018,7 +1018,7 @@ VAR
     
     // OCR
     node_F_VN_OCR : Node_F_VN_OCR;
-    //F_VN_OCRExp
+    node_F_VN_OCRExp : Node_F_VN_OCRExp;
     
     // Texture Analysis
     node_F_VN_Granulometry : Node_F_VN_Granulometry;
@@ -1860,7 +1860,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_
 //F_VN_GenerateCustomColorMap
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_Histogram', node_F_VN_Histogram);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_HistogramEqualization', node_F_VN_HistogramEqualization);
-//F_VN_HistogramEqualizationExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_HistogramEqualizationExp', node_F_VN_HistogramEqualizationExp);
 //F_VN_HistogramExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_InvertImageColor', node_F_VN_InvertImageColor);
 //F_VN_InvertImageColorExp
@@ -1885,7 +1885,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BilateralFilter', node_F_VN_BilateralFilter);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BilateralFilterExp', node_F_VN_BilateralFilterExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BoxFilter', node_F_VN_BoxFilter);
-//F_VN_BoxFilterExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BoxFilterExp', node_F_VN_BoxFilterExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BrightBorderObjects', node_F_VN_BrightBorderObjects);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_CreateStructuringElement', node_F_VN_CreateStructuringElement);
 //F_VN_CustomFilter
@@ -1895,7 +1895,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_FillHoles', node_F_V
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_GaussianFilter', node_F_VN_GaussianFilter);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_GaussianFilterExp', node_F_VN_GaussianFilterExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LaplacianFilter', node_F_VN_LaplacianFilter);
-//F_VN_LaplacianFilterExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LaplacianFilterExp', node_F_VN_LaplacianFilterExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LocalMaxima', node_F_VN_LocalMaxima);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_LocalMinima', node_F_VN_LocalMinima);
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_MedianFilter', node_F_VN_MedianFilter);
@@ -2020,7 +2020,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_RegionsMSERExp', n
 //F_VN_TrainSampleVector
 
 // Measurement
-//F_VN_AdjustSearchWindowOrientationToLinearEdge
+NodeFactory.AddNodeAsPrototype('Vision/Measurement/F_VN_AdjustSearchWindowOrientationToLinearEdge', node_F_VN_AdjustSearchWindowOrientationToLinearEdge);
 //F_VN_ClosestPointsBF
 //F_VN_LocateCircularArc
 //F_VN_LocateCircularArcExp
@@ -2063,7 +2063,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/FB_VN_InitializeFunction', 
 
 // OCR
 NodeFactory.AddNodeAsPrototype('Vision/OCR/F_VN_OCR', node_F_VN_OCR);
-//NodeFactory.AddNodeAsPrototype('Vision/OCR/F_VN_OCRExp', node_F_VN_OCRExp);
+NodeFactory.AddNodeAsPrototype('Vision/OCR/F_VN_OCRExp', node_F_VN_OCRExp);
 
 // Texture Analysis
 NodeFactory.AddNodeAsPrototype('Vision/Texture Analysis/F_VN_Granulometry', node_F_VN_Granulometry);
