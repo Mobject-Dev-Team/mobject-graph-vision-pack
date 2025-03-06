@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="VisionNodePack" Id="{257fc325-f932-4b89-a50a-e9a0a38418f4}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -383,7 +383,7 @@ VAR
     //F_VN_ExportImageAsBmp
     //F_VN_ExportImageAsBmpExp
     node_F_VN_ExportImageAsBmpSize : Node_F_VN_ExportImageAsBmpSize;
-    //F_VN_ExportImageAsBmpSizeExp
+    node_F_VN_ExportImageAsBmpSizeExp : Node_F_VN_ExportImageAsBmpSizeExp;
     node_F_VN_ExportImageSize : Node_F_VN_ExportImageSize;
     node_F_VN_FuseImages : Node_F_VN_FuseImages;
     //F_VN_FuseImagesArray
@@ -761,7 +761,7 @@ VAR
     //F_VN_AdjustActiveContour
     node_F_VN_DetectBlobs : Node_F_VN_DetectBlobs;
     node_F_VN_DetectBlobsExp : Node_F_VN_DetectBlobsExp;
-    //F_VN_FindContourHierarchyExp
+    node_F_VN_FindContourHierarchyExp : Node_F_VN_FindContourHierarchyExp;
     node_F_VN_FindContours : Node_F_VN_FindContours;
     node_F_VN_FindContoursExp : Node_F_VN_FindContoursExp;
     node_F_VN_HoughCircles : Node_F_VN_HoughCircles;
@@ -769,7 +769,7 @@ VAR
     node_F_VN_HoughLines : Node_F_VN_HoughLines;
     //F_VN_HoughLinesExp
     node_F_VN_HoughLinesP : Node_F_VN_HoughLinesP;
-    //F_VN_HoughLinesPExp
+    node_F_VN_HoughLinesPExp : Node_F_VN_HoughLinesPExp;
     //F_VN_MatchImageHuMoments
     node_F_VN_MatchTemplate : Node_F_VN_MatchTemplate;
     node_F_VN_MatchTemplateAndEvaluate : Node_F_VN_MatchTemplateAndEvaluate;
@@ -778,9 +778,9 @@ VAR
     node_F_VN_CannyEdgeDetection : Node_F_VN_CannyEdgeDetection;
     node_F_VN_CannyEdgeDetectionExp : Node_F_VN_CannyEdgeDetectionExp;
     node_F_VN_ConnectedComponents : Node_F_VN_ConnectedComponents;
-    //F_VN_ConnectedComponentsExp
-    //F_VN_ConnectedComponentsWithStats
-    //F_VN_ConnectedComponentsWithStatsExp
+    node_F_VN_ConnectedComponentsExp : Node_F_VN_ConnectedComponentsExp;
+    node_F_VN_ConnectedComponentsWithStats : Node_F_VN_ConnectedComponentsWithStats;
+    node_F_VN_ConnectedComponentsWithStatsExp : Node_F_VN_ConnectedComponentsWithStatsExp;
     node_F_VN_CountNonZeroPixels : Node_F_VN_CountNonZeroPixels;
     node_F_VN_DistanceTransformation : Node_F_VN_DistanceTransformation;
     //F_VN_DistanceTransformationExp
@@ -1426,7 +1426,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CreateImageAn
 //F_VN_ExportImageAsBmp
 //F_VN_ExportImageAsBmpExp
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_ExportImageAsBmpSize', node_F_VN_ExportImageAsBmpSize);
-//F_VN_ExportImageAsBmpSizeExp
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_ExportImageAsBmpSizeExp', node_F_VN_ExportImageAsBmpSizeExp);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_ExportImageSize', node_F_VN_ExportImageSize);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_FuseImages', node_F_VN_FuseImages);
 //F_VN_FuseImagesArray
@@ -1806,7 +1806,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 //F_VN_AdjustActiveContour
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_DetectBlobs', node_F_VN_DetectBlobs);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_DetectBlobsExp', node_F_VN_DetectBlobsExp);
-//F_VN_FindContourHierarchyExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindContourHierarchyExp', node_F_VN_FindContourHierarchyExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindContours', node_F_VN_FindContours);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindContoursExp', node_F_VN_FindContoursExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughCircles', node_F_VN_HoughCircles);
@@ -1814,7 +1814,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_Houg
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughLines', node_F_VN_HoughLines);
 //F_VN_HoughLinesExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughLinesP', node_F_VN_HoughLinesP);
-//F_VN_HoughLinesPExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughLinesPExp', node_F_VN_HoughLinesPExp);
 //F_VN_MatchImageHuMoments
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplate', node_F_VN_MatchTemplate);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateAndEvaluate', node_F_VN_MatchTemplateAndEvaluate);
@@ -1823,9 +1823,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_Matc
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CannyEdgeDetection', node_F_VN_CannyEdgeDetection);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CannyEdgeDetectionExp', node_F_VN_CannyEdgeDetectionExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ConnectedComponents', node_F_VN_ConnectedComponents);
-//F_VN_ConnectedComponentsExp
-//F_VN_ConnectedComponentsWithStats
-//F_VN_ConnectedComponentsWithStatsExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ConnectedComponentsExp', node_F_VN_ConnectedComponentsExp);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ConnectedComponentsWithStats', node_F_VN_ConnectedComponentsWithStats);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ConnectedComponentsWithStatsExp', node_F_VN_ConnectedComponentsWithStatsExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CountNonZeroPixels', node_F_VN_CountNonZeroPixels);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_DistanceTransformation', node_F_VN_DistanceTransformation);
 //F_VN_DistanceTransformationExp

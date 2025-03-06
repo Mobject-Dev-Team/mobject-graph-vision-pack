@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_FindContourHierarchyExp" Id="{5711e71d-cc6a-008b-1be5-ed996a653e77}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_FindContourHierarchyExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipContours : _ITcVnContainer;
+    ipHierarchy : _ITcVnContainer;
+    eRetrievalMode : _ETcVnContourRetrievalMode(ETcVnContourRetrievalMode.TCVN_CRM_EXTERNAL);
+    eApproximationMethod : _ETcVnContourApproximationMethod(ETcVnContourApproximationMethod.TCVN_CAM_NONE);
+    aOffset : _TcVnPoint;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{3b39c1d2-8874-0a1e-1aca-24c8d5a2a674}" />
+    <Method Name="Clone" Id="{c147b53f-0f78-01c4-36cc-9a279689c5c1}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_FindContourHierarchyExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_FindContourHierarchyExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{a432985d-eef4-072a-1bfb-ea4bb6175d2b}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('eRetrievalMode', eRetrievalMode);
+AddParameter('eApproximationMethod', eApproximationMethod);
+AddInput('aOffset', aOffset);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipContours', ipContours);
+AddOutput('ipHierarchy', ipHierarchy);
+AddOutput('hresult', hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{97dc81c9-1f06-08c6-0352-c0d7a1f806d5}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_FindContourHierarchyExp(
+	ipSrcImage := ipSrcImage.Value,
+    ipContours := ipContours.Value,
+    ipHierarchy := ipHierarchy.Value,
+    eRetrievalMode := eRetrievalMode.Value,
+    eApproximationMethod := eApproximationMethod.Value,
+    aOffset := aOffset.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{87a1541d-3a88-0d69-0220-9e70f0caa07b}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

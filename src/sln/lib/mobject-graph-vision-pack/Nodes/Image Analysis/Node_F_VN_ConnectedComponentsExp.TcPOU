@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_ConnectedComponentsExp" Id="{991602ce-dca4-08b4-1a1b-316adb79506a}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ConnectedComponentsExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipLabelImage : _ITcVnImage;
+    nLabels : _DINT(0);
+    eConnectivity : _ETcVnPixelConnectivity(ETcVnPixelConnectivity.TCVN_PC_4);
+    eLabelType : _ETcVnElementType(ETcVnElementType.TCVN_ET_DINT);
+    eAlgorithm : _ETcVnConnectedComponentsAlgorithm(ETcVnConnectedComponentsAlgorithm.TCVN_CCA_WU);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{e40295d6-2418-02d0-2d75-4c4d856088d1}" />
+    <Method Name="Clone" Id="{f20af75b-b26b-04b4-2c66-f062b617b171}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ConnectedComponentsExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ConnectedComponentsExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{cb02f232-cd77-073e-1910-421efcab714f}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('eConnectivity', eConnectivity);
+AddParameter('eLabelType', eLabelType);
+AddParameter('eAlgorithm', eAlgorithm);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipLabelImage', ipLabelImage);
+AddOutput('nLabels', nLabels);
+AddOutput('hresult', hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{1f5f3cf2-e4a9-04d0-298d-8ba2dda995f2}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ConnectedComponentsExp(
+	ipSrcImage := ipSrcImage.Value,
+    ipLabelImage := ipLabelImage.Value,
+    nLabels := nLabels.Value,
+    eConnectivity := eConnectivity.Value,
+    eLabelType := eLabelType.Value,
+    eAlgorithm := eAlgorithm.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{b5e0099d-3f9b-0b54-0d38-791d3164fceb}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must be 8 bit pixel depth');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+Check.IsTrue((eLabelType.Value = ETcVnElementType.TCVN_ET_DINT) OR
+             (eLabelType.Value = ETcVnElementType.TCVN_ET_UINT), 'eLabelType must be DINT or UINT');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
