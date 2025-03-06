@@ -76,13 +76,20 @@ AddOutput('hresult',hresult);
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
-END_VAR]]></Declaration>
+END_VAR
+VAR
+    x_plus_y : UDINT;
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
-Check.IsTrue((nXOrder.Value < nKernelSize.Value), 'nXOrder must be less than nKernelSize');
-Check.IsTrue((nYOrder.Value < nKernelSize.Value), 'nYOrder must be less than nKernelSize');
 Check.IsTrue(nKernelSize.IsOdd, 'nKernelSize must be an odd number');
+Check.IsTrue((nKernelSize.Value >= 3), 'nKernelSize must be greater than or equal to 3');
 Check.IsTrue((nKernelSize.Value <= 31), 'nKernelSize must be less than or equal to 31');
+
+x_plus_y := nXOrder.Value + nYOrder.Value;
+Check.IsTrue((x_plus_y > 0), 'nXOrder and nYOrder cannot both be 0');
+Check.IsTrue((x_plus_y < nKernelSize.Value), 'nXOrder + nYOrder must be less than nKernelSize');
 ]]></ST>
       </Implementation>
     </Method>
