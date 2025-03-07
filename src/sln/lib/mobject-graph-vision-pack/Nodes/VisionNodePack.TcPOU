@@ -588,11 +588,11 @@ VAR
     node_F_VN_UprightBoundingRectangle : Node_F_VN_UprightBoundingRectangle;
     
     // Control Functions
-    //F_VN_StartAbsWatchdog
-    //F_VN_StartAbsWatchdogExp
-    //F_VN_StartRelWatchdog
-    //F_VN_StartRelWatchdogExp
-    //F_VN_StopWatchdog
+    //node_F_VN_StartAbsWatchdog : Node_F_VN_StartAbsWatchdog;
+    //node_F_VN_StartAbsWatchdogExp : Node_F_VN_StartAbsWatchdogExp;
+    //node_F_VN_StartRelWatchdog : Node_F_VN_StartRelWatchdog;
+    //node_F_VN_StartRelWatchdogExp : Node_F_VN_StartRelWatchdogExp;
+    //node_F_VN_StopWatchdog : Node_F_VN_StopWatchdog;
     
     // Drawing
     node_F_VN_DrawArrow : Node_F_VN_DrawArrow;
@@ -665,7 +665,7 @@ VAR
     node_F_VN_PadImageBorderExp : Node_F_VN_PadImageBorderExp;
     
     // Geometric and Coordinate Transformations
-    //F_VN_CalibrateCamera
+    node_F_VN_CalibrateCamera : Node_F_VN_CalibrateCamera;
     //F_VN_CalibrateCameraExp
     //F_VN_CalibrateCameraExp2
     //F_VN_CalibrateCameraExp3
@@ -685,8 +685,8 @@ VAR
     //F_VN_DetectPatternPointsExp
     //F_VN_GenerateCalibrationPatternReferencePoints
     //F_VN_ImagePointsWorldDistance
-    //F_VN_SolvePnP
-    //F_VN_SolvePnPExp
+    node_F_VN_SolvePnP : Node_F_VN_SolvePnP;
+    node_F_VN_SolvePnPExp : Node_F_VN_SolvePnPExp;
     node_F_VN_SortDetectedPatternPoints : Node_F_VN_SortDetectedPatternPoints;
     //F_VN_TransformCoordinatesImageToWorld_Container
     //F_VN_TransformCoordinatesImageToWorld_Point
@@ -812,7 +812,7 @@ VAR
     node_F_VN_ClaheExp : Node_F_VN_ClaheExp;
     node_F_VN_ConvertColorSpace : Node_F_VN_ConvertColorSpace;
     node_F_VN_GenerateColorMap : Node_F_VN_GenerateColorMap;
-    //F_VN_GenerateCustomColorMap
+    node_F_VN_GenerateCustomColorMap : Node_F_VN_GenerateCustomColorMap;
     node_F_VN_Histogram : Node_F_VN_Histogram;
     node_F_VN_HistogramEqualization : Node_F_VN_HistogramEqualization;
     node_F_VN_HistogramEqualizationExp : Node_F_VN_HistogramEqualizationExp;
@@ -824,10 +824,10 @@ VAR
     node_F_VN_NormalizeImageForDisplay : Node_F_VN_NormalizeImageForDisplay;
     //F_VN_ReferenceColorSimilarity_ITcVnColorModel
     //F_VN_ReferenceColorSimilarity_ITcVnMlModel
-    //F_VN_ReferenceColorSimilarity_TcVnVector3_LREAL
+    node_F_VN_ReferenceColorSimilarity_TcVnVector3_LREAL : Node_F_VN_ReferenceColorSimilarity_TcVnVector3_LREAL;
     //F_VN_ReferenceColorSimilarityExp_ITcVnColorModel
     //F_VN_ReferenceColorSimilarityExp_ITcVnMlModel
-    //F_VN_ReferenceColorSimilarityExp_TcVnVector3_LREAL
+    node_F_VN_ReferenceColorSimilarityExp_TcVnVector3_LREAL : Node_F_VN_ReferenceColorSimilarityExp_TcVnVector3_LREAL;
     //F_VN_TrainImageColor
     //F_VN_TrainImageColor_ITcVnMlModel
     //F_VN_TrainImageColorExp
@@ -1636,9 +1636,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_UprightBoundingRect
 // Control Functions
 //F_VN_StartAbsWatchdog
 //F_VN_StartAbsWatchdogExp
-//F_VN_StartRelWatchdog
+//NodeFactory.AddNodeAsPrototype('Vision/Control Functions/F_VN_StartRelWatchdog', node_F_VN_StartRelWatchdog);
 //F_VN_StartRelWatchdogExp
-//F_VN_StopWatchdog
+//NodeFactory.AddNodeAsPrototype('Vision/Control Functions/F_VN_StopWatchdog', node_F_VN_StopWatchdog);
     
 // Drawing
 NodeFactory.AddNodeAsPrototype('Vision/Drawing/F_VN_DrawArrow', node_F_VN_DrawArrow);
@@ -1711,7 +1711,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_PadImageBorder', no
 NodeFactory.AddNodeAsPrototype('Vision/Fourier Analysis/F_VN_PadImageBorderExp', node_F_VN_PadImageBorderExp);
 
 // Geometric and Coordinate Transformations
-//F_VN_CalibrateCamera
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_CalibrateCamera', node_F_VN_CalibrateCamera);
 //F_VN_CalibrateCameraExp
 //F_VN_CalibrateCameraExp2
 //F_VN_CalibrateCameraExp3
@@ -1731,8 +1731,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 //F_VN_DetectPatternPointsExp
 //F_VN_GenerateCalibrationPatternReferencePoints
 //F_VN_ImagePointsWorldDistance
-//F_VN_SolvePnP
-//F_VN_SolvePnPExp
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_SolvePnP', node_F_VN_SolvePnP);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_SolvePnPExp', node_F_VN_SolvePnPExp);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_SortDetectedPatternPoints', node_F_VN_SortDetectedPatternPoints);
 //F_VN_TransformCoordinatesImageToWorld_Container
 //F_VN_TransformCoordinatesImageToWorld_Point
@@ -1857,7 +1857,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ClaheExp', node_F_VN_ClaheExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ConvertColorSpace', node_F_VN_ConvertColorSpace);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_GenerateColorMap', node_F_VN_GenerateColorMap);
-//F_VN_GenerateCustomColorMap
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_GenerateCustomColorMap', node_F_VN_GenerateCustomColorMap);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_Histogram', node_F_VN_Histogram);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_HistogramEqualization', node_F_VN_HistogramEqualization);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_HistogramEqualizationExp', node_F_VN_HistogramEqualizationExp);
@@ -1869,10 +1869,10 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_NormalizeImageForDisplay', node_F_VN_NormalizeImageForDisplay);
 //F_VN_ReferenceColorSimilarity_ITcVnColorModel
 //F_VN_ReferenceColorSimilarity_ITcVnMlModel
-//F_VN_ReferenceColorSimilarity_TcVnVector3_LREAL
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ReferenceColorSimilarity_TcVnVector3_LREAL', node_F_VN_ReferenceColorSimilarity_TcVnVector3_LREAL);
 //F_VN_ReferenceColorSimilarityExp_ITcVnColorModel
 //F_VN_ReferenceColorSimilarityExp_ITcVnMlModel
-//F_VN_ReferenceColorSimilarityExp_TcVnVector3_LREAL
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ReferenceColorSimilarityExp_TcVnVector3_LREAL', node_F_VN_ReferenceColorSimilarityExp_TcVnVector3_LREAL);
 //F_VN_TrainImageColor
 //F_VN_TrainImageColor_ITcVnMlModel
 //F_VN_TrainImageColorExp

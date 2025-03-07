@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_CalibrateCamera" Id="{e4aa3c64-660c-0a1d-278f-abdc27169625}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_CalibrateCamera EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipReferencePoints : _ITcVnContainer;
+    aCameraMatrix : _TcVnMatrix3x3_LREAL;
+    aDistortionCoefficients : _TcVnArray8_LREAL;
+    aRotationMatrix : _TcVnMatrix3x3_LREAL;
+    aTranslationVector : _TcVnVector3_LREAL;
+    fReprojError : _LREAL(0.0);
+    stBlobDetectionParams : _TcVnParamsBlobDetection;
+    stCalibrationOptions : _TcVnCameraCalibrationOptions;  
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{c687cd15-c9dc-023f-0357-4dea0904f42f}" />
+    <Method Name="Clone" Id="{5b7fb24b-e9d8-06b4-10b1-c0b82af64075}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_CalibrateCamera;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_CalibrateCamera);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{63b011f1-680f-0562-35d1-d8994d32e555}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('ipReferencePoints', ipReferencePoints);
+AddInput('stBlobDetectionParams', stBlobDetectionParams);
+AddInput('stCalibrationOptions', stCalibrationOptions);
+AddInput('hrPrev', hrPrev);
+AddOutput('aCameraMatrix', aCameraMatrix);
+AddOutput('aDistortionCoefficients', aDistortionCoefficients);
+AddOutput('aRotationMatrix', aRotationMatrix);
+AddOutput('aTranslationVector', aTranslationVector);
+AddOutput('fReprojError', fReprojError);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{fe0388f9-7051-081f-2767-a129219e1724}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_CalibrateCamera(
+    ipSrcImage := ipSrcImage.Value,
+    ipReferencePoints := ipReferencePoints.Value,
+    aCameraMatrix := aCameraMatrix.Value,
+    aDistortionCoefficients := aDistortionCoefficients.Value,
+    aRotationMatrix := aRotationMatrix.Value,
+    aTranslationVector := aTranslationVector.Value,
+    fReprojError := fReprojError.Value,
+    stBlobDetectionParams := stBlobDetectionParams.Value,
+    stCalibrationOptions := stCalibrationOptions.Value,
+	hrPrev := hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{80223411-6fdb-0874-2f87-4d555a458b8b}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+Check.IsTrue(ipReferencePoints.IsValid, 'ipReferencePoints must be a valid container');
+Check.IsTrue(ipReferencePoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint3_REAL), 'ipReferencePoints contains incorrect type');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

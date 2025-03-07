@@ -2402,6 +2402,9 @@
     <Compile Include="Nodes\Fourier Analysis\Node_F_VN_Dft.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_SolvePnP.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CompensateLensDistortion.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2418,6 +2421,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CompensateLensDistortionForPointsExp1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CalibrateCamera.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_SolvePnPExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_SortDetectedPatternPoints.TcPOU">
@@ -2672,6 +2681,12 @@
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ClaheExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_GenerateCustomColorMap.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ReferenceColorSimilarity_TcVnVector3_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_Histogram.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2694,6 +2709,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_NormalizeImageForDisplay.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ReferenceColorSimilarityExp_TcVnVector3_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_BilateralFilter.TcPOU">

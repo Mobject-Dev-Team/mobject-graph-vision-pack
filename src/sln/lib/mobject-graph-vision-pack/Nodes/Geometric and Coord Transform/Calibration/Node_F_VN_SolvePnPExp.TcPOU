@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_SolvePnPExp" Id="{37526b91-cea2-089a-3b1e-29620552bf70}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_SolvePnPExp EXTENDS VisionNode
+VAR
+    ipImagePoints : _ITcVnContainer;
+    ipReferencePoints : _ITcVnContainer;
+    aCameraMatrix : _TcVnMatrix3x3_LREAL;
+    aDistortionCoefficients : _TcVnArray8_LREAL;
+    aRotationMatrix : _TcVnMatrix3x3_LREAL;
+    aTranslationVector : _TcVnVector3_LREAL;
+    fReprojError : _LREAL(0.0);
+    eMethod : _ETcVnSolvePnPMethod(ETcVnSolvePnPMethod.TCVN_SPM_ITERATIVE);
+    bUseExtrinsicGuess : _BOOL(FALSE);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{6d87eb61-86ac-05fc-0c75-471005fe835f}" />
+    <Method Name="Clone" Id="{9ee293a6-e8a4-0e26-2dbd-0ca40573277e}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_SolvePnPExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_SolvePnPExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{38f785e6-1d30-0bc9-3cb2-e0882a4eaa52}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipImagePoints', ipImagePoints);
+AddInput('ipReferencePoints', ipReferencePoints);
+AddParameter('eMethod', eMethod);
+AddParameter('bUseExtrinsicGuess', bUseExtrinsicGuess);
+AddInput('hrPrev', hrPrev);
+AddOutput('aCameraMatrix', aCameraMatrix);
+AddOutput('aDistortionCoefficients', aDistortionCoefficients);
+AddOutput('aRotationMatrix', aRotationMatrix);
+AddOutput('aTranslationVector', aTranslationVector);
+AddOutput('fReprojError', fReprojError);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{59aac25b-e5d6-007f-0737-7d7b6900a1c5}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_SolvePnPExp(
+    ipImagePoints := ipImagePoints.Value,
+    ipReferencePoints := ipReferencePoints.Value,
+    aCameraMatrix := aCameraMatrix.Value,
+    aDistortionCoefficients := aDistortionCoefficients.Value,
+    aRotationMatrix := aRotationMatrix.Value,
+    aTranslationVector := aTranslationVector.Value,
+    fReprojError := fReprojError.Value,
+    eMethod := eMethod.Value,
+    bUseExtrinsicGuess := bUseExtrinsicGuess.Value,
+	hrPrev := hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{3d8cb146-d9ea-0c2e-1516-44d086895a05}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    imagePointsElementNum : ULINT;
+    referencePointsElementNum : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipImagePoints.IsValid, 'ipImagePoints must be a valid container');
+Check.IsTrue(ipImagePoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL), 'ipImagePoints contains incorrect type');
+Check.IsTrue((ipImagePoints.TryGetElementNum(imagePointsElementNum) AND (imagePointsElementNum >= 4)), 'ipImagePoints must contain at least 4 points');
+
+Check.IsTrue(ipReferencePoints.IsValid, 'ipReferencePoints must be a valid container');
+Check.IsTrue(ipReferencePoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint3_REAL), 'ipImagePoints contains incorrect type');
+Check.IsTrue((ipImagePoints.TryGetElementNum(referencePointsElementNum) AND (referencePointsElementNum = imagePointsElementNum)), 'ipReferencePoints must have same number of points as ipImagePoints');
+
+IF (eMethod.Value <> ETcVnSolvePnPMethod.TCVN_SPM_ITERATIVE) THEN
+    Check.IsFalse(bUseExtrinsicGuess.Value, 'bUseExtrinsicGuess only supported for ITERATIVE method');
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
