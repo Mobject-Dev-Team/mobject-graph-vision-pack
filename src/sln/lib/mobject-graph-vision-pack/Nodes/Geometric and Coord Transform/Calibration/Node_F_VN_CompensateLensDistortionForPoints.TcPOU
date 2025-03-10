@@ -41,7 +41,7 @@ AddInput('aCameraMatrix', aCameraMatrix);
 AddInput('aDistortionCoefficients', aDistortionCoefficients);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestPoints', ipDestPoints);
-AddOutput('hresult',hresult);
+AddOutput('hresult', hresult);
 ]]></ST>
       </Implementation>
     </Method>

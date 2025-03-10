@@ -55,62 +55,10 @@
     <PlaceholderReference Include="Tc2_System">
       <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_System</Namespace>
-      <Parameters>
-        <Parameter ListName="PARAM" xmlns="">
-          <Key>TABLE_UPPER_BOUND</Key>
-          <Value>15</Value>
-        </Parameter>
-        <Parameter ListName="PARAM" xmlns="">
-          <Key>STRING_LENGTH_EXP</Key>
-          <Value>255</Value>
-        </Parameter>
-        <Parameter ListName="PARAM" xmlns="">
-          <Key>STRING_LENGTH_ADDRESS</Key>
-          <Value>20</Value>
-        </Parameter>
-        <Parameter ListName="PARAM" xmlns="">
-          <Key>STRING_LENGTH_COMMENT</Key>
-          <Value>255</Value>
-        </Parameter>
-        <Parameter ListName="PARAM" xmlns="">
-          <Key>STRING_LENGTH_OUTSTRING</Key>
-          <Value>255</Value>
-        </Parameter>
-        <Parameter ListName="PARAM" xmlns="">
-          <Key>TABLE_SHOW_VALID_ITEMS</Key>
-          <Value>FALSE</Value>
-        </Parameter>
-      </Parameters>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Utilities">
       <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Utilities</Namespace>
-      <Parameters>
-        <Parameter ListName="PARAMETERLIST" xmlns="">
-          <Key>NMAXLICENSES</Key>
-          <Value>50</Value>
-        </Parameter>
-        <Parameter ListName="PARAMETERLIST" xmlns="">
-          <Key>NMAXLICENSEDEVICES</Key>
-          <Value>16</Value>
-        </Parameter>
-        <Parameter ListName="PARAMETERLIST" xmlns="">
-          <Key>NMAXCPUCOUNT</Key>
-          <Value>64</Value>
-        </Parameter>
-        <Parameter ListName="PARAMETERLIST" xmlns="">
-          <Key>CMAXCHARACTERS</Key>
-          <Value>16#FFFFFFF0</Value>
-        </Parameter>
-        <Parameter ListName="PARAMETERLIST" xmlns="">
-          <Key>NMAXFILESONDONGLE</Key>
-          <Value>20</Value>
-        </Parameter>
-        <Parameter ListName="PARAMETERLIST" xmlns="">
-          <Key>CMAXCSVFIELDVALUESIZE</Key>
-          <Value>255</Value>
-        </Parameter>
-      </Parameters>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -1844,10 +1792,19 @@
     <Compile Include="Nodes\Code Quality\Node_F_VN_GradeBarcode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Code Quality\Node_F_VN_GradeBarcodeExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Quality\Node_F_VN_GradeDataMatrixCodeExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Code Quality\Node_F_VN_GradeQRCode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Code Quality\Node_F_VN_GradeDataMatrixCode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Quality\Node_F_VN_GradeQRCodeExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Code Reading\Node_F_VN_ReadQRCode.TcPOU">
@@ -2454,6 +2411,12 @@
     <Compile Include="Nodes\Fourier Analysis\Node_F_VN_Dft.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CalibrateCameraPlanar.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_GenerateCalibrationPatternReferencePoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_SolvePnP.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2631,6 +2594,9 @@
     <Compile Include="Nodes\Image Analysis\Node_F_VN_ConnectedComponentsWithStats.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_UprightInnerRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_CountNonZeroPixels.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2638,6 +2604,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_ConnectedComponents.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_DistanceTransformationExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAverage.TcPOU">
@@ -2689,6 +2658,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAbsoluteAverage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_UprightInnerRectangleExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_DetectBlobs.TcPOU">
@@ -2922,10 +2894,16 @@
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsFlannLsh.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsFlannLshExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsKnnBF.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsKnnFlannLsh.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsKnnFlannLshExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_RegionsMSER.TcPOU">

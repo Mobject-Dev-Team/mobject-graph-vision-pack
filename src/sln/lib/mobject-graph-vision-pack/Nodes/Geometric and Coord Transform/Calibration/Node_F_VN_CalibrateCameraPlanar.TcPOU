@@ -1,15 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
-  <POU Name="Node_F_VN_CompensateLensDistortion" Id="{bfa4af33-66db-0a55-3998-d48d8fe0d4fc}" SpecialFunc="None">
+  <POU Name="Node_F_VN_CalibrateCameraPlanar" Id="{91a3dcae-304b-4f80-b3a9-d5ed0366f434}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_CompensateLensDistortion EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_CalibrateCameraPlanar EXTENDS VisionNode
 VAR
     ipSrcImage : _ITcVnImage;
-    ipDestImage : _ITcVnImage;
-    aCameraMatrix : _TcVnMatrix3x3_LREAL;
-    aDistortionCoefficients : _TcVnArray4_LREAL;
+    aMarkerPositions : _TcVnArray4_Point2_REAL;
+    aTransformationMatrix : _TcVnMatrix3x3_LREAL;
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -17,18 +16,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{92714aa2-1025-0cf6-0dc1-d6220fa2d1a8}" />
-    <Method Name="Clone" Id="{33f312fa-bc31-0f08-184d-ed2bf28cfdf6}">
+    <Folder Name="Constructor" Id="{9599f7ba-c50b-4d05-ac17-4c553abb0957}" />
+    <Method Name="Clone" Id="{f26a772e-ceaa-4c7a-bcd8-7f988b1422e5}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_CompensateLensDistortion;
+	pNode : POINTER TO Node_F_VN_CalibrateCameraPlanar;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_CompensateLensDistortion);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_CalibrateCameraPlanar);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{8d3752b0-b41a-0ab4-15be-bfdd8a6f0403}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{bbabf8a2-bb0e-4ebb-b1af-db33173f171e}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -37,27 +36,25 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
-AddInput('aCameraMatrix', aCameraMatrix);
-AddInput('aDistortionCoefficients', aDistortionCoefficients);
+AddInput('aMarkerPositions', aMarkerPositions);
 AddInput('hrPrev', hrPrev);
-AddOutput('ipDestImage', ipDestImage);
+AddOutput('aTransformationMatrix', aTransformationMatrix);
 AddOutput('hresult', hresult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{2a5dfc3c-f378-04c2-1f59-82a179ece0cf}">
+    <Method Name="OnExecute" Id="{0ebde6bb-31b5-4781-8157-13f9b116879d}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_CompensateLensDistortion(
+        <ST><![CDATA[hresult.Value := F_VN_CalibrateCameraPlanar(
     ipSrcImage := ipSrcImage.Value,
-	ipDestImage := ipDestImage.Value,
-    aCameraMatrix := aCameraMatrix.Value,
-    aDistortionCoefficients := aDistortionCoefficients.Value,
+    aMarkerPositions := aMarkerPositions.Value,
+    aTransformationMatrix := aTransformationMatrix.Value,
 	hrPrev := hrPrev.Value);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{a96ee8d2-4af2-06a5-355b-6d7c892055a1}">
+    <Method Name="PreExecutionCheck" Id="{4a653df4-c6cd-4599-9e81-4e45984131ad}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;

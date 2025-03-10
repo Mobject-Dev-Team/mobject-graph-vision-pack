@@ -1,15 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
-  <POU Name="Node_F_VN_CompensateLensDistortion" Id="{bfa4af33-66db-0a55-3998-d48d8fe0d4fc}" SpecialFunc="None">
+  <POU Name="Node_F_VN_UprightInnerRectangleExp" Id="{f193be94-76a9-4f10-aacb-cb83e3cd950a}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_CompensateLensDistortion EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_UprightInnerRectangleExp EXTENDS VisionNode
 VAR
     ipSrcImage : _ITcVnImage;
-    ipDestImage : _ITcVnImage;
-    aCameraMatrix : _TcVnMatrix3x3_LREAL;
-    aDistortionCoefficients : _TcVnArray4_LREAL;
+    stRectangle : _TcVnRectangle_DINT;
+    nDownScaleFactor : _DINT(-1);
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -17,18 +16,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{92714aa2-1025-0cf6-0dc1-d6220fa2d1a8}" />
-    <Method Name="Clone" Id="{33f312fa-bc31-0f08-184d-ed2bf28cfdf6}">
+    <Folder Name="Constructor" Id="{58013b6b-80bc-4216-839e-a71f499724a1}" />
+    <Method Name="Clone" Id="{6929c106-41ca-4cec-aaed-5c05ac47e23d}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_CompensateLensDistortion;
+	pNode : POINTER TO Node_F_VN_UprightInnerRectangleExp;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_CompensateLensDistortion);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_UprightInnerRectangleExp);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{8d3752b0-b41a-0ab4-15be-bfdd8a6f0403}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{9d1e569e-b231-483f-93f5-fc01b4dd139c}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -37,33 +36,35 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
-AddInput('aCameraMatrix', aCameraMatrix);
-AddInput('aDistortionCoefficients', aDistortionCoefficients);
+AddParameter('nDownScaleFactor', nDownScaleFactor);
 AddInput('hrPrev', hrPrev);
-AddOutput('ipDestImage', ipDestImage);
+AddOutput('stRectangle', stRectangle);
 AddOutput('hresult', hresult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{2a5dfc3c-f378-04c2-1f59-82a179ece0cf}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+    <Method Name="OnExecute" Id="{6d231fab-b537-44ea-ae5c-fc5fa3833e74}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_CompensateLensDistortion(
-    ipSrcImage := ipSrcImage.Value,
-	ipDestImage := ipDestImage.Value,
-    aCameraMatrix := aCameraMatrix.Value,
-    aDistortionCoefficients := aDistortionCoefficients.Value,
-	hrPrev := hrPrev.Value);
+        <ST><![CDATA[hresult.Value := F_VN_UprightInnerRectangleExp(
+	ipSrcImage := ipSrcImage.Value,
+    stRectangle := stRectangle.Value,
+    nDownScaleFactor := nDownScaleFactor.Value,
+	hrPrev:= hrPrev.Value);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{a96ee8d2-4af2-06a5-355b-6d7c892055a1}">
+    <Method Name="PreExecutionCheck" Id="{2c87129a-4637-4b75-b3be-aaa9e6787654}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must be 8 bit pixel depth');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+Check.IsTrue(nDownScaleFactor.Value >= -1, 'nDownScaleFactor must be greater than or equal to -1');
 ]]></ST>
       </Implementation>
     </Method>

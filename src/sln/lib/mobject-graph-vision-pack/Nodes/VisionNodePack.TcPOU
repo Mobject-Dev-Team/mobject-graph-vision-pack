@@ -413,11 +413,11 @@ VAR
     
     // Code Quality
     node_F_VN_GradeBarcode : Node_F_VN_GradeBarcode;
-    //F_VN_GradeBarcodeExp
+    node_F_VN_GradeBarcodeExp : Node_F_VN_GradeBarcodeExp;
     node_F_VN_GradeDataMatrixCode : Node_F_VN_GradeDataMatrixCode;
-    //F_VN_GradeDataMatrixCodeExp
+    node_F_VN_GradeDataMatrixCodeExp : Node_F_VN_GradeDataMatrixCodeExp;
     node_F_VN_GradeQRCode : Node_F_VN_GradeQRCode;
-    //F_VN_GradeQRCodeExp
+    node_F_VN_GradeQRCodeExp : Node_F_VN_GradeQRCodeExp;
     
     // Code Reading
     node_F_VN_ReadBarcode : Node_F_VN_ReadBarcode;
@@ -671,7 +671,7 @@ VAR
     //F_VN_CalibrateCameraExp3
     //F_VN_CalibrateCameraManually
     //F_VN_CalibrateCameraManuallyExp
-    //F_VN_CalibrateCameraPlanar
+    node_F_VN_CalibrateCameraPlanar : Node_F_VN_CalibrateCameraPlanar;
     //F_VN_CalibrateCameraPlanarExp
     //F_VN_CalibrateLinescanCamera
     //F_VN_CalibrateLinescanCameraExp
@@ -683,7 +683,7 @@ VAR
     node_F_VN_CompensateLensDistortionForPointsExp2 : Node_F_VN_CompensateLensDistortionForPointsExp2;
     node_F_VN_DetectPatternPoints : Node_F_VN_DetectPatternPoints;
     //F_VN_DetectPatternPointsExp
-    //F_VN_GenerateCalibrationPatternReferencePoints
+    node_F_VN_GenerateCalibrationPatternReferencePoints : Node_F_VN_GenerateCalibrationPatternReferencePoints;
     //F_VN_ImagePointsWorldDistance
     node_F_VN_SolvePnP : Node_F_VN_SolvePnP;
     node_F_VN_SolvePnPExp : Node_F_VN_SolvePnPExp;
@@ -783,7 +783,7 @@ VAR
     node_F_VN_ConnectedComponentsWithStatsExp : Node_F_VN_ConnectedComponentsWithStatsExp;
     node_F_VN_CountNonZeroPixels : Node_F_VN_CountNonZeroPixels;
     node_F_VN_DistanceTransformation : Node_F_VN_DistanceTransformation;
-    //F_VN_DistanceTransformationExp
+    node_F_VN_DistanceTransformationExp : Node_F_VN_DistanceTransformationExp;
     //F_VN_GetConnectedComponent
     //F_VN_GetConnectedComponentExp
     node_F_VN_ImageAverage : Node_F_VN_ImageAverage;
@@ -802,8 +802,8 @@ VAR
     node_F_VN_RegionOrientation : Node_F_VN_RegionOrientation;
     node_F_VN_RegionOrientationExp : Node_F_VN_RegionOrientationExp;
     node_F_VN_ImageAbsoluteAverage : Node_F_VN_ImageAbsoluteAverage;
-    //F_VN_UprightInnerRectangle
-    //F_VN_UprightInnerRectangleExp
+    node_F_VN_UprightInnerRectangle : Node_F_VN_UprightInnerRectangle;
+    node_F_VN_UprightInnerRectangleExp : Node_F_VN_UprightInnerRectangleExp;
     
     // Image Color and Contrast Processing
     node_F_VN_ApplyColorMap : Node_F_VN_ApplyColorMap;
@@ -907,11 +907,11 @@ VAR
     node_F_VN_MatchDescriptorsBF : Node_F_VN_MatchDescriptorsBF;
     //F_VN_MatchDescriptorsBFExp
     node_F_VN_MatchDescriptorsFlannLsh : Node_F_VN_MatchDescriptorsFlannLsh;
-    //F_VN_MatchDescriptorsFlannLshExp
+    node_F_VN_MatchDescriptorsFlannLshExp : Node_F_VN_MatchDescriptorsFlannLshExp;
     node_F_VN_MatchDescriptorsKnnBF : Node_F_VN_MatchDescriptorsKnnBF;
     //F_VN_MatchDescriptorsKnnBFExp
     node_F_VN_MatchDescriptorsKnnFlannLsh : Node_F_VN_MatchDescriptorsKnnFlannLsh;
-    //F_VN_MatchDescriptorsKnnFlannLshExp
+    node_F_VN_MatchDescriptorsKnnFlannLshExp : Node_F_VN_MatchDescriptorsKnnFlannLshExp;
     node_F_VN_RegionsMSER : Node_F_VN_RegionsMSER;
     node_F_VN_RegionsMSERExp : Node_F_VN_RegionsMSERExp;
     
@@ -1457,11 +1457,11 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_GetLayoutInfo
 
 // Code Quality
 NodeFactory.AddNodeAsPrototype('Vision/Code Quality/F_VN_GradeBarcode', node_F_VN_GradeBarcode);
-//F_VN_GradeBarcodeExp
+NodeFactory.AddNodeAsPrototype('Vision/Code Quality/F_VN_GradeBarcodeExp', node_F_VN_GradeBarcodeExp);
 NodeFactory.AddNodeAsPrototype('Vision/Code Quality/F_VN_GradeDataMatrixCode', node_F_VN_GradeDataMatrixCode);
-//F_VN_GradeDataMatrixCodeExp
+NodeFactory.AddNodeAsPrototype('Vision/Code Quality/F_VN_GradeDataMatrixCodeExp', node_F_VN_GradeDataMatrixCodeExp);
 NodeFactory.AddNodeAsPrototype('Vision/Code Quality/F_VN_GradeQRCode', node_F_VN_GradeQRCode);
-//F_VN_GradeQRCodeExp
+NodeFactory.AddNodeAsPrototype('Vision/Code Quality/F_VN_GradeQRCodeExp', node_F_VN_GradeQRCodeExp);
 
 // Code Reading
 NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadBarcode', node_F_VN_ReadBarcode);
@@ -1717,7 +1717,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 //F_VN_CalibrateCameraExp3
 //F_VN_CalibrateCameraManually
 //F_VN_CalibrateCameraManuallyExp
-//F_VN_CalibrateCameraPlanar
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_CalibrateCameraPlanar', node_F_VN_CalibrateCameraPlanar);
 //F_VN_CalibrateCameraPlanarExp
 //F_VN_CalibrateLinescanCamera
 //F_VN_CalibrateLinescanCameraExp
@@ -1729,7 +1729,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_CompensateLensDistortionForPointsExp2', node_F_VN_CompensateLensDistortionForPointsExp2);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_DetectPatternPoints', node_F_VN_DetectPatternPoints);
 //F_VN_DetectPatternPointsExp
-//F_VN_GenerateCalibrationPatternReferencePoints
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_GenerateCalibrationPatternReferencePoints', node_F_VN_GenerateCalibrationPatternReferencePoints);
 //F_VN_ImagePointsWorldDistance
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_SolvePnP', node_F_VN_SolvePnP);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/Calibration/F_VN_SolvePnPExp', node_F_VN_SolvePnPExp);
@@ -1828,7 +1828,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ConnectedComponentsWi
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ConnectedComponentsWithStatsExp', node_F_VN_ConnectedComponentsWithStatsExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CountNonZeroPixels', node_F_VN_CountNonZeroPixels);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_DistanceTransformation', node_F_VN_DistanceTransformation);
-//F_VN_DistanceTransformationExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_DistanceTransformationExp', node_F_VN_DistanceTransformationExp);
 //F_VN_GetConnectedComponent
 //F_VN_GetConnectedComponentExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ImageAverage', node_F_VN_ImageAverage);
@@ -1847,8 +1847,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_MinPixelValueExp', no
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_RegionOrientation', node_F_VN_RegionOrientation);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_RegionOrientationExp', node_F_VN_RegionOrientationExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ImageAbsoluteAverage', node_F_VN_ImageAbsoluteAverage);
-//NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_UprightInnerRectangle', node_F_VN_UprightInnerRectangle);
-//NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_UprightInnerRectangleExp', node_F_VN_UprightInnerRectangleExp);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_UprightInnerRectangle', node_F_VN_UprightInnerRectangle);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_UprightInnerRectangleExp', node_F_VN_UprightInnerRectangleExp);
 
 // Image Color and Contrast Processing
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ApplyColorMap', node_F_VN_ApplyColorMap);
@@ -1952,11 +1952,11 @@ NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsSBExp', n
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsBF', node_F_VN_MatchDescriptorsBF);
 //F_VN_MatchDescriptorsBFExp
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsFlannLsh', node_F_VN_MatchDescriptorsFlannLsh);
-//F_VN_MatchDescriptorsFlannLshExp
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsFlannLshExp', node_F_VN_MatchDescriptorsFlannLshExp);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsKnnBF', node_F_VN_MatchDescriptorsKnnBF);
 //F_VN_MatchDescriptorsKnnBFExp
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsKnnFlannLsh', node_F_VN_MatchDescriptorsKnnFlannLsh);
-//F_VN_MatchDescriptorsKnnFlannLshExp
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsKnnFlannLshExp', node_F_VN_MatchDescriptorsKnnFlannLshExp);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_RegionsMSER', node_F_VN_RegionsMSER);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_RegionsMSERExp', node_F_VN_RegionsMSERExp);
 

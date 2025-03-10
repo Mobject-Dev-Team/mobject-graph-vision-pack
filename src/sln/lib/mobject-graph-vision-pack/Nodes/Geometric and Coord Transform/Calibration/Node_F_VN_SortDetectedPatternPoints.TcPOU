@@ -37,7 +37,7 @@ END_VAR
         <ST><![CDATA[AddInput('ipImagePoints', ipImagePoints);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipPatternPoints', ipPatternPoints);
-AddOutput('hresult',hresult);
+AddOutput('hresult', hresult);
 ]]></ST>
       </Implementation>
     </Method>

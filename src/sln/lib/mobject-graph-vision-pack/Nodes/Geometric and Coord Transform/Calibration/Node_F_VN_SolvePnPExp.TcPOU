@@ -51,7 +51,7 @@ AddOutput('aDistortionCoefficients', aDistortionCoefficients);
 AddOutput('aRotationMatrix', aRotationMatrix);
 AddOutput('aTranslationVector', aTranslationVector);
 AddOutput('fReprojError', fReprojError);
-AddOutput('hresult',hresult);
+AddOutput('hresult', hresult);
 ]]></ST>
       </Implementation>
     </Method>

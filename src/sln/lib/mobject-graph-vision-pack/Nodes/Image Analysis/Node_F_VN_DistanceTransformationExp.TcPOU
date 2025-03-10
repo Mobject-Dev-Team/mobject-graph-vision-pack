@@ -1,15 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
-  <POU Name="Node_F_VN_DistanceTransformation" Id="{4d91cd47-be3b-0012-3a2c-291becfd9006}" SpecialFunc="None">
+  <POU Name="Node_F_VN_DistanceTransformationExp" Id="{ff2c9989-7375-4244-a20d-67b814b76b41}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_DistanceTransformation EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_DistanceTransformationExp EXTENDS VisionNode
 VAR
     ipSrcImage : _ITcVnImage;
     ipDestImage : _ITcVnImage;
     eDistanceType : _ETcVnDistanceType(ETcVnDistanceType.TCVN_DT_L1);
     eMaskSize : _ETcVnDistanceTransformationMask(ETcVnDistanceTransformationMask.TCVN_DTM_PRECISE);
+    ipDestLabels : _ITcVnImage;
+    eLabelType : _ETcVnDistanceTransformationLabel(ETcVnDistanceTransformationLabel.TCVN_DTL_CCOMP);
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -17,18 +19,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{9681b2ee-e1a0-050e-2bfe-ad775bdee409}" />
-    <Method Name="Clone" Id="{538efdff-d2ce-0e11-071b-fad8805e1b16}">
+    <Folder Name="Constructor" Id="{0ac6e05f-fa8b-473e-b8a7-f4d93839d812}" />
+    <Method Name="Clone" Id="{a38c76e1-8bd5-471a-9be6-96e8afdf7058}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_DistanceTransformation;
+	pNode : POINTER TO Node_F_VN_DistanceTransformationExp;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_DistanceTransformation);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DistanceTransformationExp);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{8f56763e-b312-08a0-0925-73f227f64a0f}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{8c2b3fa2-0fb1-470f-aa29-b8aedab9ddfb}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -39,32 +41,38 @@ END_VAR
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
 AddParameter('eDistanceType', eDistanceType);
 AddParameter('eMaskSize', eMaskSize);
+AddParameter('eLabelType', eLabelType);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipDestImage', ipDestImage);
+AddOutput('ipDestLabels', ipDestLabels);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{843db459-d414-0e20-2692-b339d34691ef}">
+    <Method Name="OnExecute" Id="{4658ab7b-66ba-4928-ad94-a896777df315}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_DistanceTransformation(
+        <ST><![CDATA[hresult.Value := F_VN_DistanceTransformationExp(
     ipSrcImage := ipSrcImage.Value,
 	ipDestImage := ipDestImage.Value,
     eDistanceType := eDistanceType.Value,
     eMaskSize := eMaskSize.Value,
+    ipDestLabels := ipDestLabels.Value,
+    eLabelType := eLabelType.Value,
 	hrPrev:= hrPrev.Value);
     ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{0105c7e8-4618-0920-3bb3-8df9736f5174}">
+    <Method Name="PreExecutionCheck" Id="{d486e022-c521-4a60-803c-e4fa6111d44c}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR
 VAR
     distanceTypeIsValid : BOOL;
-END_VAR]]></Declaration>
+    maskSizeIsValid : BOOL;
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
 Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
@@ -77,6 +85,13 @@ CASE eDistanceType.Value OF
         distanceTypeIsValid := TRUE;
 END_CASE
 Check.IsTrue(distanceTypeIsValid, 'eDistanceType value is unsupported');
+
+CASE eMaskSize.Value OF
+    ETcVnDistanceTransformationMask.TCVN_DTM_3,
+    ETcVnDistanceTransformationMask.TCVN_DTM_5 :
+        maskSizeIsValid := TRUE;
+END_CASE
+Check.IsTrue(maskSizeIsValid, 'maskSizeIsValid value is unsupported');
 ]]></ST>
       </Implementation>
     </Method>

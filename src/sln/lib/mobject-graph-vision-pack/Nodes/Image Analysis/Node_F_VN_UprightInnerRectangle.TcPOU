@@ -1,15 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
-  <POU Name="Node_F_VN_CompensateLensDistortion" Id="{bfa4af33-66db-0a55-3998-d48d8fe0d4fc}" SpecialFunc="None">
+  <POU Name="Node_F_VN_UprightInnerRectangle" Id="{fb9b9e03-22c2-4fd0-a6a9-19607c58231f}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_CompensateLensDistortion EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_UprightInnerRectangle EXTENDS VisionNode
 VAR
     ipSrcImage : _ITcVnImage;
-    ipDestImage : _ITcVnImage;
-    aCameraMatrix : _TcVnMatrix3x3_LREAL;
-    aDistortionCoefficients : _TcVnArray4_LREAL;
+    stRectangle : _TcVnRectangle_DINT;
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -17,18 +15,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{92714aa2-1025-0cf6-0dc1-d6220fa2d1a8}" />
-    <Method Name="Clone" Id="{33f312fa-bc31-0f08-184d-ed2bf28cfdf6}">
+    <Folder Name="Constructor" Id="{87065cc1-a199-4df7-88f7-d014fd39b552}" />
+    <Method Name="Clone" Id="{ae2f98c1-ad0e-4215-a992-5c55987ac4ca}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_CompensateLensDistortion;
+	pNode : POINTER TO Node_F_VN_UprightInnerRectangle;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_CompensateLensDistortion);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_UprightInnerRectangle);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{8d3752b0-b41a-0ab4-15be-bfdd8a6f0403}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{a5de9d6b-c0fc-4bb4-a67c-c3c6675333db}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -37,33 +35,32 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
-AddInput('aCameraMatrix', aCameraMatrix);
-AddInput('aDistortionCoefficients', aDistortionCoefficients);
 AddInput('hrPrev', hrPrev);
-AddOutput('ipDestImage', ipDestImage);
+AddOutput('stRectangle', stRectangle);
 AddOutput('hresult', hresult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{2a5dfc3c-f378-04c2-1f59-82a179ece0cf}">
-      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+    <Method Name="OnExecute" Id="{d091774c-83d5-4e4a-a888-0079902430f0}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_CompensateLensDistortion(
-    ipSrcImage := ipSrcImage.Value,
-	ipDestImage := ipDestImage.Value,
-    aCameraMatrix := aCameraMatrix.Value,
-    aDistortionCoefficients := aDistortionCoefficients.Value,
-	hrPrev := hrPrev.Value);
+        <ST><![CDATA[hresult.Value := F_VN_UprightInnerRectangle(
+	ipSrcImage := ipSrcImage.Value,
+    stRectangle := stRectangle.Value,
+	hrPrev:= hrPrev.Value);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{a96ee8d2-4af2-06a5-355b-6d7c892055a1}">
+    <Method Name="PreExecutionCheck" Id="{e99157c5-2094-4132-9a68-ee248cbb6327}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must be 8 bit pixel depth');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
 ]]></ST>
       </Implementation>
     </Method>
