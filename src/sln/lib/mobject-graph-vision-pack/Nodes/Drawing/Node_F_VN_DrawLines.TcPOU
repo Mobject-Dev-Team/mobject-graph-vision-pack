@@ -22,10 +22,10 @@ END_VAR
     <Method Name="Clone" Id="{9ac89637-e732-0ba2-0c9e-c24e4480334d}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_DrawLineExp;
+	pNode : POINTER TO Node_F_VN_DrawLines;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawLineExp);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawLines);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
