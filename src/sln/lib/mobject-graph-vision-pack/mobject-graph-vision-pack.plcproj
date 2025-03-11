@@ -673,6 +673,9 @@
     <Compile Include="Datatypes\VisionDatatypePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Functions\Checks\ContainersHaveMatchingNumberOfElements.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Functions\Checks\ImageHasCompatibleElementType.TcPOU">
       <SubType>Code</SubType>
     </Compile>
