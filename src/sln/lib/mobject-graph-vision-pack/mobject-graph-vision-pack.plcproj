@@ -2594,6 +2594,12 @@
     <Compile Include="Nodes\Image Analysis\Node_F_VN_ConnectedComponentsWithStats.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_GetConnectedComponent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_GetConnectedComponentExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_UprightInnerRectangle.TcPOU">
       <SubType>Code</SubType>
     </Compile>

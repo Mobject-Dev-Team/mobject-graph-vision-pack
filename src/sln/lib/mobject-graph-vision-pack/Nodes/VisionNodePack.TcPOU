@@ -784,8 +784,8 @@ VAR
     node_F_VN_CountNonZeroPixels : Node_F_VN_CountNonZeroPixels;
     node_F_VN_DistanceTransformation : Node_F_VN_DistanceTransformation;
     node_F_VN_DistanceTransformationExp : Node_F_VN_DistanceTransformationExp;
-    //F_VN_GetConnectedComponent
-    //F_VN_GetConnectedComponentExp
+    node_F_VN_GetConnectedComponent : Node_F_VN_GetConnectedComponent;
+    node_F_VN_GetConnectedComponentExp : Node_F_VN_GetConnectedComponentExp;
     node_F_VN_ImageAverage : Node_F_VN_ImageAverage;
     node_F_VN_ImageAverageExp : Node_F_VN_ImageAverageExp;
     node_F_VN_ImageAverageStdDev : Node_F_VN_ImageAverageStdDev;
@@ -1829,8 +1829,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ConnectedComponentsWi
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CountNonZeroPixels', node_F_VN_CountNonZeroPixels);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_DistanceTransformation', node_F_VN_DistanceTransformation);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_DistanceTransformationExp', node_F_VN_DistanceTransformationExp);
-//F_VN_GetConnectedComponent
-//F_VN_GetConnectedComponentExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_GetConnectedComponent', node_F_VN_GetConnectedComponent);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_GetConnectedComponentExp', node_F_VN_GetConnectedComponentExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ImageAverage', node_F_VN_ImageAverage);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ImageAverageExp', node_F_VN_ImageAverageExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ImageAverageStdDev', node_F_VN_ImageAverageStdDev);
