@@ -51,10 +51,10 @@ VAR
     node_F_VN_MaxContainer : Node_F_VN_MaxContainer;
     node_F_VN_MinContainer : Node_F_VN_MinContainer;
     node_F_VN_MultiplyContainers : Node_F_VN_MultiplyContainers;
-    //F_VN_MultiplyWithContainerElements1
-    //F_VN_MultiplyWithContainerElements2
-    //F_VN_MultiplyWithContainerElements3
-    //F_VN_MultiplyWithContainerElements4
+    //node_F_VN_MultiplyWithContainerElements1 : Node_F_VN_MultiplyWithContainerElements1;
+    //node_F_VN_MultiplyWithContainerElements1 : Node_F_VN_MultiplyWithContainerElements2;
+    //node_F_VN_MultiplyWithContainerElements1 : Node_F_VN_MultiplyWithContainerElements3;
+    //node_F_VN_MultiplyWithContainerElements1 : Node_F_VN_MultiplyWithContainerElements4;
     node_F_VN_NegateContainer : Node_F_VN_NegateContainer;
     node_F_VN_SubtractContainers : Node_F_VN_SubtractContainers;
    
@@ -367,7 +367,7 @@ VAR
     //F_VN_SetIteratorToBegin
     
     // Basic Image Operations
-    //F_VN_CombineImageChannels
+    //node_F_VN_CombineImageChannels : Node_F_VN_CombineImageChannels;
     node_F_VN_ConvertElementType : Node_F_VN_ConvertElementType;
     node_F_VN_ConvertElementTypeExp : Node_F_VN_ConvertElementTypeExp;
     node_F_VN_CopyImage : Node_F_VN_CopyImage;
@@ -403,12 +403,12 @@ VAR
     node_F_VN_SetRoi : Node_F_VN_SetRoi;
     node_F_VN_SetRoi_TcVnRectangle_DINT : Node_F_VN_SetRoi_TcVnRectangle_DINT;
     node_F_VN_SetRoi_TcVnRectangle_UDINT : Node_F_VN_SetRoi_TcVnRectangle_UDINT;
-    //F_VN_SplitImageChannels
+    //node_F_VN_SplitImageChannels : Node_F_VN_SplitImageChannels;
     //node_F_VN_TransformIntoDisplayableImage : Node_F_VN_TransformIntoDisplayableImage;
     //node_F_VN_TransformIntoDisplayableImageExp : Node_F_VN_TransformIntoDisplayableImageExp;
     node_F_VN_CreateNDimensionalImage : Node_F_VN_CreateNDimensionalImage;
     node_F_VN_CreateNDimensionalImageAndSetPixels : Node_F_VN_CreateNDimensionalImageAndSetPixels;
-    //F_VN_CreateNDimensionalImageFromArray
+    //node_F_VN_CreateNDimensionalImageFromArray : Node_F_VN_CreateNDimensionalImageFromArray;
     node_F_VN_GetLayoutInfo : Node_F_VN_GetLayoutInfo;
     
     // Code Quality
@@ -421,17 +421,17 @@ VAR
     
     // Code Reading
     node_F_VN_ReadBarcode : Node_F_VN_ReadBarcode;
-    // node_F_VN_ReadBarcodeExp : Node_F_VN_ReadBarcodeExp;
-    // node_F_VN_ReadBarcodeExp2 : Node_F_VN_ReadBarcodeExp2;
+    //node_F_VN_ReadBarcodeExp : Node_F_VN_ReadBarcodeExp;
+    //node_F_VN_ReadBarcodeExp2 : Node_F_VN_ReadBarcodeExp2;
     node_F_VN_ReadDataMatrixCode : Node_F_VN_ReadDataMatrixCode;
-    // node_F_VN_ReadDataMatrixCodeExp : Node_F_VN_ReadDataMatrixCodeExp;
-    // node_F_VN_ReadDataMatrixCodeExp2 : Node_F_VN_ReadDataMatrixCodeExp2;
+    //node_F_VN_ReadDataMatrixCodeExp : Node_F_VN_ReadDataMatrixCodeExp;
+    //node_F_VN_ReadDataMatrixCodeExp2 : Node_F_VN_ReadDataMatrixCodeExp2;
     node_F_VN_ReadPharmaCode : Node_F_VN_ReadPharmaCode;
-    // node_F_VN_ReadPharmaCodeExp : Node_F_VN_ReadPharmaCodeExp;
-    // node_F_VN_ReadPharmaCodeExp2 : Node_F_VN_ReadPharmaCodeExp2;
+    //node_F_VN_ReadPharmaCodeExp : Node_F_VN_ReadPharmaCodeExp;
+    //node_F_VN_ReadPharmaCodeExp2 : Node_F_VN_ReadPharmaCodeExp2;
     node_F_VN_ReadQRCode : Node_F_VN_ReadQRCode;
-    // node_F_VN_ReadQRCodeExp : Node_F_VN_ReadQRCodeExp;
-    // node_F_VN_ReadQRCodeExp2 : Node_F_VN_ReadQRCodeExp2;
+    //node_F_VN_ReadQRCodeExp : Node_F_VN_ReadQRCodeExp;
+    //node_F_VN_ReadQRCodeExp2 : Node_F_VN_ReadQRCodeExp2;
     
     // Constants
     node_RGBA_BLACK : Node_RGBA_BLACK;
@@ -750,12 +750,12 @@ VAR
     node_F_VN_WarpAffine_Container : Node_F_VN_WarpAffine_Container;
     node_F_VN_WarpAffine_Point : Node_F_VN_WarpAffine_Point;
     node_F_VN_WarpAffine_Rectangle : Node_F_VN_WarpAffine_Rectangle;
-    //F_VN_WarpAffineExp
+    node_F_VN_WarpAffineExp : Node_F_VN_WarpAffineExp;
     node_F_VN_WarpPerspective : Node_F_VN_WarpPerspective;
     node_F_VN_WarpPerspective_Container : Node_F_VN_WarpPerspective_Container;
     node_F_VN_WarpPerspective_Point : Node_F_VN_WarpPerspective_Point;
     node_F_VN_WarpPerspective_Rectangle : Node_F_VN_WarpPerspective_Rectangle;
-    //F_VN_WarpPerspectiveExp
+    node_F_VN_WarpPerspectiveExp : Node_F_VN_WarpPerspectiveExp;
     
     // Image Analysis
     //F_VN_AdjustActiveContour
@@ -843,8 +843,8 @@ VAR
     node_F_VN_BoxFilterExp : Node_F_VN_BoxFilterExp;
     node_F_VN_BrightBorderObjects : Node_F_VN_BrightBorderObjects;
     node_F_VN_CreateStructuringElement : Node_F_VN_CreateStructuringElement;
-    //F_VN_CustomFilter
-    //F_VN_CustomFilterExp
+    //node_F_VN_CustomFilter : Node_F_VN_CustomFilter;
+    //node_F_VN_CustomFilterExp : Node_F_VN_CustomFilterExp;
     node_F_VN_DarkBorderObjects : Node_F_VN_DarkBorderObjects;
     node_F_VN_FillHoles : Node_F_VN_FillHoles;
     node_F_VN_GaussianFilter : Node_F_VN_GaussianFilter;
@@ -859,8 +859,8 @@ VAR
     node_F_VN_RemoveLocalMinima : Node_F_VN_RemoveLocalMinima;
     node_F_VN_ScharrFilter : Node_F_VN_ScharrFilter;
     node_F_VN_ScharrFilterExp : Node_F_VN_ScharrFilterExp;
-    //F_VN_SeparableCustomFilter
-    //F_VN_SeparableCustomFilterExp
+    //node_F_VN_SeparableCustomFilter : Node_F_VN_SeparableCustomFilter;
+    //node_F_VN_SeparableCustomFilterExp : Node_F_VN_SeparableCustomFilterExp;
     node_F_VN_SobelFilter : Node_F_VN_SobelFilter;
     node_F_VN_SobelFilterExp : Node_F_VN_SobelFilterExp;
     node_F_VN_VarianceFilter : Node_F_VN_VarianceFilter;
@@ -1795,12 +1795,12 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpAffine_Container', node_F_VN_WarpAffine_Container);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpAffine_Point', node_F_VN_WarpAffine_Point);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpAffine_Rectangle', node_F_VN_WarpAffine_Rectangle);
-//F_VN_WarpAffineExp
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpAffineExp', node_F_VN_WarpAffineExp);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpPerspective', node_F_VN_WarpPerspective);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpPerspective_Container', node_F_VN_WarpPerspective_Container);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpPerspective_Point', node_F_VN_WarpPerspective_Point);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpPerspective_Rectangle', node_F_VN_WarpPerspective_Rectangle);
-//F_VN_WarpPerspectiveExp
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpPerspectiveExp', node_F_VN_WarpPerspectiveExp);
 
 // Image Analysis
 //F_VN_AdjustActiveContour

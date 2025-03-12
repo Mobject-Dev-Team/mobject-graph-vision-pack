@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_WarpPerspectiveExp" Id="{9b1c0b33-cba8-0467-04fa-ee25dd709347}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_WarpPerspectiveExp EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    aTransformationMatrix : _TcVnMatrix3x3_LREAL;
+    nDestWidth : _UDINT(1);
+    nDestHeight : _UDINT(1);
+    eInterpolationType : _ETcVnInterpolationType(ETcVnInterpolationType.TCVN_IT_NEAREST_NEIGHBOR);
+    bWarpInverse : _BOOL(FALSE);
+    eBorderInterpolation : _ETcVnBorderInterpolationMethod(ETcVnBorderInterpolationMethod.TCVN_BIM_DEFAULT);
+    fBorderValue : _LREAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{2f1491a7-f919-0ba4-36af-4c581d9a4eac}" />
+    <Method Name="Clone" Id="{f985df46-2d85-0381-3256-e2add249841a}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_WarpPerspectiveExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_WarpPerspectiveExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{edc7f6ce-af40-00cf-24f4-278fc91e1739}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('aTransformationMatrix', aTransformationMatrix);
+AddParameter('nDestWidth', nDestWidth);
+AddParameter('nDestHeight', nDestHeight);
+AddParameter('eInterpolationType', eInterpolationType);
+AddParameter('bWarpInverse', bWarpInverse);
+AddParameter('eBorderInterpolation', eBorderInterpolation);
+AddParameter('fBorderValue', fBorderValue);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{f4c31672-64d8-0a0b-1505-c214e8c98421}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_WarpPerspectiveExp(
+	ipSrcImage := ipSrcImage.Value,
+	ipDestImage := ipDestImage.Value,
+	aTransformationMatrix := aTransformationMatrix.Value,
+    nDestWidth := nDestWidth.Value,
+    nDestHeight := nDestHeight.Value,
+    eInterpolationType := eInterpolationType.Value,
+    bWarpInverse := bWarpInverse.Value,
+    eBorderInterpolation := eBorderInterpolation.Value,
+    fBorderValue := fBorderValue.Value,
+	hrPrev := hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{dd8bf614-549a-00e1-0546-0a1191192bf4}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    borderInterpolationMethodIsValid : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(nDestWidth.Value > 0, 'nDestWidth must be greater than 0');
+Check.IsTrue(nDestHeight.Value > 0, 'nDestHeight must be greater than 0');
+
+CASE eBorderInterpolation.Value OF
+    ETcVnBorderInterpolationMethod.TCVN_BIM_CONSTANT,
+    ETcVnBorderInterpolationMethod.TCVN_BIM_REPLICATE,
+    ETcVnBorderInterpolationMethod.TCVN_BIM_REFLECT,
+    ETcVnBorderInterpolationMethod.TCVN_BIM_WRAP,
+    ETcVnBorderInterpolationMethod.TCVN_BIM_REFLECT_101,
+    //ETcVnBorderInterpolationMethod.TCVN_BIM_DEFAULT, // Same as REFLECT_101
+    ETcVnBorderInterpolationMethod.TCVN_BIM_TRANSPARENT :
+        borderInterpolationMethodIsValid := TRUE;
+END_CASE
+
+Check.IsTrue(borderInterpolationMethodIsValid, 'eBorderInterpolation ISOLATED not supported');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -2558,6 +2558,12 @@
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_GetAffineTransformation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpAffineExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspectiveExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpAffine_Container.TcPOU">
       <SubType>Code</SubType>
     </Compile>
