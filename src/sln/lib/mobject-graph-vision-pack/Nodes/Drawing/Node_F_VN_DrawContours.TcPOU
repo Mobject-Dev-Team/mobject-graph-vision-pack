@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Node_F_VN_DrawContours" Id="{35a4fce0-ca9c-0ac1-30e1-7d017faab450}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -77,6 +77,8 @@ END_VAR]]></Declaration>
 Check.IsTrue((ipContours.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
               ipContours.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_Vector_TcVnPoint2_DINT)),
               'ipContours contains incorrect type');
+
+Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
 ]]></ST>
       </Implementation>
     </Method>
