@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK VisionNodePack IMPLEMENTS I_NodePack
+FUNCTION_BLOCK VisionNodePack
 VAR
     // Algebraic Container Operations
     node_F_VN_AddToContainerElements_DINT : Node_F_VN_AddToContainerElements_DINT;
