@@ -87,9 +87,14 @@
     <Folder Include="Datatypes\Interfaces\Images" />
     <Folder Include="Datatypes\Interfaces\Images\ITcVnImage" />
     <Folder Include="Datatypes\Structs" />
+    <Folder Include="Extensions\PreExecutionCheck" />
+    <Folder Include="Extensions\PreExecutionCheck\Alarms" />
+    <Folder Include="Extensions\PreExecutionCheck\Checks" />
+    <Folder Include="Extensions\PreExecutionCheck\Interfaces" />
     <Folder Include="Functions" />
     <Folder Include="Functions\Checks" />
     <Folder Include="Functions\Helpers" />
+    <Folder Include="Extensions" />
     <Folder Include="Nodes" />
     <Folder Include="Nodes\Algebraic Container Ops" />
     <Folder Include="Nodes\Algebraic Container Ops\AddTo" />
@@ -671,6 +676,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\VisionDatatypePack.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensions\PreExecutionCheck\Alarms\PreExecutionCheckFailedAlarm.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensions\PreExecutionCheck\Checks\I_PreExecutionChecks.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensions\PreExecutionCheck\Checks\PreExecutionChecks.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensions\PreExecutionCheck\Interfaces\I_PreCheckedNode.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensions\PreExecutionCheck\PreExecutionCheckExtension.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\Checks\ContainersHaveMatchingNumberOfElements.TcPOU">

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="PreExecutionCheckExtension" Id="{3b860621-5a73-0975-295a-7b094803fd69}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PreExecutionCheckExtension EXTENDS Extension
+VAR
+	parentAsPreCheckedNode : I_PreCheckedNode;
+	preExecutionCheckFailedAlarm : PreExecutionCheckFailedAlarm(THIS^);
+	enable : _BOOL(TRUE);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{5171d281-9b44-0ec4-20f1-4412a935d0da}" />
+    <Method Name="Check" Id="{de2af4a3-5567-01e1-1849-1f738660c7b2}">
+      <Declaration><![CDATA[METHOD PUBLIC Check : BOOL
+VAR_INPUT
+END_VAR
+VAR
+	preExecutionChecks : PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT enable.Value THEN
+	IF preExecutionCheckFailedAlarm.Active THEN
+		preExecutionCheckFailedAlarm.Clear();
+	END_IF
+	Check := TRUE;
+	RETURN;
+END_IF
+
+parentAsPreCheckedNode.PreExecutionCheck(preExecutionChecks);
+IF preExecutionChecks.Failed THEN
+	preExecutionCheckFailedAlarm.Raise(preExecutionChecks.Reason);
+	RETURN;
+END_IF
+
+preExecutionCheckFailedAlarm.Clear();
+Check := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{525c86c5-157c-0cc6-1cb6-f0b2d8c719ca}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	Name : T_MAXSTRING;
+	Parent : I_HostExtensions;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddParameter('enable', enable);
+
+IF NOT __QUERYINTERFACE(Parent, parentAsPreCheckedNode) THEN
+	RETURN;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
