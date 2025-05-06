@@ -94,6 +94,7 @@ IF (nCircleIndex.Value > -1) THEN
 END_IF
 
 Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
+Check.IsTrue(nThickness.Value <> 0, 'nThickness must be non-zero');
 ]]></ST>
       </Implementation>
     </Method>

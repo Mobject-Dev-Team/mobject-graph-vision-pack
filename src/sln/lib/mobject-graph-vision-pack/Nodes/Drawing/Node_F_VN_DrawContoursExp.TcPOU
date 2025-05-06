@@ -91,6 +91,7 @@ Check.IsTrue((ipContours.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnP
               'ipContours contains incorrect type');
 
 Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
+Check.IsTrue(nThickness.Value <> 0, 'nThickness must be non-zero');
 ]]></ST>
       </Implementation>
     </Method>
