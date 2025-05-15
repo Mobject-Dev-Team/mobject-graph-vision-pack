@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_Mux10Way_ITcVnImage" Id="{a2f62e13-6e57-0671-1818-12f0a2d9fbe9}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_Mux10Way_ITcVnImage EXTENDS Node
+VAR
+	in0 : _ITcVnImage;
+	in1 : _ITcVnImage;
+	in2 : _ITcVnImage;
+	in3 : _ITcVnImage;
+	in4 : _ITcVnImage;
+	in5 : _ITcVnImage;
+	in6 : _ITcVnImage;
+	in7 : _ITcVnImage;
+	in8 : _ITcVnImage;
+	in9 : _ITcVnImage;
+	index : _BYTE(1);
+    out : _ITcVnImage;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{49377eea-3b4f-0a1b-1268-76aa207f155c}" />
+    <Method Name="Clone" Id="{e076e566-88f0-0f83-0101-7a1be02d3ba7}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_Mux10Way_ITcVnImage;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_Mux10Way_ITcVnImage);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{d6012e30-0531-04b3-343d-f6d057a4dc5f}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('in0', in0);
+AddInput('in1', in1);
+AddInput('in2', in2);
+AddInput('in3', in3);
+AddInput('in4', in4);
+AddInput('in5', in5);
+AddInput('in6', in6);
+AddInput('in7', in7);
+AddInput('in8', in8);
+AddInput('in9', in9);
+AddParameter('index', index);
+AddOutput('out',out);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{29e73dc5-b99e-0006-0d46-d75ab92db3cf}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE index.Value OF
+    0: out.Value := in0.Value;
+    1: out.Value := in1.Value;
+    2: out.Value := in2.Value;
+    3: out.Value := in3.Value;
+    4: out.Value := in4.Value;
+    5: out.Value := in5.Value;
+    6: out.Value := in6.Value;
+    7: out.Value := in7.Value;
+    8: out.Value := in8.Value;
+    9: out.Value := in9.Value;
+ELSE
+    out.Value := 0; 
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

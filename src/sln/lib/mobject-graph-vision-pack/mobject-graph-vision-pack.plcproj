@@ -130,6 +130,7 @@
     <Folder Include="Nodes\Miscellaneous" />
     <Folder Include="Nodes\Constants" />
     <Folder Include="Nodes\Neural Network" />
+    <Folder Include="Nodes\Helpers" />
     <Folder Include="Nodes\OCR" />
     <Folder Include="Nodes\Texture Analysis" />
     <Folder Include="Nodes\VisionNode" />
@@ -2609,6 +2610,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Helpers\Node_Mux10Way_ITcVnImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_CannyEdgeDetectionExp.TcPOU">

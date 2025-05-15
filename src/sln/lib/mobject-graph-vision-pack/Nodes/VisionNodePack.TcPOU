@@ -757,6 +757,9 @@ VAR
     node_F_VN_WarpPerspective_Rectangle : Node_F_VN_WarpPerspective_Rectangle;
     node_F_VN_WarpPerspectiveExp : Node_F_VN_WarpPerspectiveExp;
     
+	// helpers
+	node_Mux10Way_ITcVnImage : Node_Mux10Way_ITcVnImage;
+	
     // Image Analysis
     //F_VN_AdjustActiveContour
     node_F_VN_DetectBlobs : Node_F_VN_DetectBlobs;
@@ -1801,6 +1804,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpPerspective_Point', node_F_VN_WarpPerspective_Point);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpPerspective_Rectangle', node_F_VN_WarpPerspective_Rectangle);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_WarpPerspectiveExp', node_F_VN_WarpPerspectiveExp);
+
+// Helpers
+NodeFactory.AddNodeAsPrototype('Vision/Helpers/Mux10Way_ITcVnImage', node_Mux10Way_ITcVnImage);
 
 // Image Analysis
 //F_VN_AdjustActiveContour
