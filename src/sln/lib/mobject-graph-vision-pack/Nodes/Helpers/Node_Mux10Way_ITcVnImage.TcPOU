@@ -16,7 +16,7 @@ VAR
 	in7 : _ITcVnImage;
 	in8 : _ITcVnImage;
 	in9 : _ITcVnImage;
-	index : _BYTE(1);
+	index : _BYTE(0);
     out : _ITcVnImage;
 END_VAR
 ]]></Declaration>
