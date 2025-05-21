@@ -47,7 +47,7 @@ AddParameter('nChannelIndex', nChannelIndex);
       <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
         <ST><![CDATA[// ----------------------------------------------------------------------------
-// TcVision 4.0.6.5 BUG FIX
+// TcVision 4.0.6.5, 4.0.7.4 BUG FIX
 // ----------------------------------------------------------------------------
 // Get Image Channel fails, if used on two different sized images, 
 // without clearing the destination image first. 
