@@ -1831,6 +1831,9 @@
     <Compile Include="Nodes\Code Quality\Node_F_VN_GradeQRCodeExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadDataMatrixCodeRoi.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Code Reading\Node_F_VN_ReadQRCode.TcPOU">
       <SubType>Code</SubType>
     </Compile>

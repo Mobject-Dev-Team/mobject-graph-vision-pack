@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_ReadDataMatrixCodeRoi" Id="{edc66332-db4c-05e1-3e20-56c72ae7512f}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ReadDataMatrixCodeRoi EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDecodedData : _ITcVnContainer;
+    fModuleWidth : _REAL(3);
+    hrPrev : _HRESULT(S_OK);
+	fAngleDeg : _REAL(0);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{d8bda277-1ace-031d-2ba9-08fa1d82088f}" />
+    <Method Name="Clone" Id="{5b555f5d-5f28-0729-1111-a73b3a5b84b5}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ReadDataMatrixCodeRoi;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ReadDataMatrixCodeRoi);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{2fc5c16c-22f1-0f99-37c3-d68a64f6fec8}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddOutput('ipDecodedData', ipDecodedData);
+AddInput('fModuleWidth', fModuleWidth);
+AddInput('hrPrev', hrPrev);
+AddOutput('fAngleDeg', fAngleDeg);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{200555b4-a830-0ef3-256f-89827908dee0}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+	tempfAngleDeg : REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ReadDataMatrixCodeRoi(
+	ipSrcImage := ipSrcImage.Value,
+    ipDecodedData := ipDecodedData.Value,
+    fModuleWidth := fModuleWidth.Value,
+	hrPrev:= hrPrev.Value,
+	fAngleDeg => tempfAngleDeg
+);
+
+IF succeeded(hresult.Value) THEN
+	fAngleDeg.Value := tempfAngleDeg;
+END_IF	]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{b8e6bab6-0901-0621-3682-e989a59a8580}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue((ipSrcImage.IsPixelDepth(8)), 'ipSrcImage must be 8 bit pixel depth');
+Check.IsTrue((ipSrcImage.HasChannelCount(1)), 'ipSrcImage must contain 1 channel');
+Check.IsTrue((fModuleWidth.Value >= 3), 'fModuleWidth must be at least 3, preferably 5 - 8.');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
