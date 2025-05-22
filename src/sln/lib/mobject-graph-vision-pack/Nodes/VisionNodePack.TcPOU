@@ -1474,7 +1474,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadBarcode', node_F_VN
 NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDataMatrixCode', node_F_VN_ReadDataMatrixCode);
 //F_VN_ReadDataMatrixCodeExp
 //F_VN_ReadDataMatrixCodeExp2
-NodeFactory.AddNodeAsPrototype('Vision/Code Reading/Node_F_VN_ReadDataMatrixCodeRoi', node_F_VN_ReadDataMatrixCodeRoi);
+NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDataMatrixCodeRoi', node_F_VN_ReadDataMatrixCodeRoi);
 NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadPharmaCode', node_F_VN_ReadPharmaCode);
 //F_VN_ReadPharmaCodeExp
 //F_VN_ReadPharmaCodeExp2
