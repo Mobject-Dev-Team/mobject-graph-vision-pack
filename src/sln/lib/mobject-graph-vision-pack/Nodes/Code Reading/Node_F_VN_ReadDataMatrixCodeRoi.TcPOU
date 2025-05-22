@@ -38,7 +38,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
 AddOutput('ipDecodedData', ipDecodedData);
-AddInput('fModuleWidth', fModuleWidth);
+AddParameter('fModuleWidth', fModuleWidth);
 AddInput('hrPrev', hrPrev);
 AddOutput('fAngleDeg', fAngleDeg);
 AddOutput('hresult', hresult);]]></ST>
