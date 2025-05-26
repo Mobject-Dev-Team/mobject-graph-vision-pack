@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="_ETcVnCircularityCalculationMethod" Id="{873fc11c-d987-0f0c-25a2-9fbc7d322e4d}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnCircularityCalculationMethod EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnCircularityCalculationMethod;
+	activeData : REFERENCE TO ETcVnCircularityCalculationMethod;
+	enumBaseDatatype : _DINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{71831f8a-99a3-07c7-1baa-0cc4116a5fcc}">
+      <Folder Name="Protected" Id="{0eb4e4bd-b01a-038f-32ba-080c229bf085}" />
+    </Folder>
+    <Folder Name="Customize" Id="{11c61f3c-158c-0abb-1080-a1dbeaeec686}">
+      <Folder Name="Constructor" Id="{27e27c75-4b10-0985-00fc-add2694d61dd}" />
+      <Folder Name="Private" Id="{8841fb00-a904-0212-113f-0275a6fea801}" />
+      <Folder Name="Protected" Id="{fca2cdfd-0dcb-0c9d-3c48-bda33f8d1651}" />
+    </Folder>
+    <Method Name="AddLocalEnumeration" Id="{7d1cb6c2-fa7a-01e7-0273-5ec36e377d56}" FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnCircularityCalculationMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{d3f1de98-508a-036a-040b-9cbe7961f14f}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{9ba673cb-d159-0eda-03e9-af5521484749}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{a4524275-b9b0-0035-21d1-d17b03de18bf}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{b402053f-0d2a-0838-0a4c-1e4c9ce4f46d}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnCircularityCalculationMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnCircularityCalculationMethod(InitialValue := Value));
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{91ca9d31-c2e5-014f-12b3-549374ba36fb}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnCircularityCalculationMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_CCM_DEFAULT', ETcVnCircularityCalculationMethod.TCVN_CCM_DEFAULT);
+AddLocalEnumeration('TCVN_CCM_CONVEXHULL_PERIMETER', ETcVnCircularityCalculationMethod.TCVN_CCM_CONVEXHULL_PERIMETER);
+AddLocalEnumeration('TCVN_CCM_MAX_RADIUS', ETcVnCircularityCalculationMethod.TCVN_CCM_MAX_RADIUS);
+AddLocalEnumeration('TCVN_CCM_ENCLOSINGCIRCLE_RADIUS', ETcVnCircularityCalculationMethod.TCVN_CCM_ENCLOSINGCIRCLE_RADIUS);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{fa5295f2-870e-0bec-37d0-0a5cc8a2b477}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{a6e2bac1-2679-0b45-3248-8b96347860da}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnCircularityCalculationMethod';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{3680cdf6-2d85-07fe-1e19-6ea98c07b9c6}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnCircularityCalculationMethod;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{6255410b-eba7-03a5-2e1d-17b34dce431e}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnCircularityCalculationMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{933bdcf6-d6f1-0981-0564-0787c39d5a13}" FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{2f69cd50-2bfb-00aa-3c76-14579f6b7123}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{d8722285-dcf2-0dfa-1c49-18ca9dcdb034}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{905b801b-68c0-06c3-0075-04ab6be5c8ac}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO ETcVnCircularityCalculationMethod;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{edcd1e63-84eb-0a7e-2924-1b0edfcd6df8}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnCircularityCalculationMethod]]></Declaration>
+      <Get Name="Get" Id="{0d966f35-b8ae-0848-0b25-7f2dd45268a7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c901002d-4324-0b56-21db-041e0ac44e94}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

@@ -403,6 +403,12 @@
     <Compile Include="Datatypes\Enums\_ETcVnContoursMatchComparisonMethod.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnDataMatrixOptions.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnReduceType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnDiffusivityTypeKAZE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -452,6 +458,9 @@
     <Compile Include="Datatypes\Enums\_ETcVnFlipAxis.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnDataLayout.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnFontType.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -491,6 +500,12 @@
     <Compile Include="Datatypes\Enums\_ETcVnOcrModelType.TcPOU">
       <SubType>Code</SubType>
       <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnCircularityCalculationMethod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnLayerNameType.TcPOU">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnTimestamp.TcPOU">
       <SubType>Code</SubType>
@@ -780,6 +795,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Container Ops\AddTo\Node_F_VN_AddToContainerElements_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\AddTo\Node_F_VN_AddToContainerElements_TcVnRotatedRectangle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Container Ops\AddTo\Node_F_VN_AddToContainerElements_TcVnVector2_DINT.TcPOU">

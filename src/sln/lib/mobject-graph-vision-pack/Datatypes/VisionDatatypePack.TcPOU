@@ -145,6 +145,11 @@ VAR
     _eTcVnWorldCoordinateSystem : _ETcVnWorldCoordinateSystem(ETcVnWorldCoordinateSystem.TCVN_WCS_X_RIGHT_Y_DOWN);
     _eTcWatchdogAccumulationType : _ETcWatchdogAccumulationType(ETcWatchdogAccumulationType.WD_ACC_TYPE_MEAN);
     _gEV_CAMERA_STATE : _GEV_CAMERA_STATE(GEV_CAMERA_STATE.GEV_CAMERA_IDLE);
+    _eTcVnDataLayout : _ETcVnDataLayout(ETcVnDataLayout.TCVN_DL_DEFAULT);
+    _eTcVnReduceType : _ETcVnReduceType(ETcVnReduceType.TCVN_RT_REDUCE_SUM);
+    _eTcVnCircularityCalculationMethod : _ETcVnCircularityCalculationMethod(ETcVnCircularityCalculationMethod.TCVN_CCM_DEFAULT);
+    _eTcVnDataMatrixOptions : _ETcVnDataMatrixOptions(ETcVnDataMatrixOptions.TCVN_DMO_DEFAULT);
+    _eTcVnLayerNameType : _ETcVnLayerNameType(ETcVnLayerNameType.TCVN_LNT_ALL);
 	
     // structs
     _gVSP_IMAGE_INFO : _GVSP_IMAGE_INFO;
@@ -330,7 +335,12 @@ Datatypes.RegisterDatatype(_eTcVnVectorCompareMethod);
 Datatypes.RegisterDatatype(_eTcVnWorldCoordinateSystem);
 Datatypes.RegisterDatatype(_eTcWatchdogAccumulationType);
 Datatypes.RegisterDatatype(_gEV_CAMERA_STATE);
-
+Datatypes.RegisterDatatype(_eTcVnDataLayout);
+Datatypes.RegisterDatatype(_eTcVnReduceType);
+Datatypes.RegisterDatatype(_eTcVnCircularityCalculationMethod);
+Datatypes.RegisterDatatype(_eTcVnDataMatrixOptions);
+Datatypes.RegisterDatatype(_eTcVnLayerNameType);
+    
 // structs
 Datatypes.RegisterDatatype(_gVSP_IMAGE_INFO);
 Datatypes.RegisterDatatype(_gVSP_LEADER_PAYLOAD_IMAGE);
