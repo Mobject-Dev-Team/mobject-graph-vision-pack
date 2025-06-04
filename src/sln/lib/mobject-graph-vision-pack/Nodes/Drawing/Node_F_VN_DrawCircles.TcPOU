@@ -74,9 +74,7 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipCircles.IsValid, 'ipCircles must be a valid container');
-Check.IsTrue((ipCircles.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
-              ipCircles.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_Vector_TcVnPoint2_DINT)),
-              'ipCircles contains incorrect type');
+Check.IsTrue(ipCircles.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_REAL), 'ipCircles contains incorrect type');
 
 Check.IsTrue(ipCircles.TryGetElementNum(containerElements) AND (containerElements > 0), 'ipCircles is empty');
 
