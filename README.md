@@ -28,5 +28,5 @@ The documentation for this project can be found [here](http://graph-vision-pack.
 
 ## Versions
 
-- TwinCAT XAE 3.1.4024.62
-- TwinCAT Vision 4.0.6.5 (minimum)
+- TwinCAT XAE 3.1.4024.65
+- TwinCAT Vision 4.0.7.4 (minimum)
