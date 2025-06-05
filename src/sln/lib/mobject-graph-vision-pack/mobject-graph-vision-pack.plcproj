@@ -1092,6 +1092,9 @@
     <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_TcVnRotatedRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_TcVnVector2_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1203,6 +1206,9 @@
     <Compile Include="Nodes\Basic Container Ops\FillContainerExp\Node_F_VN_FillContainerExp_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\FillContainerExp\Node_F_VN_FillContainerExp_TcVnRotatedRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\FillContainerExp\Node_F_VN_FillContainerExp_TcVnVector2_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1311,6 +1317,9 @@
     <Compile Include="Nodes\Basic Container Ops\FillContainer\Node_F_VN_FillContainer_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\FillContainer\Node_F_VN_FillContainer_TcVnRotatedRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\FillContainer\Node_F_VN_FillContainer_TcVnVector2_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1417,6 +1426,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\GetAt\Node_F_VN_GetAt_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\GetAt\Node_F_VN_GetAt_TcVnRotatedRectangle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\GetAt\Node_F_VN_GetAt_TcVnVector2_DINT.TcPOU">
@@ -1528,6 +1540,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_TcVnRotatedRectangle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_TcVnVector2_DINT.TcPOU">
@@ -1662,6 +1677,9 @@
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_TcVnRotatedRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_TcVnVector2_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1756,6 +1774,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_GetLayoutInfo.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_PadImageBorder.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_PadImageBorderExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetImageChannel.TcPOU">
@@ -2189,6 +2213,9 @@
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_ApproximatePolygon.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourCircularityExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_MatchContours1vsN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2452,12 +2479,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Fourier Analysis\Node_F_VN_InverseDft.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_PadImageBorder.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_PadImageBorderExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Fourier Analysis\Node_F_VN_Dft.TcPOU">
