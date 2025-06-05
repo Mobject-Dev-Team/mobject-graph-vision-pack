@@ -1022,18 +1022,18 @@ VAR
     node_F_VN_LineIntersectionPoint : Node_F_VN_LineIntersectionPoint;
     node_F_VN_LineIntersectionPointAndAngle : Node_F_VN_LineIntersectionPointAndAngle;
     //node_F_VN_MultiplyMatrices : Node_F_VN_MultiplyMatrices;
-    //F_VN_OrthogonalVector_TcVnVector2_DINT
-    //F_VN_OrthogonalVector_TcVnVector2_LREAL
-    //F_VN_OrthogonalVector_TcVnVector2_REAL
-    //F_VN_PointToLineDistance_TcVnPoint2_DINT
-    //F_VN_PointToLineDistance_TcVnPoint2_LREAL
-    //F_VN_PointToLineDistance_TcVnPoint2_REAL
-    //F_VN_PointToPointDirection_TcVnPoint2_DINT
-    //F_VN_PointToPointDirection_TcVnPoint2_LREAL
-    //F_VN_PointToPointDirection_TcVnPoint2_REAL
-    //F_VN_PointToPointDistance_TcVnPoint2_DINT
-    //F_VN_PointToPointDistance_TcVnPoint2_LREAL
-    //F_VN_PointToPointDistance_TcVnPoint2_REAL
+    node_F_VN_OrthogonalVector_TcVnVector2_DINT : Node_F_VN_OrthogonalVector_TcVnVector2_DINT;
+    node_F_VN_OrthogonalVector_TcVnVector2_LREAL : Node_F_VN_OrthogonalVector_TcVnVector2_LREAL;
+    node_F_VN_OrthogonalVector_TcVnVector2_REAL : Node_F_VN_OrthogonalVector_TcVnVector2_REAL;
+    node_F_VN_PointToLineDistance_TcVnPoint2_DINT : Node_F_VN_PointToLineDistance_TcVnPoint2_DINT;
+    node_F_VN_PointToLineDistance_TcVnPoint2_LREAL : Node_F_VN_PointToLineDistance_TcVnPoint2_LREAL;
+    node_F_VN_PointToLineDistance_TcVnPoint2_REAL : Node_F_VN_PointToLineDistance_TcVnPoint2_REAL;
+    node_F_VN_PointToPointDirection_TcVnPoint2_DINT : Node_F_VN_PointToPointDirection_TcVnPoint2_DINT;
+    node_F_VN_PointToPointDirection_TcVnPoint2_LREAL : Node_F_VN_PointToPointDirection_TcVnPoint2_LREAL;
+    node_F_VN_PointToPointDirection_TcVnPoint2_REAL : Node_F_VN_PointToPointDirection_TcVnPoint2_REAL;
+    node_F_VN_PointToPointDistance_TcVnPoint2_DINT : Node_F_VN_PointToPointDistance_TcVnPoint2_DINT;
+    node_F_VN_PointToPointDistance_TcVnPoint2_LREAL : Node_F_VN_PointToPointDistance_TcVnPoint2_LREAL;
+    node_F_VN_PointToPointDistance_TcVnPoint2_REAL : Node_F_VN_PointToPointDistance_TcVnPoint2_REAL;
     node_F_VN_RotatedRectangleCorners : Node_F_VN_RotatedRectangleCorners;
     node_F_VN_RotatedRectangleIntersection : Node_F_VN_RotatedRectangleIntersection;
     //F_VN_SetRngSeed
@@ -2091,18 +2091,18 @@ NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_InvertMatrix3x3', node
 NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_LineIntersectionPoint', node_F_VN_LineIntersectionPoint);
 NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_LineIntersectionPointAndAngle', node_F_VN_LineIntersectionPointAndAngle);
 //NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_MultiplyMatrices', node_F_VN_MultiplyMatrices);
-//F_VN_OrthogonalVector_TcVnVector2_DINT
-//F_VN_OrthogonalVector_TcVnVector2_LREAL
-//F_VN_OrthogonalVector_TcVnVector2_REAL
-//F_VN_PointToLineDistance_TcVnPoint2_DINT
-//F_VN_PointToLineDistance_TcVnPoint2_LREAL
-//F_VN_PointToLineDistance_TcVnPoint2_REAL
-//F_VN_PointToPointDirection_TcVnPoint2_DINT
-//F_VN_PointToPointDirection_TcVnPoint2_LREAL
-//F_VN_PointToPointDirection_TcVnPoint2_REAL
-//F_VN_PointToPointDistance_TcVnPoint2_DINT
-//F_VN_PointToPointDistance_TcVnPoint2_LREAL
-//F_VN_PointToPointDistance_TcVnPoint2_REAL
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_OrthogonalVector_TcVnVector2_DINT', node_F_VN_OrthogonalVector_TcVnVector2_DINT);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_OrthogonalVector_TcVnVector2_LREAL', node_F_VN_OrthogonalVector_TcVnVector2_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_OrthogonalVector_TcVnVector2_REAL', node_F_VN_OrthogonalVector_TcVnVector2_REAL);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_PointToLineDistance_TcVnPoint2_DINT', node_F_VN_PointToLineDistance_TcVnPoint2_DINT);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_PointToLineDistance_TcVnPoint2_LREAL', node_F_VN_PointToLineDistance_TcVnPoint2_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_PointToLineDistance_TcVnPoint2_REAL', node_F_VN_PointToLineDistance_TcVnPoint2_REAL);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_PointToPointDirection_TcVnPoint2_DINT', node_F_VN_PointToPointDirection_TcVnPoint2_DINT);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_PointToPointDirection_TcVnPoint2_LREAL', node_F_VN_PointToPointDirection_TcVnPoint2_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_PointToPointDirection_TcVnPoint2_REAL', node_F_VN_PointToPointDirection_TcVnPoint2_REAL);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_PointToPointDistance_TcVnPoint2_DINT', node_F_VN_PointToPointDistance_TcVnPoint2_DINT);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_PointToPointDistance_TcVnPoint2_LREAL', node_F_VN_PointToPointDistance_TcVnPoint2_LREAL);
+NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_PointToPointDistance_TcVnPoint2_REAL', node_F_VN_PointToPointDistance_TcVnPoint2_REAL);
 NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_RotatedRectangleCorners', node_F_VN_RotatedRectangleCorners);
 NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_RotatedRectangleIntersection', node_F_VN_RotatedRectangleIntersection);
 //F_VN_SetRngSeed

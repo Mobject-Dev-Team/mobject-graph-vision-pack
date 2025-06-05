@@ -3045,6 +3045,42 @@
     <Compile Include="Nodes\Miscellaneous\Node_F_VN_CheckFunctionInitialization.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_OrthogonalVector_TcVnVector2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_OrthogonalVector_TcVnVector2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToLineDistance_TcVnPoint2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_OrthogonalVector_TcVnVector2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToPointDirection_TcVnPoint2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToPointDirection_TcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToPointDistance_TcVnPoint2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToLineDistance_TcVnPoint2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToLineDistance_TcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToPointDirection_TcVnPoint2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToPointDistance_TcVnPoint2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToPointDistance_TcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Miscellaneous\Node_F_VN_RotatedRectangleCorners.TcPOU">
       <SubType>Code</SubType>
     </Compile>
