@@ -86,6 +86,7 @@
     <Folder Include="Datatypes\Interfaces\Containers\Iterators\ITcVnIteratorBase" />
     <Folder Include="Datatypes\Interfaces\Images" />
     <Folder Include="Datatypes\Interfaces\Images\ITcVnImage" />
+    <Folder Include="Datatypes\Interfaces\Images\ITcVnDisplayableImage" />
     <Folder Include="Datatypes\Structs" />
     <Folder Include="Extensions\PreExecutionCheck" />
     <Folder Include="Extensions\PreExecutionCheck\Alarms" />
@@ -603,6 +604,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Interfaces\Images\ITcVnImage\_ITcVnImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Interfaces\Images\ITcVnDisplayableImage\I_InterfaceDatatype_ITcVnDisplayableImage.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Interfaces\Images\ITcVnDisplayableImage\_ITcVnDisplayableImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Structs\_GVSP_LEADER_PAYLOAD_IMAGE.TcPOU">
@@ -1759,7 +1766,7 @@
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_TransformIntoDisplayableImage.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ConvertElementType.TcPOU">
       <SubType>Code</SubType>
@@ -1822,11 +1829,11 @@
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_TransformIntoDisplayableImageExp.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CopyIntoDisplayableImage.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateAssociatedImage.TcPOU">
       <SubType>Code</SubType>
@@ -3071,6 +3078,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\VisionNode\VisionNode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\VisionNode\VisionHardwareNode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="VisionPack.TcPOU">

@@ -380,7 +380,7 @@ VAR
     node_F_VN_CopyImage : Node_F_VN_CopyImage;
     node_F_VN_CopyImageRegion : Node_F_VN_CopyImageRegion;
     node_F_VN_CopyImageRegionToRegion : Node_F_VN_CopyImageRegionToRegion;
-    //node_F_VN_CopyIntoDisplayableImage : Node_F_VN_CopyIntoDisplayableImage;
+    node_F_VN_CopyIntoDisplayableImage : Node_F_VN_CopyIntoDisplayableImage;
     node_F_VN_CreateAssociatedImage : Node_F_VN_CreateAssociatedImage;
     node_F_VN_CreateEmptyImage : Node_F_VN_CreateEmptyImage;
     node_F_VN_CreateImage : Node_F_VN_CreateImage;
@@ -411,8 +411,8 @@ VAR
     node_F_VN_SetRoi_TcVnRectangle_DINT : Node_F_VN_SetRoi_TcVnRectangle_DINT;
     node_F_VN_SetRoi_TcVnRectangle_UDINT : Node_F_VN_SetRoi_TcVnRectangle_UDINT;
     //node_F_VN_SplitImageChannels : Node_F_VN_SplitImageChannels;
-    //node_F_VN_TransformIntoDisplayableImage : Node_F_VN_TransformIntoDisplayableImage;
-    //node_F_VN_TransformIntoDisplayableImageExp : Node_F_VN_TransformIntoDisplayableImageExp;
+    node_F_VN_TransformIntoDisplayableImage : Node_F_VN_TransformIntoDisplayableImage;
+    node_F_VN_TransformIntoDisplayableImageExp : Node_F_VN_TransformIntoDisplayableImageExp;
     node_F_VN_CreateNDimensionalImage : Node_F_VN_CreateNDimensionalImage;
     node_F_VN_CreateNDimensionalImageAndSetPixels : Node_F_VN_CreateNDimensionalImageAndSetPixels;
     //node_F_VN_CreateNDimensionalImageFromArray : Node_F_VN_CreateNDimensionalImageFromArray;
@@ -1450,7 +1450,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_ConvertElemen
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CopyImage', node_F_VN_CopyImage);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CopyImageRegion', node_F_VN_CopyImageRegion);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CopyImageRegionToRegion', node_F_VN_CopyImageRegionToRegion);
-//NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CopyIntoDisplayableImage', node_F_VN_CopyIntoDisplayableImage);
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CopyIntoDisplayableImage', node_F_VN_CopyIntoDisplayableImage);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CreateAssociatedImage', node_F_VN_CreateAssociatedImage);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CreateEmptyImage', node_F_VN_CreateEmptyImage);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CreateImage', node_F_VN_CreateImage);
@@ -1481,8 +1481,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi', node
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi_TcVnRectangle_DINT', node_F_VN_SetRoi_TcVnRectangle_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_SetRoi_TcVnRectangle_UDINT', node_F_VN_SetRoi_TcVnRectangle_UDINT);
 //F_VN_SplitImageChannels
-//NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_TransformIntoDisplayableImage', node_F_VN_TransformIntoDisplayableImage); 
-//NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_TransformIntoDisplayableImageExp', node_F_VN_TransformIntoDisplayableImageExp); 
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_TransformIntoDisplayableImage', node_F_VN_TransformIntoDisplayableImage); 
+NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_TransformIntoDisplayableImageExp', node_F_VN_TransformIntoDisplayableImageExp); 
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CreateNDimensionalImage', node_F_VN_CreateNDimensionalImage);
 NodeFactory.AddNodeAsPrototype('Vision/Basic Image Operations/F_VN_CreateNDimensionalImageAndSetPixels', node_F_VN_CreateNDimensionalImageAndSetPixels);
 //F_VN_CreateNDimensionalImageFromArray

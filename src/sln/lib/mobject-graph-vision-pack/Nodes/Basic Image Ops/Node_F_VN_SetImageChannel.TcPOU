@@ -65,6 +65,7 @@ VAR_INPUT
 END_VAR
 VAR
 	srcImageInfo : TcVnImageInfo;
+	destImageInfo : TcVnImageInfo;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
@@ -73,7 +74,17 @@ IF ipSrcImage.TryGetImageInfo(srcImageInfo) THEN
 	Check.IsTrue((nSrcChannelIndex.Value <= srcImageInfo.stPixelFormat.nChannels), 'nSrcChannelIndex is greater than the available ipSrcImage channels');
 END_IF
 
-// here]]></ST>
+IF NOT ipDestImage.IsValid THEN
+	RETURN;
+END_IF
+
+IF ipDestImage.TryGetImageInfo(destImageInfo) THEN
+	Check.IsTrue((nDestChannelIndex.Value <= destImageInfo.stPixelFormat.nChannels), 'nDestChannelIndex is greater than the available ipDestImage channels');
+END_IF
+
+Check.IsTrue((srcImageInfo.nHeight = destImageInfo.nHeight), 'ipSrcImage must be the same height as ipDestImage');
+Check.IsTrue((srcImageInfo.nWidth = destImageInfo.nWidth), 'ipSrcImage must be the same width as ipDestImage');
+Check.IsTrue((srcImageInfo.stPixelFormat.nElementSize = destImageInfo.stPixelFormat.nElementSize), 'ipSrcImage  must have the same element size as ipDestImage');]]></ST>
       </Implementation>
     </Method>
   </POU>

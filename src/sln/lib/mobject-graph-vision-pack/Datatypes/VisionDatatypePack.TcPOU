@@ -183,6 +183,7 @@ VAR
 	
 	// interfaces
 	_iTcVnImage : _ITcVnImage;
+	_iTcVnDisplayableImage : _ITcVnDisplayableImage;
 	
 END_VAR
 ]]></Declaration>
@@ -372,7 +373,8 @@ Datatypes.RegisterDatatype(_tcVnRotatedRectangle);
 Datatypes.RegisterDatatype(_tcVnSize2_REAL);
 
 // interfaces
-Datatypes.RegisterDatatype(_iTcVnImage);]]></ST>
+Datatypes.RegisterDatatype(_iTcVnImage);
+Datatypes.RegisterDatatype(_iTcVnDisplayableImage);]]></ST>
       </Implementation>
     </Method>
   </POU>
