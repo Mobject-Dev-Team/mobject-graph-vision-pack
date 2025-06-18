@@ -1189,9 +1189,6 @@ V4.0.7.4
 | F_VN_Granulometry | ✅ |
 | F_VN_HaralickFeatures | ✅ |
 
----
----
-
 # Enums
 
 | Enum | Status|
