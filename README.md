@@ -26,6 +26,8 @@ mobject's goal is to be a lightweight solution to typical oop problems.
 
 The documentation for this project can be found [here](http://graph-vision-pack.mobject.org/#/).
 
+Documentation detailing node coverage can be found [here](node-coverage.md).
+
 ## Versions
 
 - TwinCAT XAE 3.1.4024.65
