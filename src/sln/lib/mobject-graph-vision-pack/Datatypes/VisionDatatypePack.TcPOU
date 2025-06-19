@@ -179,6 +179,7 @@ VAR
 	_tcVnRectangle_DINT : _TcVnRectangle_DINT;
     _tcVnRectangle_UDINT : _TcVnRectangle_UDINT;
     _tcVnRotatedRectangle : _TcVnRotatedRectangle;
+    _tcVnRotatedRectangle_Temporary : _TcVnRotatedRectangle_Temporary; //TODO Remove. Temporary solution.
     _tcVnSize2_REAL : _TcVnSize2_REAL;
 	
 	// interfaces
@@ -370,6 +371,7 @@ Datatypes.RegisterDatatype(_tcVnPixelFormat);
 Datatypes.RegisterDatatype(_tcVnRectangle_DINT);
 Datatypes.RegisterDatatype(_tcVnRectangle_UDINT);
 Datatypes.RegisterDatatype(_tcVnRotatedRectangle);
+Datatypes.RegisterDatatype(_tcVnRotatedRectangle_Temporary); //TOD Remove. Temporary solution.
 Datatypes.RegisterDatatype(_tcVnSize2_REAL);
 
 // interfaces
