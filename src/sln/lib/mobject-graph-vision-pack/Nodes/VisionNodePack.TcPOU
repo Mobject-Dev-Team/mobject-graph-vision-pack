@@ -783,7 +783,7 @@ VAR
     //node_F_VN_HoughLinesExp : Node_F_VN_HoughLinesExp;
     node_F_VN_HoughLinesP : Node_F_VN_HoughLinesP;
     node_F_VN_HoughLinesPExp : Node_F_VN_HoughLinesPExp;
-    //node_F_VN_MatchImageHuMoments : Node_F_VN_MatchImageHuMoments;
+    node_F_VN_MatchImageHuMoments : Node_F_VN_MatchImageHuMoments;
     node_F_VN_MatchTemplate : Node_F_VN_MatchTemplate;
     node_F_VN_MatchTemplateAndEvaluate : Node_F_VN_MatchTemplateAndEvaluate;
     //node_F_VN_MatchTemplateAndEvaluateExp : Node_F_VN_MatchTemplateAndEvaluateExp;
@@ -847,7 +847,7 @@ VAR
     //node_F_VN_TrainImageColorExp_ITcVnMlModel : Node_F_VN_TrainImageColorExp_ITcVnMlModel;
     //node_F_VN_TrainImageColorExp2 : Node_F_VN_TrainImageColorExp2;
     //node_F_VN_TrainImageColorExp2_ITcVnMlModel : Node_F_VN_TrainImageColorExp2_ITcVnMlModel;
-    //node_F_VN_WhiteBalance : Node_F_VN_WhiteBalance;
+    node_F_VN_WhiteBalance : Node_F_VN_WhiteBalance;
     
     // Image Filtering
     node_F_VN_BilateralFilter : Node_F_VN_BilateralFilter;
@@ -1852,7 +1852,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_Houg
 //NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughLinesExp', node_F_VN_HoughLinesExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughLinesP', node_F_VN_HoughLinesP);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughLinesPExp', node_F_VN_HoughLinesPExp);
-//NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchImageHuMoments', node_F_VN_MatchImageHuMoments);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchImageHuMoments', node_F_VN_MatchImageHuMoments);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplate', node_F_VN_MatchTemplate);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateAndEvaluate', node_F_VN_MatchTemplateAndEvaluate);
 //NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateAndEvaluateExp', node_F_VN_MatchTemplateAndEvaluateExp);
@@ -1916,7 +1916,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_
 //NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_TrainImageColorExp_ITcVnMlModel', node_F_VN_TrainImageColorExp_ITcVnMlModel);
 //NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_TrainImageColorExp2', node_F_VN_TrainImageColorExp2);
 //NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_TrainImageColorExp2_ITcVnMlModel', node_F_VN_TrainImageColorExp2_ITcVnMlModel);
-//NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_WhiteBalance', node_F_VN_WhiteBalance);
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_WhiteBalance', node_F_VN_WhiteBalance);
 
 // Image Filtering
 NodeFactory.AddNodeAsPrototype('Vision/Image Filtering/F_VN_BilateralFilter', node_F_VN_BilateralFilter);
