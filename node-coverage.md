@@ -869,7 +869,7 @@ V4.0.7.4
 | F_VN_HoughLinesExp |  |
 | F_VN_HoughLinesP | ✅ |
 | F_VN_HoughLinesPExp | ✅ |
-| F_VN_MatchImageHuMoments |  |
+| F_VN_MatchImageHuMoments | ✅ |
 | F_VN_MatchTemplate | ✅ |
 | F_VN_MatchTemplateAndEvaluate | ✅ |
 | F_VN_MatchTemplateAndEvaluateExp |  |
@@ -939,7 +939,7 @@ V4.0.7.4
 | F_VN_TrainImageColorExp_ITcVnMlModel | ❌ |
 | F_VN_TrainImageColorExp2 | ❌ |
 | F_VN_TrainImageColorExp2_ITcVnMlModel | ❌ |
-| F_VN_WhiteBalance|  |
+| F_VN_WhiteBalance| ✅ |
 
 ## Image Filtering
 

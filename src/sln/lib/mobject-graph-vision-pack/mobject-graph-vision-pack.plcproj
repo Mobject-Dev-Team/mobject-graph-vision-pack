@@ -682,8 +682,12 @@
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnRotatedRectangle.TcPOU">
       <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnCircularArc.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnRotatedRectangle_Temporary.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnSize2_REAL.TcPOU">
@@ -2766,6 +2770,9 @@
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_HoughCircles.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MatchImageHuMoments.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_HoughLines.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2824,6 +2831,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ReferenceColorSimilarityExp_TcVnVector3_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_WhiteBalance.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_BilateralFilter.TcPOU">
