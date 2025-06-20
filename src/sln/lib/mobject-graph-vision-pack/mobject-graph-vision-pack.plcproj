@@ -687,9 +687,6 @@
     <Compile Include="Datatypes\Structs\_TcVnCircularArc.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Datatypes\Structs\_TcVnRotatedRectangle_Temporary.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Datatypes\Structs\_TcVnSize2_REAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
