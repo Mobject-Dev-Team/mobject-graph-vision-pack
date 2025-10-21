@@ -9,7 +9,7 @@
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <Name>Main</Name>
-    <ProgramVersion>3.1.4024.0</ProgramVersion>
+    <ProgramVersion>3.1.4026.19</ProgramVersion>
     <Application>{e81f6707-1e58-44e4-9d2c-da99e8500274}</Application>
     <TypeSystem>{b8ad4e04-7bd0-4e28-b17d-35eadf78a11e}</TypeSystem>
     <Implicit_Task_Info>{82eae45e-53a3-462a-abdf-6a5f43693a38}</Implicit_Task_Info>
@@ -97,10 +97,10 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <LibraryReference Include="mobject-core,0.7.0,mobject">
+    <LibraryReference Include="mobject-core,0.8.0,mobject">
       <Namespace>mobject_core</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph-vision-pack,0.9.0,mobject">
+    <LibraryReference Include="mobject-graph-vision-pack,0.10.0,mobject">
       <Namespace>mobject_graph_vision_pack</Namespace>
     </LibraryReference>
   </ItemGroup>

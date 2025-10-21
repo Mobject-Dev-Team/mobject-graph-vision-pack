@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.10.0-alpha
+
+- updated to 4026
+- 4026 unable to copy .value to .value when reference, changed to trycopyto.
+- bug fix IsRoiSizeOk
+
 ## v0.9.0-alpha
 
 - added support for mobject-graph v0.16.0
