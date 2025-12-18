@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
   <POU Name="VisionDatatypePack" Id="{41aa96c4-4e58-0595-14c8-fb1325f46fff}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -183,6 +183,7 @@ VAR
 	
 	// interfaces
 	_iTcVnImage : _ITcVnImage;
+	_iTcVnContainer : _ITcVnContainer;
 	_iTcVnDisplayableImage : _ITcVnDisplayableImage;
 	
 END_VAR
@@ -374,6 +375,7 @@ Datatypes.RegisterDatatype(_tcVnSize2_REAL);
 
 // interfaces
 Datatypes.RegisterDatatype(_iTcVnImage);
+Datatypes.RegisterDatatype(_iTcVnContainer);
 Datatypes.RegisterDatatype(_iTcVnDisplayableImage);]]></ST>
       </Implementation>
     </Method>
