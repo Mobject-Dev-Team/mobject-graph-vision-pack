@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
   <POU Name="VisionNodePack" Id="{257fc325-f932-4b89-a50a-e9a0a38418f4}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -552,17 +552,17 @@ VAR
     node_F_VN_MinElementElementwise_UINT : node_F_VN_MinElementElementwise_UINT;
     node_F_VN_MinElementElementwise_ULINT : Node_F_VN_MinElementElementwise_ULINT;
     node_F_VN_MinElementElementwise_USINT : Node_F_VN_MinElementElementwise_USINT;
-    //node_F_VN_ContainerAverage : Node_F_VN_ContainerAverage;
-    //node_F_VN_ContainerAverageElementwise2 : Node_F_VN_ContainerAverageElementwise2;
-    //node_F_VN_ContainerAverageElementwise3 : Node_F_VN_ContainerAverageElementwise3;
-    //node_F_VN_ContainerAverageElementwise4 : Node_F_VN_ContainerAverageElementwise4;
-    //node_F_VN_ContainerAverageVariance : Node_F_VN_ContainerAverageVariance;
-    //node_F_VN_ContainerAverageVarianceElementwise2 : Node_F_VN_ContainerAverageVarianceElementwise2;
-    //node_F_VN_ContainerAverageVarianceElementwise3 : Node_F_VN_ContainerAverageVarianceElementwise3
-    //node_F_VN_ContainerAverageVarianceElementwise4 : Node_F_VN_ContainerAverageVarianceElementwise4
-    //node_F_VN_MaxElement : Node_F_VN_MaxElement;
-    //node_F_VN_MedianElement : Node_F_VN_MedianElement;
-    //node_F_VN_MinElement : Node_F_VN_MinElement
+	node_F_VN_ContainerAverage : Node_F_VN_ContainerAverage;
+	node_F_VN_ContainerAverageElementwise2 : Node_F_VN_ContainerAverageElementwise2;
+	node_F_VN_ContainerAverageElementwise3 : Node_F_VN_ContainerAverageElementwise3;
+	node_F_VN_ContainerAverageElementwise4 : Node_F_VN_ContainerAverageElementwise4;
+	node_F_VN_ContainerAverageVariance : Node_F_VN_ContainerAverageVariance;
+	node_F_VN_ContainerAverageVarianceElementwise2 : Node_F_VN_ContainerAverageVarianceElementwise2;
+	node_F_VN_ContainerAverageVarianceElementwise3 : Node_F_VN_ContainerAverageVarianceElementwise3;
+	node_F_VN_ContainerAverageVarianceElementwise4 : Node_F_VN_ContainerAverageVarianceElementwise4;
+	node_F_VN_MaxElement : Node_F_VN_MaxElement;
+	node_F_VN_MedianElement : Node_F_VN_MedianElement;
+	node_F_VN_MinElement : Node_F_VN_MinElement;
    
     // Contour Analysis
     node_F_VN_ApproximatePolygon : Node_F_VN_ApproximatePolygon;
@@ -777,6 +777,10 @@ VAR
     node_F_VN_FindContourHierarchyExp : Node_F_VN_FindContourHierarchyExp;
     node_F_VN_FindContours : Node_F_VN_FindContours;
     node_F_VN_FindContoursExp : Node_F_VN_FindContoursExp;
+	node_F_VN_FindTemplateWalsh : Node_F_VN_FindTemplateWalsh;
+	node_F_VN_FindTemplateWalsh_AngleRange : Node_F_VN_FindTemplateWalsh_AngleRange;
+	node_F_VN_FindTemplateWalshExp : Node_F_VN_FindTemplateWalshExp;
+	node_F_VN_FindTemplateWalshExp_AngleRange : Node_F_VN_FindTemplateWalshExp_AngleRange;
     node_F_VN_HoughCircles : Node_F_VN_HoughCircles;
     //node_F_VN_HoughCirclesExp : Node_F_VN_HoughCirclesExp;
     node_F_VN_HoughLines : Node_F_VN_HoughLines;
@@ -786,6 +790,8 @@ VAR
     node_F_VN_MatchImageHuMoments : Node_F_VN_MatchImageHuMoments;
     node_F_VN_MatchTemplate : Node_F_VN_MatchTemplate;
     node_F_VN_MatchTemplateAndEvaluate : Node_F_VN_MatchTemplateAndEvaluate;
+	node_F_VN_MatchTemplateWalsh : Node_F_VN_MatchTemplateWalsh;
+	node_F_VN_MatchTemplateWalshExp : Node_F_VN_MatchTemplateWalshExp;
     //node_F_VN_MatchTemplateAndEvaluateExp : Node_F_VN_MatchTemplateAndEvaluateExp;
     //node_F_VN_MatchTemplateExp : Node_F_VN_MatchTemplateExp;
     node_F_VN_CannyEdgeDetection : Node_F_VN_CannyEdgeDetection;
@@ -1063,6 +1069,7 @@ VAR
     //node_F_VN_Sigmoid : Node_F_VN_Sigmoid;
     //node_F_VN_SigmoidExp : Node_F_VN_SigmoidExp;
     //node_F_VN_SoftMax : Node_F_VN_SoftMax;
+	node_F_VN_DetectCodesNeuralNetwork : Node_F_VN_DetectCodesNeuralNetwork;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -1622,17 +1629,17 @@ NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElementEleme
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElementElementwise/F_VN_MinElementElementwise_UINT', node_F_VN_MinElementElementwise_UINT);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElementElementwise/F_VN_MinElementElementwise_ULINT', node_F_VN_MinElementElementwise_ULINT);
 NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElementElementwise/F_VN_MinElementElementwise_USINT', node_F_VN_MinElementElementwise_USINT);
-//NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverage', node_F_VN_ContainerAverage);
-//NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverageElementwise2', node_F_VN_ContainerAverageElementwise2);
-//NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverageElementwise3', node_F_VN_ContainerAverageElementwise3);
-//NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverageElementwise4', node_F_VN_ContainerAverageElementwise4);
-//NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverageVariance', node_F_VN_ContainerAverageVariance);
-//NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverageVarianceElementwise2', node_F_VN_ContainerAverageVarianceElementwise2);
-//NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverageVarianceElementwise3', node_F_VN_ContainerAverageVarianceElementwise3);
-//NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverageVarianceElementwise4', node_F_VN_ContainerAverageVarianceElementwise4);
-//NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MaxElement', node_F_VN_MaxElement);
-//NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MedianElement', node_F_VN_MedianElement);
-//NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElement', node_F_VN_MinElement);
+NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverage', node_F_VN_ContainerAverage);
+NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverageElementwise2', node_F_VN_ContainerAverageElementwise2);
+NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverageElementwise3', node_F_VN_ContainerAverageElementwise3);
+NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverageElementwise4', node_F_VN_ContainerAverageElementwise4);
+NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverageVariance', node_F_VN_ContainerAverageVariance);
+NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverageVarianceElementwise2', node_F_VN_ContainerAverageVarianceElementwise2);
+NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverageVarianceElementwise3', node_F_VN_ContainerAverageVarianceElementwise3);
+NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_ContainerAverageVarianceElementwise4', node_F_VN_ContainerAverageVarianceElementwise4);
+NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MaxElement', node_F_VN_MaxElement);
+NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MedianElement', node_F_VN_MedianElement);
+NodeFactory.AddNodeAsPrototype('Vision/Container Statistics/F_VN_MinElement', node_F_VN_MinElement);
 
 // Contour Analysis
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_ApproximatePolygon', node_F_VN_ApproximatePolygon);
@@ -1846,6 +1853,10 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_Dete
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindContourHierarchyExp', node_F_VN_FindContourHierarchyExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindContours', node_F_VN_FindContours);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindContoursExp', node_F_VN_FindContoursExp);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindTemplateWalsh', node_F_VN_FindTemplateWalsh);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindTemplateWalsh_AngleRange', node_F_VN_FindTemplateWalsh_AngleRange);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindTemplateWalshExp', node_F_VN_FindTemplateWalshExp);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindTemplateWalshExp_AngleRange', node_F_VN_FindTemplateWalshExp_AngleRange);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughCircles', node_F_VN_HoughCircles);
 //NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughCirclesExp', node_F_VN_HoughCirclesExp
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughLines', node_F_VN_HoughLines);
@@ -1855,6 +1866,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_Houg
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchImageHuMoments', node_F_VN_MatchImageHuMoments);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplate', node_F_VN_MatchTemplate);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateAndEvaluate', node_F_VN_MatchTemplateAndEvaluate);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateWalsh', node_F_VN_MatchTemplateWalsh);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateWalshExp', node_F_VN_MatchTemplateWalshExp);
 //NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateAndEvaluateExp', node_F_VN_MatchTemplateAndEvaluateExp);
 //NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateExp', node_F_VN_MatchTemplateExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CannyEdgeDetection', node_F_VN_CannyEdgeDetection);
@@ -2132,6 +2145,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Texture Analysis/F_VN_HaralickFeatures', 
 //NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_Sigmoid', node_F_VN_Sigmoid);
 //NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_SigmoidExp', node_F_VN_SigmoidExp);
 //NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_SoftMax', node_F_VN_SoftMax);
+NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_DetectCodesNeuralNetwork', node_F_VN_DetectCodesNeuralNetwork);
 ]]></ST>
       </Implementation>
     </Method>

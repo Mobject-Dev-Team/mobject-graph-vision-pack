@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
   <POU Name="Node_F_VN_GetAffineTransformation2D" Id="{9fcc6970-8acb-0455-0adf-baeea3fcb4b1}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -65,7 +65,7 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcPoints.IsValid, 'ipSrcPoints must be a valid container');
-Check.IsTrue(ipSrcPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL), 'ipSrcPoints contains incorrect type');
+Check.IsTrue(ipSrcPoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL), 'ipSrcPoints contains incorrect type');
 Check.IsTrue((ipSrcPoints.TryGetElementNum(elementNum) AND (elementNum >= 3)), 'ipSrcPoints must contain at least 3 points');
 ]]></ST>
       </Implementation>

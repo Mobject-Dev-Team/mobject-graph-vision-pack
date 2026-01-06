@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="Node_F_VN_ContainerAverageElementwise4" Id="{8af3bf01-0d5d-0f58-2b05-bd1a325b4dcb}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ContainerAverageElementwise4 EXTENDS VisionNode
+VAR
+    ipSrcContainer : _ITcVnContainer;
+    aAverage : _TcVnVector4_LREAL;
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{94c681f0-c382-0422-2354-be2c08817a2b}" />
+    <Method Name="Clone" Id="{1e08576f-453f-0d43-2d7a-471382520c2d}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ContainerAverageElementwise4;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ContainerAverageElementwise4);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{9b35a456-0867-0366-25d2-dd11868956b2}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcContainer', ipSrcContainer);
+AddInput('hrPrev', hrPrev);
+AddOutput('aAverage', aAverage);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{fe368670-6e9c-0771-3a3e-4bb38d8ddc7a}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ContainerAverageElementwise4(
+    ipSrcContainer := ipSrcContainer.Value,
+    aAverage := aAverage.Value,
+    hrPrev:= hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{9086df07-d0c2-08af-3287-2efa46e83da2}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+	isCorrectType : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcContainer.IsValid, 'ipContainer must be a valid container');
+
+isCorrectType := 
+    // ---------------------------------------------------------
+    // Vector 4 Types (X, Y, Z, W)
+    // ---------------------------------------------------------
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_SINT) OR_ELSE
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_USINT) OR_ELSE
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_INT) OR_ELSE
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_UINT) OR_ELSE
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_DINT) OR_ELSE
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_REAL) OR_ELSE
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_LREAL);
+
+Check.IsTrue(isCorrectType, 'ipContainer contains incorrect type for Elementwise4');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

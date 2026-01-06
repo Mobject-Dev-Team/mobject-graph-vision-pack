@@ -346,6 +346,12 @@
     <Compile Include="Datatypes\Enums\_ETcVn2dCodeSearchStrategy.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnMatchTemplateWalshOptions.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnCodeDetectionModel.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnAdaptiveThresholdMethod.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -405,6 +411,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnDataMatrixOptions.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnFindTemplateWalshOptions.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnReduceType.TcPOU">
@@ -598,6 +607,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Interfaces\Containers\ITcVnContainer\_ITcVnContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Interfaces\Containers\Iterators\ITcVnBidirectionalIterator\I_InterfaceDatatype_ITcVnBidirectionalIterator.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Interfaces\Containers\Iterators\ITcVnBidirectionalIterator\_ITcVnBidirectionalIterator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Interfaces\Images\ITcVnImage\I_InterfaceDatatype_ITcVnImage.TcIO">
@@ -2211,6 +2226,39 @@
     <Compile Include="Nodes\Container Statistics\MinElementwise\Node_F_VN_MinElementElementwise_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverageElementwise3.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverageElementwise4.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverageVarianceElementwise2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverageVariance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverageElementwise2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverageVarianceElementwise3.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverageVarianceElementwise4.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_ApproximatePolygon.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2764,6 +2812,15 @@
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindContoursExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindTemplateWalshExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindTemplateWalshExp_AngleRange.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindTemplateWalsh_AngleRange.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_HoughCircles.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2786,6 +2843,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MatchTemplateAndEvaluate.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MatchTemplateWalshExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MatchTemplateWalsh.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindTemplateWalsh.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ApplyColorMap.TcPOU">
@@ -3111,6 +3177,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Miscellaneous\Node_F_VN_RotatedRectangleIntersection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Neural Network\Node_F_VN_DetectCodesNeuralNetwork.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Neural Network\Node_F_VN_Sigmoid.TcPOU">

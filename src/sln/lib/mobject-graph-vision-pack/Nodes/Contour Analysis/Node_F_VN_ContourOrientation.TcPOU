@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
   <POU Name="Node_F_VN_ContourOrientation" Id="{2df0dd1e-0b78-0ccf-265b-335876f2f1b6}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -59,9 +59,9 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipContour.IsValid, 'ipContour must be a valid container');
-Check.IsTrue((ipContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
-              ipContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL) OR
-              ipContour.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_LREAL)),
+Check.IsTrue((ipContour.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipContour.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL) OR
+              ipContour.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_LREAL)),
               'ipContour contains incorrect type');
 ]]></ST>
       </Implementation>

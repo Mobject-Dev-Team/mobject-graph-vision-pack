@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
   <POU Name="Node_F_VN_PerspectiveTransformation" Id="{230bdc51-4701-018c-35ea-fc0b2efee73d}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -64,8 +64,8 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcPoints.IsValid, 'ipSrcPoints must be a valid container');
-Check.IsTrue((ipSrcPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint3_REAL) OR
-              ipSrcPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint3_LREAL)),
+Check.IsTrue((ipSrcPoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint3_REAL) OR
+              ipSrcPoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint3_LREAL)),
               'ipSrcPoints contains incorrect type');
               ]]></ST>
       </Implementation>
