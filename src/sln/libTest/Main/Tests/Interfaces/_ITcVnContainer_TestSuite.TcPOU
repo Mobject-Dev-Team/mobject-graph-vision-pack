@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
   <POU Name="_ITcVnContainer_TestSuite" Id="{1e4049d5-5f40-4abd-9904-57a2d5afa742}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK _ITcVnContainer_TestSuite EXTENDS TcUnit.FB_TestSuite
 VAR
@@ -36,7 +36,7 @@ END_VAR
 
 F_VN_CreateContainerFromArray(pData := ADR(data), ipContainer := _type.Value, nTypeGuid := expected, nElementNum := 5, hrPrev := S_OK);
 
-result := _type.HasType(expected);
+result := _type.IsType(expected);
 
 AssertTrue(
 	Condition := result,

@@ -2866,6 +2866,9 @@
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_GenerateCustomColorMap.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_HistogramExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ReferenceColorSimilarity_TcVnVector3_LREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>

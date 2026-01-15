@@ -835,7 +835,7 @@ VAR
     node_F_VN_Histogram : Node_F_VN_Histogram;
     node_F_VN_HistogramEqualization : Node_F_VN_HistogramEqualization;
     node_F_VN_HistogramEqualizationExp : Node_F_VN_HistogramEqualizationExp;
-    //node_F_VN_HistogramExp : Node_F_VN_HistogramExp;
+	node_F_VN_HistogramExp : Node_F_VN_HistogramExp;
     node_F_VN_InvertImageColor : Node_F_VN_InvertImageColor;
     //node_F_VN_InvertImageColorExp : Node_F_VN_InvertImageColorExp;
     node_F_VN_NormalizeImage : Node_F_VN_NormalizeImage;
@@ -1911,7 +1911,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_Histogram', node_F_VN_Histogram);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_HistogramEqualization', node_F_VN_HistogramEqualization);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_HistogramEqualizationExp', node_F_VN_HistogramEqualizationExp);
-//NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_HistogramExp', node_F_VN_HistogramExp);
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_HistogramExp', node_F_VN_HistogramExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_InvertImageColor', node_F_VN_InvertImageColor);
 //NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_InvertImageColorExp', node_F_VN_InvertImageColorExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_NormalizeImage', node_F_VN_NormalizeImage);
