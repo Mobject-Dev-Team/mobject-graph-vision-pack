@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="Node_F_VN_ReadPharmaCodeExp" Id="{f4841d3d-b885-0f9e-3e6e-9d3f20d8f6c3}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ReadPharmaCodeExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDecodedData : _ITcVnContainer;
+	ipContours : _ITcVnContainer;
+	nCodeNumber : _DINT(1);
+	nMinBarNumber : _INT(4);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{2c76a2d1-8ad1-07fb-16db-38a9ae1caaf8}" />
+    <Method Name="Clone" Id="{af9f47e5-c707-072d-388b-aff9eac31086}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ReadPharmaCodeExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ReadPharmaCodeExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{64f3d15a-34cd-0399-194b-8a1ea4b83a44}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('hrPrev', hrPrev);
+AddParameter('nCodeNumber',nCodeNumber);
+AddParameter('nMinBarNumber',nMinBarNumber);
+AddOutput('ipDecodedData', ipDecodedData);
+AddOutput('ipContours', ipDecodedData);
+AddOutput('hresult',hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{28b866c3-154f-0662-3f86-0fef00d52d28}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ReadPharmaCodeExp(
+	ipSrcImage := ipSrcImage.Value,
+    ipDecodedData := ipDecodedData.Value,
+	ipContours := ipContours.Value,
+	nCodeNumber := nCodeNumber.Value,
+	nMinBarNumber := nMinBarNumber.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{756267ea-4c2d-0bbc-15d8-1941995f46c4}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue((ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3)), 'ipSrcImage must have 1 or 3 channels');
+
+IF (ipSrcImage.HasChannelCount(1)) THEN
+    Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+END_IF
+
+IF (ipSrcImage.HasChannelCount(3)) THEN
+    Check.IsTrue((ipSrcImage.IsPixelDepth(8) OR 
+                 ipSrcImage.IsPixelDepth(16) OR
+                 ipSrcImage.IsPixelDepth(32)), 'ipSrcImage must have 8, 16 or 32 bit pixel depth');
+END_IF
+
+Check.IsTrue((nCodeNumber.Value = 1), 'nCodeNumber, currently only 1 supported');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

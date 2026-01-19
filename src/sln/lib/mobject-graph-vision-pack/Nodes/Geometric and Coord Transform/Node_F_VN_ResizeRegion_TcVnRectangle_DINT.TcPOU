@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="Node_F_VN_ResizeRegion_TcVnRectangle_DINT" Id="{6b0049f5-026c-01d2-3f15-a46a3ce92ac1}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ResizeRegion_TcVnRectangle_DINT EXTENDS VisionNode
+VAR
+	stSrcRect : _TcVnRectangle_DINT;
+	stDestRect : _TcVnRectangle_DINT;
+	fWidthRatio : _REAL(0);
+	fHeightRatio : _REAL(0);
+	nMinWidthOffset : _DINT(0);
+	nMinHeightOffset : _DINT(0);
+    ipImage : _ITcVnImage;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{0c7f8ab3-413d-0969-2776-6fc94908e0fd}" />
+    <Method Name="Clone" Id="{58bbc067-cf32-013a-02d0-05fbe13047f1}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ResizeRegion_TcVnRectangle_DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ResizeRegion_TcVnRectangle_DINT);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ade451c7-7a1c-0f57-2243-d17b1da41fd4}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('stSrcRect', stSrcRect);
+AddInput('ipImage', ipImage);
+AddInput('hrPrev', hrPrev);
+AddParameter('fWidthRatio', fWidthRatio);
+AddParameter('fHeightRatio', fHeightRatio);
+AddParameter('nMinWidthOffset', nMinWidthOffset);
+AddParameter('nMinHeightOffset', nMinHeightOffset);
+AddOutput('stDestRect', stDestRect);
+AddOutput('hresult',hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{1a265491-9724-03c8-0d5d-9cbbc1df1378}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ResizeRegion_TcVnRectangle_DINT(
+    stSrcRect := stSrcRect.Value,
+	stDestRect := stDestRect.Value,
+	fWidthRatio := fWidthRatio.Value,
+	fHeightRatio := fHeightRatio.Value,
+	nMinWidthOffset := nMinWidthOffset.Value,
+	nMinHeightOffset := nMinHeightOffset.Value,
+	ipImage := ipImage.Value,
+	hrPrev:= hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{c21ef53f-24ec-059d-09ba-34fa4cdf77ae}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

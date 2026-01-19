@@ -430,19 +430,20 @@ VAR
     node_F_VN_GradeQRCodeExp : Node_F_VN_GradeQRCodeExp;
     
     // Code Reading
+	node_F_VN_DetectCodesNeuralNetwork : Node_F_VN_DetectCodesNeuralNetwork;
     node_F_VN_ReadBarcode : Node_F_VN_ReadBarcode;
-    //node_F_VN_ReadBarcodeExp : Node_F_VN_ReadBarcodeExp;
-    //node_F_VN_ReadBarcodeExp2 : Node_F_VN_ReadBarcodeExp2;
+	node_F_VN_ReadBarcodeExp : Node_F_VN_ReadBarcodeExp;
+	node_F_VN_ReadBarcodeExp2 : Node_F_VN_ReadBarcodeExp2;
     node_F_VN_ReadDataMatrixCode : Node_F_VN_ReadDataMatrixCode;
-    //node_F_VN_ReadDataMatrixCodeExp : Node_F_VN_ReadDataMatrixCodeExp;
-    //node_F_VN_ReadDataMatrixCodeExp2 : Node_F_VN_ReadDataMatrixCodeExp2;
+	node_F_VN_ReadDataMatrixCodeExp : Node_F_VN_ReadDataMatrixCodeExp;
+	node_F_VN_ReadDataMatrixCodeExp2 : Node_F_VN_ReadDataMatrixCodeExp2;
 	node_F_VN_ReadDataMatrixCodeRoi : Node_F_VN_ReadDataMatrixCodeRoi;
     node_F_VN_ReadPharmaCode : Node_F_VN_ReadPharmaCode;
-    //node_F_VN_ReadPharmaCodeExp : Node_F_VN_ReadPharmaCodeExp;
-    //node_F_VN_ReadPharmaCodeExp2 : Node_F_VN_ReadPharmaCodeExp2;
+	node_F_VN_ReadPharmaCodeExp : Node_F_VN_ReadPharmaCodeExp;
+	node_F_VN_ReadPharmaCodeExp2 : Node_F_VN_ReadPharmaCodeExp2;
     node_F_VN_ReadQRCode : Node_F_VN_ReadQRCode;
-    //node_F_VN_ReadQRCodeExp : Node_F_VN_ReadQRCodeExp;
-    //node_F_VN_ReadQRCodeExp2 : Node_F_VN_ReadQRCodeExp2;
+	node_F_VN_ReadQRCodeExp : Node_F_VN_ReadQRCodeExp;
+	node_F_VN_ReadQRCodeExp2 : Node_F_VN_ReadQRCodeExp2;
     
     // Constants
     node_RGBA_BLACK : Node_RGBA_BLACK;
@@ -753,6 +754,7 @@ VAR
     //node_F_VN_RemapImageToPolarSpaceExp2 : Node_F_VN_RemapImageToPolarSpaceExp2;
     node_F_VN_ResizeImage : Node_F_VN_ResizeImage;
     node_F_VN_ResizeImageExp : Node_F_VN_ResizeImageExp;
+	node_F_VN_ResizeRegion_TcVnRectangle_DINT : Node_F_VN_ResizeRegion_TcVnRectangle_DINT;
     node_F_VN_RotateImage : Node_F_VN_RotateImage;
     node_F_VN_RotateImageExp : Node_F_VN_RotateImageExp;
     node_F_VN_RotateImageExp2 : Node_F_VN_RotateImageExp2;
@@ -1069,7 +1071,7 @@ VAR
     //node_F_VN_Sigmoid : Node_F_VN_Sigmoid;
     //node_F_VN_SigmoidExp : Node_F_VN_SigmoidExp;
     //node_F_VN_SoftMax : Node_F_VN_SoftMax;
-	node_F_VN_DetectCodesNeuralNetwork : Node_F_VN_DetectCodesNeuralNetwork;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -1505,19 +1507,20 @@ NodeFactory.AddNodeAsPrototype('Vision/Code Quality/F_VN_GradeQRCode', node_F_VN
 NodeFactory.AddNodeAsPrototype('Vision/Code Quality/F_VN_GradeQRCodeExp', node_F_VN_GradeQRCodeExp);
 
 // Code Reading
+NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_DetectCodesNeuralNetwork', node_F_VN_DetectCodesNeuralNetwork);
 NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadBarcode', node_F_VN_ReadBarcode);
-//NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadBarcodeExp', node_F_VN_ReadBarcodeExp);
-//NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadBarcodeExp2', node_F_VN_ReadBarcodeExp2);
+NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadBarcodeExp', node_F_VN_ReadBarcodeExp);
+NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadBarcodeExp2', node_F_VN_ReadBarcodeExp2);
 NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDataMatrixCode', node_F_VN_ReadDataMatrixCode);
-//NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDataMatrixCodeExp', node_F_VN_ReadDataMatrixCodeExp);
-//NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDataMatrixCodeExp2', node_F_VN_ReadDataMatrixCodeExp2);
+NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDataMatrixCodeExp', node_F_VN_ReadDataMatrixCodeExp);
+NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDataMatrixCodeExp2', node_F_VN_ReadDataMatrixCodeExp2);
 NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDataMatrixCodeRoi', node_F_VN_ReadDataMatrixCodeRoi);
 NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadPharmaCode', node_F_VN_ReadPharmaCode);
-//NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadPharmaCodeExp', node_F_VN_ReadPharmaCodeExp);
-//NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadPharmaCodeExp2', node_F_VN_ReadPharmaCodeExp2);
+NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadPharmaCodeExp', node_F_VN_ReadPharmaCodeExp);
+NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadPharmaCodeExp2', node_F_VN_ReadPharmaCodeExp2);
 NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadQRCode', node_F_VN_ReadQRCode);
-//NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadQRCodeExp', node_F_VN_ReadQRCodeExp);
-//NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadQRCodeExp2', node_F_VN_ReadQRCodeExp2);
+NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadQRCodeExp', node_F_VN_ReadQRCodeExp);
+NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadQRCodeExp2', node_F_VN_ReadQRCodeExp2);
 
 // Constants
 NodeFactory.AddNodeAsPrototype('Vision/Constants/RGBA_BLACK', node_RGBA_BLACK);
@@ -1829,6 +1832,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/
 //NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_RemapImageToPolarSpaceExp2', node_F_VN_RemapImageToPolarSpaceExp2);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ResizeImage', node_F_VN_ResizeImage);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ResizeImageExp', node_F_VN_ResizeImageExp);
+NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_ResizeRegion_TcVnRectangle_DINT', node_F_VN_ResizeRegion_TcVnRectangle_DINT);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_RotateImage', node_F_VN_RotateImage);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_RotateImageExp', node_F_VN_RotateImageExp);
 NodeFactory.AddNodeAsPrototype('Vision/Geometric and Coordinate Transformations/F_VN_RotateImageExp2', node_F_VN_RotateImageExp2);
@@ -2145,7 +2149,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Texture Analysis/F_VN_HaralickFeatures', 
 //NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_Sigmoid', node_F_VN_Sigmoid);
 //NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_SigmoidExp', node_F_VN_SigmoidExp);
 //NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_SoftMax', node_F_VN_SoftMax);
-NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_DetectCodesNeuralNetwork', node_F_VN_DetectCodesNeuralNetwork);
+
 ]]></ST>
       </Implementation>
     </Method>
