@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <POU Name="_ITcVnContainer" Id="{48dfc53e-0fa0-08cf-2bc3-a7006e9bded6}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -915,7 +915,7 @@ VAR_INPUT
 END_VAR
 VAR
 	hr : HRESULT;
-	_value : _TcVnVector2_REAL();
+	_value : _TcVnVector3_REAL();
 	elementCount : ULINT;
 	i : ULINT;
 END_VAR]]></Declaration>
@@ -926,7 +926,7 @@ Serializer.StartArray();
 IF elementCount > 0 THEN
 	FOR i := 0 TO elementCount - 1 DO 
 		
-		hr := F_VN_GetAt_TcVnVector2_REAL(TargetContainer, _value.Value, i, S_OK);
+		hr := F_VN_GetAt_TcVnVector3_REAL(TargetContainer, _value.Value, i, S_OK);
 		
 		IF SUCCEEDED(hr) THEN
 			Serializer.AddObject(_value);
