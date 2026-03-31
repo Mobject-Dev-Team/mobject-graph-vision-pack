@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="Node_F_VN_ReadDotCodeRoiExp" Id="{91ed3bc4-1cee-0f6c-248a-3da784c9ba53}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ReadDotCodeRoiExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDecodedData : _ITcVnContainer;
+	fModuleWidth : _REAL(3);
+	eOptions : _ULINT(ETcVnDotCodeOptions.TCVN_DCO_DEFAULT);
+	ipContour : _ITcVnContainer;
+    hrPrev : _HRESULT(S_OK);
+	fAngleDeg : _REAL(0);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{47a54d21-37d7-0412-2fc0-ef589273830c}" />
+    <Method Name="Clone" Id="{d77dce49-c2b8-0454-3372-23b83e27b210}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ReadDotCodeRoiExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ReadDotCodeRoiExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{a4e07483-aa9d-0cc9-3557-99859560662f}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('fModuleWidth', fModuleWidth);
+AddInput('eOptions', eOptions);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDecodedData', ipDecodedData);
+AddOutput('ipContour', ipContour);
+AddOutput('fAngleDeg',fAngleDeg);
+AddOutput('hresult',hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{c3cdd485-a7ac-0553-23de-e6234aa4d6aa}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+	_fAngleDeg : REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ReadDotCodeRoiExp(
+	ipSrcImage := ipSrcImage.Value,
+    ipDecodedData := ipDecodedData.Value,
+	fModuleWidth := fModuleWidth.Value,
+	ipContour := ipContour.Value,
+	eOptions := eOptions.Value,
+	hrPrev:= hrPrev.Value,
+	fAngleDeg => _fAngleDeg);
+	
+fAngleDeg.Value := _fAngleDeg;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{64cea05d-b063-06b2-26f9-67a25f1a2c6c}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channels');
+Check.IsTrue(fModuleWidth.Value >= 3, 'fModuleWidth must be equal or greter than 3 (preferably 5 - 8)');
+Check.IsTrue(ipSrcImage.IsElementType(ETcVnElementType.TCVN_ET_USINT), 'ipSrcImage must have an element type of USINT');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

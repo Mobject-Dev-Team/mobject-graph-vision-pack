@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <POU Name="_ITcVnImage" Id="{e49a2247-ce03-0b2f-2be9-ad1a10990618}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -95,6 +95,102 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="IsElementType" Id="{0241c061-6128-03ed-1199-e5b244bdf0e0}">
+      <Declaration><![CDATA[METHOD PUBLIC IsElementType : BOOL
+VAR_INPUT
+	ElementType : ETcVnElementType;
+END_VAR
+VAR
+    pixelFormat : TcVnPixelFormat;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT TryGetPixelFormat(pixelFormat) THEN
+    RETURN;
+END_IF
+
+CASE elementType OF
+
+    TCVN_ET_USINT:
+        IF pixelFormat.bFloat THEN
+            RETURN;
+        END_IF
+        IF pixelFormat.bSigned THEN
+            RETURN;
+        END_IF
+        IF NOT (pixelFormat.nElementSize = 8) THEN
+            RETURN;
+        END_IF
+        IsElementType := TRUE;
+
+    TCVN_ET_SINT:
+        IF pixelFormat.bFloat THEN
+            RETURN;
+        END_IF
+        IF NOT pixelFormat.bSigned THEN
+            RETURN;
+        END_IF
+        IF NOT (pixelFormat.nElementSize = 8) THEN
+            RETURN;
+        END_IF
+        IsElementType := TRUE;
+
+    TCVN_ET_UINT:
+        IF pixelFormat.bFloat THEN
+            RETURN;
+        END_IF
+        IF pixelFormat.bSigned THEN
+            RETURN;
+        END_IF
+        IF NOT (pixelFormat.nElementSize = 16) THEN
+            RETURN;
+        END_IF
+        IsElementType := TRUE;
+
+    TCVN_ET_INT:
+        IF pixelFormat.bFloat THEN
+            RETURN;
+        END_IF
+        IF NOT pixelFormat.bSigned THEN
+            RETURN;
+        END_IF
+        IF NOT (pixelFormat.nElementSize = 16) THEN
+            RETURN;
+        END_IF
+        IsElementType := TRUE;
+
+    TCVN_ET_DINT:
+        IF pixelFormat.bFloat THEN
+            RETURN;
+        END_IF
+        IF NOT pixelFormat.bSigned THEN
+            RETURN;
+        END_IF
+        IF NOT (pixelFormat.nElementSize = 32) THEN
+            RETURN;
+        END_IF
+        IsElementType := TRUE;
+
+    TCVN_ET_REAL:
+        IF NOT pixelFormat.bFloat THEN
+            RETURN;
+        END_IF
+        IF NOT (pixelFormat.nElementSize = 32) THEN
+            RETURN;
+        END_IF
+        IsElementType := TRUE;
+
+    TCVN_ET_LREAL:
+        IF NOT pixelFormat.bFloat THEN
+            RETURN;
+        END_IF
+        IF NOT (pixelFormat.nElementSize = 64) THEN
+            RETURN;
+        END_IF
+        IsElementType := TRUE;
+
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="IsPixelDepth" Id="{4a26373c-f2a9-0d81-1cf3-d6596eb691aa}">
       <Declaration><![CDATA[METHOD PUBLIC IsPixelDepth : BOOL
 VAR_INPUT

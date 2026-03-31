@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <POU Name="Node_F_VN_FindContoursExp" Id="{5b210fed-b22e-44c0-b29a-748a236424de}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -69,7 +69,12 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
 Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
-]]></ST>
+
+IF eRetrievalMode.Value <> ETcVnContourRetrievalMode.TCVN_CRM_FLOODFILL THEN
+	RETURN;
+END_IF
+
+Check.IsTrue(ipSrcImage.IsElementType(ETcVnElementType.TCVN_ET_DINT), 'ipSrcImage element type must be DINT');]]></ST>
       </Implementation>
     </Method>
   </POU>

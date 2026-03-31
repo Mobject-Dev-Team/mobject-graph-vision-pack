@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <POU Name="VisionNodePack" Id="{257fc325-f932-4b89-a50a-e9a0a38418f4}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -438,6 +438,8 @@ VAR
 	node_F_VN_ReadDataMatrixCodeExp : Node_F_VN_ReadDataMatrixCodeExp;
 	node_F_VN_ReadDataMatrixCodeExp2 : Node_F_VN_ReadDataMatrixCodeExp2;
 	node_F_VN_ReadDataMatrixCodeRoi : Node_F_VN_ReadDataMatrixCodeRoi;
+	node_F_VN_ReadDotCodeRoi : Node_F_VN_ReadDotCodeRoi;
+	node_F_VN_ReadDotCodeRoiExp : Node_F_VN_ReadDotCodeRoiExp;
     node_F_VN_ReadPharmaCode : Node_F_VN_ReadPharmaCode;
 	node_F_VN_ReadPharmaCodeExp : Node_F_VN_ReadPharmaCodeExp;
 	node_F_VN_ReadPharmaCodeExp2 : Node_F_VN_ReadPharmaCodeExp2;
@@ -1562,6 +1564,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDataMatrixCode', no
 NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDataMatrixCodeExp', node_F_VN_ReadDataMatrixCodeExp);
 NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDataMatrixCodeExp2', node_F_VN_ReadDataMatrixCodeExp2);
 NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDataMatrixCodeRoi', node_F_VN_ReadDataMatrixCodeRoi);
+NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDotCodeRoi', Node_F_VN_ReadDotCodeRoi);
+NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadDotCodeRoiExp', Node_F_VN_ReadDotCodeRoiExp);
 NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadPharmaCode', node_F_VN_ReadPharmaCode);
 NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadPharmaCodeExp', node_F_VN_ReadPharmaCodeExp);
 NodeFactory.AddNodeAsPrototype('Vision/Code Reading/F_VN_ReadPharmaCodeExp2', node_F_VN_ReadPharmaCodeExp2);
