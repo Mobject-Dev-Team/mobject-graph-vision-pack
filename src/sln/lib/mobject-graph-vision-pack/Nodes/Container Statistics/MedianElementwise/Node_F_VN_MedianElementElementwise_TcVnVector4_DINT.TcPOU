@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
-  <POU Name="Node_F_VN_MedianElementElementwise_TcVnVector4_DINT" Id="{e9669744-a6ab-4744-8639-c3dd279f1528}" SpecialFunc="None">
+  <POU Name="Node_F_VN_MedianElementElementwise_TcVnVector4_DINT"
+    Id="{e9669744-a6ab-4744-8639-c3dd279f1528}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
@@ -38,6 +39,7 @@ END_VAR
 AddInput('aMedian', aMedian);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipContainer', ipContainer);
+AddOutput('aMedian', aMedian);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>

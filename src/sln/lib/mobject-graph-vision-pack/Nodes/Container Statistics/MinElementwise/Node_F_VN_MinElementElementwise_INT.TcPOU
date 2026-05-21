@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
-  <POU Name="Node_F_VN_MinElementElementwise_INT" Id="{642ac5fc-d1cc-4c4b-93ca-4f5309879049}" SpecialFunc="None">
+  <POU Name="Node_F_VN_MinElementElementwise_INT" Id="{642ac5fc-d1cc-4c4b-93ca-4f5309879049}"
+    SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
@@ -35,9 +36,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipContainer', ipContainer);
-AddParameter('nMin', nMin);
+AddInput('nMin', nMin);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipContainer', ipContainer);
+AddOutput('nMin', nMin);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
