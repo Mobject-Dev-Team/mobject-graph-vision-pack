@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_TcVnCodeGradesQR" Id="{48ce8938-1b42-0daa-1068-6b8d59022002}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _TcVnCodeGradesQR EXTENDS StructuredDatatypeBase
+VAR
+	localData : TcVnCodeGradesQR;
+	activeData : REFERENCE TO TcVnCodeGradesQR REF= localData;
+    _nDecode : _USINT(localdata.nDecode);
+    _nSymbolContrast : _USINT(localdata.nSymbolContrast);
+    _nModulation : _USINT(localdata.nModulation);
+    _nReflectanceMargin : _USINT(localdata.nReflectanceMargin);
+    _nFixedPatternDamage : _USINT(localdata.nFixedPatternDamage);
+    _nAxialNonuniformity : _USINT(localdata.nAxialNonuniformity);
+    _nGridNonuniformity : _USINT(localdata.nGridNonuniformity);
+    _nUnusedErrorCorrection : _USINT(localdata.nUnusedErrorCorrection);
+    _nFormatInfo : _USINT(localdata.nFormatInfo);
+    _nVersionInfo : _USINT(localdata.nVersionInfo);
+    _nOverall : _USINT(localdata.nOverall);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{47b9af78-bb2e-0fd5-0e61-b4e38010f25c}" />
+    <Folder Name="Customize" Id="{224f7796-0297-0a6e-00cb-86a189a489f5}">
+      <Folder Name="Constructor" Id="{06566d17-6952-0db7-02d7-2d4e74577364}" />
+      <Folder Name="Protected" Id="{7671a684-51eb-0cf4-1240-1b4df4125b6b}" />
+    </Folder>
+    <Property Name="Address" Id="{4865560c-196e-00d9-1382-5e74fac26493}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{d8fc830c-b5e5-0c7e-0468-0bc9487b6069}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{4f0252ab-d564-0c29-1b02-0f9128d5dec3}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{9f75a36d-6843-083e-3a48-88d5d5c34372}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _TcVnCodeGradesQR;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_TcVnCodeGradesQR());
+pClone^.Value := Value;
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{97a0112c-8853-0185-1ded-1b284b32551c}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetMemberReference();
+AddMember('nDecode', _nDecode);
+AddMember('nSymbolContrast', _nSymbolContrast);
+AddMember('nModulation', _nModulation);
+AddMember('nReflectanceMargin', _nReflectanceMargin);
+AddMember('nFixedPatternDamage', _nFixedPatternDamage);
+AddMember('nAxialNonuniformity', _nAxialNonuniformity);
+AddMember('nGridNonuniformity', _nGridNonuniformity);
+AddMember('nUnusedErrorCorrection', _nUnusedErrorCorrection);
+AddMember('nFormatInfo', _nFormatInfo);
+AddMember('nVersionInfo', _nVersionInfo);
+AddMember('nOverall', _nOverall);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{aac43e37-c6c2-0156-0c59-9ae24065423f}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{3a387509-b9b7-0e86-1b94-7ca664826198}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'TcVnCodeGradesQR';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{c16e6d2e-58a6-0928-3ecf-3bb7c1947599}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO TcVnCodeGradesQR;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="nAxialNonuniformity" Id="{da2b637b-695e-0ad7-011f-50b90acdb962}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nAxialNonuniformity : REFERENCE TO _USINT
+]]></Declaration>
+      <Get Name="Get" Id="{dedc4ecd-494c-0aa4-2b86-67127a3a0d3f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nAxialNonuniformity REF= _nAxialNonuniformity;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nDecode" Id="{23f8a705-e929-0c41-01dc-95e50b19a524}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nDecode : REFERENCE TO _USINT]]></Declaration>
+      <Get Name="Get" Id="{2590dd01-f885-04b5-0364-660baa145343}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nDecode REF= _nDecode;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nFixedPatternDamage" Id="{97d1d3da-72dd-0759-2053-9939fb66cd1f}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nFixedPatternDamage : REFERENCE TO _USINT
+]]></Declaration>
+      <Get Name="Get" Id="{351e1ce6-682e-0708-002b-e1415adf0218}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nFixedPatternDamage REF= _nFixedPatternDamage;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nFormatInfo" Id="{6a98d5aa-c5da-0697-2960-0c33423e8d0a}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nFormatInfo : REFERENCE TO _USINT
+]]></Declaration>
+      <Get Name="Get" Id="{9aa9c1d3-cfa9-0352-0cf5-8623dd7c1bcb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nFormatInfo REF= _nFormatInfo;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nGridNonuniformity" Id="{b4ea253b-3de4-0950-25af-b3cb71c3becc}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nGridNonuniformity : REFERENCE TO _USINT]]></Declaration>
+      <Get Name="Get" Id="{1ec8a750-b27b-0143-34c3-a69032c19980}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nGridNonuniformity REF= _nGridNonuniformity;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nModulation" Id="{0a27a5b6-0afe-00ca-2a31-f37618a8eda6}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nModulation : REFERENCE TO _USINT
+]]></Declaration>
+      <Get Name="Get" Id="{28abf41e-907b-09e4-1109-3b1df9948b14}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nModulation REF= _nModulation;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nOverall" Id="{51219c03-2aac-0bb8-1b5a-92f8fa4aa055}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nOverall : REFERENCE TO _USINT
+]]></Declaration>
+      <Get Name="Get" Id="{3b551ae5-03a7-0b8a-0247-19b8a127b029}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nOverall REF= _nOverall;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nReflectanceMargin" Id="{6dde0614-c934-013f-3c89-6be60e0deb41}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nReflectanceMargin : REFERENCE TO _USINT]]></Declaration>
+      <Get Name="Get" Id="{53f0c828-9110-056c-3c5a-d559b9781601}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nReflectanceMargin REF= _nReflectanceMargin;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nSymbolContrast" Id="{786aea36-dc17-02bb-16a0-a5d128e63453}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nSymbolContrast : REFERENCE TO _USINT]]></Declaration>
+      <Get Name="Get" Id="{0c98e3ba-63f9-021b-2597-a7df69649d16}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nSymbolContrast REF= _nSymbolContrast;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nUnusedErrorCorrection" Id="{969c24a5-7d7d-04bc-2ab4-f2234aa3c0ae}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nUnusedErrorCorrection : REFERENCE TO _USINT
+]]></Declaration>
+      <Get Name="Get" Id="{7cbea00c-c393-0945-041a-2e082a347cbf}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nUnusedErrorCorrection REF= _nUnusedErrorCorrection;
+
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nVersionInfo" Id="{cc5c05cd-e48a-0e77-2e04-63160444a6a6}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nVersionInfo : REFERENCE TO _USINT
+]]></Declaration>
+      <Get Name="Get" Id="{a06cf8ab-ab54-0d07-35ef-f32c05f2aa68}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nVersionInfo REF= _nVersionInfo;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetMemberReference" Id="{89378d8c-8e5f-06de-1050-1c240adfc8c5}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_nDecode.MakeReferenceTo(activeData.nDecode);
+_nSymbolContrast.MakeReferenceTo(activeData.nSymbolContrast);
+_nModulation.MakeReferenceTo(activeData.nModulation);
+_nReflectanceMargin.MakeReferenceTo(activeData.nReflectanceMargin);
+_nFixedPatternDamage.MakeReferenceTo(activeData.nFixedPatternDamage);
+_nAxialNonuniformity.MakeReferenceTo(activeData.nAxialNonuniformity);
+_nGridNonuniformity.MakeReferenceTo(activeData.nGridNonuniformity);
+_nUnusedErrorCorrection.MakeReferenceTo(activeData.nUnusedErrorCorrection);
+_nFormatInfo.MakeReferenceTo(activeData.nFormatInfo);
+_nVersionInfo.MakeReferenceTo(activeData.nVersionInfo);
+_nOverall.MakeReferenceTo(activeData.nOverall);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{e0bc3bfc-bfec-0f70-36bd-8463c5d52159}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{c9da18cf-fb18-0903-1354-248abe3259a6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{a426d13e-6c61-08d0-3463-185fd8669afa}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO TcVnCodeGradesQR;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetMemberReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{0e4a590c-708f-01e8-1ed3-dbb0aa3ed6c3}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnCodeGradesQR]]></Declaration>
+      <Get Name="Get" Id="{013e891b-cccb-0da5-0bf6-fa8b1559afb5}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

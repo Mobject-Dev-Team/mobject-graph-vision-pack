@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="Node_F_VN_MaxElement" Id="{0a7dc915-a8a8-0254-10c7-67a5b33fe46f}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MaxElement EXTENDS VisionNode
+VAR
+    ipSrcContainer : _ITcVnContainer;
+	ipDestIterator : _ITcVnBidirectionalIterator;
+    nIndex : _ULINT(0);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{79d7069b-c786-0515-1256-35b6eb575e23}" />
+    <Method Name="Clone" Id="{aa8ab803-697b-00b4-21cd-1ddfef8ef2d8}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_MaxElement;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MaxElement);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{1d420f6c-5375-0c87-397c-884320575d8f}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcContainer', ipSrcContainer);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestIterator', ipDestIterator);
+AddOutput('nIndex', nIndex);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{15bf7e6b-0c08-0f38-2b14-7df29cc40893}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MaxElement(
+    ipSrcContainer := ipSrcContainer.Value,
+	ipDestIterator := ipDestIterator.Value,
+    nIndex := nIndex.Value,
+    hrPrev:= hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{f7593f78-dcdc-0cd6-34f3-1641699a4e37}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+	isCorrectType : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcContainer.IsValid, 'ipContainer must be a valid container');
+
+isCorrectType := 
+
+// ---------------------------------------------------------
+// Arithmetic / Scalar Types
+// ---------------------------------------------------------
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_SINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_USINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_INT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_UINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_DINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_UDINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_ULINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_REAL) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_LREAL) OR_ELSE
+
+// ---------------------------------------------------------
+// Point Types (Euclidean Norm supported)
+// ---------------------------------------------------------
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_LREAL) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint3_REAL) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint3_LREAL) OR_ELSE
+
+// ---------------------------------------------------------
+// Vector Types (Euclidean Norm supported)
+// ---------------------------------------------------------
+// Vector 2
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_SINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_USINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_INT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_UINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_DINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_REAL) OR_ELSE
+
+// Vector 3
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_SINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_USINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_INT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_UINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_REAL) OR_ELSE
+
+// Vector 4
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_SINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_USINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_INT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_UINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_DINT) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_REAL) OR_ELSE
+ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_LREAL);
+
+Check.IsTrue(isCorrectType, 'ipContainer contains incorrect type');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

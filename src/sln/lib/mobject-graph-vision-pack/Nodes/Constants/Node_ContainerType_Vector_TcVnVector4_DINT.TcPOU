@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <POU Name="Node_ContainerType_Vector_TcVnVector4_DINT" Id="{343953b1-780b-0404-39a3-6ee600d428ff}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_ContainerType_Vector_TcVnVector4_DINT EXTENDS Node
+VAR
+    out : _GUID;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{9f3f05c1-7a02-0f30-2917-02e97c089c53}" />
+    <Method Name="Clone" Id="{7dc5fb00-21ba-09e9-0d57-515f65efecba}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_ContainerType_Vector_TcVnVector4_DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_ContainerType_Vector_TcVnVector4_DINT);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{15dc8d4f-76dc-0c87-0f26-4f3ef0081769}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddOutput('out', out);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{fea8b1e6-ed52-0dac-3e96-47be722dc0fd}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[out.Value := ContainerType_Vector_TcVnVector4_DINT;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

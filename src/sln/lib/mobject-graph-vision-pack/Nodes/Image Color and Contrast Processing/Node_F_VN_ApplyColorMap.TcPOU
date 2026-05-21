@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
   <POU Name="Node_F_VN_ApplyColorMap" Id="{e3d5bbc4-fd7b-04b6-352d-244d460f5ea4}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -68,7 +68,7 @@ END_VAR]]></Declaration>
 Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
 
 Check.IsTrue(ipColorMap.IsValid, 'ipColorMap must be a valid container');
-Check.IsTrue(ipColorMap.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_REAL), 'ipColorMap contains incorrect type');
+Check.IsTrue(ipColorMap.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_REAL), 'ipColorMap contains incorrect type');
 
 F_VN_GetNumberOfElements(ipColorMap.Value, colorMapSize, S_OK);
 

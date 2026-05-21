@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_OrthogonalVector_TcVnVector2_LREAL" Id="{cc62ea6a-9882-0d6d-1c91-1f8b0eeafd94}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_OrthogonalVector_TcVnVector2_LREAL EXTENDS VisionNode
+VAR
+    aSrc : _TcVnVector2_LREAL;
+    aOrthogonal : _TcVnVector2_LREAL;
+    bNormalize : _BOOL(FALSE);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{61c969cd-17db-0ae3-2133-5bb4f07edaef}" />
+    <Method Name="Clone" Id="{0716faab-2001-0acd-138f-1c77543d3bc5}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_OrthogonalVector_TcVnVector2_LREAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_OrthogonalVector_TcVnVector2_LREAL);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ed1cea99-9340-0ee5-31d2-cbb243d257ed}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('aSrc', aSrc);
+AddParameter('bNormalize', bNormalize);
+AddInput('hrPrev', hrPrev);
+AddOutput('aOrthogonal', aOrthogonal);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{bcd970bf-741d-0e44-21e0-20fb0331c522}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_OrthogonalVector_TcVnVector2_LREAL(
+    aSrc := aSrc.Value,
+    aOrthogonal := aOrthogonal.Value,
+    bNormalize := bNormalize.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{e101b3e1-78a9-0bda-14a9-921cde5b580f}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

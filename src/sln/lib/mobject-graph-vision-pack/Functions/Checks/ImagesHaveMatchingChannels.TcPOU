@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="ImagesHaveMatchingChannels" Id="{35832db8-6299-48b8-ad1a-378203aeb719}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ImagesHaveMatchingChannels : BOOL
+VAR_INPUT
+	Image1 : ITcVnImage;
+	Image2 : ITcVnImage;
+END_VAR
+VAR
+	pixelFormat1: TcVnPixelFormat;
+	pixelFormat2: TcVnPixelFormat;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT IsValidImage(Image1) THEN
+	RETURN;
+END_IF
+
+IF NOT IsValidImage(Image2) THEN
+	RETURN;
+END_IF
+
+Image1.GetPixelFormat(pixelFormat1);
+Image2.GetPixelFormat(pixelFormat2);
+
+ImagesHaveMatchingChannels := (pixelFormat1.nChannels = pixelFormat2.nChannels);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

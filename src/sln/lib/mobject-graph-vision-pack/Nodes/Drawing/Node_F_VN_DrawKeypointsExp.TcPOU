@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
   <POU Name="Node_F_VN_DrawKeypointsExp" Id="{5f9a2d92-2e44-0ca2-3dae-78e17a8c9ade}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -71,7 +71,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
 Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
-Check.IsTrue(ipKeyPoints.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnKeyPoint), 'ipKeyPoints contains incorrect type');
+Check.IsTrue(ipKeyPoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnKeyPoint), 'ipKeyPoints contains incorrect type');
 ]]></ST>
       </Implementation>
     </Method>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Node_F_VN_MinContainer" Id="{be1bccda-a0c3-0352-24c9-07652c6cef6a}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -59,27 +59,12 @@ AddOutput('hresult',hresult);
 VAR_INPUT
     Check : I_PreExecutionChecks;
 END_VAR
-VAR
-    elementType1 : GUID;
-    elementType2 : GUID;
-    elementNum1 : ULINT;
-    elementNum2 : ULINT;
-END_VAR]]></Declaration>
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcContainer1.IsValid, 'ipSrcContainer1 must be a valid container');
 Check.IsTrue(ipSrcContainer2.IsValid, 'ipSrcContainer2 must be a valid container');
-
-IF Check.Failed THEN
-    RETURN;
-END_IF
-
-ipSrcContainer1.Value.GetElementTypeGuid(elementType1);
-ipSrcContainer2.Value.GetElementTypeGuid(elementType2);
-Check.IsTrue(GuidsEqualByVal(elementType1, elementType2), 'Source containers must contain the same type');
-
-F_VN_GetNumberOfElements(ipSrcContainer1.Value, elementNum1, S_OK);
-F_VN_GetNumberOfElements(ipSrcContainer2.Value, elementNum2, S_OK);
-Check.IsTrue((elementNum1 = elementNum2), 'Source containers must contain the same number of elements');
+Check.IsTrue(ContainersHaveMatchingTypes(ipSrcContainer1.Value, ipSrcContainer2.Value), 'Source containers must have matching types');
+Check.IsTrue(ContainersHaveMatchingNumberOfElements(ipSrcContainer1.Value, ipSrcContainer2.Value), 'Source containers must contain the same number of elements');
 ]]></ST>
       </Implementation>
     </Method>

@@ -58,9 +58,10 @@ VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
-
-//TODO check if container have same element types.]]></ST>
+        <ST><![CDATA[Check.IsTrue(ipElement.IsValid, 'ipElement must be a valid container');
+Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
+Check.IsTrue(ContainersHaveMatchingTypes(ipElement.Value, ipContainer.Value), 'Containers must have matching types');
+]]></ST>
       </Implementation>
     </Method>
   </POU>

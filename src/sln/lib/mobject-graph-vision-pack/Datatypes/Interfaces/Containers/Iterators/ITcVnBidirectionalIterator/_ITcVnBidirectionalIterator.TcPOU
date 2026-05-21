@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="_ITcVnBidirectionalIterator" Id="{34fa7641-846d-0f2d-14a7-eb5fd9e7b60b}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ITcVnBidirectionalIterator EXTENDS InterfaceDatatypeBase IMPLEMENTS I_InterfaceDatatype_ITcVnBidirectionalIterator
+VAR
+	localData : ITcVnBidirectionalIterator;
+	activeData : REFERENCE TO ITcVnBidirectionalIterator REF= localData;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{3c3e4c0d-3d4c-0c92-02bb-1d1f91afbf8f}" />
+    <Folder Name="Customize" Id="{f5b39792-d60f-08cb-18aa-d640e9b22c64}">
+      <Folder Name="Destructor" Id="{ffe022f9-f833-04d5-361a-d03789118cd9}" />
+      <Folder Name="Private" Id="{0a3fc2d3-7068-0e0d-0d86-53f4e3fbdb7c}" />
+    </Folder>
+    <Property Name="Address" Id="{0bc03280-c56c-0cc7-1afc-2edfa5c4065c}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{588d7efa-e9d0-0138-1bca-40d831b78127}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{1be49da6-880f-0325-3534-79fcc06f3725}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{63eba12a-1568-018f-0f62-bd94ca985c71}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ITcVnBidirectionalIterator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ITcVnBidirectionalIterator);
+Clone := pClone^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_exit" Id="{4c61ab2f-4ec8-0c8a-2567-2ae40a44cb13}" FolderPath="Customize\Destructor\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF bInCopyCode THEN
+	RETURN;
+END_IF
+
+TryTcReleaseLocal();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{c6491e99-8fcd-011a-0641-7f8906efa1f2}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{daad6b6c-7d60-08a7-1cfd-06fba8172505}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ITcVnBidirectionalIterator';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsValid" Id="{1d127891-191b-0c31-1c87-e19954f1bc2c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsValid : BOOL]]></Declaration>
+      <Get Name="Get" Id="{9c547f0c-b6db-0cad-1245-7c4fefbbfe7c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsValid := activeData <> 0;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{7c4005a3-37df-0f6d-0e4f-0d5e798eaefa}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ITcVnBidirectionalIterator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SerializeWith" Id="{8e9329da-eab9-00d9-21b8-cda7ba62f2b8}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC SerializeWith
+VAR_INPUT
+	Serializer : I_Serializer;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Serializer.AddNull();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{200e36e7-6134-0a1c-288d-b8c8b395f4cd}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{073c4832-a9b3-0b8a-27e4-9ca0b81371bf}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryCheckIfBegin" Id="{919bc0d9-ee18-0c51-1821-35727836149d}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCheckIfBegin : BOOL
+VAR_INPUT
+	Result : REFERENCE TO BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Result := FALSE;
+
+IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+IF activeData.CheckIfBegin() = S_OK THEN
+    Result := TRUE;
+END_IF
+
+TryCheckIfBegin := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryCheckIfEnd" Id="{474b55af-afd8-084a-0c9c-49eb2d87ce2d}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCheckIfEnd : BOOL
+VAR_INPUT
+	Result : REFERENCE TO BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Result := FALSE;
+
+IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+IF activeData.CheckIfEnd() = S_OK THEN
+    Result := TRUE;
+END_IF
+
+TryCheckIfEnd := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryCopyContentFrom" Id="{51e2e2b3-4d91-0427-3957-0e352c8c56e4}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCopyContentFrom : BOOL
+VAR_INPUT
+	Source : I_InterfaceDatatype;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// currently un-copyable]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryDeserializeFrom" Id="{80135932-bf49-0807-173d-d8d33f54eaef}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryDeserializeFrom : BOOL
+VAR_INPUT
+	Deserializer : I_Deserializer;
+	Feedback : I_DeserializerFeedback;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// not implemented.]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetValueSize" Id="{3f8b3462-c21b-0d4e-24bd-7d84b6729db6}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetValueSize : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO ULINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetValueSize := SUCCEEDED(activeData.GetValueSize(Destination));
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetValueTypeGuid" Id="{2c251413-61ea-097d-0d3e-3f869278b99d}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetValueTypeGuid : BOOL
+VAR_INPUT
+	Destination : REFERENCE TO GUID;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+TryGetValueTypeGuid := SUCCEEDED(activeData.GetValueTypeGuid(Destination));
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryMakeReferenceTo" Id="{d87be40b-a47b-026b-2474-7e298495e425}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO ITcVnBidirectionalIterator;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryTcAddRef" Id="{4cbee62f-07bb-0711-334d-d7a0ff3c2367}">
+      <Declaration><![CDATA[METHOD PUBLIC TryTcAddRef : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF activeData = 0 THEN
+	RETURN;
+END_IF
+
+IF activeData.TcAddRef() = 0 THEN
+	activeData := 0;
+END_IF
+
+TryTcAddRef := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryTcRelease" Id="{4e7234b9-453b-034a-3b58-a96e9766d8cf}">
+      <Declaration><![CDATA[METHOD PUBLIC TryTcRelease : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF activeData = 0 THEN
+	RETURN;
+END_IF
+
+IF activeData.TcRelease() = 0 THEN
+	activeData := 0;
+END_IF
+
+TryTcRelease := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryTcReleaseLocal" Id="{3eb3c7d9-e6bf-02bd-31c4-dba785773f57}" FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PUBLIC TryTcReleaseLocal : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF localData = 0 THEN
+	RETURN;
+END_IF
+
+IF localData.TcRelease() = 0 THEN
+	localData := 0;
+END_IF
+
+TryTcReleaseLocal := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{09fb64ad-20a5-0b4b-2618-efca8aebee96}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO ITcVnBidirectionalIterator]]></Declaration>
+      <Get Name="Get" Id="{b42e398f-e4be-05a2-299f-321a712d042d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

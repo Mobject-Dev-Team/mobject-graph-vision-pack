@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_WhiteBalance" Id="{3fa10aaa-098c-0b98-0ee7-f2801bcd2c85}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_WhiteBalance EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    fRatioRed : _REAL(0);
+    fRatioBlue : _REAL(0);
+    nMaxValue : _UDINT(255);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{f566fbaf-249d-0420-2793-5241ca072d93}" />
+    <Method Name="Clone" Id="{970a1ceb-438a-02cd-3826-1eb6e03b4d17}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_WhiteBalance;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_WhiteBalance);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{b3fbe29f-cebd-0b97-0bd4-82e4ae71b37f}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('ipDestImage', ipDestImage);
+AddParameter('nMaxValue', nMaxValue);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('fRatioRed', fRatioRed);
+AddOutput('fRatioBlue', fRatioBlue);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{432fc328-3e31-0b5d-17e8-b56db486707b}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_WhiteBalance(
+    ipSrcImage := ipSrcImage.Value,
+	ipDestImage := ipDestImage.Value,
+    fRatioRed := fRatioRed.Value,
+    fRatioBlue := fRatioBlue.Value,
+    nMaxValue := nMaxValue.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{aa5aa33f-4869-0005-2a8b-9ca171dafa96}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(3), 'ipSrcImage must have 3 channels');
+Check.IsTrue((ipSrcImage.IsPixelDepth(8) OR ipSrcImage.IsPixelDepth(16)), 'ipSrcImage must have 8 or 16 bit pixel depth');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

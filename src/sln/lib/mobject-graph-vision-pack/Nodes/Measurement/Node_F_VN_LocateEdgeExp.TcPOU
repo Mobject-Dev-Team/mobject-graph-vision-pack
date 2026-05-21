@@ -19,6 +19,7 @@ VAR
     fApproxPrecision : _REAL(0.0);
     eAlgorithm : _ETcVnEdgeDetectionAlgorithm(ETcVnEdgeDetectionAlgorithm.TCVN_EDA_INTERPOLATION);
     hrPrev : _HRESULT(S_OK);
+    fAvgStrength : _REAL(0.0);
 	hresult : _HRESULT(S_OK);
 END_VAR
 ]]></Declaration>
@@ -57,13 +58,16 @@ AddParameter('fApproxPrecision', fApproxPrecision);
 AddParameter('eAlgorithm', eAlgorithm);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipEdgePoints', ipEdgePoints);
+AddOutput('fAvgStrength', fAvgStrength);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{799426de-5737-04c0-1b9f-56804aa82b16}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute
-]]></Declaration>
+VAR
+    avgStrength : REAL;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_LocateEdgeExp(
 	ipSrcImage := ipSrcImage.Value,
@@ -78,8 +82,11 @@ AddOutput('hresult',hresult);
     nSubpixelsIterations := nSubpixelsIterations.Value,
     fApproxPrecision := fApproxPrecision.Value,
     eAlgorithm := eAlgorithm.Value,
-	hrPrev:= hrPrev.Value);
-    ]]></ST>
+	hrPrev:= hrPrev.Value,
+    fAvgStrength => avgStrength);
+    
+fAvgStrength.Value := avgStrength;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="PreExecutionCheck" Id="{2730e301-6eb4-0fa9-3ce6-982b1cf0dda4}">

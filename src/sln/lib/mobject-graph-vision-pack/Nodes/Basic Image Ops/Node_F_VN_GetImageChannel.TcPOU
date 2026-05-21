@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Node_F_VN_GetImageChannel" Id="{e3fb07bb-f62e-08aa-14bb-bf4a14957dea}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -46,12 +46,30 @@ AddParameter('nChannelIndex', nChannelIndex);
     <Method Name="OnExecute" Id="{b37a9723-2623-069a-1441-85c9d871bc73}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_GetImageChannel(
+        <ST><![CDATA[// ----------------------------------------------------------------------------
+// TcVision 4.0.6.5, 4.0.7.4 BUG FIX
+// ----------------------------------------------------------------------------
+// Get Image Channel fails, if used on two different sized images, 
+// without clearing the destination image first. 
+// so, we check to see if hrPrev is failed, in which case we do nothing
+// as the function would do nothing natively.  Else, we check the dest
+// image, and if it has something, it is first emptied
+// ---------------------------------------------------------------------------- 
+IF failed(hrPrev.Value) THEN
+	RETURN;
+END_IF
+
+IF ipDestImage.IsValid THEN
+	ipDestImage.Value.TcRelease();
+	ipDestImage.Value := 0;
+END_IF
+// ---------------------------------------------------------------------------- 
+
+hresult.Value := F_VN_GetImageChannel(
     ipSrcImage := ipSrcImage.Value,
 	ipDestImage := ipDestImage.Value,
     nChannelIndex := nChannelIndex.Value,
-	hrPrev:= hrPrev.Value);
-    ]]></ST>
+	hrPrev:= hrPrev.Value);]]></ST>
       </Implementation>
     </Method>
     <Method Name="PreExecutionCheck" Id="{e3d19fed-40ed-03e7-0843-6a223f32938b}">

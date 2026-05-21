@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <Itf Name="I_InterfaceDatatype_ITcVnBidirectionalIterator" Id="{5ba8bb7f-2608-005e-2f67-f11e012d19bc}">
+    <Declaration><![CDATA[INTERFACE I_InterfaceDatatype_ITcVnBidirectionalIterator EXTENDS I_InterfaceDatatype
+]]></Declaration>
+    <Property Name="Value" Id="{db6207b2-e42e-0ca5-0d6f-059d740ff8ed}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO ITcVnBidirectionalIterator]]></Declaration>
+      <Get Name="Get" Id="{e69ebfb1-1e63-0063-3084-40341afb7abc}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

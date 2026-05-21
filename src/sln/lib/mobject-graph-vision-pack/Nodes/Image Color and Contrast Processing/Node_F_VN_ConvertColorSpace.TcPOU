@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
   <POU Name="Node_F_VN_ConvertColorSpace" Id="{be1766e7-e6ea-06a3-0c0f-bb81e570288e}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -64,7 +64,22 @@ END_VAR]]></Declaration>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
 
 CASE eTransform.Value OF
+	
 
+	ETcVnColorSpaceTransform.TCVN_CST_BGR_565_TO_RGB,
+    ETcVnColorSpaceTransform.TCVN_CST_BGR_565_TO_BGR,
+    ETcVnColorSpaceTransform.TCVN_CST_BGR_565_TO_RGBA,
+    ETcVnColorSpaceTransform.TCVN_CST_BGR_565_TO_BGRA,
+    ETcVnColorSpaceTransform.TCVN_CST_BGR_565_TO_GRAY,
+    ETcVnColorSpaceTransform.TCVN_CST_BGR_555_TO_RGB,
+    ETcVnColorSpaceTransform.TCVN_CST_BGR_555_TO_BGR,
+    ETcVnColorSpaceTransform.TCVN_CST_BGR_555_TO_RGBA,
+    ETcVnColorSpaceTransform.TCVN_CST_BGR_555_TO_BGRA,
+    ETcVnColorSpaceTransform.TCVN_CST_BGR_555_TO_GRAY :
+
+        Check.IsTrue(ipSrcImage.HasChannelCount(2), 'ipSrcImage must have 2 channels');
+		Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bits per channel');
+	
     // RGB, BGR (3 channels)
     ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGRA,
     //ETcVnColorSpaceTransform.TCVN_CST_RGB_TO_RGBA, // duplicate
@@ -76,18 +91,8 @@ CASE eTransform.Value OF
     ETcVnColorSpaceTransform.TCVN_CST_RGB_TO_GRAY,
     ETcVnColorSpaceTransform.TCVN_CST_RGB_TO_BGR_565,
     ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGR_565,
-    ETcVnColorSpaceTransform.TCVN_CST_BGR_565_TO_RGB,
-    ETcVnColorSpaceTransform.TCVN_CST_BGR_565_TO_BGR,
-    ETcVnColorSpaceTransform.TCVN_CST_BGR_565_TO_RGBA,
-    ETcVnColorSpaceTransform.TCVN_CST_BGR_565_TO_BGRA,
-    ETcVnColorSpaceTransform.TCVN_CST_BGR_565_TO_GRAY,
     ETcVnColorSpaceTransform.TCVN_CST_RGB_TO_BGR_555,
     ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_BGR_555,
-    ETcVnColorSpaceTransform.TCVN_CST_BGR_555_TO_RGB,
-    ETcVnColorSpaceTransform.TCVN_CST_BGR_555_TO_BGR,
-    ETcVnColorSpaceTransform.TCVN_CST_BGR_555_TO_RGBA,
-    ETcVnColorSpaceTransform.TCVN_CST_BGR_555_TO_BGRA,
-    ETcVnColorSpaceTransform.TCVN_CST_BGR_555_TO_GRAY,
     ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_XYZ,
     ETcVnColorSpaceTransform.TCVN_CST_RGB_TO_XYZ,
     ETcVnColorSpaceTransform.TCVN_CST_BGR_TO_YCRCB,
@@ -138,7 +143,7 @@ CASE eTransform.Value OF
 
         Check.IsTrue(ipSrcImage.HasChannelCount(4), 'ipSrcImage must have 4 channels');
     
-    // Bayer (3 channels)
+    // Bayer (1 channel)
     ETcVnColorSpaceTransform.TCVN_CST_BAYER_RG_TO_BGR,
     //ETcVnColorSpaceTransform.TCVN_CST_BAYER_BG_TO_RGB, // duplicate
     ETcVnColorSpaceTransform.TCVN_CST_BAYER_GR_TO_BGR,
@@ -176,7 +181,7 @@ CASE eTransform.Value OF
     //ETcVnColorSpaceTransform.TCVN_CST_BAYER_BG_TO_RGBA, // duplicate
     //ETcVnColorSpaceTransform.TCVN_CST_BAYER_GB_TO_RGBA : // duplicate
 
-        Check.IsTrue(ipSrcImage.HasChannelCount(3), 'ipSrcImage must have 3 channels');
+        Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
     
     // Gray (1 channel)
     ETcVnColorSpaceTransform.TCVN_CST_GRAY_TO_BGR,

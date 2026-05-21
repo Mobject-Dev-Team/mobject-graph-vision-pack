@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_GradeBarcode" Id="{59d95ce8-10fb-00bc-0ed7-0f351cfe63fa}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_GradeBarcode EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDecodedData : _ITcVnContainer;
+    stCodeGrades : 	_TcVnCodeGrades1D;
+    eBarcodeType : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_ANY);
+    fAngleDeg : _REAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{ac18c96b-96d9-05e6-24de-1b4ca6b3719c}" />
+    <Method Name="Clone" Id="{6a79ec59-9844-0c87-10fd-129f9d60769f}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_GradeBarcode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_GradeBarcode);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{8c317445-8dfd-0eee-306f-17c2a991eac9}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('eBarcodeType', eBarcodeType);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDecodedData', ipDecodedData);
+AddOutput('stCodeGrades', stCodeGrades);
+AddOutput('fAngleDeg', fAngleDeg);
+AddOutput('hresult', hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{bbfb207d-1999-06b6-00cd-abab3237acf4}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    angle : REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_GradeBarcode(
+	ipSrcImage := ipSrcImage.Value,
+    ipDecodedData := ipDecodedData.Value,
+    stCodeGrades := stCodeGrades.Value,
+    eBarcodeType := eBarcodeType.Value,
+	hrPrev:= hrPrev.Value,
+    fAngleDeg => angle);
+
+fAngleDeg.Value := angle;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{3664305d-f4f3-063b-0677-eb7a465ba100}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    barcodeTypeIsValid : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+
+CASE eBarcodeType.Value OF
+    ETcVnBarcodeType.TCVN_BT_CODE39,
+    ETcVnBarcodeType.TCVN_BT_CODE128,
+    ETcVnBarcodeType.TCVN_BT_EAN8,
+    ETcVnBarcodeType.TCVN_BT_EAN13,
+    ETcVnBarcodeType.TCVN_BT_ITF,
+    ETcVnBarcodeType.TCVN_BT_UPCA,
+    ETcVnBarcodeType.TCVN_BT_UPCE :
+        barcodeTypeIsValid := TRUE;
+END_CASE
+
+Check.IsTrue(barcodeTypeIsValid, 'eBarcodeType must have supported type');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

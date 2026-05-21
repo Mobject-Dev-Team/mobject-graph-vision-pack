@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <POU Name="Node_F_VN_FitLineExp" Id="{42f001f2-96ce-07c1-3b44-7ff1b38a7729}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_FitLineExp EXTENDS VisionNode
+VAR
+    ipPointSet : _ITcVnContainer;
+    aFitLine : _TcVnVector4_LREAL;
+	eDistanceType : ETcVnDistanceType;
+    fParam : LREAL;
+    fEpsRadius : LREAL;
+    fEpsAngle : LREAL;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[here]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{eded6123-f78e-0bb7-1e67-b71681141b36}" />
+    <Method Name="Clone" Id="{4be168ba-c9d3-032b-1d8b-ebcf4536b7a7}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_FitLineExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_FitLineExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{c883368d-3cb1-07bd-2010-da7fd61d1584}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipPointSet', ipPointSet);
+AddInput('hrPrev', hrPrev);
+AddOutput('aFitLine', aFitLine);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{6257a886-5f31-04c4-1bcb-e2559a798035}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_FitLineExp(
+	ipPointSet := ipPointSet.Value,
+    aFitLine := aFitLine.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{91bd6219-cebf-0412-1a3d-3ca5af7c1c90}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipPointSet.IsValid, 'ipPointSet must be a valid container');
+Check.IsTrue((ipPointSet.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipPointSet.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL)),
+              'ipPointSet contains incorrect type');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

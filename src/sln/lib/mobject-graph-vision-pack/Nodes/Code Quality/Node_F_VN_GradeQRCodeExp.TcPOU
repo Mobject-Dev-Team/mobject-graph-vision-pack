@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_GradeQRCodeExp" Id="{9091f273-9011-46d0-8492-d797e3978e2d}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_GradeQRCodeExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDecodedData : _ITcVnContainer;
+    stCodeGrades : 	_TcVnCodeGradesQR;
+    fModuleWidth : _REAL(4.0);
+    ipResultVisualization : _ITcVnImage;
+    ipMarginGrades : _ITcVnContainer;
+    ipContour : _ITcVnContainer;
+    fAngleDeg : _REAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{4474a722-00a1-4054-92f6-0a6846eac67d}" />
+    <Method Name="Clone" Id="{e6c99790-c6ba-4a3d-a07e-9e1a0bdf53c3}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_GradeQRCodeExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_GradeQRCodeExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{4efa26d9-c045-408b-ba6a-137a63be4405}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('fModuleWidth', fModuleWidth);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDecodedData', ipDecodedData);
+AddOutput('stCodeGrades', stCodeGrades);
+AddOutput('ipResultVisualization', ipResultVisualization);
+AddOutput('ipMarginGrades', ipMarginGrades);
+AddOutput('ipContour', ipContour);
+AddOutput('fAngleDeg', fAngleDeg);
+AddOutput('hresult', hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{bfbd56e7-c96b-4202-a420-8bdb824aa6c7}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    angle : REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_GradeQRCodeExp(
+	ipSrcImage := ipSrcImage.Value,
+    ipDecodedData := ipDecodedData.Value,
+    stCodeGrades := stCodeGrades.Value,
+    fModuleWidth := fModuleWidth.Value,
+    ipResultVisualization := ipResultVisualization.Value,
+    ipMarginGrades := ipMarginGrades.Value,
+    ipContour := ipContour.Value,
+	hrPrev:= hrPrev.Value,
+    fAngleDeg => angle);
+    
+fAngleDeg.Value := angle;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{2cae4233-2bdc-4eca-aa06-163175b78dd8}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+Check.IsTrue(fModuleWidth.Value >= 3, 'fModuleWidth must be greater than or equal to 3');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

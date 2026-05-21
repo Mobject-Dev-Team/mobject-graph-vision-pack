@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="VisionHardwareNode" Id="{a5c48450-cc66-05c5-13da-5def0042a68e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT VisionHardwareNode EXTENDS HardwareNode IMPLEMENTS I_PreCheckedNode
+VAR
+	preExecutionCheckExtension : PreExecutionCheckExtension('precheck', THIS^);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{f13616c6-9814-0efb-2103-ecbd257df9d3}">
+      <Declaration><![CDATA[METHOD PUBLIC Execute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT preExecutionCheckExtension.Check() THEN
+	RETURN;
+END_IF
+
+SUPER^.Execute();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{1075c372-f025-029e-0398-fe3c416da17f}">
+      <Declaration><![CDATA[METHOD PUBLIC ABSTRACT PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

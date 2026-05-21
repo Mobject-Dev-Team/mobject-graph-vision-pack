@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <Itf Name="I_PreExecutionChecks" Id="{e8e6c816-42e5-0445-35ff-ef4139961253}">
+    <Declaration><![CDATA[INTERFACE I_PreExecutionChecks
+]]></Declaration>
+    <Method Name="Fail" Id="{350476a2-55c1-0bd8-1f40-e5aa1817335f}">
+      <Declaration><![CDATA[METHOD PUBLIC Fail
+VAR_INPUT
+	Message : T_MAXSTRING;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Failed" Id="{095c1cd1-62a0-03fd-10a9-0110bddf3ce3}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Failed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{2ffd1df0-1241-035d-10e4-126c78b7745a}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="IsFalse" Id="{de8d26ca-08d1-00b3-08df-19292539bf71}">
+      <Declaration><![CDATA[METHOD PUBLIC IsFalse
+VAR_INPUT
+	Actual : BOOL;
+	Message : T_MAXSTRING;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsTrue" Id="{367c27e8-f524-0b4e-0735-453fbf926e2d}">
+      <Declaration><![CDATA[METHOD PUBLIC IsTrue
+VAR_INPUT
+	Actual : BOOL;
+	Message : T_MAXSTRING;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

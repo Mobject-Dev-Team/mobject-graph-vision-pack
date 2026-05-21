@@ -9,7 +9,7 @@
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <Name>mobject_graph_vision_pack</Name>
-    <ProgramVersion>3.1.4024.0</ProgramVersion>
+    <ProgramVersion>3.1.4026.22</ProgramVersion>
     <Application>{85928f34-3e95-499e-a526-ff4ccaa96086}</Application>
     <TypeSystem>{3cb39477-9b45-4c5c-9251-1e7838537da5}</TypeSystem>
     <Implicit_Task_Info>{14d113b6-9a86-4a76-8a4c-3b644a18534d}</Implicit_Task_Info>
@@ -19,7 +19,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-graph-vision-pack</Title>
-    <ProjectVersion>0.8.0</ProjectVersion>
+    <ProjectVersion>0.10.0</ProjectVersion>
     <DefaultNamespace>mobject-graph-vision-pack</DefaultNamespace>
     <Placeholder>mobject-graph-vision-pack</Placeholder>
     <Author>mobject dev team</Author>
@@ -37,13 +37,13 @@
     </SelectedLibraryCategories>
   </PropertyGroup>
   <ItemGroup>
-    <LibraryReference Include="mobject-core,0.6.0,mobject">
+    <LibraryReference Include="mobject-core,0.9.0,mobject">
       <Namespace>mobject_core</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph,0.15.0,mobject">
+    <LibraryReference Include="mobject-graph,0.17.0,mobject">
       <Namespace>mobject_graph</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph-plc-pack,0.16.0,mobject">
+    <LibraryReference Include="mobject-graph-plc-pack,0.18.0,mobject">
       <Namespace>mobject_graph_plc_pack</Namespace>
     </LibraryReference>
   </ItemGroup>
@@ -55,61 +55,9 @@
     <PlaceholderReference Include="Tc2_System">
       <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_System</Namespace>
-      <Parameters>
-        <Parameter ListName="PARAM" xmlns="">
-          <Key>TABLE_UPPER_BOUND</Key>
-          <Value>15</Value>
-        </Parameter>
-        <Parameter ListName="PARAM" xmlns="">
-          <Key>STRING_LENGTH_EXP</Key>
-          <Value>255</Value>
-        </Parameter>
-        <Parameter ListName="PARAM" xmlns="">
-          <Key>STRING_LENGTH_ADDRESS</Key>
-          <Value>20</Value>
-        </Parameter>
-        <Parameter ListName="PARAM" xmlns="">
-          <Key>STRING_LENGTH_COMMENT</Key>
-          <Value>255</Value>
-        </Parameter>
-        <Parameter ListName="PARAM" xmlns="">
-          <Key>STRING_LENGTH_OUTSTRING</Key>
-          <Value>255</Value>
-        </Parameter>
-        <Parameter ListName="PARAM" xmlns="">
-          <Key>TABLE_SHOW_VALID_ITEMS</Key>
-          <Value>FALSE</Value>
-        </Parameter>
-      </Parameters>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Utilities">
       <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>
-      <Parameters>
-        <Parameter ListName="PARAMETERLIST" xmlns="">
-          <Key>NMAXLICENSES</Key>
-          <Value>50</Value>
-        </Parameter>
-        <Parameter ListName="PARAMETERLIST" xmlns="">
-          <Key>NMAXLICENSEDEVICES</Key>
-          <Value>16</Value>
-        </Parameter>
-        <Parameter ListName="PARAMETERLIST" xmlns="">
-          <Key>NMAXCPUCOUNT</Key>
-          <Value>64</Value>
-        </Parameter>
-        <Parameter ListName="PARAMETERLIST" xmlns="">
-          <Key>CMAXCHARACTERS</Key>
-          <Value>16#FFFFFFF0</Value>
-        </Parameter>
-        <Parameter ListName="PARAMETERLIST" xmlns="">
-          <Key>NMAXFILESONDONGLE</Key>
-          <Value>20</Value>
-        </Parameter>
-        <Parameter ListName="PARAMETERLIST" xmlns="">
-          <Key>CMAXCSVFIELDVALUESIZE</Key>
-          <Value>255</Value>
-        </Parameter>
-      </Parameters>
       <Namespace>Tc2_Utilities</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
@@ -138,9 +86,16 @@
     <Folder Include="Datatypes\Interfaces\Containers\Iterators\ITcVnIteratorBase" />
     <Folder Include="Datatypes\Interfaces\Images" />
     <Folder Include="Datatypes\Interfaces\Images\ITcVnImage" />
+    <Folder Include="Datatypes\Interfaces\Images\ITcVnDisplayableImage" />
     <Folder Include="Datatypes\Structs" />
+    <Folder Include="Extensions\PreExecutionCheck" />
+    <Folder Include="Extensions\PreExecutionCheck\Alarms" />
+    <Folder Include="Extensions\PreExecutionCheck\Checks" />
+    <Folder Include="Extensions\PreExecutionCheck\Interfaces" />
     <Folder Include="Functions" />
     <Folder Include="Functions\Checks" />
+    <Folder Include="Functions\Helpers" />
+    <Folder Include="Extensions" />
     <Folder Include="Nodes" />
     <Folder Include="Nodes\Algebraic Container Ops" />
     <Folder Include="Nodes\Algebraic Container Ops\AddTo" />
@@ -176,6 +131,7 @@
     <Folder Include="Nodes\Miscellaneous" />
     <Folder Include="Nodes\Constants" />
     <Folder Include="Nodes\Neural Network" />
+    <Folder Include="Nodes\Helpers" />
     <Folder Include="Nodes\OCR" />
     <Folder Include="Nodes\Texture Analysis" />
     <Folder Include="Nodes\VisionNode" />
@@ -390,6 +346,15 @@
     <Compile Include="Datatypes\Enums\_ETcVn2dCodeSearchStrategy.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnCodeType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnMatchTemplateWalshOptions.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnCodeDetectionModel.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnAdaptiveThresholdMethod.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -448,6 +413,15 @@
     <Compile Include="Datatypes\Enums\_ETcVnContoursMatchComparisonMethod.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnDataMatrixOptions.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnFindTemplateWalshOptions.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnReduceType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnDiffusivityTypeKAZE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -497,6 +471,9 @@
     <Compile Include="Datatypes\Enums\_ETcVnFlipAxis.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnDataLayout.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnFontType.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -536,6 +513,12 @@
     <Compile Include="Datatypes\Enums\_ETcVnOcrModelType.TcPOU">
       <SubType>Code</SubType>
       <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnCircularityCalculationMethod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnLayerNameType.TcPOU">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Enums\_ETcVnTimestamp.TcPOU">
       <SubType>Code</SubType>
@@ -629,16 +612,34 @@
     <Compile Include="Datatypes\Interfaces\Containers\ITcVnContainer\_ITcVnContainer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Interfaces\Containers\Iterators\ITcVnBidirectionalIterator\I_InterfaceDatatype_ITcVnBidirectionalIterator.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Interfaces\Containers\Iterators\ITcVnBidirectionalIterator\_ITcVnBidirectionalIterator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Interfaces\Images\ITcVnImage\I_InterfaceDatatype_ITcVnImage.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Interfaces\Images\ITcVnImage\_ITcVnImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Datatypes\Interfaces\Images\ITcVnDisplayableImage\I_InterfaceDatatype_ITcVnDisplayableImage.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Interfaces\Images\ITcVnDisplayableImage\_ITcVnDisplayableImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datatypes\Structs\_GVSP_LEADER_PAYLOAD_IMAGE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Structs\_GVSP_IMAGE_INFO.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnCodeGradesDM.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnCodeGradesQR.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnMoments.TcPOU">
@@ -699,6 +700,7 @@
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnRotatedRectangle.TcPOU">
       <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Datatypes\Structs\_TcVnCircularArc.TcPOU">
       <SubType>Code</SubType>
@@ -718,10 +720,49 @@
     <Compile Include="Datatypes\VisionDatatypePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Extensions\PreExecutionCheck\Alarms\PreExecutionCheckFailedAlarm.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensions\PreExecutionCheck\Checks\I_PreExecutionChecks.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensions\PreExecutionCheck\Checks\PreExecutionChecks.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensions\PreExecutionCheck\Interfaces\I_PreCheckedNode.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensions\PreExecutionCheck\PreExecutionCheckExtension.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\ContainersHaveMatchingNumberOfElements.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\ImageHasCompatibleElementType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\ImageHasElementType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\ImagesHaveMatchingChannels.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\ContainersHaveMatchingTypes.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\ImagesHaveMatchingPixelFormats.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Functions\Checks\IsImage1SizeEqualToImage2Size.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\Checks\IsImage1WidthEqualToImage2Width.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\IsMaxValueCompatibleWithPixelDepth.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Checks\IsTemplateImageSmallerThanSourceImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\Checks\IsRoiSizeOK_Udint.TcPOU">
@@ -733,7 +774,13 @@
     <Compile Include="Functions\Checks\IsValidImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Functions\Checks\IsValidContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Functions\Checks\IsValidIterator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\Helpers\GetETcVnElementTypeFromImage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GVL_COLOURS.TcGVL">
@@ -774,6 +821,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Container Ops\AddTo\Node_F_VN_AddToContainerElements_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Algebraic Container Ops\AddTo\Node_F_VN_AddToContainerElements_TcVnRotatedRectangle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Algebraic Container Ops\AddTo\Node_F_VN_AddToContainerElements_TcVnVector2_DINT.TcPOU">
@@ -1061,6 +1111,9 @@
     <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_TcVnRotatedRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\AppendToContainer\Node_F_VN_AppendToContainer_TcVnVector2_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1172,6 +1225,9 @@
     <Compile Include="Nodes\Basic Container Ops\FillContainerExp\Node_F_VN_FillContainerExp_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\FillContainerExp\Node_F_VN_FillContainerExp_TcVnRotatedRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\FillContainerExp\Node_F_VN_FillContainerExp_TcVnVector2_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1280,6 +1336,9 @@
     <Compile Include="Nodes\Basic Container Ops\FillContainer\Node_F_VN_FillContainer_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\FillContainer\Node_F_VN_FillContainer_TcVnRotatedRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\FillContainer\Node_F_VN_FillContainer_TcVnVector2_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1386,6 +1445,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\GetAt\Node_F_VN_GetAt_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\GetAt\Node_F_VN_GetAt_TcVnRotatedRectangle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\GetAt\Node_F_VN_GetAt_TcVnVector2_DINT.TcPOU">
@@ -1499,6 +1561,9 @@
     <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_TcVnRotatedRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_TcVnVector2_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1565,6 +1630,15 @@
     <Compile Include="Nodes\Basic Container Ops\InsertIntoContainer\Node_F_VN_InsertIntoContainer_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Container Ops\Node_F_VN_CreateContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\Node_F_VN_ExportContainer_String.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\Node_F_VN_ExtractContainerRange.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Container Ops\Node_F_VN_ReverseContainer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1575,6 +1649,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\Node_F_VN_CheckIfEmpty.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\Node_F_VN_CopyContainer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_DINT.TcPOU">
@@ -1620,6 +1697,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_TcVnRotatedRectangle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_TcVnVector2_DINT.TcPOU">
@@ -1688,6 +1768,15 @@
     <Compile Include="Nodes\Basic Container Ops\SetAt\Node_F_VN_SetAt_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateNDimensionalImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateNDimensionalImageAndSetPixels.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ExportImageAsBmpSizeExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_FuseImages.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -1703,7 +1792,16 @@
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ExportImageAsBmpSize.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_MixImageChannels.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_GetLayoutInfo.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_PadImageBorder.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Basic Image Ops\Node_F_VN_PadImageBorderExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_SetImageChannel.TcPOU">
@@ -1714,7 +1812,7 @@
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_TransformIntoDisplayableImage.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_ConvertElementType.TcPOU">
       <SubType>Code</SubType>
@@ -1777,13 +1875,58 @@
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_TransformIntoDisplayableImageExp.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CopyIntoDisplayableImage.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\Basic Image Ops\Node_F_VN_CreateAssociatedImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Quality\Node_F_VN_GradeBarcode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Quality\Node_F_VN_GradeBarcodeExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Quality\Node_F_VN_GradeDataMatrixCodeExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Quality\Node_F_VN_GradeQRCode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Quality\Node_F_VN_GradeDataMatrixCode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Quality\Node_F_VN_GradeQRCodeExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_DetectCodesNeuralNetwork.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadBarcodeExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadBarcodeExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadDataMatrixCodeExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadDataMatrixCodeRoi.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadDataMatrixCodeExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadDotCodeRoiExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadPharmaCodeExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadPharmaCodeExp2.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Code Reading\Node_F_VN_ReadQRCode.TcPOU">
@@ -1796,6 +1939,157 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Code Reading\Node_F_VN_ReadPharmaCode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadQRCodeExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadQRCodeExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadDotCodeRoi.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_String_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_String_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_Vector_TcVnDMatch.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnDMatch.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnKeyPoint.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnRotatedRectangle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnRectangle_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector4_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector4_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector4_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector4_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector4_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector4_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector4_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector3_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector3_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector3_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector3_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector2_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector2_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector2_USINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnVector2_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_Vector_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_Vector_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_Vector_ULINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_Vector_UDINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_Vector_TcVnPoint3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_Vector_TcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_Vector_TcVnPoint2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnPoint3_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnPoint3_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnPoint2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_TcVnPoint2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_ITcVnImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_ULINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_SINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_UDINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_USINT.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Constants\Node_ContainerType_Vector_INT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Constants\Node_RGBA_RANDOM.TcPOU">
@@ -2113,8 +2407,48 @@
     <Compile Include="Nodes\Container Statistics\MinElementwise\Node_F_VN_MinElementElementwise_USINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverageElementwise3.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverageElementwise4.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverageVarianceElementwise2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverageVariance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverageElementwise2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverageVarianceElementwise3.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_ContainerAverageVarianceElementwise4.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MaxElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MinElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Container Statistics\Node_F_VN_MedianElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_ApproximatePolygon.TcPOU">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_ContourCircularityExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_FitLineExp.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\Contour Analysis\Node_F_VN_MatchContours1vsN.TcPOU">
       <SubType>Code</SubType>
@@ -2381,16 +2715,49 @@
     <Compile Include="Nodes\Fourier Analysis\Node_F_VN_InverseDft.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_PadImageBorder.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Nodes\Fourier Analysis\Node_F_VN_PadImageBorderExp.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Nodes\Fourier Analysis\Node_F_VN_Dft.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CalibrateCameraPlanar.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_GenerateCalibrationPatternReferencePoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_SolvePnP.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CompensateLensDistortion.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CompensateLensDistortionExp1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CompensateLensDistortionExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CompensateLensDistortionForPointsExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CompensateLensDistortionForPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CompensateLensDistortionForPointsExp1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CalibrateCamera.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_SolvePnPExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_SortDetectedPatternPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_DetectPatternPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ResizeRegion_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyRotationToAffineTransformationExp.TcPOU">
@@ -2417,6 +2784,24 @@
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ApplyRotationToAffineTransformation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ConvertCartesianToPolarAnglesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ConvertCartesianToPolarMagnitudes.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ConvertCartesianToPolarPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ConvertCartesianToPolarPointsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ConvertPolarToCartesianPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ConvertPolarToCartesianPointsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_DecomposeAffineTransformationExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2424,6 +2809,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_DecomposeAffineTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_GetAffineTransformation2D.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_GetPerspectiveTransformation.TcPOU">
@@ -2477,7 +2865,19 @@
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_GetAffineTransformation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpAffineExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspectiveExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpAffine_Container.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_PerspectiveTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ConvertCartesianToPolarAngles.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective_Rectangle.TcPOU">
@@ -2498,13 +2898,40 @@
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_WarpPerspective.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Helpers\Node_Mux10Way_ITcVnImage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_CannyEdgeDetectionExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ConnectedComponentsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ConnectedComponentsWithStatsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ConnectedComponentsWithStats.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_GetConnectedComponent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_GetConnectedComponentExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_UprightInnerRectangle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_CountNonZeroPixels.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_DistanceTransformation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ConnectedComponents.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_DistanceTransformationExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAverage.TcPOU">
@@ -2555,10 +2982,64 @@
     <Compile Include="Nodes\Image Analysis\Node_F_VN_RegionOrientationExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_ImageAbsoluteAverage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Node_F_VN_UprightInnerRectangleExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_DetectBlobs.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_DetectBlobsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindContours.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindContoursExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindTemplateWalshExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindTemplateWalshExp_AngleRange.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindTemplateWalsh_AngleRange.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_HoughCircles.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MatchImageHuMoments.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_HoughLines.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_HoughLinesP.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_HoughLinesPExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindContourHierarchyExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MatchTemplate.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MatchTemplateAndEvaluate.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MatchTemplateWalshExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MatchTemplateWalsh.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindTemplateWalsh.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ApplyColorMap.TcPOU">
@@ -2570,10 +3051,22 @@
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ClaheExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_GenerateCustomColorMap.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_HistogramExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ReferenceColorSimilarity_TcVnVector3_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_Histogram.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_HistogramEqualization.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_HistogramEqualizationExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_InvertImageColor.TcPOU">
@@ -2591,13 +3084,52 @@
     <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_NormalizeImageForDisplay.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_ReferenceColorSimilarityExp_TcVnVector3_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_WhiteBalance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_BilateralFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_BoxFilterExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_GaussianFilterExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_LaplacianFilterExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_ScharrFilter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_CreateStructuringElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_RemoveLocalMaxima.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_MedianFilter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_MorphologicalOperator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_RemoveLocalMinima.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_ScharrFilterExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_BilateralFilterExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_SobelFilterExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_SobelFilter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_VarianceFilter.TcPOU">
@@ -2625,6 +3157,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Filtering\Node_F_VN_LocalMinima.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Filtering\Node_F_VN_VarianceFilterExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Image Segmentation\Node_F_VN_AdaptiveThresholdExp.TcPOU">
@@ -2711,10 +3246,16 @@
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsFlannLsh.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsFlannLshExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsKnnBF.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsKnnFlannLsh.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsKnnFlannLshExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Keypoint Features\Node_F_VN_RegionsMSER.TcPOU">
@@ -2738,6 +3279,12 @@
     <Compile Include="Nodes\Measurement\Node_F_VN_LocateEdgesExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_AdjustSearchWindowOrientationToLinearEdge.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_LocateCircularArc.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Measurement\Node_F_VN_MeasureAngleBetweenEdges.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -2745,6 +3292,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Measurement\Node_F_VN_MeasureEdgeDistance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_MeasureEdgeDistanceExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Measurement\Node_F_VN_MeasureMinEdgeDistance.TcPOU">
@@ -2763,6 +3313,42 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Miscellaneous\Node_F_VN_CheckFunctionInitialization.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_OrthogonalVector_TcVnVector2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_OrthogonalVector_TcVnVector2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToLineDistance_TcVnPoint2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_OrthogonalVector_TcVnVector2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToPointDirection_TcVnPoint2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToPointDirection_TcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToPointDistance_TcVnPoint2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToLineDistance_TcVnPoint2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToLineDistance_TcVnPoint2_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToPointDirection_TcVnPoint2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToPointDistance_TcVnPoint2_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Miscellaneous\Node_F_VN_PointToPointDistance_TcVnPoint2_REAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\Miscellaneous\Node_F_VN_RotatedRectangleCorners.TcPOU">
@@ -2806,13 +3392,22 @@
       <SubType>Code</SubType>
       <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
+    <Compile Include="Nodes\OCR\Node_F_VN_OCRExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Texture Analysis\Node_F_VN_HaralickFeatures.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Texture Analysis\Node_F_VN_Granulometry.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\VisionNodePack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Nodes\VisionNode\VisionNode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\VisionNode\VisionHardwareNode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="VisionPack.TcPOU">
@@ -2837,10 +3432,22 @@
           <d n="SubKeys" t="Hashtable" />
           <d n="Values" t="Hashtable" />
         </o>
+        <v>{246001F4-279D-43AC-B241-948EB31120E1}</v>
+        <o>
+          <v n="Name">"{246001F4-279D-43AC-B241-948EB31120E1}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" />
+        </o>
         <v>{29BD8D0C-3586-4548-BB48-497B9A01693F}</v>
         <o>
           <v n="Name">"{29BD8D0C-3586-4548-BB48-497B9A01693F}"</v>
           <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+            <v>NamingConventions</v>
+            <o>
+              <v n="Name">"NamingConventions"</v>
+              <d n="SubKeys" t="Hashtable" />
+              <d n="Values" t="Hashtable" />
+            </o>
             <v>Rules</v>
             <o>
               <v n="Name">"Rules"</v>
@@ -2849,15 +3456,6 @@
             </o>
           </d>
           <d n="Values" t="Hashtable" />
-        </o>
-        <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
-        <o>
-          <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
-          <d n="SubKeys" t="Hashtable" />
-          <d n="Values" t="Hashtable" ckt="String" cvt="String">
-            <v>DisabledWarningIds</v>
-            <v>355,394</v>
-          </d>
         </o>
         <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>
         <o>
@@ -2868,11 +3466,36 @@
             <v>IR0whWr8bwfwBwAAiD2qpQAAAABVAgAA37x72QAAAAABAAAAAAAAAAEaUwB5AHMAdABlAG0ALgBTAHQAcgBpAG4AZwACTHsAZgA5ADUAYgBiADQAMgA2AC0ANQA1ADIANAAtADQAYgA0ADUALQA5ADQAMAAwAC0AZgBiADAAZgAyAGUANwA3AGUANQAxAGIAfQADCE4AYQBtAGUABDBUAHcAaQBuAEMAQQBUACAAMwAuADEAIABCAHUAaQBsAGQAIAA0ADAAMgA0AC4ANwAFFlAAcgBvAGYAaQBsAGUARABhAHQAYQAGTHsAMQA2AGUANQA1AGIANgAwAC0ANwAwADQAMwAtADQAYQA2ADMALQBiADYANQBiAC0ANgAxADQANwAxADMAOAA3ADgAZAA0ADIAfQAHEkwAaQBiAHIAYQByAGkAZQBzAAhMewAzAGIAZgBkADUANAA1ADkALQBiADAANwBmAC0ANABkADYAZQAtAGEAZQAxAGEALQBhADgAMwAzADUANgBhADUANQAxADQAMgB9AAlMewA5AGMAOQA1ADgAOQA2ADgALQAyAGMAOAA1AC0ANAAxAGIAYgAtADgAOAA3ADEALQA4ADkANQBmAGYAMQBmAGUAZABlADEAYQB9AAoOVgBlAHIAcwBpAG8AbgALBmkAbgB0AAwKVQBzAGEAZwBlAA0KVABpAHQAbABlAA4aVgBpAHMAdQBFAGwAZQBtAE0AZQB0AGUAcgAPDkMAbwBtAHAAYQBuAHkAEAxTAHkAcwB0AGUAbQARElYAaQBzAHUARQBsAGUAbQBzABIwVgBpAHMAdQBFAGwAZQBtAHMAUwBwAGUAYwBpAGEAbABDAG8AbgB0AHIAbwBsAHMAEyhWAGkAcwB1AEUAbABlAG0AcwBXAGkAbgBDAG8AbgB0AHIAbwBsAHMAFCRWAGkAcwB1AEUAbABlAG0AVABlAHgAdABFAGQAaQB0AG8AcgAVIlYAaQBzAHUATgBhAHQAaQB2AGUAQwBvAG4AdAByAG8AbAAWFHYAaQBzAHUAaQBuAHAAdQB0AHMAFwxzAHkAcwB0AGUAbQAYGFYAaQBzAHUARQBsAGUAbQBCAGEAcwBlABkmRABlAHYAUABsAGEAYwBlAGgAbwBsAGQAZQByAHMAVQBzAGUAZAAaCGIAbwBvAGwAGyJQAGwAdQBnAGkAbgBDAG8AbgBzAHQAcgBhAGkAbgB0AHMAHEx7ADQAMwBkADUAMgBiAGMAZQAtADkANAAyAGMALQA0ADQAZAA3AC0AOQBlADkANAAtADEAYgBmAGQAZgAzADEAMABlADYAMwBjAH0AHRxBAHQATABlAGEAcwB0AFYAZQByAHMAaQBvAG4AHhRQAGwAdQBnAGkAbgBHAHUAaQBkAB8WUwB5AHMAdABlAG0ALgBHAHUAaQBkACBIYQBmAGMAZAA1ADQANAA2AC0ANAA5ADEANAAtADQAZgBlADcALQBiAGIANwA4AC0AOQBiAGYAZgBlAGIANwAwAGYAZAAxADcAIRRVAHAAZABhAHQAZQBJAG4AZgBvACJMewBiADAAMwAzADYANgBhADgALQBiADUAYwAwAC0ANABiADkAYQAtAGEAMAAwAGUALQBlAGIAOAA2ADAAMQAxADEAMAA0AGMAMwB9ACMOVQBwAGQAYQB0AGUAcwAkTHsAMQA4ADYAOABmAGYAYwA5AC0AZQA0AGYAYwAtADQANQAzADIALQBhAGMAMAA2AC0AMQBlADMAOQBiAGIANQA1ADcAYgA2ADkAfQAlTHsAYQA1AGIAZAA0ADgAYwAzAC0AMABkADEANwAtADQAMQBiADUALQBiADEANgA0AC0ANQBmAGMANgBhAGQAMgBiADkANgBiADcAfQAmFk8AYgBqAGUAYwB0AHMAVAB5AHAAZQAnVFUAcABkAGEAdABlAEwAYQBuAGcAdQBhAGcAZQBNAG8AZABlAGwARgBvAHIAQwBvAG4AdgBlAHIAdABpAGIAbABlAEwAaQBiAHIAYQByAGkAZQBzACgQTABpAGIAVABpAHQAbABlACkUTABpAGIAQwBvAG0AcABhAG4AeQAqHlUAcABkAGEAdABlAFAAcgBvAHYAaQBkAGUAcgBzACs4UwB5AHMAdABlAG0ALgBDAG8AbABsAGUAYwB0AGkAbwBuAHMALgBIAGEAcwBoAHQAYQBiAGwAZQAsEnYAaQBzAHUAZQBsAGUAbQBzAC1INgBjAGIAMQBjAGQAZQAxAC0AZAA1AGQAYwAtADQAYQAzAGIALQA5ADAANQA0AC0AMgAxAGYAYQA3ADUANgBhADMAZgBhADQALihJAG4AdABlAHIAZgBhAGMAZQBWAGUAcgBzAGkAbwBuAEkAbgBmAG8AL0x7AGMANgAxADEAZQA0ADAAMAAtADcAZgBiADkALQA0AGMAMwA1AC0AYgA5AGEAYwAtADQAZQAzADEANABiADUAOQA5ADYANAAzAH0AMBhNAGEAagBvAHIAVgBlAHIAcwBpAG8AbgAxGE0AaQBuAG8AcgBWAGUAcgBzAGkAbwBuADIMTABlAGcAYQBjAHkAMzBMAGEAbgBnAHUAYQBnAGUATQBvAGQAZQBsAFYAZQByAHMAaQBvAG4ASQBuAGYAbwA0MEwAbwBhAGQATABpAGIAcgBhAHIAaQBlAHMASQBuAHQAbwBQAHIAbwBqAGUAYwB0ADUaQwBvAG0AcABhAHQAaQBiAGkAbABpAHQAeQDQAAIaA9ADAS0E0AUGGgfQBwgaAUUHCQjQAAkaBEUKCwQDAAAABQAAAA0AAAAAAAAA0AwLrQIAAADQDQEtDtAPAS0Q0AAJGgRFCgsEAwAAAAUAAAANAAAAKAAAANAMC60BAAAA0A0BLRHQDwEtENAACRoERQoLBAMAAAAFAAAADQAAAAAAAADQDAutAgAAANANAS0S0A8BLRDQAAkaBEUKCwQDAAAABQAAAA0AAAAUAAAA0AwLrQIAAADQDQEtE9APAS0Q0AAJGgRFCgsEAwAAAAUAAAANAAAAAAAAANAMC60CAAAA0A0BLRTQDwEtENAACRoERQoLBAMAAAAFAAAADQAAAAAAAADQDAutAgAAANANAS0V0A8BLRDQAAkaBEUKCwQDAAAABQAAAA0AAAAAAAAA0AwLrQIAAADQDQEtFtAPAS0X0AAJGgRFCgsEAwAAAAUAAAANAAAAKAAAANAMC60EAAAA0A0BLRjQDwEtENAZGq0BRRscAdAAHBoCRR0LBAMAAAAFAAAADQAAAAAAAADQHh8tINAhIhoCRSMkAtAAJRoFRQoLBAMAAAADAAAAAAAAAAoAAADQJgutAAAAANADAS0n0CgBLRHQKQEtENAAJRoFRQoLBAMAAAADAAAAAAAAAAoAAADQJgutAQAAANADAS0n0CgBLRHQKQEtEJoqKwFFAAEC0AABLSzQAAEtF9AAHy0t0C4vGgPQMAutAQAAANAxC60XAAAA0DIarQDQMy8aA9AwC60CAAAA0DELrQMAAADQMhqtANA0Gq0A0DUarQA=</v>
           </d>
         </o>
+        <v>{8A0FB252-96EB-4DCC-A5B4-B4804D05E2D6}</v>
+        <o>
+          <v n="Name">"{8A0FB252-96EB-4DCC-A5B4-B4804D05E2D6}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+            <v>WriteLineIDs</v>
+            <v>True</v>
+          </d>
+        </o>
+        <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
+        <o>
+          <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String" cvt="String">
+            <v>DisabledWarningIds</v>
+            <v>355,394,5410</v>
+          </d>
+        </o>
+        <v>{eeeeeeee-3909-4298-8022-501ac3238667}</v>
+        <o>
+          <v n="Name">"{eeeeeeee-3909-4298-8022-501ac3238667}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" />
+        </o>
       </d>
       <d n="Values" t="Hashtable" />
     </o>
         </Data>
         <TypeList>
+          <Type n="Boolean">System.Boolean</Type>
           <Type n="Hashtable">System.Collections.Hashtable</Type>
           <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
           <Type n="String">System.String</Type>

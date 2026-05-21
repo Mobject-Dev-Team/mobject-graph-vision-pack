@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_PointToPointDistance_TcVnPoint2_LREAL" Id="{54005fe5-363d-02cb-2ade-0d83f99bf413}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_PointToPointDistance_TcVnPoint2_LREAL EXTENDS VisionNode
+VAR
+    aPoint1 : _TcVnPoint2_LREAL;
+    aPoint2 : _TcVnPoint2_LREAL;
+    fDistance : _LREAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{baaf4af7-46f9-095d-1a36-120b8a694ae2}" />
+    <Method Name="Clone" Id="{4078f5d9-efc9-0884-1f25-197fe08e782c}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_PointToPointDistance_TcVnPoint2_LREAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_PointToPointDistance_TcVnPoint2_LREAL);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{611903a3-d1eb-03c4-0207-ea03fe2de430}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('aPoint1', aPoint1);
+AddInput('aPoint2', aPoint2);
+AddInput('hrPrev', hrPrev);
+AddOutput('fDistance', fDistance);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{709dd8f7-dbda-0a24-0ec0-ee94954bf88d}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_PointToPointDistance_TcVnPoint2_LREAL(
+    aPoint1 := aPoint1.Value,
+    aPoint2 := aPoint2.Value,
+    fDistance := fDistance.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{ab69915d-24f9-0494-1a95-5fef702968b7}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
-  <POU Name="Node_F_VN_MinElementElementwise_LREAL" Id="{7753e2ae-7d64-4d29-932a-297a0bab9637}" SpecialFunc="None">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="Node_F_VN_MinElementElementwise_LREAL" Id="{7753e2ae-7d64-4d29-932a-297a0bab9637}"
+    SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
@@ -35,9 +36,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipContainer', ipContainer);
-AddParameter('fMin', fMin);
+AddInput('fMin', fMin);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipContainer', ipContainer);
+AddOutput('fMin', fMin);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
@@ -59,7 +61,7 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
-Check.IsTrue(ipContainer.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_LREAL), 'ipContainer contains incorrect type');
+Check.IsTrue(ipContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_LREAL), 'ipContainer contains incorrect type');
 ]]></ST>
       </Implementation>
     </Method>

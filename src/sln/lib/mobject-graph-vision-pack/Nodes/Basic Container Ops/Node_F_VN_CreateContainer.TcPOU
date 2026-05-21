@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <POU Name="Node_F_VN_CreateContainer" Id="{24fca6e6-d07b-0755-25bb-117d564cb76b}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_CreateContainer EXTENDS VisionNode
+VAR
+    ipContainer : _ITcVnContainer;
+    nTypeGuid : _GUID();
+    nElementNum : _ULINT(1);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{6d29dca6-2785-04e0-291b-16fc94fa0cd4}" />
+    <Method Name="Clone" Id="{28d42927-37d3-0eaa-3802-bc108fbae35d}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_CreateContainer;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_CreateContainer);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{5eabcea1-c2ce-0866-1d83-1f38a789f3f9}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddParameter('nTypeGuid', nTypeGuid);
+AddParameter('nElementNum', nElementNum);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipContainer', ipContainer);
+AddOutput('hresult',hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{33844eac-0248-07ec-0630-ca4598fbd390}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_CreateContainer(
+    ipContainer := ipContainer.Value,
+    nTypeGuid := nTypeGuid.Value,
+    nElementNum := nElementNum.Value,
+	hrPrev:= hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{f5480b5c-10ca-0359-2240-c53bf75ef4d5}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+	typeGuid : GUID;
+	match : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue((nElementNum.Value >= 0), 'nElementNum must be greater than or equal to 0');
+
+match := 
+    nTypeGuid.EqualsGuid(ContainerType_Vector_SINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_USINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_INT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_UINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_DINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_UDINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_ULINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_REAL) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_LREAL) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_ITcVnImage) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnPoint2_DINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnPoint2_REAL) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnPoint2_LREAL) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnPoint3_REAL) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnPoint3_LREAL) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_Vector_TcVnPoint2_DINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_Vector_TcVnPoint2_REAL) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_Vector_TcVnPoint3_REAL) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_Vector_UDINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_Vector_ULINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_Vector_REAL) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_Vector_LREAL) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector2_SINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector2_USINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector2_INT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector2_UINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector2_DINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector2_REAL) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector3_SINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector3_USINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector3_INT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector3_UINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector3_REAL) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector4_SINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector4_USINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector4_INT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector4_UINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector4_DINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector4_REAL) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnVector4_LREAL) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnRectangle_DINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnRotatedRectangle) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnKeyPoint) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_TcVnDMatch) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_Vector_TcVnDMatch) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_String_SINT) OR_ELSE
+    nTypeGuid.EqualsGuid(ContainerType_Vector_String_SINT);
+	
+Check.IsTrue(match, 'nTypeGuid must be a valid GUID for containers');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

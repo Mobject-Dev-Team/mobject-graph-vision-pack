@@ -58,10 +58,70 @@ AddOutput('hresult',hresult);
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
-END_VAR]]></Declaration>
+END_VAR
+VAR
+	compatibleElementTypes_USINT : ARRAY [0..0] OF ETcVnElementType := [
+		ETcVnElementType.TCVN_ET_USINT];
+	
+	compatibleElementTypes_UINT : ARRAY [0..1] OF ETcVnElementType := [
+		ETcVnElementType.TCVN_ET_USINT,
+		ETcVnElementType.TCVN_ET_UINT];
+	
+	compatibleElementTypes_INT : ARRAY [0..1] OF ETcVnElementType := [
+		ETcVnElementType.TCVN_ET_USINT,
+		ETcVnElementType.TCVN_ET_INT];
+	
+	compatibleElementTypes_REAL : ARRAY [0..3] OF ETcVnElementType := [
+		ETcVnElementType.TCVN_ET_USINT,
+		ETcVnElementType.TCVN_ET_UINT,
+		ETcVnElementType.TCVN_ET_INT,
+		ETcVnElementType.TCVN_ET_REAL];
+	
+	compatibleElementTypes_LREAL : ARRAY [0..3] OF ETcVnElementType := [
+		ETcVnElementType.TCVN_ET_USINT,
+		ETcVnElementType.TCVN_ET_UINT,
+		ETcVnElementType.TCVN_ET_INT,
+		ETcVnElementType.TCVN_ET_LREAL];
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
-//TODO]]></ST>
+
+//The input image ipSrcImage may be in any available format, except for the data types SINT and DINT, which are generally not supported.
+
+//Only the same or a larger data type than that of the input image can be used as the result depth, otherwise data would be lost.
+//For example, a UINT cannot be converted to a USINT. 
+//Furthermore, there are two restrictions, so that a UINT cannot be converted into an INT and a REAL cannot be converted into an LREAL.
+
+CASE eDestDepth.Value OF
+	ETcVnElementType.TCVN_ET_SINT,
+    ETcVnElementType.TCVN_ET_DINT:
+	    Check.Fail('ipSrcImage has unsupported pixel depth');
+		RETURN;
+END_CASE
+
+CASE eDestDepth.Value OF
+    ETcVnElementType.TCVN_ET_SINT,
+    ETcVnElementType.TCVN_ET_DINT:
+	    Check.Fail('ipSrcImage has unsupported pixel depth');
+		RETURN;
+        
+	ETcVnElementType.TCVN_ET_USINT:
+        Check.IsTrue(ImageHasCompatibleElementType(ipSrcImage.Value, compatibleElementTypes_USINT), 'ipSrcImage has incompatible pixel depth');
+	
+	ETcVnElementType.TCVN_ET_UINT:
+	    Check.IsTrue(ImageHasCompatibleElementType(ipSrcImage.Value, compatibleElementTypes_UINT), 'ipSrcImage has incompatible pixel depth');
+		
+	ETcVnElementType.TCVN_ET_INT:
+	    Check.IsTrue(ImageHasCompatibleElementType(ipSrcImage.Value, compatibleElementTypes_INT), 'ipSrcImage has incompatible pixel depth');
+	
+	ETcVnElementType.TCVN_ET_REAL:
+	    Check.IsTrue(ImageHasCompatibleElementType(ipSrcImage.Value, compatibleElementTypes_REAL), 'ipSrcImage has incompatible pixel depth');
+	
+	ETcVnElementType.TCVN_ET_LREAL:
+	    Check.IsTrue(ImageHasCompatibleElementType(ipSrcImage.Value, compatibleElementTypes_LREAL), 'ipSrcImage has incompatible pixel depth');
+END_CASE
+]]></ST>
       </Implementation>
     </Method>
   </POU>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="ImageHasElementType" Id="{bc1fce88-dff5-48ea-b3c5-f51831dcb300}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ImageHasElementType : BOOL
+VAR_INPUT
+	Image : ITcVnImage;
+	ElementType : ETcVnElementType;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT IsValidImage(Image) THEN
+	RETURN;
+END_IF
+
+ImageHasElementType := (ElementType = GetETcVnElementTypeFromImage(Image));
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

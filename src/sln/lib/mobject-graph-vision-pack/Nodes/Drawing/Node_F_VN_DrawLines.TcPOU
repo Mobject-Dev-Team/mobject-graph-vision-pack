@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
   <POU Name="Node_F_VN_DrawLines" Id="{c817b75d-e070-0d56-1723-97be2e3432b3}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -22,10 +22,10 @@ END_VAR
     <Method Name="Clone" Id="{9ac89637-e732-0ba2-0c9e-c24e4480334d}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_DrawLineExp;
+	pNode : POINTER TO Node_F_VN_DrawLines;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawLineExp);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DrawLines);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
@@ -70,12 +70,13 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipLines.IsValid, 'ipLines must be a valid container');
 
-Check.IsTrue((ipLines.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_REAL) OR
-              ipLines.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_LREAL) OR
-              ipLines.HasType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_DINT)),
+Check.IsTrue((ipLines.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_REAL) OR
+              ipLines.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_LREAL) OR
+              ipLines.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_DINT)),
               'ipLines contains incorrect type');
               
 Check.IsTrue(ipDestImage.IsValid, 'ipDestImage must contain an image');
+Check.IsTrue(nThickness.Value >= 1, 'nThickness must be greater than or equal to 1');
 ]]></ST>
       </Implementation>
     </Method>

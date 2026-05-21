@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_GenerateCalibrationPatternReferencePoints" Id="{a868e11f-8602-4897-b1e0-7fe0fd6a7afc}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_GenerateCalibrationPatternReferencePoints EXTENDS VisionNode
+VAR
+    ipReferencePoints : _ITcVnContainer;
+    ePattern : _ETcVnCalibrationPattern(ETcVnCalibrationPattern.TCVN_CP_CIRCLES_SYM);
+    eOrigin : _ETcVnCalibrationPatternOrigin(ETcVnCalibrationPatternOrigin.TCVN_CPO_TOPLEFT);
+    nWidth : _UDINT(1);
+    nHeight : _UDINT(1);
+    fDistX : _REAL(0.0);
+    fDistY : _REAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{5be1769e-d7e5-4636-86e8-9e2febf437e5}" />
+    <Method Name="Clone" Id="{0061bdc2-4bcd-4c99-9867-a5eb72724c7d}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_GenerateCalibrationPatternReferencePoints;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_GenerateCalibrationPatternReferencePoints);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{4ce57ebc-aedf-48d2-97e7-35e94016ffa8}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddParameter('ePattern', ePattern);
+AddParameter('eOrigin', eOrigin);
+AddParameter('nWidth', nWidth);
+AddParameter('nHeight', nHeight);
+AddParameter('fDistX', fDistX);
+AddParameter('fDistY', fDistY);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipReferencePoints', ipReferencePoints);
+AddOutput('hresult', hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{3a6d12ad-c347-4a14-a7c4-5b3acd2f13eb}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_GenerateCalibrationPatternReferencePoints(
+    ipReferencePoints := ipReferencePoints.Value,
+	ePattern := ePattern.Value,
+    eOrigin := eOrigin.Value,
+    nWidth := nWidth.Value,
+    nHeight := nHeight.Value,
+    fDistX := fDistX.Value,
+    fDistY := fDistY.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{5bf4dcbb-4fe8-4e31-b4ce-eb1c0b539c03}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="Node_F_VN_ContainerAverageVarianceElementwise2" Id="{ebd80e81-7a63-08aa-1784-06486dc139e7}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ContainerAverageVarianceElementwise2 EXTENDS VisionNode
+VAR
+    ipSrcContainer : _ITcVnContainer;
+    aAverage : _TcVnVector2_LREAL;
+	aVariance : _TcVnVector2_LREAL;
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{f119bff7-8c31-0310-2d55-342e3633d97d}" />
+    <Method Name="Clone" Id="{805679ec-914b-060f-0c3d-7adb93731beb}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ContainerAverageVarianceElementwise2;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ContainerAverageVarianceElementwise2);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{d51396e7-5336-0dc7-2cfe-74334b1ff748}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcContainer', ipSrcContainer);
+AddInput('hrPrev', hrPrev);
+AddOutput('aAverage', aAverage);
+AddOutput('aVariance', aVariance);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{19eba451-a7ad-0226-025a-5c7d063608dc}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ContainerAverageVarianceElementwise2(
+    ipSrcContainer := ipSrcContainer.Value,
+    aAverage := aAverage.Value,
+	aVariance := aVariance.Value,
+    hrPrev:= hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{84e05b40-f1c2-0d28-215f-c9d3e2c78f35}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+	isCorrectType : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcContainer.IsValid, 'ipContainer must be a valid container');
+
+isCorrectType := 
+    // ---------------------------------------------------------
+    // Point 2 Types (X, Y)
+    // ---------------------------------------------------------
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR_ELSE
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL) OR_ELSE
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_LREAL) OR_ELSE
+
+    // ---------------------------------------------------------
+    // Vector 2 Types (X, Y)
+    // ---------------------------------------------------------
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_SINT) OR_ELSE
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_USINT) OR_ELSE
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_INT) OR_ELSE
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_UINT) OR_ELSE
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_DINT) OR_ELSE
+    ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_REAL);
+
+Check.IsTrue(isCorrectType, 'ipContainer contains incorrect type for Elementwise2');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="ImageHasCompatibleElementType" Id="{324cdee2-5a01-4ee1-9221-770fdf0fa0b6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ImageHasCompatibleElementType : BOOL
+VAR_INPUT
+	Image : ITcVnImage;	
+END_VAR
+VAR_IN_OUT
+	CompatibleElementTypes : ARRAY[*] OF ETcVnElementType;
+END_VAR
+VAR
+	i : DINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT IsValidImage(Image) THEN
+	RETURN;
+END_IF
+
+FOR i := LOWER_BOUND(CompatibleElementTypes, 1) TO UPPER_BOUND(CompatibleElementTypes, 1) DO
+	IF ImageHasElementType(Image, CompatibleElementTypes[i]) THEN
+		ImageHasCompatibleElementType := TRUE;
+		RETURN;
+	END_IF
+END_FOR
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

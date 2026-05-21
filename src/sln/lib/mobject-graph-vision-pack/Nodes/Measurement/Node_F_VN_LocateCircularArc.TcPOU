@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="Node_F_VN_LocateCircularArc" Id="{6a40d8b0-3f63-0106-13dc-2e648fbed034}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_LocateCircularArc EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+	stCircularArc : _TcVnCircularArc;
+	aCenter : _TcVnPoint2_REAL;
+	fSearchRadius : _REAL(0.0);
+	fArcDirectionRad : _LREAL(0.0);
+	eEdgeDirection : _ETcVnEdgeDirection(ETcVnEdgeDirection.TCVN_ED_DARK_TO_LIGHT);
+    fMinStrength : _REAL(0.0);
+	hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{f19e4446-418c-01a8-1af5-cc90ebe0431b}" />
+    <Method Name="Clone" Id="{54a66b5f-5732-0501-353b-cc5e30a6cc29}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_LocateCircularArc;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_LocateCircularArc);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{27e8b648-6de0-0c49-028f-f936dbc68d58}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('aCenter', aCenter);
+AddInput('hrPrev', hrPrev);
+AddParameter('fSearchRadius', fSearchRadius);
+AddParameter('fArcDirectionRad', fArcDirectionRad);
+AddParameter('eEdgeDirection', eEdgeDirection);
+AddParameter('fMinStrength', fMinStrength);
+AddOutput('stCircularArc', stCircularArc);
+AddOutput('aCenter', aCenter);
+AddOutput('hresult',hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{f154be5b-0ab7-0644-3817-421bdf846467}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_LocateCircularArc(
+	ipSrcImage := ipSrcImage.Value,
+	stCircularArc := stCircularArc.Value,
+    aCenter := aCenter.Value,
+    fSearchRadius := fSearchRadius.Value,
+    fArcDirectionRad := fArcDirectionRad.Value,
+	eEdgeDirection := eEdgeDirection.Value,
+	fMinStrength := fMinStrength.Value,
+	hrPrev := hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{8a9ab61d-0054-0848-1831-edaf4e1ada55}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+	width : UDINT;
+	height : UDINT;
+	cx : REAL;
+	cy : REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Source image (1 channel)
+Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+	
+// Input search radius (starting FROM aCenter, should be greater than the actual circle radius but 
+// aCenter + fSearchRadius should be within the image borders)
+ipSrcImage.TryGetWidth(width);
+ipSrcImage.TryGetHeight(height);
+
+Check.IsTrue((width > 0), 'ipSrcImage have valid width');
+Check.IsTrue((height > 0), 'ipSrcImage have valid height');
+Check.IsTrue(fSearchRadius.Value > 0, 'fSearchRadius must be > 0');
+
+cx := aCenter.Value[0];
+cy := aCenter.Value[1];
+
+Check.IsTrue(cx - fSearchRadius.Value >= 0, 'Search radius exceeds left border');
+Check.IsTrue(cy - fSearchRadius.Value >= 0, 'Search radius exceeds top border');
+Check.IsTrue(cx + fSearchRadius.Value < UDINT_TO_REAL(width), 'Search radius exceeds right border');
+Check.IsTrue(cy + fSearchRadius.Value < UDINT_TO_REAL(height), 'Search radius exceeds bottom border');
+
+// Input search starting direction in radian. Valid range is [-pi, +pi], where right is 0 rad, 
+// top is -pi/2 rad and bottom +pi/2 rad. The circular arc should at least be valid in range 
+// fArcDirectionRad +- 0.4 rad.
+Check.IsTrue(fArcDirectionRad.Value >= -PI AND fArcDirectionRad.Value <= PI, 'fArcDirectionRad must be in [-pi, +pi]');
+Check.IsTrue(fArcDirectionRad.Value - 0.4 >= -PI, 'fArcDirectionRad - 0.4 must be >= -pi');
+Check.IsTrue(fArcDirectionRad.Value + 0.4 <=  PI, 'fArcDirectionRad + 0.4 must be <= +pi');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.10.0-beta
+
+- updated to 4026.22
+- added support for mobject-core v0.9.0
+- added support for mobject-graph v0.17.0
+- added support for mobject-graph-plc-pack v0.18.0
+- 4026 unable to copy .value to .value when reference, changed to trycopyto.
+- bug fix IsRoiSizeOk
+- fixed container stats
+- added enums
+
+## v0.9.0-alpha
+
+- added support for mobject-graph v0.16.0
+- added support for mobject-graph-plc-pack v0.17.0
+- added support for mobject-core v0.7.0
+
 ## v0.8.0-alpha
 
 - added support for mobject-graph v0.15.0

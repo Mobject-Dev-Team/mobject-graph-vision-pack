@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="Node_F_VN_FindTemplateWalshExp_AngleRange" Id="{5cc1bae7-6eda-0ecc-0b9a-8e4a940feeaf}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_FindTemplateWalshExp_AngleRange EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipTemplateImage : _ITcVnImage;
+	ipMatches : _ITcVnContainer;
+	fMatchThreshold : _REAL(0.1);
+	nProjections : _UDINT(10);
+	fStartAngle : _LREAL(0);
+	fStopAngle : _LREAL(1);
+	nAngles : _UDINT(1);
+	eOptions : _ETcVnFindTemplateWalshOptions(ETcVnFindTemplateWalshOptions.TCVN_FTWO_NONE);
+	fScaleFactor : _REAL(1);
+	eInterpolationType : _ETcVnInterpolationType(ETcVnInterpolationType.TCVN_IT_AREA_BASED);
+	ipMatchValues : _ITcVnContainer;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{13135a1e-67eb-0ad0-0739-fceeeb6a7d5e}" />
+    <Method Name="Clone" Id="{27148b35-190e-035f-2b49-61ab6aaca342}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_FindTemplateWalshExp_AngleRange;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_FindTemplateWalshExp_AngleRange);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{8d45b777-379c-0769-0eeb-5e7f52eb162a}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('ipTemplateImage', ipTemplateImage);
+AddInput('fMatchThreshold', fMatchThreshold);
+AddInput('nProjections', nProjections);
+AddInput('fStartAngle', fStartAngle);
+AddInput('fStopAngle', fStopAngle);
+AddInput('nAngles', nAngles);
+AddInput('eOptions', eOptions);
+AddInput('fScaleFactor', fScaleFactor);
+AddInput('eInterpolationType', eInterpolationType);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipMatches', ipMatches);
+AddOutput('ipMatchValues', ipMatchValues);
+AddOutput('hresult',hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{a631d56f-f274-0450-0fa9-a517b9bb51bb}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_FindTemplateWalshExp_AngleRange(
+    ipSrcImage := ipSrcImage.Value,
+    ipTemplateImage := ipTemplateImage.Value,
+	ipMatches := ipMatches.Value,
+	fMatchThreshold := fMatchThreshold.Value,
+	nProjections := nProjections.Value,
+	fStartAngle := fStartAngle.Value,
+	fStopAngle := fStopAngle.Value,
+	nAngles := nAngles.Value,
+	eOptions := eOptions.Value,
+	fScaleFactor := fScaleFactor.Value,
+	eInterpolationType := eInterpolationType.Value,
+	ipMatchValues := ipMatchValues.Value,
+	hrPrev:= hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{249a16cc-fc3d-09ff-0c02-33362c66eaac}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must be 8 or 32 bit pixel depth');
+Check.IsTrue((ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3)), 'ipSrcImage must contain 1 or 3 channels');
+
+Check.IsTrue((fMatchThreshold.Value >= 0 AND fMatchThreshold.Value <= 1), 'Threshold must be between 0..1, 1.0 would be a perfect match');
+Check.IsTrue(nProjections.Value <= 50, 'The soft limit of 50 has been reached');
+
+Check.IsTrue(ipTemplateImage.IsValid, 'ipTemplateImage must contain an image');
+Check.IsTrue(ImagesHaveMatchingPixelFormats(ipSrcImage.Value, ipTemplateImage.Value), 'ipTemplateImage must have same pixel depth as ipSrcImage');
+Check.IsTrue(ImagesHaveMatchingChannels(ipSrcImage.Value, ipTemplateImage.Value), 'ipTemplateImage must have same amount of channels as ipSrcImage');
+Check.IsTrue(IsTemplateImageSmallerThanSourceImage(ipSrcImage.Value, ipTemplateImage.Value), 'ipTemplateImage must be smaller than ipSrcImage');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

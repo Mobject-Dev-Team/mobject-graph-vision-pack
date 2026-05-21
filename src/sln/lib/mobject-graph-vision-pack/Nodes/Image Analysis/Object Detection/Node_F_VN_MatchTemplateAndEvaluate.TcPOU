@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_MatchTemplateAndEvaluate" Id="{b34f4682-635a-43e1-b161-b185155ff5fb}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MatchTemplateAndEvaluate EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipTemplateImage : _ITcVnImage;
+    ipMatches : _ITcVnContainer;
+    fMatchThreshold : _REAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{059170c9-8ea1-4074-a52d-44c5c6e404cd}" />
+    <Method Name="Clone" Id="{e5c1314b-9061-4c4e-a856-3177a89de73e}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_MatchTemplateAndEvaluate;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MatchTemplateAndEvaluate);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{feca8799-fa1d-4424-be30-2ee488b4633a}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('ipTemplateImage', ipTemplateImage);
+AddParameter('fMatchThreshold', fMatchThreshold);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipMatches', ipMatches);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{181878a4-8648-41a9-98ae-73a26920c12a}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MatchTemplateAndEvaluate(
+    ipSrcImage := ipSrcImage.Value,
+    ipTemplateImage := ipTemplateImage.Value,
+	ipMatches := ipMatches.Value,
+    fMatchThreshold := fMatchThreshold.Value,
+	hrPrev:= hrPrev.Value);
+    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{a5263795-9e1f-4621-b5e2-e2f5a220f314}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue((ipSrcImage.IsPixelDepth(8) OR ipSrcImage.IsPixelDepth(32)), 'ipSrcImage must be 8 or 32 bit pixel depth');
+Check.IsTrue((ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3)), 'ipSrcImage must contain 1 or 3 channels');
+
+Check.IsTrue(ipTemplateImage.IsValid, 'ipTemplateImage must contain an image');
+Check.IsTrue(ImagesHaveMatchingPixelFormats(ipSrcImage.Value, ipTemplateImage.Value), 'ipTemplateImage must have same pixel depth ipSrcImage');
+Check.IsTrue(ImagesHaveMatchingChannels(ipSrcImage.Value, ipTemplateImage.Value), 'ipTemplateImage must have same amount of channels as ipSrcImage');
+Check.IsTrue(IsTemplateImageSmallerThanSourceImage(ipSrcImage.Value, ipTemplateImage.Value), 'ipTemplateImage must be smaller than ipSrcImage');
+
+Check.IsTrue((fMatchThreshold.Value >= 0.0) AND (fMatchThreshold.Value <= 1.0), 'fMatchThreshold must be between 0 and 1');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

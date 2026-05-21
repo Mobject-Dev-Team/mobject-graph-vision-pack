@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Node_F_VN_PointToPointDirection_TcVnPoint2_LREAL" Id="{6e7cef6e-d0b1-0e3c-08e7-e9c6d2e1ec9b}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_PointToPointDirection_TcVnPoint2_LREAL EXTENDS VisionNode
+VAR
+    aPoint1 : _TcVnPoint2_LREAL;
+    aPoint2 : _TcVnPoint2_LREAL;
+    aDirection : _TcVnVector2_LREAL;
+    bNormalize : _BOOL(FALSE);
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{e45b6a24-6bb7-0ac7-3976-e1cec8bd5661}" />
+    <Method Name="Clone" Id="{fdf42de5-6078-0864-10ef-0077b3425a06}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_PointToPointDirection_TcVnPoint2_LREAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_PointToPointDirection_TcVnPoint2_LREAL);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{1f167f05-f4c0-0147-2155-8b50eba4bc28}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('aPoint1', aPoint1);
+AddInput('aPoint2', aPoint2);
+AddParameter('bNormalize', bNormalize);
+AddInput('hrPrev', hrPrev);
+AddOutput('aDirection', aDirection);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{668950ba-13dc-0577-2461-cd2073a7136e}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_PointToPointDirection_TcVnPoint2_LREAL(
+    aPoint1 := aPoint1.Value,
+    aPoint2 := aPoint2.Value,
+    aDirection := aDirection.Value,
+    bNormalize := bNormalize.Value,
+	hrPrev:= hrPrev.Value);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{f4dc0329-d58c-0bfa-0b8f-363544935b5b}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

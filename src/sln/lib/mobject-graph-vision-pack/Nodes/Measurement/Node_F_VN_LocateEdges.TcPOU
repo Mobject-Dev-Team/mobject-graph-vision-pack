@@ -16,6 +16,7 @@ VAR
     fMinStrength : _REAL(0.0);
     nSearchLines : _UDINT(1);
     hrPrev : _HRESULT(S_OK);
+    fAvgStrength : _REAL(0.0);
 	hresult : _HRESULT(S_OK);
 END_VAR
 ]]></Declaration>
@@ -51,13 +52,16 @@ AddParameter('fMinStrength', fMinStrength);
 AddParameter('nSearchLines', nSearchLines);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipEdgePoints', ipEdgePoints);
+AddOutput('fAvgStrength', fAvgStrength);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{6f94ef24-40d7-03b0-1f76-94fbe57437ea}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute
-]]></Declaration>
+VAR
+    avgStrength : REAL;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_LocateEdges(
 	ipSrcImage := ipSrcImage.Value,
@@ -69,8 +73,10 @@ AddOutput('hresult',hresult);
     bAlternateDirection := bAlternateDirection.Value,
 	fMinStrength := fMinStrength.Value,
 	nSearchLines := nSearchLines.Value,
-	hrPrev:= hrPrev.Value);
-]]></ST>
+	hrPrev := hrPrev.Value,
+    fAvgStrength => avgStrength);
+    
+fAvgStrength.Value := avgStrength;]]></ST>
       </Implementation>
     </Method>
     <Method Name="PreExecutionCheck" Id="{66cc19c2-88b3-086b-1555-2eb405e70860}">

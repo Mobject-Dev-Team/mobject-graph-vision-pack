@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Node_F_VN_DistanceTransformation" Id="{4d91cd47-be3b-0012-3a2c-291becfd9006}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -61,11 +61,22 @@ AddOutput('hresult',hresult);
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    distanceTypeIsValid : BOOL;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
 Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
 Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+
+CASE eDistanceType.Value OF
+    ETcVnDistanceType.TCVN_DT_L1,
+    ETcVnDistanceType.TCVN_DT_L2,
+    ETcVnDistanceType.TCVN_DT_C :
+        distanceTypeIsValid := TRUE;
+END_CASE
+Check.IsTrue(distanceTypeIsValid, 'eDistanceType value is unsupported');
 ]]></ST>
       </Implementation>
     </Method>

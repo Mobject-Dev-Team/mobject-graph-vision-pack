@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Node_F_VN_OCRExp" Id="{088ba01e-cc9f-42a6-b388-7e18d2f0eca4}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_OCRExp EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+    eModel : _ETcVnOcrModelType(ETcVnOcrModelType.TCVN_OMT_NUMBERS);
+    ipCharacters : _ITcVnContainer;
+    sPattern : _STRING('');
+    eOcrOptions : _ETcVnOcrOptions(ETcVnOcrOptions.TCVN_OO_NONE);
+    ipBoundingBoxes : _ITcVnContainer;
+    ipConfidences : _ITcVnContainer;
+    hrPrev : _HRESULT(S_OK);
+    fMinConfidence : _REAL(0.0);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{06105408-1773-4914-b013-7c16b660b7b6}" />
+    <Method Name="Clone" Id="{e651977d-dc05-4c28-b13e-c079a3d8d161}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_OCRExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_OCRExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{30c0f195-0ddc-487f-8b7f-e4bcaa98d6da}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('eModel', eModel);
+AddParameter('sPattern', sPattern);
+AddParameter('eOcrOptions', eOcrOptions);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipCharacters', ipCharacters);
+AddOutput('ipBoundingBoxes', ipBoundingBoxes);
+AddOutput('ipConfidences', ipConfidences);
+AddOutput('fMinConfidence', fMinConfidence);
+AddOutput('hresult',hresult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{9eee3d02-b391-4d4d-ac1a-1f9676261330}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    minConfidence : REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_OCRExp(
+	ipSrcImage := ipSrcImage.Value,
+    eModel := eModel.Value,
+	ipCharacters := ipCharacters.Value,
+    sPattern := sPattern.Value,
+    eOcrOptions := eOcrOptions.Value,
+    ipBoundingBoxes := ipBoundingBoxes.Value,
+    ipConfidences := ipConfidences.Value,
+	hrPrev := hrPrev.Value,
+    fMinConfidence => minConfidence);
+
+fMinConfidence.Value := minConfidence;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{6854a726-cb68-4c30-b77e-3affe6ecc5b4}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    result : HRESULT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[result := F_VN_CheckFunctionInitialization(ETcVnInitializableFunction.TCVN_IF_OCR, eModel.Value, S_OK);
+Check.IsTrue((result = S_OK), 'Invalid OCR model');
+
+Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
