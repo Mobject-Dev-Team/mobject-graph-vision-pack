@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="Node_F_VN_LocateEllipseExp" Id="{fb4b3e30-82d7-0a9d-3a10-d00392ba6997}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_LocateEllipseExp EXTENDS VisionNode
+VAR
+	ipSrcImage : _ITcVnImage;
+    stEllipse : _TcVnRotatedRectangle;
+    aCenter : _TcVnPoint2_REAL;
+    fSearchRadius : _REAL(0.0);
+	eEdgeDirection : _ETcVnEdgeDirection(ETcVnEdgeDirection.TCVN_ED_DARK_TO_LIGHT);
+    fMinStrength : _REAL(0.0);
+	nMaxThickness : _UDINT(1);
+	fMinSearchRadius : _REAL(0.0);
+	bInvertSearchDirection : _BOOL(FALSE);
+	nSubpixelsIterations : _UDINT(10);
+	nSearchLines : _UDINT(1);
+	fApproxPrecision : _REAL(0.001);
+	eAlgorithm : _ETcVnEdgeDetectionAlgorithm(ETcVnEdgeDetectionAlgorithm.TCVN_EDA_APPROX_ERF);
+	ipContourPoints : _ITcVnContainer;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{9f0b1d2a-010b-04d4-1d3b-d29ce7c8955f}" />
+    <Method Name="Clone" Id="{81639498-375f-0d04-295f-0b93b45d1590}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_LocateEllipseExp;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_LocateEllipseExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ca304710-8fc4-0b29-26dc-b6afefd94995}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('stEllipse', stEllipse);
+AddInput('aCenter', aCenter);
+AddInput('hrPrev', hrPrev);
+AddParameter('fSearchRadius', fSearchRadius);
+AddParameter('eEdgeDirection', eEdgeDirection);
+AddParameter('fMinStrength', fMinStrength);
+AddParameter('nMaxThickness', nMaxThickness);
+AddParameter('bInvertSearchDirection', bInvertSearchDirection);
+AddParameter('fMinSearchRadius', fMinSearchRadius);
+AddParameter('nSubpixelsIterations', nSubpixelsIterations);
+AddParameter('nSearchLines', nSearchLines);
+AddParameter('fApproxPrecision', fApproxPrecision);
+AddParameter('eAlgorithm', eAlgorithm);
+AddOutput('stEllipse', stEllipse);
+AddOutput('aCenter', aCenter);
+AddOutput('ipContourPoints', ipContourPoints);
+AddOutput('hresult',hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{653b6572-0c76-0400-0770-54b6413ef489}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_LocateEllipseExp(
+	ipSrcImage := ipSrcImage.Value,
+    stEllipse := stEllipse.Value,
+    aCenter := aCenter.Value,
+    fSearchRadius := fSearchRadius.Value,
+    eEdgeDirection := eEdgeDirection.Value,
+	fMinStrength := fMinStrength.Value,
+	nMaxThickness := nMaxThickness.Value,
+	bInvertSearchDirection := bInvertSearchDirection.Value,
+	fMinSearchRadius := fMinSearchRadius.Value,
+	nSubpixelsIterations := nSubpixelsIterations.Value,
+	nSearchLines := nSearchLines.Value,
+	fApproxPrecision := fApproxPrecision.Value,
+	eAlgorithm := eAlgorithm.Value,
+	ipContourPoints := ipContourPoints.Value,
+	hrPrev:= hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{40dfb1de-6e1d-01af-1084-4068959f7fdc}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+
+// Specifies the amount of search lines, which are equally distributed in all directions (must be >= 8 and a multiple of 4)
+Check.IsTrue(nSearchLines.Value >= 8, 'nSearchLines must be >= 8');
+Check.IsTrue(nSearchLines.Value MOD 4 = 0, 'nSearchLines must be a multiple of 4');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

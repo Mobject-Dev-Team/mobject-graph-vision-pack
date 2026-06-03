@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.11.0-beta
+
+- Added nodes
+
 ## v0.10.0-beta
 
 - updated to 4026.22
