@@ -1,34 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
-  <POU Name="Node_F_VN_HoughCircles" Id="{3ac64eaf-4310-4f3c-b80a-73012076387f}" SpecialFunc="None">
+  <POU Name="Node_F_VN_HoughCirclesExp" Id="{4a127d14-634b-06c1-1b69-5fe66f22c707}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Node_F_VN_HoughCircles EXTENDS VisionNode
+FUNCTION_BLOCK Node_F_VN_HoughCirclesExp EXTENDS VisionNode
 VAR
     ipSrcImage : _ITcVnImage;
     ipCircles : _ITcVnContainer;
     fInvAccuRatio : _LREAL(1.0);
     fMinDist : _LREAL(1.0);
-    hrPrev : _HRESULT(S_OK);
+	eHoughMethod : _ETcVnHoughMethod(ETcVnHoughMethod.TCVN_HM_GRADIENT);
+    fParam1 : _LREAL(0.0);
+	fParam2 : _LREAL(0.0);
+	nMinRadius : _UDINT(0);
+	nMaxRadius : _UDINT(0);
+	hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{72a57489-8180-4cb0-992d-5ff7763237f7}" />
-    <Method Name="Clone" Id="{27dff40c-3c36-4113-bced-31724099af96}">
+    <Folder Name="Constructor" Id="{2cac50d7-160b-046c-05fe-8135d74977b5}" />
+    <Method Name="Clone" Id="{299cf604-9e97-0ba0-0b91-c2065bcc1ead}">
       <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
 VAR
-	pNode : POINTER TO Node_F_VN_HoughCircles;
+	pNode : POINTER TO Node_F_VN_HoughCirclesExp;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(Node_F_VN_HoughCircles);
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_HoughCirclesExp);
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{a1d298b8-4b9f-4f84-8f68-14d599023070}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{c1274a57-6d38-0c30-26bb-8cffcdbd9313}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -39,26 +44,34 @@ END_VAR
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
 AddParameter('fInvAccuRatio', fInvAccuRatio);
 AddParameter('fMinDist', fMinDist);
+AddParameter('eHoughMethod', eHoughMethod);
+AddParameter('fParam1', fParam1);
+AddParameter('fParam2', fParam2);
+AddParameter('nMinRadius', nMinRadius);
+AddParameter('nMaxRadius', nMaxRadius);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipCircles', ipCircles);
-AddOutput('hresult', hresult);
-]]></ST>
+AddOutput('hresult', hresult);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnExecute" Id="{8565b99b-55b0-4b08-b8d8-c0376fb1aaaf}">
+    <Method Name="OnExecute" Id="{bf2bbe68-b276-0359-3099-a87e8f7ec543}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_HoughCircles(
+        <ST><![CDATA[hresult.Value := F_VN_HoughCirclesExp(
 	ipSrcImage := ipSrcImage.Value,
     ipCircles := ipCircles.Value,
     fInvAccuRatio := fInvAccuRatio.Value,
     fMinDist := fMinDist.Value,
-	hrPrev:= hrPrev.Value);
-]]></ST>
+	eHoughMethod := eHoughMethod.Value,
+	fParam1 := fParam1.Value,
+	fParam2 := fParam2.Value,
+	nMinRadius := nMinRadius.Value,
+	nMaxRadius := nMaxRadius.Value,
+	hrPrev:= hrPrev.Value);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PreExecutionCheck" Id="{1ade296a-e46c-4a1a-9059-b282ea74746d}">
+    <Method Name="PreExecutionCheck" Id="{e3b87552-3be0-054a-079d-4e78bb70c2f5}">
       <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
 VAR_INPUT
 	Check : I_PreExecutionChecks;
@@ -69,7 +82,25 @@ Check.IsTrue(ipSrcImage.IsElementType(ETcVnElementType.TCVN_ET_USINT), 'ipSrcIma
 Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
 Check.IsTrue((fInvAccuRatio.Value > 0), 'fInvAccuRatio must be greater than 0');
 Check.IsTrue((fMinDist.Value > 0), 'fMinDist must be greater than 0');
-]]></ST>
+
+Check.IsTrue(
+    (eHoughMethod.Value = ETcVnHoughMethod.TCVN_HM_GRADIENT) OR
+    (eHoughMethod.Value = ETcVnHoughMethod.TCVN_HM_GRADIENT_ALT),
+    'eHoughMethod must be GRADIENT or GRADIENT_ALT');
+	
+	
+IF (eHoughMethod.Value = ETcVnHoughMethod.TCVN_HM_GRADIENT_ALT) THEN
+    Check.IsTrue((fParam2.Value > 0) AND (fParam2.Value < 1),
+        'fParam2 (circle perfectness) must be > 0 and < 1 for GRADIENT_ALT');
+ELSE
+    Check.IsTrue((fParam2.Value > 0),
+        'fParam2 (accumulator threshold) must be > 0 for GRADIENT');
+END_IF
+
+IF (nMaxRadius.Value > 0) THEN
+    Check.IsTrue((nMaxRadius.Value >= nMinRadius.Value),
+        'nMaxRadius must be >= nMinRadius when non-zero');
+END_IF]]></ST>
       </Implementation>
     </Method>
   </POU>

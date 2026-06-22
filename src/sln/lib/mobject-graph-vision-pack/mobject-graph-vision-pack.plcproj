@@ -37,13 +37,13 @@
     </SelectedLibraryCategories>
   </PropertyGroup>
   <ItemGroup>
-    <LibraryReference Include="mobject-core,0.9.0,mobject">
+    <LibraryReference Include="mobject-core,0.10.0,mobject">
       <Namespace>mobject_core</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph,0.17.0,mobject">
+    <LibraryReference Include="mobject-graph,0.18.0,mobject">
       <Namespace>mobject_graph</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph-plc-pack,0.18.0,mobject">
+    <LibraryReference Include="mobject-graph-plc-pack,0.19.0,mobject">
       <Namespace>mobject_graph_plc_pack</Namespace>
     </LibraryReference>
   </ItemGroup>
@@ -3012,6 +3012,9 @@
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_HoughCircles.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_HoughCirclesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MatchImageHuMoments.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -3379,17 +3382,24 @@
     <Compile Include="Nodes\Miscellaneous\Node_F_VN_RotatedRectangleIntersection.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Neural Network\Node_F_VN_ReduceArg.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Neural Network\Node_F_VN_Sigmoid.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\Neural Network\Node_F_VN_SigmoidExp.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Nodes\Neural Network\Node_F_VN_Reduce.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\Neural Network\Node_F_VN_SoftMax.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Nodes\OCR\Node_F_VN_OCR.TcPOU">
       <SubType>Code</SubType>

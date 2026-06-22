@@ -833,7 +833,7 @@ VAR
 	node_F_VN_FindTemplateWalshExp : Node_F_VN_FindTemplateWalshExp;
 	node_F_VN_FindTemplateWalshExp_AngleRange : Node_F_VN_FindTemplateWalshExp_AngleRange;
     node_F_VN_HoughCircles : Node_F_VN_HoughCircles;
-    //node_F_VN_HoughCirclesExp : Node_F_VN_HoughCirclesExp;
+    node_F_VN_HoughCirclesExp : Node_F_VN_HoughCirclesExp;
     node_F_VN_HoughLines : Node_F_VN_HoughLines;
     //node_F_VN_HoughLinesExp : Node_F_VN_HoughLinesExp;
     node_F_VN_HoughLinesP : Node_F_VN_HoughLinesP;
@@ -1114,12 +1114,12 @@ VAR
     //node_F_VN_GetNeuralNetworkLayerNames : Node_F_VN_GetNeuralNetworkLayerNames;
     //node_F_VN_NonMaxSuppression : Node_F_VN_NonMaxSuppression;
     //node_F_VN_NonMaxSuppressionExp : Node_F_VN_NonMaxSuppressionExp;
-    //node_F_VN_Reduce : Node_F_VN_Reduce;
-    //node_F_VN_ReduceArg : Node_F_VN_ReduceArg;
+	node_F_VN_Reduce : Node_F_VN_Reduce;
+	node_F_VN_ReduceArg : Node_F_VN_ReduceArg;
     //node_F_VN_ReshapeImage : Node_F_VN_ReshapeImage;
-    //node_F_VN_Sigmoid : Node_F_VN_Sigmoid;
-    //node_F_VN_SigmoidExp : Node_F_VN_SigmoidExp;
-    //node_F_VN_SoftMax : Node_F_VN_SoftMax;
+	node_F_VN_Sigmoid : Node_F_VN_Sigmoid;
+	node_F_VN_SigmoidExp : Node_F_VN_SigmoidExp;
+	node_F_VN_SoftMax : Node_F_VN_SoftMax;
 	
 END_VAR
 ]]></Declaration>
@@ -1960,7 +1960,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_Find
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindTemplateWalshExp', node_F_VN_FindTemplateWalshExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindTemplateWalshExp_AngleRange', node_F_VN_FindTemplateWalshExp_AngleRange);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughCircles', node_F_VN_HoughCircles);
-//NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughCirclesExp', node_F_VN_HoughCirclesExp
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughCirclesExp', node_F_VN_HoughCirclesExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughLines', node_F_VN_HoughLines);
 //NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughLinesExp', node_F_VN_HoughLinesExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_HoughLinesP', node_F_VN_HoughLinesP);
@@ -2241,12 +2241,12 @@ NodeFactory.AddNodeAsPrototype('Vision/Texture Analysis/F_VN_HaralickFeatures', 
 //NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_GetNeuralNetworkLayerNames', node_F_VN_GetNeuralNetworkLayerNames);
 //NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_NonMaxSuppression', node_F_VN_NonMaxSuppression);
 //NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_NonMaxSuppressionExp', node_F_VN_NonMaxSuppressionExp);
-//NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_Reduce', node_F_VN_Reduce);
-//NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_ReduceArg', node_F_VN_ReduceArg);
+NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_Reduce', node_F_VN_Reduce);
+NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_ReduceArg', node_F_VN_ReduceArg);
 //NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_ReshapeImage', node_F_VN_ReshapeImage);
-//NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_Sigmoid', node_F_VN_Sigmoid);
-//NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_SigmoidExp', node_F_VN_SigmoidExp);
-//NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_SoftMax', node_F_VN_SoftMax);
+NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_Sigmoid', node_F_VN_Sigmoid);
+NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_SigmoidExp', node_F_VN_SigmoidExp);
+NodeFactory.AddNodeAsPrototype('Vision/Neural Network/F_VN_SoftMax', node_F_VN_SoftMax);
 
 ]]></ST>
       </Implementation>
