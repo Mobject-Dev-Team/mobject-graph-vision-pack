@@ -3288,6 +3288,9 @@
     <Compile Include="Nodes\Measurement\Node_F_VN_LocateCircularArc.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_ClosestPointsBF.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Measurement\Node_F_VN_LocateEllipseExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
