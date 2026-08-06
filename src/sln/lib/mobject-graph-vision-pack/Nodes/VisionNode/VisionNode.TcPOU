@@ -4,18 +4,74 @@
     <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT VisionNode EXTENDS Node IMPLEMENTS I_PreCheckedNode
 VAR
 	preExecutionCheckExtension : PreExecutionCheckExtension('precheck', THIS^);
+
+	// Raised when this node's own run was cut short by the watchdog, or when the
+	// watchdog could not be used at all. Surfaces on the node in GetStatus.
+	// Passing the node here registers it with that node's alarms, so it must not
+	// be added again by hand - AddAlarm does not check for duplicates.
+	watchdogAlarm : FunctionFailedAlarm(THIS^);
+END_VAR
+VAR CONSTANT
+	// How long one node may spend inside TC3 Vision calls before it is cut off,
+	// in microseconds. Deliberately generous: it exists to stop a node locking up
+	// for good, not to hold the task to its cycle time. A node that overruns
+	// slightly is allowed to, and the task may overrun with it.
+	WATCHDOG_TIMEOUT_IN_US : UDINT := 10000000; // 10 seconds
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Method Name="Execute" Id="{8505f98d-9e97-07b5-148b-0e469a2003d1}">
-      <Declaration><![CDATA[METHOD PUBLIC Execute]]></Declaration>
+      <Declaration><![CDATA[METHOD PUBLIC Execute
+VAR
+	hrWatchdog : HRESULT;
+	nFunctionsMonitored : ULINT;
+	nFractionProcessed : UDINT;
+	tRest : DINT;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT preExecutionCheckExtension.Check() THEN
+        <ST><![CDATA[// Cleared before the precheck, not after it. A failed precheck returns without
+// ever reaching the base Execute, which is the other place the abort flag is
+// cleared, so doing this later would leave a node that did not run this cycle
+// still carrying an abort from a previous one - and the strategy would stop the
+// graph and blame it.
+ClearExecutionAborted();
+watchdogAlarm.Clear();
+
+IF NOT preExecutionCheckExtension.Check() THEN
 	RETURN;
 END_IF
-SUPER^.Execute();]]></ST>
+
+// Guarding one node rather than the whole cycle. Scoped this tightly, an
+// overrun costs only this node's remaining vision calls - the functions after
+// an expiry are skipped, so a watchdog around the whole graph would silently
+// skip every node still to come and the run would still look like it succeeded.
+hrWatchdog := F_VN_StartRelWatchdog(WATCHDOG_TIMEOUT_IN_US, S_OK);
+
+SUPER^.Execute();
+
+hrWatchdog := F_VN_StopWatchdog(
+	hrStartWatchdog := hrWatchdog,
+	nFunctionsMonitored => nFunctionsMonitored,
+	nFractionProcessed => nFractionProcessed,
+	tRest => tRest);
+
+// A negative tRest is the watchdog saying it had to cut the work short. What
+// this node produced is partial at best, so say so rather than let it pass as a
+// real result - the strategy stops the run on this and names the node.
+IF tRest < 0 THEN
+	FlagExecutionAborted();
+	watchdogAlarm.Raise('watchdog', hrWatchdog);
+	RETURN;
+END_IF
+
+// Not an abort, but worth saying out loud: the node just ran unguarded. The
+// usual cause is 16#71A, which the watchdog returns when watchdog monitoring
+// has not been ticked on in the task configuration.
+IF FAILED(hrWatchdog) THEN
+	watchdogAlarm.Raise('watchdog', hrWatchdog);
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="PreExecutionCheck" Id="{1cc0fb1a-9fc7-05d0-0dda-466734a3a96c}">
