@@ -7,8 +7,9 @@ VAR
 
 	// Raised when this node's own run was cut short by the watchdog, or when the
 	// watchdog could not be used at all. Surfaces on the node in GetStatus.
+	// Passing the node here registers it with that node's alarms, so it must not
+	// be added again by hand - AddAlarm does not check for duplicates.
 	watchdogAlarm : FunctionFailedAlarm(THIS^);
-	watchdogAlarmRegistered : BOOL;
 END_VAR
 VAR CONSTANT
 	// How long one node may spend inside TC3 Vision calls before it is cut off,
@@ -30,16 +31,17 @@ VAR
 	tRest : DINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT watchdogAlarmRegistered THEN
-	Alarms.AddAlarm(watchdogAlarm);
-	watchdogAlarmRegistered := TRUE;
-END_IF
+        <ST><![CDATA[// Cleared before the precheck, not after it. A failed precheck returns without
+// ever reaching the base Execute, which is the other place the abort flag is
+// cleared, so doing this later would leave a node that did not run this cycle
+// still carrying an abort from a previous one - and the strategy would stop the
+// graph and blame it.
+ClearExecutionAborted();
+watchdogAlarm.Clear();
 
 IF NOT preExecutionCheckExtension.Check() THEN
 	RETURN;
 END_IF
-
-watchdogAlarm.Clear();
 
 // Guarding one node rather than the whole cycle. Scoped this tightly, an
 // overrun costs only this node's remaining vision calls - the functions after
