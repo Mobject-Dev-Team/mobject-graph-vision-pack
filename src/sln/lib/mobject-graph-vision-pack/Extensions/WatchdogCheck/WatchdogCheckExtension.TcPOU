@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="WatchdogCheckExtension" Id="{c414888c-294b-00e8-26d1-35c6bbb6ba50}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK WatchdogCheckExtension EXTENDS Extension
+VAR
+	watchdogAlarm : FunctionFailedAlarm(THIS^);
+	watchdogTimeInUs : _DINT(10000000); // default 10s
+	hResult : HRESULT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{0f50eb21-d707-0d4c-2985-38486fd76614}" />
+    <Method Name="FB_init" Id="{7d855a95-77ef-076b-3bc3-51b2e694fba3}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	Name : T_MAXSTRING;
+	Parent : I_HostExtensions;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddParameter('watchdogTimeInUs', watchdogTimeInUs);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Start" Id="{3c805fc1-4eb4-0160-060f-6a55c0259a43}">
+      <Declaration><![CDATA[METHOD PUBLIC Start
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[watchdogAlarm.Clear();
+
+IF watchdogTimeInUs.Value = 0 THEN
+	RETURN;
+END_IF
+
+hResult := F_VN_StartRelWatchdog(watchdogTimeInUs.Value, S_OK);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stop" Id="{1d99623e-567c-0206-29ce-9507611054ae}">
+      <Declaration><![CDATA[METHOD PUBLIC Stop
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult := F_VN_StopWatchdog(
+	hrStartWatchdog := hresult);
+
+IF FAILED(hresult) THEN
+	watchdogAlarm.Raise('Watchdog', hresult);
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
