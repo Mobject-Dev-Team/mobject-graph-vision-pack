@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="VisionNodePack" Id="{257fc325-f932-4b89-a50a-e9a0a38418f4}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -641,7 +641,7 @@ VAR
     node_F_VN_EnclosingTriangle : Node_F_VN_EnclosingTriangle;
     node_F_VN_FitEllipse : Node_F_VN_FitEllipse;
     node_F_VN_FitLine : Node_F_VN_FitLine;
-    //node_F_VN_FitLineExp : Node_F_VN_FitLineExp;
+	node_F_VN_FitLineExp : Node_F_VN_FitLineExp;
     //node_F_VN_FourierDescriptors : Node_F_VN_FourierDescriptors;
     //node_F_VN_MatchContours : Node_F_VN_MatchContours;
     node_F_VN_MatchContours1vsN : Node_F_VN_MatchContours1vsN;
@@ -1096,7 +1096,7 @@ VAR
     //node_F_VN_SetRngSeed : Node_F_VN_SetRngSeed;
     //node_F_VN_UpdateTimestamp : Node_F_VN_UpdateTimestamp;
     
-    node_FB_VN_InitializeFunction : Node_FB_VN_InitializeFunction;
+//     node_FB_VN_InitializeFunction : Node_FB_VN_InitializeFunction;
     
     // OCR
     node_F_VN_OCR : Node_F_VN_OCR;
@@ -1769,7 +1769,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_EnclosingRectangle'
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_EnclosingTriangle', node_F_VN_EnclosingTriangle);
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_FitEllipse', node_F_VN_FitEllipse);
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_FitLine', node_F_VN_FitLine);
-//NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_FitLineExp', node_F_VN_FitLineExp);
+NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_FitLineExp', node_F_VN_FitLineExp);
 //NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_FourierDescriptors', node_F_VN_FourierDescriptors);
 //NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_MatchContours', node_F_VN_MatchContours);
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_MatchContours1vsN', node_F_VN_MatchContours1vsN);
@@ -2223,7 +2223,7 @@ NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_RotatedRectangleInters
 //NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_SetRngSeed', node_F_VN_SetRngSeed);
 //NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/F_VN_UpdateTimestamp', node_F_VN_UpdateTimestamp);
 
-NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/FB_VN_InitializeFunction', node_FB_VN_InitializeFunction);
+// NodeFactory.AddNodeAsPrototype('Vision/Miscellaneous/FB_VN_InitializeFunction', node_FB_VN_InitializeFunction);
 
 // OCR
 NodeFactory.AddNodeAsPrototype('Vision/OCR/F_VN_OCR', node_F_VN_OCR);
