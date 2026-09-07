@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="WatchdogCheckExtension" Id="{c414888c-294b-00e8-26d1-35c6bbb6ba50}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK WatchdogCheckExtension EXTENDS Extension
 VAR
 	watchdogAlarm : FunctionFailedAlarm(THIS^);
-	watchdogTimeInUs : _DINT(10000000); // default 10s
+	watchdogTimeInUs : _DINT(500000); // default
 	hResult : HRESULT;
 END_VAR
 ]]></Declaration>
@@ -19,8 +19,7 @@ VAR_INPUT
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 	Name : T_MAXSTRING;
 	Parent : I_HostExtensions;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddParameter('watchdogTimeInUs', watchdogTimeInUs);]]></ST>
       </Implementation>
