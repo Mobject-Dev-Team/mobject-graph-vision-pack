@@ -86,7 +86,7 @@ AddLocalEnumeration('TCVN_DT_C', ETcVnDistanceType.TCVN_DT_C);
 AddLocalEnumeration('TCVN_DT_L12', ETcVnDistanceType.TCVN_DT_L12);
 AddLocalEnumeration('TCVN_DT_FAIR', ETcVnDistanceType.TCVN_DT_FAIR);
 AddLocalEnumeration('TCVN_DT_WELSCH', ETcVnDistanceType.TCVN_DT_WELSCH);
-AddLocalEnumeration('TCVN_DT_HUBER ', ETcVnDistanceType.TCVN_DT_HUBER);
+AddLocalEnumeration('TCVN_DT_HUBER', ETcVnDistanceType.TCVN_DT_HUBER);
 ]]></ST>
       </Implementation>
     </Method>
@@ -190,5 +190,30 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Method Name="TryDeserializeFrom" Id="{34d65c73-1b93-470b-a73a-a0765a6a28e6}">
+      <Declaration><![CDATA[METHOD PUBLIC TryDeserializeFrom : BOOL
+VAR_INPUT
+    Deserializer : I_Deserializer;
+    Feedback : I_DeserializerFeedback;
+END_VAR
+VAR
+    key : T_MAXSTRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Accept the label emitted by older versions, but serialize the canonical label.
+IF NOT Deserializer.TryGetString(key, Feedback) THEN
+    RETURN;
+END_IF
+
+IF key = 'TCVN_DT_HUBER ' THEN
+    activeData := ETcVnDistanceType.TCVN_DT_HUBER;
+    TryDeserializeFrom := TRUE;
+    RETURN;
+END_IF
+
+TryDeserializeFrom := SUPER^.TryDeserializeFrom(Deserializer, Feedback);]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

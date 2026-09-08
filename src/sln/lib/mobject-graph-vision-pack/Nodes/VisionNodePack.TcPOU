@@ -643,10 +643,10 @@ VAR
     node_F_VN_FitLine : Node_F_VN_FitLine;
 	node_F_VN_FitLineExp : Node_F_VN_FitLineExp;
     //node_F_VN_FourierDescriptors : Node_F_VN_FourierDescriptors;
-    //node_F_VN_MatchContours : Node_F_VN_MatchContours;
+    node_F_VN_MatchContours : Node_F_VN_MatchContours;
     node_F_VN_MatchContours1vsN : Node_F_VN_MatchContours1vsN;
     node_F_VN_MatchContours1vsNExp : Node_F_VN_MatchContours1vsNExp;
-    //node_F_VN_MatchContoursExp : Node_F_VN_MatchContoursExp;
+    node_F_VN_MatchContoursExp : Node_F_VN_MatchContoursExp;
     node_F_VN_UprightBoundingRectangle : Node_F_VN_UprightBoundingRectangle;
     
     // Control Functions
@@ -823,6 +823,9 @@ VAR
 	
     // Image Analysis
     //node_F_VN_AdjustActiveContour : Node_F_VN_AdjustActiveContour;
+    node_F_VN_SalientFeatures : Node_F_VN_SalientFeatures;
+    node_F_VN_FindRois : Node_F_VN_FindRois;
+    node_F_VN_MergeRegions : Node_F_VN_MergeRegions;
     node_F_VN_DetectBlobs : Node_F_VN_DetectBlobs;
     node_F_VN_DetectBlobsExp : Node_F_VN_DetectBlobsExp;
     node_F_VN_FindContourHierarchyExp : Node_F_VN_FindContourHierarchyExp;
@@ -843,8 +846,8 @@ VAR
     node_F_VN_MatchTemplateAndEvaluate : Node_F_VN_MatchTemplateAndEvaluate;
 	node_F_VN_MatchTemplateWalsh : Node_F_VN_MatchTemplateWalsh;
 	node_F_VN_MatchTemplateWalshExp : Node_F_VN_MatchTemplateWalshExp;
-    //node_F_VN_MatchTemplateAndEvaluateExp : Node_F_VN_MatchTemplateAndEvaluateExp;
-    //node_F_VN_MatchTemplateExp : Node_F_VN_MatchTemplateExp;
+    node_F_VN_MatchTemplateAndEvaluateExp : Node_F_VN_MatchTemplateAndEvaluateExp;
+    node_F_VN_MatchTemplateExp : Node_F_VN_MatchTemplateExp;
     node_F_VN_CannyEdgeDetection : Node_F_VN_CannyEdgeDetection;
     node_F_VN_CannyEdgeDetectionExp : Node_F_VN_CannyEdgeDetectionExp;
     node_F_VN_ConnectedComponents : Node_F_VN_ConnectedComponents;
@@ -888,9 +891,9 @@ VAR
     node_F_VN_HistogramEqualizationExp : Node_F_VN_HistogramEqualizationExp;
 	node_F_VN_HistogramExp : Node_F_VN_HistogramExp;
     node_F_VN_InvertImageColor : Node_F_VN_InvertImageColor;
-    //node_F_VN_InvertImageColorExp : Node_F_VN_InvertImageColorExp;
+    node_F_VN_InvertImageColorExp : Node_F_VN_InvertImageColorExp;
     node_F_VN_NormalizeImage : Node_F_VN_NormalizeImage;
-    //node_F_VN_NormalizeImageExp : Node_F_VN_NormalizeImageExp;
+    node_F_VN_NormalizeImageExp : Node_F_VN_NormalizeImageExp;
     node_F_VN_NormalizeImageForDisplay : Node_F_VN_NormalizeImageForDisplay;
     //node_F_VN_ReferenceColorSimilarity_ITcVnColorModel : Node_F_VN_ReferenceColorSimilarity_ITcVnColorModel;
     //node_F_VN_ReferenceColorSimilarity_ITcVnMlModel : Node_F_VN_ReferenceColorSimilarity_ITcVnMlModel;
@@ -975,11 +978,11 @@ VAR
     node_F_VN_KeyPointsSB : Node_F_VN_KeyPointsSB;
     node_F_VN_KeyPointsSBExp : Node_F_VN_KeyPointsSBExp;
     node_F_VN_MatchDescriptorsBF : Node_F_VN_MatchDescriptorsBF;
-    //node_F_VN_MatchDescriptorsBFExp : Node_F_VN_MatchDescriptorsBFExp;
+    node_F_VN_MatchDescriptorsBFExp : Node_F_VN_MatchDescriptorsBFExp;
     node_F_VN_MatchDescriptorsFlannLsh : Node_F_VN_MatchDescriptorsFlannLsh;
     node_F_VN_MatchDescriptorsFlannLshExp : Node_F_VN_MatchDescriptorsFlannLshExp;
     node_F_VN_MatchDescriptorsKnnBF : Node_F_VN_MatchDescriptorsKnnBF;
-    //node_F_VN_MatchDescriptorsKnnBFExp : Node_F_VN_MatchDescriptorsKnnBFExp;
+    node_F_VN_MatchDescriptorsKnnBFExp : Node_F_VN_MatchDescriptorsKnnBFExp;
     node_F_VN_MatchDescriptorsKnnFlannLsh : Node_F_VN_MatchDescriptorsKnnFlannLsh;
     node_F_VN_MatchDescriptorsKnnFlannLshExp : Node_F_VN_MatchDescriptorsKnnFlannLshExp;
     node_F_VN_RegionsMSER : Node_F_VN_RegionsMSER;
@@ -1771,10 +1774,10 @@ NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_FitEllipse', node_F
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_FitLine', node_F_VN_FitLine);
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_FitLineExp', node_F_VN_FitLineExp);
 //NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_FourierDescriptors', node_F_VN_FourierDescriptors);
-//NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_MatchContours', node_F_VN_MatchContours);
+NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_MatchContours', node_F_VN_MatchContours);
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_MatchContours1vsN', node_F_VN_MatchContours1vsN);
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_MatchContours1vsNExp', node_F_VN_MatchContours1vsNExp);
-//NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_MatchContoursExp', node_F_VN_MatchContoursExp);
+NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_MatchContoursExp', node_F_VN_MatchContoursExp);
 NodeFactory.AddNodeAsPrototype('Vision/Contour Analysis/F_VN_UprightBoundingRectangle', node_F_VN_UprightBoundingRectangle);
 
 // Control Functions
@@ -1950,6 +1953,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Helpers/Mux10Way_ITcVnImage', node_Mux10W
 
 // Image Analysis
 //NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_AdjustActiveContour', node_F_VN_AdjustActiveContour);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_SalientFeatures', node_F_VN_SalientFeatures);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindRois', node_F_VN_FindRois);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MergeRegions', node_F_VN_MergeRegions);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_DetectBlobs', node_F_VN_DetectBlobs);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_DetectBlobsExp', node_F_VN_DetectBlobsExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_FindContourHierarchyExp', node_F_VN_FindContourHierarchyExp);
@@ -1970,8 +1976,8 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_Matc
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateAndEvaluate', node_F_VN_MatchTemplateAndEvaluate);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateWalsh', node_F_VN_MatchTemplateWalsh);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateWalshExp', node_F_VN_MatchTemplateWalshExp);
-//NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateAndEvaluateExp', node_F_VN_MatchTemplateAndEvaluateExp);
-//NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateExp', node_F_VN_MatchTemplateExp);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateAndEvaluateExp', node_F_VN_MatchTemplateAndEvaluateExp);
+NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/Object Detection/F_VN_MatchTemplateExp', node_F_VN_MatchTemplateExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CannyEdgeDetection', node_F_VN_CannyEdgeDetection);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_CannyEdgeDetectionExp', node_F_VN_CannyEdgeDetectionExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Analysis/F_VN_ConnectedComponents', node_F_VN_ConnectedComponents);
@@ -2015,9 +2021,9 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_HistogramEqualizationExp', node_F_VN_HistogramEqualizationExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_HistogramExp', node_F_VN_HistogramExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_InvertImageColor', node_F_VN_InvertImageColor);
-//NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_InvertImageColorExp', node_F_VN_InvertImageColorExp);
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_InvertImageColorExp', node_F_VN_InvertImageColorExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_NormalizeImage', node_F_VN_NormalizeImage);
-//NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_NormalizeImageExp', node_F_VN_NormalizeImageExp);
+NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_NormalizeImageExp', node_F_VN_NormalizeImageExp);
 NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_NormalizeImageForDisplay', node_F_VN_NormalizeImageForDisplay);
 //NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ReferenceColorSimilarity_ITcVnColorModel', node_F_VN_ReferenceColorSimilarity_ITcVnColorModel);
 //NodeFactory.AddNodeAsPrototype('Vision/Image Color and Contrast Processing/F_VN_ReferenceColorSimilarity_ITcVnMlModel', node_F_VN_ReferenceColorSimilarity_ITcVnMlModel);
@@ -2102,11 +2108,11 @@ NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsMSERExp',
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsSB', node_F_VN_KeyPointsSB);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsSBExp', node_F_VN_KeyPointsSBExp);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsBF', node_F_VN_MatchDescriptorsBF);
-//NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsBFExp', node_F_VN_MatchDescriptorsBFExp);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsBFExp', node_F_VN_MatchDescriptorsBFExp);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsFlannLsh', node_F_VN_MatchDescriptorsFlannLsh);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsFlannLshExp', node_F_VN_MatchDescriptorsFlannLshExp);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsKnnBF', node_F_VN_MatchDescriptorsKnnBF);
-//NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsKnnBFExp', node_F_VN_MatchDescriptorsKnnBFExp);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsKnnBFExp', node_F_VN_MatchDescriptorsKnnBFExp);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsKnnFlannLsh', node_F_VN_MatchDescriptorsKnnFlannLsh);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_MatchDescriptorsKnnFlannLshExp', node_F_VN_MatchDescriptorsKnnFlannLshExp);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_RegionsMSER', node_F_VN_RegionsMSER);

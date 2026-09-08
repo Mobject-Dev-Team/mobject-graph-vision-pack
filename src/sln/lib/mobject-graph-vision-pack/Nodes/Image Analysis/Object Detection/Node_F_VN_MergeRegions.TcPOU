@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.25">
+  <POU Name="Node_F_VN_MergeRegions" Id="{d0287c22-20fe-40ae-8939-374a768b0f49}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MergeRegions EXTENDS VisionNode
+VAR
+    ipSrcContainer : _ITcVnContainer;
+    ipDestContainer : _ITcVnContainer;
+    nDistance : _UDINT(0);
+    nOptions : _ETcVnMergeRegionsOptions(ETcVnMergeRegionsOptions.TCVN_MRO_UPRIGHTBOUNDINGRECT);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Clone" Id="{b6c28775-36a4-435b-bbc6-06a3327adebc}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_MergeRegions;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MergeRegions);
+IF pNode = 0 THEN
+    RETURN;
+END_IF
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{e44c5a78-7d75-4272-830e-18a6f673b389}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcContainer', ipSrcContainer);
+AddOutput('ipDestContainer', ipDestContainer);
+AddParameter('nDistance', nDistance);
+AddParameter('nOptions', nOptions);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{3ca3c12e-34df-42af-82be-d475532aad00}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MergeRegions(
+    ipSrcContainer := ipSrcContainer.Value,
+    ipDestContainer := ipDestContainer.Value,
+    nDistance := nDistance.Value,
+    nOptions := nOptions.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{12b2cf9b-8955-4df7-a3da-1ec1c810fe60}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcContainer.IsValid, 'ipSrcContainer must contain a container');
+Check.IsTrue(ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnRectangle_DINT), 'ipSrcContainer must contain TcVnRectangle_DINT elements');
+Check.IsTrue(nOptions.Value = ETcVnMergeRegionsOptions.TCVN_MRO_UPRIGHTBOUNDINGRECT, 'Unsupported region merge option');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

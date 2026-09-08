@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.25">
+  <POU Name="Node_F_VN_MatchTemplateExp" Id="{b2584b0f-b20a-4622-91c2-b1d7ecdea274}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MatchTemplateExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipTemplateImage : _ITcVnImage;
+    ipResultImage : _ITcVnImage;
+    eMatchMethod : _ETcVnTemplateMatchMethod(ETcVnTemplateMatchMethod.TCVN_TMM_CCORR_NORMED);
+    ipTemplateMask : _ITcVnImage;
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Clone" Id="{b15c0e5f-74eb-494c-9c6a-ae1daf831d0d}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_MatchTemplateExp;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MatchTemplateExp);
+IF pNode = 0 THEN
+    RETURN;
+END_IF
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{461530cb-2738-42e6-9940-06fa753818dd}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('ipTemplateImage', ipTemplateImage);
+AddOutput('ipResultImage', ipResultImage);
+AddParameter('eMatchMethod', eMatchMethod);
+AddInput('ipTemplateMask', ipTemplateMask);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{9bdd5956-c45c-4c56-bd30-655b6751b38d}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MatchTemplateExp(
+    ipSrcImage := ipSrcImage.Value,
+    ipTemplateImage := ipTemplateImage.Value,
+    ipResultImage := ipResultImage.Value,
+    eMatchMethod := eMatchMethod.Value,
+    ipTemplateMask := ipTemplateMask.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{90c88f48-3c84-43a1-8cdb-ff9fb9015889}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.IsElementType(ETcVnElementType.TCVN_ET_USINT) OR ipSrcImage.IsElementType(ETcVnElementType.TCVN_ET_REAL), 'ipSrcImage must contain USINT or REAL elements');
+Check.IsTrue(ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3), 'ipSrcImage must contain 1 or 3 channels');
+Check.IsTrue(ipTemplateImage.IsValid, 'ipTemplateImage must contain an image');
+Check.IsTrue(ImagesHaveMatchingPixelFormats(ipSrcImage.Value, ipTemplateImage.Value), 'Source and template must have matching pixel formats');
+Check.IsTrue(IsTemplateImageSmallerThanSourceImage(ipSrcImage.Value, ipTemplateImage.Value), 'Template width and height must be smaller than the source');
+IF ipTemplateMask.Value <> 0 THEN
+    Check.IsTrue(ipTemplateMask.IsValid, 'ipTemplateMask must contain an image when connected');
+    Check.IsTrue(ImagesHaveMatchingPixelFormats(ipTemplateImage.Value, ipTemplateMask.Value), 'Template and mask must have matching pixel formats');
+    Check.IsTrue(IsImage1SizeEqualToImage2Size(ipTemplateImage.Value, ipTemplateMask.Value), 'Template and mask must have matching dimensions');
+END_IF
+Check.IsTrue((eMatchMethod.Value = ETcVnTemplateMatchMethod.TCVN_TMM_SQDIFF) OR
+             (eMatchMethod.Value = ETcVnTemplateMatchMethod.TCVN_TMM_SQDIFF_NORMED) OR
+             (eMatchMethod.Value = ETcVnTemplateMatchMethod.TCVN_TMM_CCORR) OR
+             (eMatchMethod.Value = ETcVnTemplateMatchMethod.TCVN_TMM_CCORR_NORMED) OR
+             (eMatchMethod.Value = ETcVnTemplateMatchMethod.TCVN_TMM_CCOEFF) OR
+             (eMatchMethod.Value = ETcVnTemplateMatchMethod.TCVN_TMM_CCOEFF_NORMED), 'Unsupported eMatchMethod');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

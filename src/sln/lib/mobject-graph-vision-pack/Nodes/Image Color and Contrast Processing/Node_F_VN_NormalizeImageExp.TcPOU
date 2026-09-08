@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.25">
+  <POU Name="Node_F_VN_NormalizeImageExp" Id="{fb6c3f0b-8a30-4ec0-a42f-501a6e2eecec}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_NormalizeImageExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    fAlpha : _LREAL(0);
+    fBeta : _LREAL(255);
+    eNormType : _ETcVnNormalizationType(ETcVnNormalizationType.TCVN_NT_MINMAX);
+    eDestType : _ETcVnElementType(ETcVnElementType.TCVN_ET_SAME_AS_SOURCE);
+    ipMask : _ITcVnImage;
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Clone" Id="{6dbfdff9-3674-46be-b114-f0c2ee7573f7}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_NormalizeImageExp;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_NormalizeImageExp);
+IF pNode = 0 THEN
+    RETURN;
+END_IF
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{668252d4-a55f-4ac3-ac30-29d167daf020}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddOutput('ipDestImage', ipDestImage);
+AddParameter('fAlpha', fAlpha);
+AddParameter('fBeta', fBeta);
+AddParameter('eNormType', eNormType);
+AddParameter('eDestType', eDestType);
+AddInput('ipMask', ipMask);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{74b1a86a-4419-4cd3-9b8b-3032f654a67d}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_NormalizeImageExp(
+    ipSrcImage := ipSrcImage.Value,
+    ipDestImage := ipDestImage.Value,
+    fAlpha := fAlpha.Value,
+    fBeta := fBeta.Value,
+    eNormType := eNormType.Value,
+    eDestType := eDestType.Value,
+    ipMask := ipMask.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{2b193ca4-e9be-4055-9912-76853bd26991}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+IF ipMask.Value <> 0 THEN
+    Check.IsTrue(ipMask.IsValid, 'ipMask must contain an image when connected');
+    Check.IsTrue(IsImage1SizeEqualToImage2Size(ipSrcImage.Value, ipMask.Value), 'Source and mask must have matching dimensions');
+END_IF
+Check.IsTrue((eNormType.Value = ETcVnNormalizationType.TCVN_NT_INF) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_L1) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_L2) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_MINMAX), 'Unsupported eNormType');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

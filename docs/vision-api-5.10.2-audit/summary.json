@@ -1,0 +1,48 @@
+{
+  "api_file": "Tc3_Vision_Api_5.10.2.html",
+  "api_sha256": "140d4fd65a33150f6be3c5536c30c17d1f8b6508875fbc4e7c6b87be8cc77405",
+  "functions": {
+    "registered": 824,
+    "missing": 214,
+    "excluded_from_build": 1
+  },
+  "datatypes_and_constants": {
+    "Aliases": {
+      "registered": 9
+    },
+    "Arrays": {
+      "registered": 29
+    },
+    "Constants": {
+      "registered": 47
+    },
+    "Enums": {
+      "registered": 92
+    },
+    "Structs": {
+      "registered": 31,
+      "excluded_from_build": 1
+    }
+  },
+  "interfaces": {
+    "missing": 109,
+    "unregistered": 1,
+    "registered": 3
+  },
+  "function_blocks": {
+    "missing": 24,
+    "excluded_from_build": 1
+  },
+  "missing_functions_by_licence": {
+    "TC3 Vision Base": 105,
+    "TC3 Vision Code Reading": 5,
+    "TC3 Vision Metrology 2D": 27,
+    "TC3 Machine Learning Realtime Inference": 58,
+    "TC3 Neural Network Realtime Inference": 11,
+    "TC3 Vision Matching": 8
+  },
+  "registered_nodes": 881,
+  "registered_datatypes": 185,
+  "source_pous": 1104,
+  "existing_wrapper_gap_rows": 0
+}

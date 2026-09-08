@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_TcVnParamsWalshBarcodeDetection" Id="{fe845983-f29f-4b44-8ff0-01de82ebe09a}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _TcVnParamsWalshBarcodeDetection EXTENDS StructuredDatatypeBase
+VAR
+    localData : TcVnParamsWalshBarcodeDetection := (nMaxBarDistance := 8, fMinAspectRatio := 1.0, fMaxAspectRatio := 5.0, nIntensityDifference := 100, nMinArea := -1, nChannelIndex := -1, nWalshFilterNum := 5, fOutlierReductionFactor := 1.0, fBarConnectionFactor := 1.0, fRegionFilterFactor := 1.0, fPostProcessingResizeFactor := 0.5, eInterpolationType := TCVN_IT_BILINEAR);
+    activeData : REFERENCE TO TcVnParamsWalshBarcodeDetection REF= localData;
+    _nMaxBarDistance : _UDINT(localData.nMaxBarDistance);
+    _fMinAspectRatio : _REAL(localData.fMinAspectRatio);
+    _fMaxAspectRatio : _REAL(localData.fMaxAspectRatio);
+    _nIntensityDifference : _UDINT(localData.nIntensityDifference);
+    _nMinArea : _DINT(localData.nMinArea);
+    _nChannelIndex : _DINT(localData.nChannelIndex);
+    _nWalshFilterNum : _UDINT(localData.nWalshFilterNum);
+    _fOutlierReductionFactor : _REAL(localData.fOutlierReductionFactor);
+    _fBarConnectionFactor : _REAL(localData.fBarConnectionFactor);
+    _fRegionFilterFactor : _REAL(localData.fRegionFilterFactor);
+    _fPostProcessingResizeFactor : _REAL(localData.fPostProcessingResizeFactor);
+    _eInterpolationType : _ETcVnInterpolationType(localData.eInterpolationType);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST/>
+    </Implementation>
+    <Folder Name="Core" Id="{57b274cb-9684-41b4-ab65-0d0202f7b4e9}"/>
+    <Folder Name="Customize" Id="{9beafbe5-9c27-4395-9731-d6a0513786bc}">
+      <Folder Name="Constructor" Id="{e6f11ef6-cfaa-4661-974b-468f4b35313e}"/>
+      <Folder Name="Protected" Id="{c94b7c7e-d391-47b3-b63e-0ad65fe9173a}"/>
+    </Folder>
+    <Property Name="Address" Id="{16103200-3a49-4a5e-952b-3cfc14118e2b}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{936d103b-2d1f-4b74-ac48-298bd103fb83}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{2cf9d87b-978f-4701-9cf1-dbafd005b847}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{623ed220-dbe2-413b-b3a4-5add0d2ee25e}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _TcVnParamsWalshBarcodeDetection;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_TcVnParamsWalshBarcodeDetection);
+IF pClone = 0 THEN
+    RETURN;
+END_IF
+pClone^.TryCopyFrom(THIS^);
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{1cdbfddd-cac4-4945-912c-39ab76f2b176}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetMemberReference();
+AddMember('nMaxBarDistance', _nMaxBarDistance);
+AddMember('fMinAspectRatio', _fMinAspectRatio);
+AddMember('fMaxAspectRatio', _fMaxAspectRatio);
+AddMember('nIntensityDifference', _nIntensityDifference);
+AddMember('nMinArea', _nMinArea);
+AddMember('nChannelIndex', _nChannelIndex);
+AddMember('nWalshFilterNum', _nWalshFilterNum);
+AddMember('fOutlierReductionFactor', _fOutlierReductionFactor);
+AddMember('fBarConnectionFactor', _fBarConnectionFactor);
+AddMember('fRegionFilterFactor', _fRegionFilterFactor);
+AddMember('fPostProcessingResizeFactor', _fPostProcessingResizeFactor);
+AddMember('eInterpolationType', _eInterpolationType);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{f4cd0b96-cade-483a-88d6-a13cecb65635}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{47e84d38-581b-42fe-84f5-c31547f28eb5}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'TcVnParamsWalshBarcodeDetection';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{3539b1df-ba34-483a-8e36-b26784182cba}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO TcVnParamsWalshBarcodeDetection;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetMemberReference" Id="{d8c6e286-a035-4864-b7cd-f81489d86489}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_nMaxBarDistance.MakeReferenceTo(activeData.nMaxBarDistance);
+_fMinAspectRatio.MakeReferenceTo(activeData.fMinAspectRatio);
+_fMaxAspectRatio.MakeReferenceTo(activeData.fMaxAspectRatio);
+_nIntensityDifference.MakeReferenceTo(activeData.nIntensityDifference);
+_nMinArea.MakeReferenceTo(activeData.nMinArea);
+_nChannelIndex.MakeReferenceTo(activeData.nChannelIndex);
+_nWalshFilterNum.MakeReferenceTo(activeData.nWalshFilterNum);
+_fOutlierReductionFactor.MakeReferenceTo(activeData.fOutlierReductionFactor);
+_fBarConnectionFactor.MakeReferenceTo(activeData.fBarConnectionFactor);
+_fRegionFilterFactor.MakeReferenceTo(activeData.fRegionFilterFactor);
+_fPostProcessingResizeFactor.MakeReferenceTo(activeData.fPostProcessingResizeFactor);
+_eInterpolationType.MakeReferenceTo(activeData.eInterpolationType);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{00bb9efc-5bc3-4061-bd9f-86312d86b1a3}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{c76adae4-8839-4d32-a79d-5dfb2e63542f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{9ac639f8-b4d9-47a1-91a3-eb88273b99b8}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO TcVnParamsWalshBarcodeDetection;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetMemberReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{b7412016-aa78-49ea-858b-8fce6b6080b1}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnParamsWalshBarcodeDetection]]></Declaration>
+      <Get Name="Get" Id="{75cd579d-313b-4436-9d77-4ca439f82f0e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nMaxBarDistance" Id="{950a35ca-f4dd-4398-9cb4-0a3d636daec4}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nMaxBarDistance : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{fc8129df-0f77-4f81-acc2-4b4b29caafaa}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nMaxBarDistance REF= _nMaxBarDistance;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMinAspectRatio" Id="{94795c55-06a6-46ec-bf11-82347bd13a9f}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMinAspectRatio : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{546e8059-2296-4159-a553-e12452f0c6f5}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMinAspectRatio REF= _fMinAspectRatio;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMaxAspectRatio" Id="{248a4bc2-4a5a-4df1-8f14-f21100454d24}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMaxAspectRatio : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{684668ea-bb06-461a-8491-0029dec00d4b}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMaxAspectRatio REF= _fMaxAspectRatio;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nIntensityDifference" Id="{fcd96c14-bcb6-4bb8-8f5b-00b4c3f5b706}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nIntensityDifference : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{12ed7c96-1d9f-4629-9d2b-ad04d0394449}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nIntensityDifference REF= _nIntensityDifference;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nMinArea" Id="{28814f8a-5838-41e4-9af0-8fd9d98d2b3e}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nMinArea : REFERENCE TO _DINT]]></Declaration>
+      <Get Name="Get" Id="{40d119da-9518-421b-8577-6162785defe6}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nMinArea REF= _nMinArea;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nChannelIndex" Id="{2d2f75fd-7525-40c4-99cb-aeb450fcd982}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nChannelIndex : REFERENCE TO _DINT]]></Declaration>
+      <Get Name="Get" Id="{4abfb8f6-f6bc-4bc6-8aea-661d36bebb23}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nChannelIndex REF= _nChannelIndex;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nWalshFilterNum" Id="{08ca4838-dd81-4bb0-8f38-5133924d6809}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nWalshFilterNum : REFERENCE TO _UDINT]]></Declaration>
+      <Get Name="Get" Id="{57c8cec2-ec38-46e6-8c93-8915b7cbde6f}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nWalshFilterNum REF= _nWalshFilterNum;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fOutlierReductionFactor" Id="{44985f94-47ef-4bc2-a4a9-8741cad74753}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fOutlierReductionFactor : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{24d725ca-4ea4-4b97-8710-a6023b3e55e0}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fOutlierReductionFactor REF= _fOutlierReductionFactor;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fBarConnectionFactor" Id="{21089076-d624-4a51-a013-95edc755ab97}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fBarConnectionFactor : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{1947d76e-08ed-4b88-86ed-d12d3fbac69b}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fBarConnectionFactor REF= _fBarConnectionFactor;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fRegionFilterFactor" Id="{7d72bebf-f436-4b48-adb6-003988925fae}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fRegionFilterFactor : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{59771fee-b5fe-45e2-adf8-b7de7730b7a7}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fRegionFilterFactor REF= _fRegionFilterFactor;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fPostProcessingResizeFactor" Id="{f56a8d53-b94d-4b44-8adb-e5ccaf0c74fb}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fPostProcessingResizeFactor : REFERENCE TO _REAL]]></Declaration>
+      <Get Name="Get" Id="{1483168a-15b8-4a87-89cc-883c7a62e374}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fPostProcessingResizeFactor REF= _fPostProcessingResizeFactor;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="eInterpolationType" Id="{84799021-67cd-489c-95a6-8a96b2a8688c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC eInterpolationType : REFERENCE TO _ETcVnInterpolationType]]></Declaration>
+      <Get Name="Get" Id="{5ba4265f-6f7c-4bd1-b8c1-696bb4cdd458}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[eInterpolationType REF= _eInterpolationType;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

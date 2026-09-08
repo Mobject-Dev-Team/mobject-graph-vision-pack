@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased — Vision 5.10.2 source work
+
+- Added 15 value datatype wrappers and 42 enum values for Vision 5.10.2.
+- Added SalientFeatures, FindRois, and MergeRegions graph nodes.
+- Added eight image/matching nodes: InvertImageColorExp, NormalizeImageExp, MatchTemplateExp, MatchTemplateAndEvaluateExp, MatchDescriptorsBFExp, MatchDescriptorsKnnBFExp, MatchContours, and MatchContoursExp. Expert inputs include optional masks; template evaluation also exposes match scores.
+- Added numerical fixtures and precondition checks for the image/matching batch. Runtime execution remains pending.
+- Added the enclosing-triangle area output and preserved its value when execution fails or is skipped.
+- Corrected the Huber enum and BRISK member labels while keeping legacy serialized values readable.
+- Updated Vision default resolution and aligned the test project's mobject dependencies.
+- Added datatype and node regression suites. TwinCAT build/runtime validation and regeneration of the distributed `.library` are pending.
+
 ## v0.11.0-beta
 
 - Added nodes

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.25">
+  <POU Name="Node_F_VN_SalientFeatures" Id="{4fd16149-bea7-4fdf-aec6-a7fbbbd6821a}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_SalientFeatures EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    eMethod : _ETcVnSalientFeaturesMethod(ETcVnSalientFeaturesMethod.TCVN_SFM_WALSH_CODE);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Clone" Id="{117dd47e-ea79-4811-8899-c1e780998d44}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_SalientFeatures;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_SalientFeatures);
+IF pNode = 0 THEN
+    RETURN;
+END_IF
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ae0a7fcb-27e9-473a-acb7-4b7d72828770}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddOutput('ipDestImage', ipDestImage);
+AddParameter('eMethod', eMethod);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{1e1f16b7-43c0-4357-81cf-09e7f0c072cd}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_SalientFeatures(
+    ipSrcImage := ipSrcImage.Value,
+    ipDestImage := ipDestImage.Value,
+    eMethod := eMethod.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{503665e0-1a6f-4469-b26d-fe573915b5a3}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.IsElementType(ETcVnElementType.TCVN_ET_USINT), 'ipSrcImage must contain USINT elements');
+Check.IsTrue(ipSrcImage.HasChannelCount(1) OR ipSrcImage.HasChannelCount(3), 'ipSrcImage must contain 1 or 3 channels');
+Check.IsTrue((eMethod.Value = ETcVnSalientFeaturesMethod.TCVN_SFM_WALSH_CODE) OR
+             (eMethod.Value = ETcVnSalientFeaturesMethod.TCVN_SFM_SOBEL), 'Unsupported salient features method');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

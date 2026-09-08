@@ -65,7 +65,7 @@
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Vision">
-      <DefaultResolution>Tc3_Vision, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <DefaultResolution>Tc3_Vision, 5.10.2.0 (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Vision</Namespace>
     </PlaceholderReference>
   </ItemGroup>
@@ -3439,6 +3439,90 @@
     <None Include="mobject-graph-vision-pack.tmc">
       <SubType>Content</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Datatypes\Enums\_ETcVnComparisonOperator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnDetectBarcodesWalshOptions.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnDetectPatternPointsOptions.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnDotCodeOptions.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnEdgeSelection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnFindRoisMethod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnJpegSampling.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnMergeRegionsOptions.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnPolarizedImageInterpolation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Enums\_ETcVnSalientFeaturesMethod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Aliases\_GVCP_REGISTER_VALUE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_GVCP_ADDRESS_VALUE_PAIR.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnSize2_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnParamsFindRois.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Datatypes\Structs\_TcVnParamsWalshBarcodeDetection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_SalientFeatures.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_FindRois.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MergeRegions.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_InvertImageColorExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Color and Contrast Processing\Node_F_VN_NormalizeImageExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MatchTemplateExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Image Analysis\Object Detection\Node_F_VN_MatchTemplateAndEvaluateExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsBFExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Keypoint Features\Node_F_VN_MatchDescriptorsKnnBFExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_MatchContours.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Contour Analysis\Node_F_VN_MatchContoursExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

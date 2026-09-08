@@ -82,7 +82,7 @@
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Vision">
-      <DefaultResolution>Tc3_Vision, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <DefaultResolution>Tc3_Vision, 5.10.2.0 (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Vision</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="TcUnit">
@@ -97,10 +97,10 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <LibraryReference Include="mobject-core,0.9.0,mobject">
+    <LibraryReference Include="mobject-core,0.10.0,mobject">
       <Namespace>mobject_core</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph-vision-pack,0.10.0,mobject">
+    <LibraryReference Include="mobject-graph-vision-pack,0.11.0,mobject">
       <Namespace>mobject_graph_vision_pack</Namespace>
     </LibraryReference>
   </ItemGroup>
@@ -108,6 +108,18 @@
     <None Include="Main.tmc">
       <SubType>Content</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tests\Nodes" />
+    <Compile Include="Tests\Structs\_VisionApi5102_Datatypes_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Nodes\_VisionApi5102_Nodes_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <LibraryReference Include="mobject-graph,0.18.0,mobject">
+      <Namespace>mobject_graph</Namespace>
+    </LibraryReference>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

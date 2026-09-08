@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_TcVnParamsFindRois" Id="{2674167d-12d2-4e54-872a-7fee47002144}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _TcVnParamsFindRois EXTENDS StructuredDatatypeBase
+VAR
+    localData : TcVnParamsFindRois := (stRoiSize := (nWidth := 416, nHeight := 416), fMinDensity := 0.2, fDetectionScaleFactor := 0.25, fMaxOversizeFraction := 1.0);
+    activeData : REFERENCE TO TcVnParamsFindRois REF= localData;
+    _stRoiSize : _TcVnSize2_DINT;
+    _fMinDensity : _LREAL(localData.fMinDensity);
+    _fDetectionScaleFactor : _LREAL(localData.fDetectionScaleFactor);
+    _fMaxOversizeFraction : _LREAL(localData.fMaxOversizeFraction);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST/>
+    </Implementation>
+    <Folder Name="Core" Id="{47b7157e-72d4-4944-b420-0350464351d7}"/>
+    <Folder Name="Customize" Id="{bea4cb55-6c75-4ecd-a464-5f17f126e514}">
+      <Folder Name="Constructor" Id="{e1767da2-b679-4c90-b37b-12402cd33f1b}"/>
+      <Folder Name="Protected" Id="{3c3d5703-9a1b-4cf3-b9ed-5e23dd174e30}"/>
+    </Folder>
+    <Property Name="Address" Id="{3926e2df-1d7e-4888-a45d-acd4b751b9f9}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{26d5501f-7262-48fb-87f0-48b3b2cc78b8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{48dd181e-612e-42d2-af2c-0ea826d98da7}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{20f5aa4c-e921-4eab-b2b6-884d6a1ed1c5}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _TcVnParamsFindRois;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_TcVnParamsFindRois);
+IF pClone = 0 THEN
+    RETURN;
+END_IF
+pClone^.TryCopyFrom(THIS^);
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{5a77739a-3d0f-4b4b-a692-084626ea8402}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetMemberReference();
+AddMember('stRoiSize', _stRoiSize);
+AddMember('fMinDensity', _fMinDensity);
+AddMember('fDetectionScaleFactor', _fDetectionScaleFactor);
+AddMember('fMaxOversizeFraction', _fMaxOversizeFraction);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{cb624806-2547-4223-92c0-5f66cc3caf57}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{dc13103d-9a66-478e-a481-93303e8bca20}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'TcVnParamsFindRois';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MakeReferenceTo" Id="{f6c00e5c-6b26-4c10-b468-3b4b39fc86c2}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO TcVnParamsFindRois;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetMemberReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetMemberReference" Id="{243dfcfb-e5e4-43ba-bc68-58d1ec8b550c}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_stRoiSize.MakeReferenceTo(activeData.stRoiSize);
+_fMinDensity.MakeReferenceTo(activeData.fMinDensity);
+_fDetectionScaleFactor.MakeReferenceTo(activeData.fDetectionScaleFactor);
+_fMaxOversizeFraction.MakeReferenceTo(activeData.fMaxOversizeFraction);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{982ee05b-6b6f-4f94-96ae-5585fec7cb5b}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{4ba447a4-bb8b-44df-8572-0f9bd2acf13e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{d5ef8c20-f740-46e0-87ec-54a20a3a798d}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO TcVnParamsFindRois;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetMemberReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{91b031ce-c0b3-4e78-8a77-d45915a7c9bd}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : REFERENCE TO TcVnParamsFindRois]]></Declaration>
+      <Get Name="Get" Id="{24112986-1831-4534-9ee7-b341dde19a87}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value REF= activeData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="stRoiSize" Id="{d62fb98b-24b0-4883-ac5d-48011872f9f6}">
+      <Declaration><![CDATA[PROPERTY PUBLIC stRoiSize : REFERENCE TO _TcVnSize2_DINT]]></Declaration>
+      <Get Name="Get" Id="{577ecbc8-dac8-44a5-9728-4b3c4ff2e8b1}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[stRoiSize REF= _stRoiSize;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMinDensity" Id="{1f530e41-978e-4589-ada5-ab4108d8aad5}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMinDensity : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{b0dff8d1-bb62-4e97-9132-3ce160c2e510}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMinDensity REF= _fMinDensity;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fDetectionScaleFactor" Id="{1aa2bbb0-33b1-4de2-bb0d-8d95dd6b3749}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fDetectionScaleFactor : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{15b97fd7-20fe-47ae-ae2a-23b7781df54b}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fDetectionScaleFactor REF= _fDetectionScaleFactor;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="fMaxOversizeFraction" Id="{4db9d55f-8223-4cb1-b006-3d0a0e33381f}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fMaxOversizeFraction : REFERENCE TO _LREAL]]></Declaration>
+      <Get Name="Get" Id="{71abcad2-8c2f-424a-a960-61943fa405e4}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fMaxOversizeFraction REF= _fMaxOversizeFraction;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

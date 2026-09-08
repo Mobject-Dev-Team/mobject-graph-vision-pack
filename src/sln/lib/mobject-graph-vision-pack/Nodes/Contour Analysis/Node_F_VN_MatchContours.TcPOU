@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.25">
+  <POU Name="Node_F_VN_MatchContours" Id="{821964eb-fac1-46af-bd10-413de73f5894}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MatchContours EXTENDS VisionNode
+VAR
+    ipContour1 : _ITcVnContainer;
+    ipContour2 : _ITcVnContainer;
+    eComparisonMethod : _ETcVnContoursMatchComparisonMethod(ETcVnContoursMatchComparisonMethod.TCVN_CMCM_CONTOURS_MATCH_I1);
+    fDissimilarity : _LREAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Clone" Id="{bb487ca5-141b-45e2-b1b4-7e18c27e1fd7}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_MatchContours;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MatchContours);
+IF pNode = 0 THEN
+    RETURN;
+END_IF
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{a6b6c68e-a8ad-4321-8527-bc9b6640ce36}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipContour1', ipContour1);
+AddInput('ipContour2', ipContour2);
+AddParameter('eComparisonMethod', eComparisonMethod);
+AddOutput('fDissimilarity', fDissimilarity);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{bce7d918-f700-452d-bf33-5430c137c65a}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MatchContours(
+    ipContour1 := ipContour1.Value,
+    ipContour2 := ipContour2.Value,
+    eComparisonMethod := eComparisonMethod.Value,
+    fDissimilarity := fDissimilarity.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{4d1b0088-5922-4406-92e6-db059af6ff82}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipContour1.IsValid, 'ipContour1 must contain a container');
+Check.IsTrue(ipContour2.IsValid, 'ipContour2 must contain a container');
+Check.IsTrue(ipContour1.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+             ipContour1.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL) OR
+             ipContour1.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_Vector_TcVnPoint2_DINT), 'Unsupported contour container type');
+Check.IsTrue(ContainersHaveMatchingTypes(ipContour1.Value, ipContour2.Value), 'Contours must have matching container types');
+Check.IsTrue((eComparisonMethod.Value = ETcVnContoursMatchComparisonMethod.TCVN_CMCM_CONTOURS_MATCH_I1) OR
+             (eComparisonMethod.Value = ETcVnContoursMatchComparisonMethod.TCVN_CMCM_CONTOURS_MATCH_I2) OR
+             (eComparisonMethod.Value = ETcVnContoursMatchComparisonMethod.TCVN_CMCM_CONTOURS_MATCH_I3), 'Unsupported eComparisonMethod');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

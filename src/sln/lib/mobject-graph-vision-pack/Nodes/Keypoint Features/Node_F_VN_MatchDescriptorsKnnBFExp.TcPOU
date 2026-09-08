@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.25">
+  <POU Name="Node_F_VN_MatchDescriptorsKnnBFExp" Id="{16295df2-cf37-46b1-acdf-eaf97948e761}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MatchDescriptorsKnnBFExp EXTENDS VisionNode
+VAR
+    ipQueryDescriptors : _ITcVnImage;
+    ipTrainDescriptors : _ITcVnImage;
+    ipMatches : _ITcVnContainer;
+    nK : _UDINT(2);
+    ipMask : _ITcVnImage;
+    bCompactResult : _BOOL(FALSE);
+    eNormType : _ETcVnNormalizationType(ETcVnNormalizationType.TCVN_NT_L2);
+    bCrossCheck : _BOOL(FALSE);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Clone" Id="{b47f6f9f-3d46-4035-a274-5fc76a1d4dde}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_MatchDescriptorsKnnBFExp;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MatchDescriptorsKnnBFExp);
+IF pNode = 0 THEN
+    RETURN;
+END_IF
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{b8c0c0aa-0bea-45fc-91ac-9981339b54c3}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipQueryDescriptors', ipQueryDescriptors);
+AddInput('ipTrainDescriptors', ipTrainDescriptors);
+AddOutput('ipMatches', ipMatches);
+AddParameter('nK', nK);
+AddInput('ipMask', ipMask);
+AddParameter('bCompactResult', bCompactResult);
+AddParameter('eNormType', eNormType);
+AddParameter('bCrossCheck', bCrossCheck);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{4e4f72dc-3da8-40b3-98ba-3da1578d3ddf}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_MatchDescriptorsKnnBFExp(
+    ipQueryDescriptors := ipQueryDescriptors.Value,
+    ipTrainDescriptors := ipTrainDescriptors.Value,
+    ipMatches := ipMatches.Value,
+    nK := nK.Value,
+    ipMask := ipMask.Value,
+    bCompactResult := bCompactResult.Value,
+    eNormType := eNormType.Value,
+    bCrossCheck := bCrossCheck.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{360cf0b3-a526-491a-a00c-2ca1137c4955}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipQueryDescriptors.IsValid, 'ipQueryDescriptors must contain an image');
+Check.IsTrue(ipTrainDescriptors.IsValid, 'ipTrainDescriptors must contain an image');
+Check.IsTrue(ImagesHaveMatchingPixelFormats(ipQueryDescriptors.Value, ipTrainDescriptors.Value), 'Query and train descriptors must have matching pixel formats');
+Check.IsTrue(IsImage1WidthEqualToImage2Width(ipQueryDescriptors.Value, ipTrainDescriptors.Value), 'Query and train descriptors must have matching descriptor lengths');
+IF ipMask.Value <> 0 THEN
+    Check.IsTrue(ipMask.IsValid, 'ipMask must contain an image when connected');
+END_IF
+Check.IsTrue((eNormType.Value = ETcVnNormalizationType.TCVN_NT_L1) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_L2) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_L2SQR) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_HAMMING) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_HAMMING2), 'Unsupported eNormType');
+Check.IsTrue(nK.Value > 0, 'nK must be positive');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

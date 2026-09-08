@@ -1,0 +1,584 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.25">
+  <POU Name="_VisionApi5102_Nodes_TestSuite" Id="{5c369d40-db41-4acb-bc0d-9b766b2f244b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK _VisionApi5102_Nodes_TestSuite EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TestTriangleAreaAndFailureChaining();
+TestMergeRegions();
+TestSalientFeaturesAndFindRois();
+TestExpertImageOperations();
+TestExpertTemplateMatching();
+TestExpertDescriptorMatching();
+TestContourMatchingAndFactors();]]></ST>
+    </Implementation>
+    <Method Name="TestTriangleAreaAndFailureChaining" Id="{3c74c668-6143-469b-ab0a-d80a3853cc1e}">
+      <Declaration><![CDATA[METHOD PRIVATE TestTriangleAreaAndFailureChaining
+VAR
+    node : Node_F_VN_EnclosingTriangle;
+    points : _ITcVnContainer;
+    p0 : TcVnPoint2_DINT := [0, 0];
+    p1 : TcVnPoint2_DINT := [10, 0];
+    p2 : TcVnPoint2_DINT := [0, 10];
+    area : _LREAL(0.0);
+    result : _HRESULT(S_OK);
+    previous : _HRESULT(S_OK);
+    hr : HRESULT;
+    bound : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTriangleAreaAndFailureChaining');
+
+hr := F_VN_CreateContainer(points.Value, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT, 3, S_OK);
+hr := F_VN_SetAt_TcVnPoint2_DINT(p0, points.Value, 0, hr);
+hr := F_VN_SetAt_TcVnPoint2_DINT(p1, points.Value, 1, hr);
+hr := F_VN_SetAt_TcVnPoint2_DINT(p2, points.Value, 2, hr);
+AssertTrue(SUCCEEDED(hr), 'Triangle fixture must be created');
+bound := BindInput(node, 'ipPointSet', points);
+bound := BindInput(node, 'hrPrev', previous) AND bound;
+bound := BindOutput(node, 'fArea', area) AND bound;
+bound := BindOutput(node, 'hresult', result) AND bound;
+AssertTrue(bound, 'Triangle node ports must be bindable');
+IF bound AND SUCCEEDED(hr) THEN
+    node.Execute();
+    AssertTrue(SUCCEEDED(result.Value), 'Triangle node must succeed');
+    AssertTrue(ABS(area.Value - 50.0) < 0.001, 'Enclosing triangle must expose its area');
+    previous.Value := E_FAIL;
+    node.Execute();
+    AssertTrue(result.Value = E_FAIL, 'Triangle node must propagate hrPrev failure');
+    AssertTrue(ABS(area.Value - 50.0) < 0.001, 'Skipped execution must retain the last successful area');
+END_IF
+UnbindInput(node, 'ipPointSet');
+UnbindInput(node, 'hrPrev');
+area.ClearReference();
+result.ClearReference();
+FW_SafeRelease(ADR(points.Value));
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMergeRegions" Id="{5536169e-0f58-4ec1-8692-d1aa989b304d}">
+      <Declaration><![CDATA[METHOD PRIVATE TestMergeRegions
+VAR
+    node : Node_F_VN_MergeRegions;
+    regions : _ITcVnContainer;
+    output : _ITcVnContainer;
+    result : _HRESULT(S_OK);
+    r0 : TcVnRectangle_DINT := (nX := 0, nY := 0, nWidth := 10, nHeight := 10);
+    r1 : TcVnRectangle_DINT := (nX := 8, nY := 0, nWidth := 10, nHeight := 10);
+    r2 : TcVnRectangle_DINT := (nX := 50, nY := 50, nWidth := 5, nHeight := 5);
+    count : ULINT;
+    hr : HRESULT;
+    bound : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestMergeRegions');
+
+hr := F_VN_CreateContainer(regions.Value, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnRectangle_DINT, 3, S_OK);
+hr := F_VN_SetAt_TcVnRectangle_DINT(r0, regions.Value, 0, hr);
+hr := F_VN_SetAt_TcVnRectangle_DINT(r1, regions.Value, 1, hr);
+hr := F_VN_SetAt_TcVnRectangle_DINT(r2, regions.Value, 2, hr);
+AssertTrue(SUCCEEDED(hr), 'Region fixture must be created');
+bound := BindInput(node, 'ipSrcContainer', regions);
+bound := BindOutput(node, 'ipDestContainer', output) AND bound;
+bound := BindOutput(node, 'hresult', result) AND bound;
+AssertTrue(bound, 'Merge node ports must be bindable');
+IF bound AND SUCCEEDED(hr) THEN
+    node.Execute();
+    AssertTrue(SUCCEEDED(result.Value), 'Region merge must succeed');
+    hr := F_VN_GetNumberOfElements(output.Value, count, result.Value);
+    AssertTrue(SUCCEEDED(hr) AND (count = 2), 'Overlapping rectangles must merge while a separate rectangle remains');
+END_IF
+UnbindInput(node, 'ipSrcContainer');
+output.ClearReference();
+result.ClearReference();
+FW_SafeRelease(ADR(regions.Value));
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSalientFeaturesAndFindRois" Id="{a371c544-46dc-472c-a4de-f03c46a5791d}">
+      <Declaration><![CDATA[METHOD PRIVATE TestSalientFeaturesAndFindRois
+VAR
+    salient : Node_F_VN_SalientFeatures;
+    findRois : Node_F_VN_FindRois;
+    source : _ITcVnImage;
+    features : _ITcVnImage;
+    regions : _ITcVnContainer;
+    parameters : _TcVnParamsFindRois;
+    result : _HRESULT(S_OK);
+    referenceRegions : ITcVnContainer;
+    referenceParams : TcVnParamsFindRois;
+    color : TcVnVector4_LREAL := [255, 255, 255, 255];
+    count : ULINT;
+    expectedCount : ULINT;
+    hr : HRESULT;
+    bound : BOOL;
+    checks : PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestSalientFeaturesAndFindRois');
+
+hr := F_VN_CreateImage(source.Value, 64, 64, ETcVnElementType.TCVN_ET_USINT, 1, S_OK);
+hr := F_VN_SetPixels(source.Value, color, hr);
+AssertTrue(SUCCEEDED(hr), 'Image fixture must be created');
+bound := BindInput(salient, 'ipSrcImage', source);
+bound := BindOutput(salient, 'ipDestImage', features) AND bound;
+bound := BindOutput(salient, 'hresult', result) AND bound;
+AssertTrue(bound, 'Salient feature node ports must be bindable');
+IF bound AND SUCCEEDED(hr) THEN
+    salient.Execute();
+    AssertTrue(SUCCEEDED(result.Value), 'Salient feature extraction must succeed');
+    AssertTrue(features.IsValid AND features.HasChannelCount(1) AND features.IsElementType(ETcVnElementType.TCVN_ET_UINT), 'Salient output must be a single-channel UINT image');
+    parameters.stRoiSize.nWidth.Value := 32;
+    parameters.stRoiSize.nHeight.Value := 32;
+    parameters.fMinDensity.Value := 0.0;
+    parameters.fDetectionScaleFactor.Value := 1.0;
+    referenceParams := parameters.Value;
+    hr := F_VN_FindRois(features.Value, referenceRegions, ETcVnFindRoisMethod.TCVN_FRM_GRID, referenceParams, result.Value);
+    hr := F_VN_GetNumberOfElements(referenceRegions, expectedCount, hr);
+    AssertTrue(SUCCEEDED(hr), 'Direct ROI extraction must succeed');
+    bound := BindInput(findRois, 'ipSrcImage', features);
+    bound := BindInput(findRois, 'stParams', parameters) AND bound;
+    result.ClearReference();
+    bound := BindOutput(findRois, 'hresult', result) AND bound;
+    bound := BindOutput(findRois, 'ipRois', regions) AND bound;
+    AssertTrue(bound, 'ROI node ports must be bindable');
+    IF bound AND SUCCEEDED(hr) THEN
+        findRois.Execute();
+        hr := F_VN_GetNumberOfElements(regions.Value, count, result.Value);
+        AssertTrue(SUCCEEDED(hr) AND (count = expectedCount), 'ROI node must match the direct API result');
+        parameters.fDetectionScaleFactor.Value := 0.01;
+        findRois.PreExecutionCheck(checks);
+        AssertTrue(checks.Failed, 'ROI node must reject a scale below the documented range');
+    END_IF
+END_IF
+UnbindInput(findRois, 'ipSrcImage');
+UnbindInput(findRois, 'stParams');
+UnbindInput(salient, 'ipSrcImage');
+features.ClearReference();
+regions.ClearReference();
+result.ClearReference();
+FW_SafeRelease(ADR(referenceRegions));
+FW_SafeRelease(ADR(source.Value));
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="BindInput" Id="{7a4e1eec-552c-4f7f-918d-f030a90d4915}">
+      <Declaration><![CDATA[METHOD PRIVATE BindInput : BOOL
+VAR_INPUT
+    Node : mobject_graph.I_Node;
+    Name : T_MAXSTRING;
+    Data : I_Datatype;
+END_VAR
+VAR
+    port : mobject_graph.I_InputPort;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Node.InputPorts.TryGetInputPortByName(Name, port) THEN
+    RETURN;
+END_IF
+BindInput := port.Data.TryMakeReferenceTo(Data);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="BindOutput" Id="{76248dc4-8f92-4955-ad3d-c5a8c8f0810d}">
+      <Declaration><![CDATA[METHOD PRIVATE BindOutput : BOOL
+VAR_INPUT
+    Node : mobject_graph.I_Node;
+    Name : T_MAXSTRING;
+    Data : I_Datatype;
+END_VAR
+VAR
+    port : mobject_graph.I_OutputPort;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Node.OutputPorts.TryGetOutputPortByName(Name, port) THEN
+    RETURN;
+END_IF
+BindOutput := Data.TryMakeReferenceTo(port.Data);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="UnbindInput" Id="{8bb42b0d-4edc-43e8-808e-6b1a1554cd5f}">
+      <Declaration><![CDATA[METHOD PRIVATE UnbindInput
+VAR_INPUT
+    Node : mobject_graph.I_Node;
+    Name : T_MAXSTRING;
+END_VAR
+VAR
+    port : mobject_graph.I_InputPort;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Node.InputPorts.TryGetInputPortByName(Name, port) THEN
+    port.Data.ClearReference();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestExpertImageOperations" Id="{035ed6d2-71c2-4d8e-856c-e9d9ff8d8516}">
+      <Declaration><![CDATA[METHOD PRIVATE TestExpertImageOperations
+VAR
+    invert : Node_F_VN_InvertImageColorExp;
+    normalize : Node_F_VN_NormalizeImageExp;
+    source : _ITcVnImage;
+    mask : _ITcVnImage;
+    output : _ITcVnImage;
+    result : _HRESULT(S_OK);
+    previous : _HRESULT(S_OK);
+    maximum : _LREAL(4095.0);
+    alpha : _LREAL(10.0);
+    beta : _LREAL(110.0);
+    destinationType : _ETcVnElementType(ETcVnElementType.TCVN_ET_REAL);
+    pixel : TcVnVector4_LREAL := [100, 0, 0, 0];
+    reference : ITcVnImage;
+    expected : TcVnVector4_LREAL;
+    hr : HRESULT;
+    bound : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestExpertImageOperations');
+
+hr := F_VN_CreateImage(source.Value, 2, 1, ETcVnElementType.TCVN_ET_UINT, 1, S_OK);
+hr := F_VN_SetPixels(source.Value, pixel, hr);
+pixel[0] := 200;
+hr := F_VN_SetPixel(source.Value, pixel, 1, 0, hr);
+AssertTrue(SUCCEEDED(hr), 'Image fixture must be created');
+bound := BindInput(invert, 'ipSrcImage', source);
+bound := BindInput(invert, 'hrPrev', previous) AND bound;
+bound := SetParameter(invert, 'fMaxValue', maximum) AND bound;
+bound := BindOutput(invert, 'ipDestImage', output) AND bound;
+bound := BindOutput(invert, 'hresult', result) AND bound;
+AssertTrue(bound, 'Invert expert ports and maximum must be available');
+IF bound AND SUCCEEDED(hr) THEN
+    invert.Execute();
+    hr := F_VN_GetPixel(output.Value, pixel, 0, 0, result.Value);
+    AssertTrue(SUCCEEDED(hr) AND (ABS(pixel[0] - 3995.0) < 0.001), 'Inversion must use the supplied 12-bit maximum');
+    previous.Value := E_FAIL;
+    invert.Execute();
+    AssertTrue(result.Value = E_FAIL, 'Invert expert must propagate hrPrev failure');
+    hr := F_VN_GetPixel(output.Value, pixel, 0, 0, S_OK);
+    AssertTrue(SUCCEEDED(hr) AND (ABS(pixel[0] - 3995.0) < 0.001), 'Skipped inversion must retain the last output');
+END_IF
+output.ClearReference();
+result.ClearReference();
+hr := F_VN_CreateImage(mask.Value, 2, 1, ETcVnElementType.TCVN_ET_USINT, 1, S_OK);
+pixel[0] := 255;
+hr := F_VN_SetPixels(mask.Value, pixel, hr);
+bound := BindInput(normalize, 'ipSrcImage', source);
+bound := BindInput(normalize, 'ipMask', mask) AND bound;
+bound := SetParameter(normalize, 'fAlpha', alpha) AND bound;
+bound := SetParameter(normalize, 'fBeta', beta) AND bound;
+bound := SetParameter(normalize, 'eDestType', destinationType) AND bound;
+bound := BindOutput(normalize, 'ipDestImage', output) AND bound;
+bound := BindOutput(normalize, 'hresult', result) AND bound;
+AssertTrue(bound, 'Normalize expert ports and parameters must be available');
+IF bound AND SUCCEEDED(hr) THEN
+    normalize.Execute();
+    hr := F_VN_GetPixel(output.Value, pixel, 0, 0, result.Value);
+    AssertTrue(SUCCEEDED(hr) AND output.IsElementType(ETcVnElementType.TCVN_ET_REAL), 'Normalization must create the requested REAL output');
+    AssertTrue(ABS(pixel[0] - 10.0) < 0.001, 'Minimum must map to alpha');
+    hr := F_VN_GetPixel(output.Value, pixel, 1, 0, hr);
+    AssertTrue(SUCCEEDED(hr) AND (ABS(pixel[0] - 110.0) < 0.001), 'Maximum must map to beta');
+    // Restrict normalization to one pixel and compare with the direct masked API.
+    pixel[0] := 0;
+    hr := F_VN_SetPixel(mask.Value, pixel, 0, 0, hr);
+    hr := F_VN_NormalizeImageExp(source.Value, reference, 10.0, 110.0, ETcVnNormalizationType.TCVN_NT_MINMAX, ETcVnElementType.TCVN_ET_REAL, mask.Value, hr);
+    hr := F_VN_GetPixel(reference, expected, 1, 0, hr);
+    normalize.Execute();
+    hr := F_VN_GetPixel(output.Value, pixel, 1, 0, hr);
+    AssertTrue(SUCCEEDED(result.Value) AND SUCCEEDED(hr) AND (ABS(pixel[0] - expected[0]) < 0.001), 'Connected normalization mask must match direct API behavior');
+END_IF
+UnbindInput(invert, 'ipSrcImage');
+UnbindInput(invert, 'hrPrev');
+UnbindInput(normalize, 'ipSrcImage');
+UnbindInput(normalize, 'ipMask');
+output.ClearReference();
+result.ClearReference();
+FW_SafeRelease(ADR(reference));
+FW_SafeRelease(ADR(source.Value));
+FW_SafeRelease(ADR(mask.Value));
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestExpertTemplateMatching" Id="{4e58ba0f-cfab-4ea9-a2d3-8ac62dd3dae9}">
+      <Declaration><![CDATA[METHOD PRIVATE TestExpertTemplateMatching
+VAR
+    match : Node_F_VN_MatchTemplateExp;
+    evaluate : Node_F_VN_MatchTemplateAndEvaluateExp;
+    source : _ITcVnImage;
+    template : _ITcVnImage;
+    mask : _ITcVnImage;
+    output : _ITcVnImage;
+    positions : _ITcVnContainer;
+    values : _ITcVnContainer;
+    result : _HRESULT(S_OK);
+    comparison : _ETcVnTemplateMatchMethod(ETcVnTemplateMatchMethod.TCVN_TMM_SQDIFF);
+    threshold : _REAL(2.0);
+    scale : _REAL(0.0);
+    pixel : TcVnVector4_LREAL := [10, 0, 0, 0];
+    value : REAL;
+    count : ULINT;
+    valueCount : ULINT;
+    width : UDINT;
+    height : UDINT;
+    hr : HRESULT;
+    bound : BOOL;
+    rawChecks : PreExecutionChecks;
+    normalizedChecks : PreExecutionChecks;
+    scaleChecks : PreExecutionChecks;
+    maskChecks : PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestExpertTemplateMatching');
+
+hr := F_VN_CreateImage(source.Value, 4, 4, ETcVnElementType.TCVN_ET_USINT, 1, S_OK);
+hr := F_VN_SetPixels(source.Value, pixel, hr);
+hr := F_VN_CreateImage(template.Value, 2, 2, ETcVnElementType.TCVN_ET_USINT, 1, hr);
+hr := F_VN_SetPixels(template.Value, pixel, hr);
+hr := F_VN_CreateImage(mask.Value, 2, 2, ETcVnElementType.TCVN_ET_USINT, 1, hr);
+pixel[0] := 255;
+hr := F_VN_SetPixels(mask.Value, pixel, hr);
+AssertTrue(SUCCEEDED(hr), 'Template fixtures must be created');
+bound := BindInput(match, 'ipSrcImage', source);
+bound := BindInput(match, 'ipTemplateImage', template) AND bound;
+bound := BindInput(match, 'ipTemplateMask', mask) AND bound;
+bound := SetParameter(match, 'eMatchMethod', comparison) AND bound;
+bound := BindOutput(match, 'ipResultImage', output) AND bound;
+bound := BindOutput(match, 'hresult', result) AND bound;
+AssertTrue(bound, 'Template expert ports must be available');
+IF bound AND SUCCEEDED(hr) THEN
+    match.Execute();
+    hr := F_VN_GetPixel(output.Value, pixel, 0, 0, result.Value);
+    AssertTrue(SUCCEEDED(hr) AND (ABS(pixel[0]) < 0.001), 'Identical template must have zero squared difference');
+    AssertTrue(output.TryGetWidth(width) AND output.TryGetHeight(height), 'Result dimensions must be readable');
+    AssertTrue((width = 3) AND (height = 3) AND output.HasChannelCount(1) AND output.IsElementType(ETcVnElementType.TCVN_ET_REAL), 'Template result must have the documented dimensions and format');
+END_IF
+result.ClearReference();
+bound := BindInput(evaluate, 'ipSrcImage', source);
+bound := BindInput(evaluate, 'ipTemplateImage', template) AND bound;
+bound := SetParameter(evaluate, 'eMatchMethod', comparison) AND bound;
+bound := SetParameter(evaluate, 'fMatchThreshold', threshold) AND bound;
+bound := BindOutput(evaluate, 'ipMatches', positions) AND bound;
+bound := BindOutput(evaluate, 'ipMatchValues', values) AND bound;
+bound := BindOutput(evaluate, 'hresult', result) AND bound;
+AssertTrue(bound, 'Evaluate expert must expose positions and scores');
+IF bound AND SUCCEEDED(hr) THEN
+    evaluate.PreExecutionCheck(rawChecks);
+    AssertTrue(NOT rawChecks.Failed, 'Raw matching threshold greater than 1 must be accepted with no mask');
+    evaluate.Execute();
+    hr := F_VN_GetNumberOfElements(positions.Value, count, result.Value);
+    hr := F_VN_GetNumberOfElements(values.Value, valueCount, hr);
+    AssertTrue(SUCCEEDED(hr) AND (count > 0) AND (count = valueCount), 'Every match must have a corresponding score');
+    hr := F_VN_GetAt_REAL(values.Value, value, 0, hr);
+    AssertTrue(SUCCEEDED(hr) AND (ABS(value) < 0.001), 'Best exact match must expose a zero score');
+    comparison.Value := ETcVnTemplateMatchMethod.TCVN_TMM_CCORR_NORMED;
+    AssertTrue(SetParameter(evaluate, 'eMatchMethod', comparison), 'Normalized method must be selectable');
+    evaluate.PreExecutionCheck(normalizedChecks);
+    AssertTrue(normalizedChecks.Failed, 'Normalized matching threshold greater than 1 must be rejected');
+    threshold.Value := 0.5;
+    AssertTrue(SetParameter(evaluate, 'fMatchThreshold', threshold), 'Threshold must be configurable');
+    AssertTrue(SetParameter(evaluate, 'fScaleFactor', scale), 'Scale must be configurable');
+    evaluate.PreExecutionCheck(scaleChecks);
+    AssertTrue(scaleChecks.Failed, 'Zero scale must be rejected');
+    AssertTrue(BindInput(match, 'ipTemplateMask', source), 'Invalid mask fixture must be bindable');
+    match.PreExecutionCheck(maskChecks);
+    AssertTrue(maskChecks.Failed, 'Template mask dimensions must be checked');
+END_IF
+UnbindInput(match, 'ipSrcImage');
+UnbindInput(match, 'ipTemplateImage');
+UnbindInput(match, 'ipTemplateMask');
+UnbindInput(evaluate, 'ipSrcImage');
+UnbindInput(evaluate, 'ipTemplateImage');
+output.ClearReference();
+positions.ClearReference();
+values.ClearReference();
+result.ClearReference();
+FW_SafeRelease(ADR(source.Value));
+FW_SafeRelease(ADR(template.Value));
+FW_SafeRelease(ADR(mask.Value));
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestExpertDescriptorMatching" Id="{ca9bba14-5588-4141-8657-d941df03b0fa}">
+      <Declaration><![CDATA[METHOD PRIVATE TestExpertDescriptorMatching
+VAR
+    bf : Node_F_VN_MatchDescriptorsBFExp;
+    knn : Node_F_VN_MatchDescriptorsKnnBFExp;
+    descriptors : _ITcVnImage;
+    matches : _ITcVnContainer;
+    result : _HRESULT(S_OK);
+    crossCheck : _BOOL(TRUE);
+    k : _UDINT(0);
+    neighbors : ITcVnContainer;
+    pixel : TcVnVector4_LREAL := [0, 0, 0, 0];
+    first : TcVnDMatch;
+    second : TcVnDMatch;
+    count : ULINT;
+    hr : HRESULT;
+    bound : BOOL;
+    checks : PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestExpertDescriptorMatching');
+
+hr := F_VN_CreateImage(descriptors.Value, 2, 2, ETcVnElementType.TCVN_ET_USINT, 1, S_OK);
+hr := F_VN_SetPixels(descriptors.Value, pixel, hr);
+pixel[0] := 10;
+hr := F_VN_SetPixel(descriptors.Value, pixel, 0, 1, hr);
+hr := F_VN_SetPixel(descriptors.Value, pixel, 1, 1, hr);
+AssertTrue(SUCCEEDED(hr), 'Two distinct descriptors must be created');
+bound := BindInput(bf, 'ipQueryDescriptors', descriptors);
+bound := BindInput(bf, 'ipTrainDescriptors', descriptors) AND bound;
+bound := SetParameter(bf, 'bCrossCheck', crossCheck) AND bound;
+bound := BindOutput(bf, 'ipMatches', matches) AND bound;
+bound := BindOutput(bf, 'hresult', result) AND bound;
+AssertTrue(bound, 'BF expert ports and cross-check must be available');
+IF bound AND SUCCEEDED(hr) THEN
+    bf.Execute();
+    hr := F_VN_GetNumberOfElements(matches.Value, count, result.Value);
+    hr := F_VN_GetAt_TcVnDMatch(matches.Value, first, 0, hr);
+    hr := F_VN_GetAt_TcVnDMatch(matches.Value, second, 1, hr);
+    AssertTrue(SUCCEEDED(hr) AND (count = 2), 'Cross-check must retain both distinct self-matches');
+    AssertTrue((first.nQueryIdx = first.nTrainIdx) AND (second.nQueryIdx = second.nTrainIdx) AND (first.nQueryIdx <> second.nQueryIdx), 'Self-match indices must agree');
+    AssertTrue((ABS(first.fDistance) < 0.001) AND (ABS(second.fDistance) < 0.001), 'Self-match distances must be zero');
+END_IF
+matches.ClearReference();
+result.ClearReference();
+bound := BindInput(knn, 'ipQueryDescriptors', descriptors);
+bound := BindInput(knn, 'ipTrainDescriptors', descriptors) AND bound;
+bound := BindOutput(knn, 'ipMatches', matches) AND bound;
+bound := BindOutput(knn, 'hresult', result) AND bound;
+AssertTrue(bound, 'KNN expert ports must be available');
+IF bound AND SUCCEEDED(hr) THEN
+    knn.Execute();
+    hr := F_VN_GetNumberOfElements(matches.Value, count, result.Value);
+    AssertTrue(SUCCEEDED(hr) AND (count = 2), 'KNN must return one group per query');
+    hr := F_VN_GetAt_ITcVnContainer(matches.Value, neighbors, 0, hr);
+    hr := F_VN_GetNumberOfElements(neighbors, count, hr);
+    hr := F_VN_GetAt_TcVnDMatch(neighbors, first, 0, hr);
+    hr := F_VN_GetAt_TcVnDMatch(neighbors, second, 1, hr);
+    AssertTrue(SUCCEEDED(hr) AND (count = 2), 'Default k must return two nearest neighbors');
+    AssertTrue((ABS(first.fDistance) < 0.001) AND (second.fDistance > first.fDistance), 'Nearest neighbors must be ordered by distance');
+    AssertTrue(SetParameter(knn, 'nK', k), 'Neighbor count must be configurable');
+    knn.PreExecutionCheck(checks);
+    AssertTrue(checks.Failed, 'Zero neighbors must be rejected');
+END_IF
+UnbindInput(bf, 'ipQueryDescriptors');
+UnbindInput(bf, 'ipTrainDescriptors');
+UnbindInput(knn, 'ipQueryDescriptors');
+UnbindInput(knn, 'ipTrainDescriptors');
+matches.ClearReference();
+result.ClearReference();
+FW_SafeRelease(ADR(neighbors));
+FW_SafeRelease(ADR(descriptors.Value));
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestContourMatchingAndFactors" Id="{6e61832a-f742-4ff4-a5c7-8e948e401d72}">
+      <Declaration><![CDATA[METHOD PRIVATE TestContourMatchingAndFactors
+VAR
+    basic : Node_F_VN_MatchContours;
+    expert : Node_F_VN_MatchContoursExp;
+    first : _ITcVnContainer;
+    second : _ITcVnContainer;
+    difference : _LREAL(0.0);
+    factor : _LREAL(1.0);
+    result : _HRESULT(S_OK);
+    previous : _HRESULT(S_OK);
+    p0 : TcVnPoint2_DINT := [0, 0];
+    p1 : TcVnPoint2_DINT := [10, 0];
+    p2 : TcVnPoint2_DINT := [0, 10];
+    expected : LREAL;
+    hr : HRESULT;
+    bound : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestContourMatchingAndFactors');
+
+hr := F_VN_CreateContainer(first.Value, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT, 3, S_OK);
+hr := F_VN_SetAt_TcVnPoint2_DINT(p0, first.Value, 0, hr);
+hr := F_VN_SetAt_TcVnPoint2_DINT(p1, first.Value, 1, hr);
+hr := F_VN_SetAt_TcVnPoint2_DINT(p2, first.Value, 2, hr);
+p0[0] := p0[0] + 20;
+p1[0] := p1[0] + 20;
+p2[0] := p2[0] + 20;
+hr := F_VN_CreateContainer(second.Value, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT, 3, hr);
+hr := F_VN_SetAt_TcVnPoint2_DINT(p0, second.Value, 0, hr);
+hr := F_VN_SetAt_TcVnPoint2_DINT(p1, second.Value, 1, hr);
+hr := F_VN_SetAt_TcVnPoint2_DINT(p2, second.Value, 2, hr);
+AssertTrue(SUCCEEDED(hr), 'Translated contour fixtures must be created');
+bound := BindInput(basic, 'ipContour1', first);
+bound := BindInput(basic, 'ipContour2', second) AND bound;
+bound := BindInput(basic, 'hrPrev', previous) AND bound;
+bound := BindOutput(basic, 'fDissimilarity', difference) AND bound;
+bound := BindOutput(basic, 'hresult', result) AND bound;
+AssertTrue(bound, 'Contour matching ports must be available');
+IF bound AND SUCCEEDED(hr) THEN
+    basic.Execute();
+    AssertTrue(SUCCEEDED(result.Value) AND (ABS(difference.Value) < 0.001), 'Hu comparison must be translation invariant');
+    previous.Value := E_FAIL;
+    basic.Execute();
+    AssertTrue((result.Value = E_FAIL) AND (ABS(difference.Value) < 0.001), 'Failed chain must retain the last contour result');
+END_IF
+difference.ClearReference();
+result.ClearReference();
+bound := BindInput(expert, 'ipContour1', first);
+bound := BindInput(expert, 'ipContour2', second) AND bound;
+bound := SetParameter(expert, 'fAbsPositionFactor', factor) AND bound;
+bound := BindOutput(expert, 'fDissimilarity', difference) AND bound;
+bound := BindOutput(expert, 'hresult', result) AND bound;
+AssertTrue(bound, 'Expert contour matching ports and factors must be available');
+IF bound AND SUCCEEDED(hr) THEN
+    hr := F_VN_MatchContoursExp(first.Value, second.Value, ETcVnContoursMatchComparisonMethod.TCVN_CMCM_CONTOURS_MATCH_I1, expected, 0.0, 1.0, 0.0, 0.0, hr);
+    expert.Execute();
+    AssertTrue(SUCCEEDED(hr) AND SUCCEEDED(result.Value) AND (expected > 0.0), 'Absolute position comparison must detect translation');
+    AssertTrue(ABS(difference.Value - expected) < 0.001, 'Expert factors must match the direct API result');
+END_IF
+UnbindInput(basic, 'ipContour1');
+UnbindInput(basic, 'ipContour2');
+UnbindInput(basic, 'hrPrev');
+UnbindInput(expert, 'ipContour1');
+UnbindInput(expert, 'ipContour2');
+difference.ClearReference();
+result.ClearReference();
+FW_SafeRelease(ADR(first.Value));
+FW_SafeRelease(ADR(second.Value));
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetParameter" Id="{39016238-20f1-40e2-a752-279b4aadb90a}">
+      <Declaration><![CDATA[METHOD PRIVATE SetParameter : BOOL
+VAR_INPUT
+    Node : mobject_graph.I_Node;
+    Name : T_MAXSTRING;
+    Data : I_Datatype;
+END_VAR
+VAR
+    parameter : mobject_graph.I_Parameter;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Node.Parameters.TryGetParameterByName(Name, parameter) THEN
+    RETURN;
+END_IF
+// Only value datatypes are copied here. Interface fixtures use borrowed input references.
+SetParameter := parameter.Data.TryCopyFrom(Data);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

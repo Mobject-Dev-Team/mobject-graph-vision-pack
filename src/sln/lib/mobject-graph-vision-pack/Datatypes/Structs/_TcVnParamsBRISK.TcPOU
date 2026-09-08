@@ -65,7 +65,7 @@ END_VAR
         <ST><![CDATA[SetMemberReference();
 AddMember('nThreshold', _nThreshold);
 AddMember('nOctaves', _nOctaves);
-AddMember('fPatternScale ', _fPatternScale);
+AddMember('fPatternScale', _fPatternScale);
 ]]></ST>
       </Implementation>
     </Method>
@@ -177,5 +177,36 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="TryDeserializeFrom" Id="{3beb9d15-b8f7-49f1-b9d0-b17ee0db4796}">
+      <Declaration><![CDATA[METHOD PUBLIC TryDeserializeFrom : BOOL
+VAR_INPUT
+    Deserializer : I_Deserializer;
+    Feedback : I_DeserializerFeedback;
+END_VAR
+VAR
+    membersEnumerator : I_DeserializerObjectForwardEnumerator;
+    member : I_Datatype;
+    memberName : T_MAXSTRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Map the legacy member name without advertising or serializing it twice.
+membersEnumerator := Deserializer.GetObjectEnumerator();
+WHILE membersEnumerator.MoveNext() DO
+    memberName := membersEnumerator.Key;
+    IF memberName = 'fPatternScale ' THEN
+        memberName := 'fPatternScale';
+    END_IF
+    IF Members.TryGetMemberByName(memberName, member) THEN
+        IF NOT member.TryDeserializeFrom(membersEnumerator.Current, Feedback) THEN
+            membersEnumerator.Dispose();
+            RETURN;
+        END_IF
+    END_IF
+END_WHILE
+membersEnumerator.Dispose();
+TryDeserializeFrom := TRUE;]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

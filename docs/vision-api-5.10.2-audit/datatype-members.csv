@@ -1,0 +1,941 @@
+api_type,kind,member,type,default,status,comment
+ETcVn2dCodeSearchStrategy,Enums,TCVN_CSS_DEFAULT,UDINT,,present,"The algorithm searches for codes using the default searching strategy, all other flags are ignored (dependant on code type)."
+ETcVn2dCodeSearchStrategy,Enums,TCVN_CSS_ONLY_NOT_INVERTED,UDINT,,present,The algorithm searches for codes only in the non-inverted image.
+ETcVn2dCodeSearchStrategy,Enums,TCVN_CSS_FIRST_NOT_INVERTED,UDINT,,present,The algorithm first searches for codes in the non-inverted and then in the inverted image.
+ETcVn2dCodeSearchStrategy,Enums,TCVN_CSS_ONLY_INVERTED,UDINT,,present,The algorithm searches for codes only in the inverted image.
+ETcVn2dCodeSearchStrategy,Enums,TCVN_CSS_FIRST_INVERTED,UDINT,,present,The algorithm first searches for codes in the inverted and then in the non-inverted image.
+ETcVn2dCodeSearchStrategy,Enums,TCVN_CSS_ONLY_NOT_FLIPPED,UDINT,,present,The algorithm searches for codes only in the non-mirrored image.
+ETcVn2dCodeSearchStrategy,Enums,TCVN_CSS_FIRST_NOT_FLIPPED,UDINT,,present,The algorithm first searches for codes in the non-mirrored and then in the mirrored image.
+ETcVn2dCodeSearchStrategy,Enums,TCVN_CSS_ONLY_FLIPPED,UDINT,,present,The algorithm searches for codes only in the mirrored image.
+ETcVn2dCodeSearchStrategy,Enums,TCVN_CSS_FIRST_FLIPPED,UDINT,,present,The algorithm first searches for codes in the mirrored and then in the non-mirrored image.
+ETcVnAdaptiveThresholdMethod,Enums,TCVN_ATM_MEAN,DINT,,present,"The threshold value is calculated as the mean of the nBlockSize x nBlockSize neighborhood of (x,y) minus fConstant."
+ETcVnAdaptiveThresholdMethod,Enums,TCVN_ATM_GAUSSIAN,DINT,,present,"The threshold value is the weighted sum (cross-correlation with a Gaussian window) of the nBlockSize x nBlockSize neighborhood of (x,y) minus fConstant."
+ETcVnBarcodeSearchDirection,Enums,TCVN_BSD_ANY,UDINT,,present,The algorithm searches for codes in any supported directions.
+ETcVnBarcodeSearchDirection,Enums,TCVN_BSD_HORIZONTAL,UDINT,,present,The algorithm searches for codes in horizontal direction.
+ETcVnBarcodeSearchDirection,Enums,TCVN_BSD_VERTICAL,UDINT,,present,The algorithm searches for codes in vertical direction.
+ETcVnBarcodeType,Enums,TCVN_BT_CODABAR,UDINT,,present,The algorithm searches for Codabar codes.
+ETcVnBarcodeType,Enums,TCVN_BT_CODE39,UDINT,,present,The algorithm searches for Code-39 codes.
+ETcVnBarcodeType,Enums,TCVN_BT_CODE93,UDINT,,present,The algorithm searches for Code-93 codes.
+ETcVnBarcodeType,Enums,TCVN_BT_CODE128,UDINT,,present,The algorithm searches for Code-128 codes.
+ETcVnBarcodeType,Enums,TCVN_BT_EAN8,UDINT,,present,The algorithm searches for EAN-8 codes.
+ETcVnBarcodeType,Enums,TCVN_BT_EAN13,UDINT,,present,The algorithm searches for EAN-13 codes.
+ETcVnBarcodeType,Enums,TCVN_BT_ITF,UDINT,,present,The algorithm searches for ITF codes.
+ETcVnBarcodeType,Enums,TCVN_BT_UPCA,UDINT,,present,The algorithm searches for UPC-A codes.
+ETcVnBarcodeType,Enums,TCVN_BT_UPCE,UDINT,,present,The algorithm searches for UPC-E codes.
+ETcVnBarcodeType,Enums,TCVN_BT_ANY,UDINT,,present,"The algorithm searches for any supported linear barcode. If the type of the code is known, it is recommended to select the specific type directly."
+ETcVnBarcodeType,Enums,TCVN_BT_CODE39EXTENDED,UDINT,,present,The algorithm searches for Code-93-Extended codes.
+ETcVnBlobCombination,Enums,TCVN_BC_SMALLEST,DINT,,present,Returns the smallest blob contour.
+ETcVnBlobCombination,Enums,TCVN_BC_LARGEST,DINT,,present,Returns the largest blob contour.
+ETcVnBlobCombination,Enums,TCVN_BC_MIN_THRESHOLD,DINT,,present,Returns the blob contour for the minimum threshold.
+ETcVnBlobCombination,Enums,TCVN_BC_MAX_THRESHOLD,DINT,,present,Returns the blob contour for the maximum threshold.
+ETcVnBlobCombination,Enums,TCVN_BC_MEDIAN_THRESHOLD,DINT,,present,Returns the blob contour for the median threshold.
+ETcVnBoostClassifierType,Enums,TCVN_BCT_DISCRETE,DINT,,present,Discrete AdaBoost
+ETcVnBoostClassifierType,Enums,TCVN_BCT_REAL,DINT,,present,Real AdaBoost
+ETcVnBoostClassifierType,Enums,TCVN_BCT_LOGIT,DINT,,present,LogitBoost
+ETcVnBoostClassifierType,Enums,TCVN_BCT_GENTLE,DINT,,present,Gentle AdaBoost
+ETcVnBorderInterpolationMethod,Enums,TCVN_BIM_CONSTANT,DINT,,present,iiiiiii | abcdefgh | iiiiiii (with some specified i)
+ETcVnBorderInterpolationMethod,Enums,TCVN_BIM_REPLICATE,DINT,,present,aaaaaaa | abcdefgh | hhhhhhh
+ETcVnBorderInterpolationMethod,Enums,TCVN_BIM_REFLECT,DINT,,present,gfedcba | abcdefgh | hgfedcb
+ETcVnBorderInterpolationMethod,Enums,TCVN_BIM_WRAP,DINT,,present,bcdefgh | abcdefgh | abcdefg
+ETcVnBorderInterpolationMethod,Enums,TCVN_BIM_REFLECT_101,DINT,,present,hgfedcb | abcdefgh | gfedcba
+ETcVnBorderInterpolationMethod,Enums,TCVN_BIM_DEFAULT,DINT,,present,Choose this if you don't know which method to select (same as REFLECT_101).
+ETcVnBorderInterpolationMethod,Enums,TCVN_BIM_TRANSPARENT,DINT,,present,Corresponding pixels in the destination image will not be modified. Only available for geometric image transformations.
+ETcVnBorderInterpolationMethod,Enums,TCVN_BIM_ISOLATED_CONSTANT,DINT,,present,"Similar to CONSTANT, but ROIs are handled as isolated, which means surrounding image pixels outside the ROI are ignored."
+ETcVnBorderInterpolationMethod,Enums,TCVN_BIM_ISOLATED_REPLICATE,DINT,,present,"Similar to REPLICATE, but ROIs are handled as isolated, which means surrounding image pixels outside the ROI are ignored."
+ETcVnBorderInterpolationMethod,Enums,TCVN_BIM_ISOLATED_REFLECT,DINT,,present,"Similar to REFLECT, but ROIs are handled as isolated, which means surrounding image pixels outside the ROI are ignored."
+ETcVnBorderInterpolationMethod,Enums,TCVN_BIM_ISOLATED_WRAP,DINT,,present,"Similar to WRAP, but ROIs are handled as isolated, which means surrounding image pixels outside the ROI are ignored."
+ETcVnBorderInterpolationMethod,Enums,TCVN_BIM_ISOLATED_REFLECT_101,DINT,,present,"Similar to REFLECT_101, but ROIs are handled as isolated, which means surrounding image pixels outside the ROI are ignored."
+ETcVnCalibrationPattern,Enums,TCVN_CP_CIRCLES_SYM,DINT,,present,Symmetric circle pattern
+ETcVnCalibrationPattern,Enums,TCVN_CP_CIRCLES_ASYM,DINT,,present,"Asymmetric circle pattern, i.e. every 2nd row is indented, starting unindented"
+ETcVnCalibrationPattern,Enums,TCVN_CP_CIRCLES_ASYM_INDENT,DINT,,present,"Asymmetric circle pattern, i.e. every 2nd row is indented, starting indented"
+ETcVnCalibrationPatternOrigin,Enums,TCVN_CPO_TOPLEFT,DINT,,present,Origin is at top left
+ETcVnCalibrationPatternOrigin,Enums,TCVN_CPO_TOPCENTER,DINT,,present,Origin is at top center
+ETcVnCalibrationPatternOrigin,Enums,TCVN_CPO_TOPRIGHT,DINT,,present,Origin is at top right
+ETcVnCalibrationPatternOrigin,Enums,TCVN_CPO_CENTERLEFT,DINT,,present,Origin is at center left
+ETcVnCalibrationPatternOrigin,Enums,TCVN_CPO_CENTER,DINT,,present,Origin is at center
+ETcVnCalibrationPatternOrigin,Enums,TCVN_CPO_CENTERRIGHT,DINT,,present,Origin is at center right
+ETcVnCalibrationPatternOrigin,Enums,TCVN_CPO_BOTTOMLEFT,DINT,,present,Origin is at bottom left
+ETcVnCalibrationPatternOrigin,Enums,TCVN_CPO_BOTTOMCENTER,DINT,,present,Origin is at bottom center
+ETcVnCalibrationPatternOrigin,Enums,TCVN_CPO_BOTTOMRIGHT,DINT,,present,Origin is at bottom right
+ETcVnCameraState,Enums,TCVN_CS_ERROR,DINT,,present,The camera controller is in an error state (e.g. the connection to the camera was lost).
+ETcVnCameraState,Enums,TCVN_CS_INITIAL,DINT,,present,The camera controller is in the initial state and ready to establish the connection to the camera.
+ETcVnCameraState,Enums,TCVN_CS_INITIALIZING,DINT,,present,The camera controller is initializing the camera.
+ETcVnCameraState,Enums,TCVN_CS_INITIALIZED,DINT,,present,The camera controller has initialized the camera.
+ETcVnCameraState,Enums,TCVN_CS_OPENING,DINT,,present,The camera controller is establishing the connection to the camera.
+ETcVnCameraState,Enums,TCVN_CS_OPENED,DINT,,present,The connection to the camera has been established and the camera controller is ready to start the image acquisition.
+ETcVnCameraState,Enums,TCVN_CS_STARTACQUISITION,DINT,,present,The camera controller is starting the image acquisition.
+ETcVnCameraState,Enums,TCVN_CS_ACQUIRING,DINT,,present,"The camera is sending images (either streaming or manually triggered, depending on the configuration)."
+ETcVnCameraState,Enums,TCVN_CS_STOPACQUISITION,DINT,,present,The camera controller is stopping the image acquisition.
+ETcVnCameraState,Enums,TCVN_CS_RESETTINGFEATURES,DINT,,present,The camera controller is resetting the features on the camera.
+ETcVnCameraState,Enums,TCVN_CS_TRIGGERING,DINT,,present,The camera controller is processing a softwaretrigger.
+ETcVnCameraState,Enums,TCVN_CS_CLOSING,DINT,,present,The camera controller is closing the connection to the camera.
+ETcVnCircularityCalculationMethod,Enums,TCVN_CCM_DEFAULT,DINT,,present,4pi * area / perimeter^2
+ETcVnCircularityCalculationMethod,Enums,TCVN_CCM_CONVEXHULL_PERIMETER,DINT,,present,4pi * area / (convex hull perimeter)^2
+ETcVnCircularityCalculationMethod,Enums,TCVN_CCM_MAX_RADIUS,DINT,,present,"area / (pi * r^2), r = max distance to the contour's center of mass"
+ETcVnCircularityCalculationMethod,Enums,TCVN_CCM_ENCLOSINGCIRCLE_RADIUS,DINT,,present,"area / (pi * r^2), r = radius of the minimum enclosing circle"
+ETcVnClusteringAlgorithm,Enums,TCVN_CA_KMEANSPP,DINT,,present,KMeans++ (fixed number of clusters)
+ETcVnClusteringAlgorithm,Enums,TCVN_CA_LBG,DINT,,present,LBG variant (dynamic number of clusters)
+ETcVnCodeDetectionModel,Enums,TCVN_CDM_DETECT_1_1,ULINT,,present,"Object detection model detects 1D and 2D codes and classifies 2D codes into QR code, Data Matrix code and DotCode types. It provides bounding boxes (ContainerType_Vector_TcVnRectangle_DINT) and the corresponding code type for each detection. Input: 224×224 RGB image."
+ETcVnCodeDetectionModel,Enums,TCVN_CDM_DETECT_1_2,ULINT,,present,"Object detection model detects 1D and 2D codes and classifies 2D codes into QR code, Data Matrix code and DotCode types. It provides bounding boxes (ContainerType_Vector_TcVnRectangle_DINT) and the corresponding code type for each detection. Input: 352×256 RGB image."
+ETcVnCodeDetectionModel,Enums,TCVN_CDM_DETECT_1_3,ULINT,,present,"Object detection model detects 1D and 2D codes and classifies 2D codes into QR code, Data Matrix code and DotCode types. It provides bounding boxes (ContainerType_Vector_TcVnRectangle_DINT) and the corresponding code type for each detection. Input: 416×352 RGB image."
+ETcVnCodeDetectionModel,Enums,TCVN_CDM_DETECT_2_1,ULINT,,present,Object detection model detects 1D codes. It provides bounding boxes (ContainerType_Vector_TcVnRectangle_DINT) and TCVN_CT_1D code type for each detection. Input: 224×224 RGB image.
+ETcVnCodeDetectionModel,Enums,TCVN_CDM_DETECT_2_2,ULINT,,present,Object detection model detects 1D codes. It provides bounding boxes (ContainerType_Vector_TcVnRectangle_DINT) and TCVN_CT_1D code type for each detection. Input: 352×256 RGB image.
+ETcVnCodeDetectionModel,Enums,TCVN_CDM_DETECT_2_3,ULINT,,present,Object detection model detects 1D codes. It provides bounding boxes (ContainerType_Vector_TcVnRectangle_DINT) and TCVN_CT_1D code type for each detection. Input: 416×352 RGB image.
+ETcVnCodeDetectionModel,Enums,TCVN_CDM_DETECT_3_1,ULINT,,present,Object detection model detects 2D codes. It provides bounding boxes (ContainerType_Vector_TcVnRectangle_DINT) and TCVN_CT_2D code type for each detection. Input: 224×224 RGB image.
+ETcVnCodeDetectionModel,Enums,TCVN_CDM_DETECT_3_2,ULINT,,present,Object detection model detects 2D codes. It provides bounding boxes (ContainerType_Vector_TcVnRectangle_DINT) and TCVN_CT_2D code type for each detection. Input: 352×256 RGB image.
+ETcVnCodeDetectionModel,Enums,TCVN_CDM_DETECT_3_3,ULINT,,present,Object detection model detects 2D codes. It provides bounding boxes (ContainerType_Vector_TcVnRectangle_DINT) and TCVN_CT_2D code type for each detection. Input: 416×352 RGB image.
+ETcVnCodeType,Enums,TCVN_CT_ANY,ULINT,,present,One-dimensional and two-dimensional codes
+ETcVnCodeType,Enums,TCVN_CT_1D,ULINT,,present,"One-dimensional code, e.g. types from ETcVnBarcodeType"
+ETcVnCodeType,Enums,TCVN_CT_2D,ULINT,,present,"Two-dimensional code, e.g. QR code, Data Matrix code, and DotCode"
+ETcVnCodeType,Enums,TCVN_CT_QR,ULINT,,present,QR code
+ETcVnCodeType,Enums,TCVN_CT_DATAMATRIX,ULINT,,present,Data Matrix code
+ETcVnCodeType,Enums,TCVN_CT_DOTCODE,ULINT,,present,DotCode
+ETcVnColorMap,Enums,TCVN_CM_AUTUMN,DINT,,present,Red - orange - yellow
+ETcVnColorMap,Enums,TCVN_CM_BONE,DINT,,present,Black - blueish gray - white
+ETcVnColorMap,Enums,TCVN_CM_JET,DINT,,present,Dark blue - green - dark red
+ETcVnColorMap,Enums,TCVN_CM_WINTER,DINT,,present,Blue - green
+ETcVnColorMap,Enums,TCVN_CM_RAINBOW,DINT,,present,Red - green - purple
+ETcVnColorMap,Enums,TCVN_CM_OCEAN,DINT,,present,Black - blue - white
+ETcVnColorMap,Enums,TCVN_CM_SUMMER,DINT,,present,Green - yellow
+ETcVnColorMap,Enums,TCVN_CM_SPRING,DINT,,present,Pink - yellow
+ETcVnColorMap,Enums,TCVN_CM_COOL,DINT,,present,Cyan - magenta
+ETcVnColorMap,Enums,TCVN_CM_HSV,DINT,,present,Red - green - blue - red
+ETcVnColorMap,Enums,TCVN_CM_PINK,DINT,,present,Black - pink - light yellow - white
+ETcVnColorMap,Enums,TCVN_CM_HOT,DINT,,present,Black - red - yellow - white
+ETcVnColorMap,Enums,TCVN_CM_PARULA,DINT,,present,Blue - yellow
+ETcVnColorMap,Enums,TCVN_CM_MAGMA,DINT,,present,Black - magenta - light yellow
+ETcVnColorMap,Enums,TCVN_CM_INFERNO,DINT,,present,Black - magenta - yellow
+ETcVnColorMap,Enums,TCVN_CM_PLASMA,DINT,,present,Blue - magenta - yellow
+ETcVnColorMap,Enums,TCVN_CM_VIRIDIS,DINT,,present,Purple - yellow
+ETcVnColorMap,Enums,TCVN_CM_CIVIDIS,DINT,,present,Blue - gray - yellow
+ETcVnColorMap,Enums,TCVN_CM_TWILIGHT,DINT,,present,White - light blue - dark purple - light red - white
+ETcVnColorMap,Enums,TCVN_CM_TWILIGHT_SHIFTED,DINT,,present,Dark purple - light blue - white - light red - dark purple
+ETcVnColorMap,Enums,TCVN_CM_TURBO,DINT,,present,Dark blue - light green - dark red
+ETcVnColorMapSize,Enums,TCVN_CMS_256,UDINT,,present,"256 colors, used for 8 bit images (TCVN_ET_USINT)"
+ETcVnColorMapSize,Enums,TCVN_CMS_65536,UDINT,,present,"65536 colors, used for 16 bit images (TCVN_ET_UINT)"
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_BGRA,DINT,,present,Transform the color space from BGR to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_RGBA,DINT,,present,Transform the color space from RGB to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_BGR,DINT,,present,Transform the color space from BGRA to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_RGB,DINT,,present,Transform the color space from RGBA to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_RGBA,DINT,,present,Transform the color space from BGR to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_BGRA,DINT,,present,Transform the color space from RGB to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_RGB,DINT,,present,Transform the color space from BGRA to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_BGR,DINT,,present,Transform the color space from RGBA to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_RGB,DINT,,present,Transform the color space from BGR to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_BGR,DINT,,present,Transform the color space from RGB to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_RGBA,DINT,,present,Transform the color space from BGRA to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_BGRA,DINT,,present,Transform the color space from RGBA to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_GRAY,DINT,,present,Transform the color space from BGR to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_GRAY,DINT,,present,Transform the color space from RGB to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_GRAY_TO_BGR,DINT,,present,Transform the color space from Gray to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_GRAY_TO_RGB,DINT,,present,Transform the color space from Gray to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_GRAY_TO_BGRA,DINT,,present,Transform the color space from Gray to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_GRAY_TO_RGBA,DINT,,present,Transform the color space from Gray to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_GRAY,DINT,,present,Transform the color space from BGRA to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_GRAY,DINT,,present,Transform the color space from RGBA to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_BGR_565,DINT,,present,Transform the color space from RGB(24 bit 888) to BGR(16 bit 565).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_BGR_565,DINT,,present,Transform the color space from BGR(24 bit 888) to BGR(16 bit 565).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_565_TO_RGB,DINT,,present,Transform the color space from BGR(16 bit 565) to RGB(24 bit 888).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_565_TO_BGR,DINT,,present,Transform the color space from BGR(16 bit 565) to BGR(24 bit 888).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_BGR_565,DINT,,present,Transform the color space from RGBA(32 bit 8888) to BGR(16 bit 565).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_BGR_565,DINT,,present,Transform the color space from BGRA(32 bit 8888) to BGR(16 bit 565).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_565_TO_RGBA,DINT,,present,Transform the color space from BGR(16 bit 565) to RGBA(32 bit 8888).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_565_TO_BGRA,DINT,,present,Transform the color space from BGR(16 bit 565) to BGRA(32 bit 8888).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_GRAY_TO_BGR_565,DINT,,present,Transform the color space from Gray to BGR(16 bit 565).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_565_TO_GRAY,DINT,,present,Transform the color space from BGR(16 bit 565) to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_BGR_555,DINT,,present,Transform the color space from RGB(24 bit 888) to BGR(16 bit 555).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_BGR_555,DINT,,present,Transform the color space from BGR(24 bit 888) to BGR(16 bit 555).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_555_TO_RGB,DINT,,present,Transform the color space from BGR(16 bit 555) to RGB(24 bit 888).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_555_TO_BGR,DINT,,present,Transform the color space from BGR(16 bit 555) to BGR(24 bit 888).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_BGR_555,DINT,,present,Transform the color space from RGBA(32 bit 8888) to BGR(16 bit 555).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_BGR_555,DINT,,present,Transform the color space from BGRA(32 bit 8888) to BGR(16 bit 555).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_555_TO_RGBA,DINT,,present,Transform the color space from BGR(16 bit 555) to RGBA(32 bit 8888).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_555_TO_BGRA,DINT,,present,Transform the color space from BGR(16 bit 555) to BGRA(32 bit 8888).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_GRAY_TO_BGR_555,DINT,,present,Transform the color space from Gray to BGR(16 bit 555).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_555_TO_GRAY,DINT,,present,Transform the color space from BGR(16 bit 555) to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_XYZ,DINT,,present,Transform the color space from BGR to CIE XYZ (scaled to the full value range of the image).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_XYZ,DINT,,present,Transform the color space from RGB to CIE XYZ (scaled to the full value range of the image).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_XYZ_TO_BGR,DINT,,present,Transform the color space from CIE XYZ (scaled to the full value range of the image) to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_XYZ_TO_RGB,DINT,,present,Transform the color space from CIE XYZ (scaled to the full value range of the image) to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_YCRCB,DINT,,present,Transform the color space from BGR to YCrCb (scaled to the full value range of the image).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_YCRCB,DINT,,present,Transform the color space from RGB to YCrCb (scaled to the full value range of the image).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YCRCB_TO_BGR,DINT,,present,Transform the color space from YCrCb (scaled to the full value range of the image) to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YCRCB_TO_RGB,DINT,,present,Transform the color space from YCrCb (scaled to the full value range of the image) to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_HSV,DINT,,present,"Transform the color space from BGR to HSV (supports images of type USINT or REAL; for USINT, H is scaled to a range from 0 to 180 and S,V from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_HSV,DINT,,present,"Transform the color space from RGB to HSV (supports images of type USINT or REAL; for USINT, H is scaled to a range from 0 to 180 and S,V from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_LAB,DINT,,present,"Transform the color space from BGR to CIE L*a*b* (for images of type USINT, all channels are scaled to a range from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_LAB,DINT,,present,"Transform the color space from RGB to CIE L*a*b* (for images of type USINT, all channels are scaled to a range from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_RG_TO_BGR,DINT,,present,Transform the color space from BayerRG to BGR (supports images of type USINT or UINT).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_BG_TO_RGB,DINT,,present,Transform the color space from BayerBG to RGB (supports images of type USINT or UINT).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GR_TO_BGR,DINT,,present,Transform the color space from BayerGR to BGR (supports images of type USINT or UINT).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GB_TO_RGB,DINT,,present,Transform the color space from BayerGB to RGB (supports images of type USINT or UINT).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_BG_TO_BGR,DINT,,present,Transform the color space from BayerBG to BGR (supports images of type USINT or UINT).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_RG_TO_RGB,DINT,,present,Transform the color space from BayerRG to RGB (supports images of type USINT or UINT).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GB_TO_BGR,DINT,,present,Transform the color space from BayerGB to BGR (supports images of type USINT or UINT).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GR_TO_RGB,DINT,,present,Transform the color space from BayerGR to RGB (supports images of type USINT or UINT).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_LUV,DINT,,present,"Transform the color space from BGR to CIE L*u*v* (for images of type USINT, all channels are scaled to a range from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_LUV,DINT,,present,"Transform the color space from RGB to CIE L*u*v* (for images of type USINT, all channels are scaled to a range from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_HLS,DINT,,present,"Transform the color space from BGR to HLS (for images of type USINT, H is scaled to a range from 0 to 180 and L,S from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_HLS,DINT,,present,"Transform the color space from RGB to HLS (for images of type USINT, H is scaled to a range from 0 to 180 and L,S from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_HSV_TO_BGR,DINT,,present,"Transform the color space from HSV (for images of type USINT, H is scaled to a range from 0 to 180 and S,V from 0 to 255) to BGR."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_HSV_TO_RGB,DINT,,present,"Transform the color space from HSV (for images of type USINT, H is scaled to a range from 0 to 180 and S,V from 0 to 255) to RGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_LAB_TO_BGR,DINT,,present,"Transform the color space from CIE L*a*b* (for images of type USINT, all channels are scaled to a range from 0 to 255) to BGR."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_LAB_TO_RGB,DINT,,present,"Transform the color space from CIE L*a*b* (for images of type USINT, all channels are scaled to a range from 0 to 255) to RGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_LUV_TO_BGR,DINT,,present,"Transform the color space from CIE L*u*v* (for images of type USINT, all channels are scaled to a range from 0 to 255) to BGR."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_LUV_TO_RGB,DINT,,present,"Transform the color space from CIE L*u*v* (for images of type USINT, all channels are scaled to a range from 0 to 255) to RGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_HLS_TO_BGR,DINT,,present,"Transform the color space from HLS (for images of type USINT, H is scaled to a range from 0 to 180 and L,S from 0 to 255) to BGR."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_HLS_TO_RGB,DINT,,present,"Transform the color space from HLS (for images of type USINT, H is scaled to a range from 0 to 180 and L,S from 0 to 255) to RGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_RG_TO_BGR_VNG,DINT,,present,"Transform the color space from BayerRG to BGR, using Variable Number of Gradients (supports images of type USINT)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GR_TO_BGR_VNG,DINT,,present,"Transform the color space from BayerGR to BGR, using Variable Number of Gradients (supports images of type USINT)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_BG_TO_BGR_VNG,DINT,,present,"Transform the color space from BayerBG to BGR, using Variable Number of Gradients (supports images of type USINT)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GB_TO_BGR_VNG,DINT,,present,"Transform the color space from BayerGB to BGR, using Variable Number of Gradients (supports images of type USINT)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_RG_TO_RGB_VNG,DINT,,present,"Transform the color space from BayerRG to RGB, using Variable Number of Gradients (supports images of type USINT)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GR_TO_RGB_VNG,DINT,,present,"Transform the color space from BayerGR to RGB, using Variable Number of Gradients (supports images of type USINT)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_BG_TO_RGB_VNG,DINT,,present,"Transform the color space from BayerBG to RGB, using Variable Number of Gradients (supports images of type USINT)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GB_TO_RGB_VNG,DINT,,present,"Transform the color space from BayerGB to RGB, using Variable Number of Gradients (supports images of type USINT)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_HSV_FULL,DINT,,present,"Transform the color space from BGR to HSV (supports images of type USINT or REAL; for USINT, all channels are scaled to a range from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_HSV_FULL,DINT,,present,"Transform the color space from RGB to HSV (supports images of type USINT or REAL; for USINT, all channels are scaled to a range from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_HLS_FULL,DINT,,present,"Transform the color space from BGR to HLS (for images of type USINT, all channels are scaled to a range from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_HLS_FULL,DINT,,present,"Transform the color space from RGB to HLS (for images of type USINT, all channels are scaled to a range from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_HSV_TO_BGR_FULL,DINT,,present,"Transform the color space from HSV (for images of type USINT, all channels are scaled to a range from 0 to 255) to BGR."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_HSV_TO_RGB_FULL,DINT,,present,"Transform the color space from HSV (for images of type USINT, all channels are scaled to a range from 0 to 255) to RGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_HLS_TO_BGR_FULL,DINT,,present,"Transform the color space from HLS (for images of type USINT, all channels are scaled to a range from 0 to 255) to BGR."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_HLS_TO_RGB_FULL,DINT,,present,"Transform the color space from HLS (for images of type USINT, all channels are scaled to a range from 0 to 255) to RGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_LBGR_TO_LAB,DINT,,present,"Transform the color space from LBGR to CIE L*a*b* (for images of type USINT, all channels are scaled to a range from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_LRGB_TO_LAB,DINT,,present,"Transform the color space from LRGB to CIE L*a*b* (for images of type USINT, all channels are scaled to a range from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_LBGR_TO_LUV,DINT,,present,"Transform the color space from LBGR to CIE L*u*v* (for images of type USINT, all channels are scaled to a range from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_LRGB_TO_LUV,DINT,,present,"Transform the color space from LRGB to CIE L*u*v* (for images of type USINT, all channels are scaled to a range from 0 to 255)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_LAB_TO_LBGR,DINT,,present,"Transform the color space from CIE L*a*b* (for images of type USINT, all channels are scaled to a range from 0 to 255) to LBGR."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_LAB_TO_LRGB,DINT,,present,"Transform the color space from CIE L*a*b* (for images of type USINT, all channels are scaled to a range from 0 to 255) to LRGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_LUV_TO_LBGR,DINT,,present,"Transform the color space from CIE L*u*v* (for images of type USINT, all channels are scaled to a range from 0 to 255) to LBGR."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_LUV_TO_LRGB,DINT,,present,"Transform the color space from CIE L*u*v* (for images of type USINT, all channels are scaled to a range from 0 to 255) to LRGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_YUV,DINT,,present,Transform the color space from BGR to YUV (scaled to the full value range of the image).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_YUV,DINT,,present,Transform the color space from RGB to YUV (scaled to the full value range of the image).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_TO_BGR,DINT,,present,Transform the color space from YUV (scaled to the full value range of the image) to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_TO_RGB,DINT,,present,Transform the color space from YUV (scaled to the full value range of the image) to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_RG_TO_GRAY,DINT,,present,Transform the color space from BayerRG to Gray (supports images of type USINT or UINT).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GR_TO_GRAY,DINT,,present,Transform the color space from BayerGR to Gray (supports images of type USINT or UINT).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_BG_TO_GRAY,DINT,,present,Transform the color space from BayerBG to Gray (supports images of type USINT or UINT).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GB_TO_GRAY,DINT,,present,Transform the color space from BayerGB to Gray (supports images of type USINT or UINT).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_NV12_TO_RGB,DINT,,present,Transform the color space from YUV420 NV12 to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_NV12_TO_BGR,DINT,,present,Transform the color space from YUV420 NV12 to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_NV21_TO_RGB,DINT,,present,Transform the color space from YUV420 NV21 (SP) to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_NV21_TO_BGR,DINT,,present,Transform the color space from YUV420 NV21 (SP) to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_SP_TO_RGB,DINT,,present,Transform the color space from YUV420 NV21 (SP) to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_SP_TO_BGR,DINT,,present,Transform the color space from YUV420 NV21 (SP) to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_NV12_TO_RGBA,DINT,,present,Transform the color space from YUV420 NV12 to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_NV12_TO_BGRA,DINT,,present,Transform the color space from YUV420 NV12 to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_NV21_TO_RGBA,DINT,,present,Transform the color space from YUV420 NV21 (SP) to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_NV21_TO_BGRA,DINT,,present,Transform the color space from YUV420 NV21 (SP) to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_SP_TO_RGBA,DINT,,present,Transform the color space from YUV420 NV21 (SP) to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_SP_TO_BGRA,DINT,,present,Transform the color space from YUV420 NV21 (SP) to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_YV12_TO_RGB,DINT,,present,Transform the color space from YUV420 YV12 (P) to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_YV12_TO_BGR,DINT,,present,Transform the color space from YUV420 YV12 (P) to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_IYUV_TO_RGB,DINT,,present,Transform the color space from YUV420 IYUV (I420) to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_IYUV_TO_BGR,DINT,,present,Transform the color space from YUV420 IYUV (I420) to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_I420_TO_RGB,DINT,,present,Transform the color space from YUV420 IYUV (I420) to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_I420_TO_BGR,DINT,,present,Transform the color space from YUV420 IYUV (I420) to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_P_TO_RGB,DINT,,present,Transform the color space from YUV420 YV12 (P) to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_P_TO_BGR,DINT,,present,Transform the color space from YUV420 YV12 (P) to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_YV12_TO_RGBA,DINT,,present,Transform the color space from YUV420 YV12 (P) to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_YV12_TO_BGRA,DINT,,present,Transform the color space from YUV420 YV12 (P) to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_IYUV_TO_RGBA,DINT,,present,Transform the color space from YUV420 IYUV (I420) to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_IYUV_TO_BGRA,DINT,,present,Transform the color space from YUV420 IYUV (I420) to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_I420_TO_RGBA,DINT,,present,Transform the color space from YUV420 IYUV (I420) to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_I420_TO_BGRA,DINT,,present,Transform the color space from YUV420 IYUV (I420) to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_P_TO_RGBA,DINT,,present,Transform the color space from YUV420 YV12 (P) to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_P_TO_BGRA,DINT,,present,Transform the color space from YUV420 YV12 (P) to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_TO_GRAY,DINT,,present,Transform the color space from YUV420 to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_NV21_TO_GRAY,DINT,,present,Transform the color space from YUV420 to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_NV12_TO_GRAY,DINT,,present,Transform the color space from YUV420 to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_YV12_TO_GRAY,DINT,,present,Transform the color space from YUV420 to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_IYUV_TO_GRAY,DINT,,present,Transform the color space from YUV420 to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_I420_TO_GRAY,DINT,,present,Transform the color space from YUV420 to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_SP_TO_GRAY,DINT,,present,Transform the color space from YUV420 to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_420_P_TO_GRAY,DINT,,present,Transform the color space from YUV420 to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_UYVY_TO_RGB,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to RGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_UYVY_TO_BGR,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to BGR."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_Y422_TO_RGB,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to RGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_Y422_TO_BGR,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to BGR."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_UYNV_TO_RGB,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to RGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_UYNV_TO_BGR,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to BGR."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_UYVY_TO_RGBA,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to RGBA."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_UYVY_TO_BGRA,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to BGRA."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_Y422_TO_RGBA,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to RGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_Y422_TO_BGRA,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to BGRA."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_UYNV_TO_RGBA,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to RGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_UYNV_TO_BGRA,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to BGRA."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUY2_TO_RGB,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to RGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUY2_TO_BGR,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to BGR."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YVYU_TO_RGB,DINT,,present,Transform the color space from YUV422 YVYU to RGB.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YVYU_TO_BGR,DINT,,present,Transform the color space from YUV422 YVYU to BGR.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUYV_TO_RGB,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to RGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUYV_TO_BGR,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to BGR."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUNV_TO_RGB,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to RGB."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUNV_TO_BGR,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to BGR."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUY2_TO_RGBA,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to RGBA."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUY2_TO_BGRA,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to BGRA."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YVYU_TO_RGBA,DINT,,present,Transform the color space from YUV422 YVYU to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YVYU_TO_BGRA,DINT,,present,Transform the color space from YUV422 YVYU to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUYV_TO_RGBA,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to RGBA."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUYV_TO_BGRA,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to BGRA."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUNV_TO_RGBA,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to RGBA."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUNV_TO_BGRA,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to BGRA."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_UYVY_TO_GRAY,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to Gray."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUY2_TO_GRAY,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to Gray."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_Y422_TO_GRAY,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to Gray."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_UYNV_TO_GRAY,DINT,,present,"Transform the color space from YUV422 UYVY (Y422, UYNV) to Gray."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YVYU_TO_GRAY,DINT,,present,Transform the color space from YUV422 YVYU to Gray.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUYV_TO_GRAY,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to Gray."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_YUV_422_YUNV_TO_GRAY,DINT,,present,"Transform the color space from YUV422 YUYV (YUY2, YUNV) to Gray."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_PREMULTIPLICATED_RGBA,DINT,,present,Transform the color space from RGBA to premultiplicated RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_PREMULTIPLICATED_RGBA_TO_RGBA,DINT,,present,Transform the color space from premultiplicated RGBA to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_YUV_420_I420,DINT,,present,Transform the color space from RGB to YUV420 IYUV (I420).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_YUV_420_I420,DINT,,present,Transform the color space from BGR to YUV420 IYUV (I420).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_YUV_420_IYUV,DINT,,present,Transform the color space from RGB to YUV420 IYUV (I420).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_YUV_420_IYUV,DINT,,present,Transform the color space from BGR to YUV420 IYUV (I420).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_YUV_420_I420,DINT,,present,Transform the color space from RGBA to YUV420 IYUV (I420).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_YUV_420_I420,DINT,,present,Transform the color space from BGRA to YUV420 IYUV (I420).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_YUV_420_IYUV,DINT,,present,Transform the color space from RGBA to YUV420 IYUV (I420).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_YUV_420_IYUV,DINT,,present,Transform the color space from BGRA to YUV420 IYUV (I420).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_YUV_420_YV12,DINT,,present,Transform the color space from RGB to YUV420 YV12 (P).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_YUV_420_YV12,DINT,,present,Transform the color space from BGR to YUV420 YV12 (P).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_YUV_420_YV12,DINT,,present,Transform the color space from RGBA to YUV420 YV12 (P).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_YUV_420_YV12,DINT,,present,Transform the color space from BGRA to YUV420 YV12 (P).
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_RG_TO_BGR_EA,DINT,,present,"Transform the color space from BayerRG to BGR, using an Edge Aware algorithm."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GR_TO_BGR_EA,DINT,,present,"Transform the color space from BayerGR to BGR, using an Edge Aware algorithm."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_BG_TO_BGR_EA,DINT,,present,"Transform the color space from BayerBG to BGR, using an Edge Aware algorithm."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GB_TO_BGR_EA,DINT,,present,"Transform the color space from BayerGB to BGR, using an Edge Aware algorithm."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_RG_TO_RGB_EA,DINT,,present,"Transform the color space from BayerRG to RGB, using an Edge Aware algorithm."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GR_TO_RGB_EA,DINT,,present,"Transform the color space from BayerGR to RGB, using an Edge Aware algorithm."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_BG_TO_RGB_EA,DINT,,present,"Transform the color space from BayerBG to RGB, using an Edge Aware algorithm."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GB_TO_RGB_EA,DINT,,present,"Transform the color space from BayerGB to RGB, using an Edge Aware algorithm."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_RG_TO_BGRA,DINT,,present,Transform the color space from BayerRG to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GR_TO_BGRA,DINT,,present,Transform the color space from BayerGR to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_BG_TO_BGRA,DINT,,present,Transform the color space from BayerBG to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GB_TO_BGRA,DINT,,present,Transform the color space from BayerGB to BGRA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_RG_TO_RGBA,DINT,,present,Transform the color space from BayerRG to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GR_TO_RGBA,DINT,,present,Transform the color space from BayerGR to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_BG_TO_RGBA,DINT,,present,Transform the color space from BayerBG to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BAYER_GB_TO_RGBA,DINT,,present,Transform the color space from BayerGB to RGBA.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_YUV_422_UYVY,DINT,,present,"Transform the color space from RGB to YUV422 UYVY (Y422, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_YUV_422_UYVY,DINT,,present,"Transform the color space from BGR to YUV422 UYVY (Y422, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_YUV_422_Y422,DINT,,present,"Transform the color space from RGB to YUV422 UYVY (Y422, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_YUV_422_Y422,DINT,,present,"Transform the color space from BGR to YUV422 UYVY (Y422, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_YUV_422_UYNV,DINT,,present,"Transform the color space from RGB to YUV422 UYVY (Y422, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_YUV_422_UYNV,DINT,,present,"Transform the color space from BGR to YUV422 UYVY (Y422, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_YUV_422_UYVY,DINT,,present,"Transform the color space from RGBA to YUV422 UYVY (Y422, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_YUV_422_UYVY,DINT,,present,"Transform the color space from BGRA to YUV422 UYVY (Y422, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_YUV_422_Y422,DINT,,present,"Transform the color space from RGBA to YUV422 UYVY (Y422, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_YUV_422_Y422,DINT,,present,"Transform the color space from BGRA to YUV422 UYVY (Y422, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_YUV_422_UYNV,DINT,,present,"Transform the color space from RGBA to YUV422 UYVY (Y422, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_YUV_422_UYNV,DINT,,present,"Transform the color space from BGRA to YUV422 UYVY (Y422, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_YUV_422_YUY2,DINT,,present,"Transform the color space from RGB to YUV422 YUY2 (YUYV, YUNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_YUV_422_YUY2,DINT,,present,"Transform the color space from BGR to YUV422 YUY2 (YUYV, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_YUV_422_YVYU,DINT,,present,Transform the color space from RGB to YUV422 YVYU.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_YUV_422_YVYU,DINT,,present,Transform the color space from BGR to YUV422 YVYU.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_YUV_422_YUYV,DINT,,present,"Transform the color space from RGB to YUV422 YUY2 (YUYV, YUNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_YUV_422_YUYV,DINT,,present,"Transform the color space from BGR to YUV422 YUY2 (YUYV, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGB_TO_YUV_422_YUNV,DINT,,present,"Transform the color space from RGB to YUV422 YUY2 (YUYV, YUNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGR_TO_YUV_422_YUNV,DINT,,present,"Transform the color space from BGR to YUV422 YUY2 (YUYV, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_YUV_422_YUY2,DINT,,present,"Transform the color space from RGBA to YUV422 YUY2 (YUYV, YUNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_YUV_422_YUY2,DINT,,present,"Transform the color space from BGRA to YUV422 YUY2 (YUYV, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_YUV_422_YVYU,DINT,,present,Transform the color space from RGBA to YUV422 YVYU.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_YUV_422_YVYU,DINT,,present,Transform the color space from BGRA to YUV422 YVYU.
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_YUV_422_YUYV,DINT,,present,"Transform the color space from RGBA to YUV422 YUY2 (YUYV, YUNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_YUV_422_YUYV,DINT,,present,"Transform the color space from BGRA to YUV422 YUY2 (YUYV, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_RGBA_TO_YUV_422_YUNV,DINT,,present,"Transform the color space from RGBA to YUV422 YUY2 (YUYV, YUNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_BGRA_TO_YUV_422_YUNV,DINT,,present,"Transform the color space from BGRA to YUV422 YUY2 (YUYV, UYNV)."
+ETcVnColorSpaceTransform,Enums,TCVN_CST_MAX,DINT,,present,"For internal use only, adapted when adding new values."
+ETcVnColorTrainingMethod,Enums,TCVN_CTM_LAB,DINT,,present,Trains the color in CIE L*a*b* color space.
+ETcVnColorTrainingMethod,Enums,TCVN_CTM_RGB,DINT,,present,Trains the color in RGB color space.
+ETcVnComparisonOperator,Enums,TCVN_CO_LESS,INT,,present,Sort values ascending
+ETcVnComparisonOperator,Enums,TCVN_CO_GREATER,INT,,present,Sort values descending
+ETcVnConnectedComponentsAlgorithm,Enums,TCVN_CCA_WU,DINT,,present,SAUF algorithm
+ETcVnConnectedComponentsAlgorithm,Enums,TCVN_CCA_GRANA,DINT,,present,"BBDT algorithm for 8-way connectivity, SAUF algorithm for 4-way connectivity"
+ETcVnContainerExportFormat,Enums,TCVN_CEF_XML,UINT,,present,XML format with human readable data
+ETcVnContainerExportFormat,Enums,TCVN_CEF_XML_SERIALIZED,UINT,,present,XML format with serialized data
+ETcVnContainerExportFormat,Enums,TCVN_CEF_CSV,UINT,,present,"CSV format (limited to two dimensional representation, so not applicable for all container types)"
+ETcVnContainerExportFormat,Enums,TCVN_CEF_BINARY,UINT,,present,Binary serialized data (recommended for large containers)
+ETcVnContourApproximationMethod,Enums,TCVN_CAM_NONE,DINT,,present,"No approximation, every single point is stored, i.e. two subsequent points are always direct neighbors (horizontal, vertical or diagonal)."
+ETcVnContourApproximationMethod,Enums,TCVN_CAM_SIMPLE,DINT,,present,"Lossless compression of segments that form straight lines in horizontal, vertical or diagonal direction leaving only their endpoints (For instance, an up-right rectangle is reduced to its four corner points.)"
+ETcVnContourApproximationMethod,Enums,TCVN_CAM_TC89_L1,DINT,,present,"Compression using a Teh-Chin chain approximation algorithm (IEEE-paper C. Teh, R. Chin, On the Detection of Dominant Points on Digital Curves, 1989)."
+ETcVnContourApproximationMethod,Enums,TCVN_CAM_TC89_KCOS,DINT,,present,"Compression using a Teh-Chin chain approximation algorithm (IEEE-paper C. Teh, R. Chin, On the Detection of Dominant Points on Digital Curves, 1989)."
+ETcVnContourRetrievalMode,Enums,TCVN_CRM_EXTERNAL,DINT,,present,Returns only external contours.
+ETcVnContourRetrievalMode,Enums,TCVN_CRM_LIST,DINT,,present,"Returns all found contours, not considering their hierarchy."
+ETcVnContourRetrievalMode,Enums,TCVN_CRM_CONNECTED_COMPONENTS,DINT,,present,"Returns all contours with a 2-level hierarchy (External contours are assigned level 0, internal contours level 1)."
+ETcVnContourRetrievalMode,Enums,TCVN_CRM_TREE,DINT,,present,Returns all contours and their full hierarchy.
+ETcVnContourRetrievalMode,Enums,TCVN_CRM_FLOODFILL,DINT,,present,Returns the found contours using a floodfill algorithm (only available for DINT images).
+ETcVnContoursMatchComparisonMethod,Enums,TCVN_CMCM_CONTOURS_MATCH_I1,DINT,,present,Contours are compared using the sum over the differences between the reciprocal individual characteristics.
+ETcVnContoursMatchComparisonMethod,Enums,TCVN_CMCM_CONTOURS_MATCH_I2,DINT,,present,Contours are compared using the sum over the differences between the individual characteristics.
+ETcVnContoursMatchComparisonMethod,Enums,TCVN_CMCM_CONTOURS_MATCH_I3,DINT,,present,Contours are compared using only the maximum difference between the individual characteristics.
+ETcVnDataLayout,Enums,TCVN_DL_DEFAULT,ULINT,,present,Default
+ETcVnDataLayout,Enums,TCVN_DL_2D_HW,ULINT,,present,"2D data HW, multi/single channel image"
+ETcVnDataLayout,Enums,TCVN_DL_2D_WH,ULINT,,present,"2D data WH, multi/single channel image"
+ETcVnDataLayout,Enums,TCVN_DL_3D_CHW,ULINT,,present,"3D data CHW, single channel image"
+ETcVnDataLayout,Enums,TCVN_DL_3D_HWC,ULINT,,present,"3D data HWC, single channel image"
+ETcVnDataLayout,Enums,TCVN_DL_4D_NCHW,ULINT,,present,"4D data NCHW, single channel image"
+ETcVnDataLayout,Enums,TCVN_DL_4D_NHWC,ULINT,,present,"4D data NHWC, single channel image"
+ETcVnDataMatrixOptions,Enums,TCVN_DMO_DEFAULT,ULINT,,present,Expects a graylevel image as input. Applies an adaptive local threshold and creates a dynamic grid based on the clock pattern.
+ETcVnDataMatrixOptions,Enums,TCVN_DMO_BINARY_INPUT,ULINT,,present,"Expects a binary image as input (all pixels must contain 0 or 255, disables internal preprocessing)"
+ETcVnDataMatrixOptions,Enums,TCVN_DMO_GLOBAL_THRESHOLD,ULINT,,present,Applies a global instead of an adaptive local threshold (requires uniform illumination)
+ETcVnDataMatrixOptions,Enums,TCVN_DMO_BINARY_GRID,ULINT,,present,Create the dynamic grid based on the binary instead of the graylevel image
+ETcVnDataMatrixOptions,Enums,TCVN_DMO_STATIC_GRID,ULINT,,present,Use an equally spaced static grid instead of a dynamic one
+ETcVnDataMatrixOptions,Enums,TCVN_DMO_REGULAR_COLOR,ULINT,,present,Only search for regular color (dark code on light background)
+ETcVnDataMatrixOptions,Enums,TCVN_DMO_INVERTED_COLOR,ULINT,,present,Only search for inverted color (light code on dark background)
+ETcVnDetectBarcodesWalshOptions,Enums,TCVN_DBWO_HORIZONTAL,UDINT,,present,Localize horizontal barcodes.
+ETcVnDetectBarcodesWalshOptions,Enums,TCVN_DBWO_VERTICAL,UDINT,,present,Localize vertical barcodes.
+ETcVnDetectBarcodesWalshOptions,Enums,TCVN_DBWO_DIAGONAL_45,UDINT,,present,Localize diagonal barcodes rotated by 45 degrees.
+ETcVnDetectBarcodesWalshOptions,Enums,TCVN_DBWO_DIAGONAL_135,UDINT,,present,Localize diagonal barcodes rotated by 135 degrees.
+ETcVnDetectBarcodesWalshOptions,Enums,TCVN_DBWO_ALL_DIRECTIONS,UDINT,,present,Localize arbitrarily rotated barcodes.
+ETcVnDetectPatternPointsOptions,Enums,TCVN_DPPO_SYMMETRIC,UDINT,,present,Symmetric grid
+ETcVnDetectPatternPointsOptions,Enums,TCVN_DPPO_ASYMMETRIC,UDINT,,present,Asymmetric grid
+ETcVnDetectPatternPointsOptions,Enums,TCVN_DPPO_CLUSTERING,UDINT,,present,"Use a clustering algorithm for grid detection (more robust to perspective distortion, but less robust to background clutter)"
+ETcVnDiffusivityTypeKAZE,Enums,TCVN_DT1_KAZE_PM_G1,DINT,,present,Uses the Perona-Malik diffusivity filter g1.
+ETcVnDiffusivityTypeKAZE,Enums,TCVN_DT1_KAZE_PM_G2,DINT,,present,Uses the Perona-Malik diffusivity filter g2.
+ETcVnDiffusivityTypeKAZE,Enums,TCVN_DT1_KAZE_WEICKERT,DINT,,present,Uses the Weickert diffusivity filter.
+ETcVnDiffusivityTypeKAZE,Enums,TCVN_DT1_KAZE_CHARBONNIER,DINT,,present,Uses the Charbonnier diffusivity filter.
+ETcVnDistanceTransformationLabel,Enums,TCVN_DTL_CCOMP,DINT,,present,Labels connected components (Each connected component of zeros in the source image and the pixels closest to the connected component will be assigned the same label).
+ETcVnDistanceTransformationLabel,Enums,TCVN_DTL_PIXEL,DINT,,present,Labels pixels (Each zero pixel and the non-zero pixels closest to it get their own label).
+ETcVnDistanceTransformationMask,Enums,TCVN_DTM_PRECISE,DINT,,present,Uses a precise mask.
+ETcVnDistanceTransformationMask,Enums,TCVN_DTM_3,DINT,,present,Uses a 3x3 mask.
+ETcVnDistanceTransformationMask,Enums,TCVN_DTM_5,DINT,,present,Uses a 5x5 mask.
+ETcVnDistanceType,Enums,TCVN_DT_USER,DINT,,present,User defined distance
+ETcVnDistanceType,Enums,TCVN_DT_L1,DINT,,present,|x1 - x2| + |y1 - y2|
+ETcVnDistanceType,Enums,TCVN_DT_L2,DINT,,present,Euclidean distance
+ETcVnDistanceType,Enums,TCVN_DT_C,DINT,,present,"max(|x1 - x2|, |y1 - y2|)"
+ETcVnDistanceType,Enums,TCVN_DT_L12,DINT,,present,L1 - L2 : 2*(sqrt(1 + x*x/2) - 1))
+ETcVnDistanceType,Enums,TCVN_DT_FAIR,DINT,,present,"c^2(|x|/c-log(1+|x|/c)), c = 1.3998"
+ETcVnDistanceType,Enums,TCVN_DT_WELSCH,DINT,,present,"c^2/2(1-exp(-(x/c)^2)), c = 2.9846"
+ETcVnDistanceType,Enums,TCVN_DT_HUBER,DINT,,present,"|x|<c ? x^2/2 : c(|x|-c/2), c=1.345"
+ETcVnDotCodeOptions,Enums,TCVN_DCO_DEFAULT,ULINT,,present,Expects a graylevel image as input and applies the default algorithm (similar to the reference decode algorithm)
+ETcVnDotCodeOptions,Enums,TCVN_DCO_BINARY_INPUT,ULINT,,present,"Expects a binary image as input (all pixels must contain 0 or 255, disables internal preprocessing)"
+ETcVnDotCodeOptions,Enums,TCVN_DCO_DETECTBLOBS,ULINT,,present,Modifies the default algorithm by using blob detection to find the dots (can't be combined with BINARY_INPUT or FILTERCONTOURS)
+ETcVnDotCodeOptions,Enums,TCVN_DCO_FILTERCONTOURS,ULINT,,present,"As a preprocessing step, remove contours connected to the image border and with significantly wrong size (relative to provided fModuleWidth)"
+ETcVnDotCodeOptions,Enums,TCVN_DCO_REGULAR_COLOR,ULINT,,present,Only search for regular color (dark code on light background)
+ETcVnDotCodeOptions,Enums,TCVN_DCO_INVERTED_COLOR,ULINT,,present,Only search for inverted color (light code on dark background)
+ETcVnDrawMatchesFlags,Enums,TCVN_DMF_DEFAULT,DINT,,present,Draw all keypoints into a new image.
+ETcVnDrawMatchesFlags,Enums,TCVN_DMF_OVERDRAW,DINT,,present,Draw all keypoints into the existing destination image.
+ETcVnDrawMatchesFlags,Enums,TCVN_DMF_SKIPSINGLE,DINT,,present,Draw the keypoints into a new image but skip single keypoints.
+ETcVnDrawMatchesFlags,Enums,TCVN_DMF_OVERDRAW_SKIPSINGLE,DINT,,present,Draw the keypoints into the existing destination image but skip single keypoints.
+ETcVnDrawMatchesFlags,Enums,TCVN_DMF_RICHKEYPOINT,DINT,,present,Draw all keypoints with rich information into a new image.
+ETcVnDrawMatchesFlags,Enums,TCVN_DMF_OVERDRAW_RICHKEYPOINT,DINT,,present,Draw all keypoints with rich information into the existing destination image.
+ETcVnDrawMatchesFlags,Enums,TCVN_DMF_SKIPSINGLE_RICHKEYPOINT,DINT,,present,Draw the keypoints with rich information into a new image but skip single keypoints.
+ETcVnDrawMatchesFlags,Enums,TCVN_DMF_OVERDRAW_SKIPSINGLE_RICHKEYPOINT,DINT,,present,Draw the keypoints with rich information into the existing destination image but skip single keypoints.
+ETcVnDrawShape,Enums,TCVN_DS_RANDOM,DINT,,present,"Randomly select a circle, square, plus, X or diamond."
+ETcVnDrawShape,Enums,TCVN_DS_CIRCLE,DINT,,present,Circle
+ETcVnDrawShape,Enums,TCVN_DS_SQUARE,DINT,,present,Square
+ETcVnDrawShape,Enums,TCVN_DS_PLUS,DINT,,present,+
+ETcVnDrawShape,Enums,TCVN_DS_X,DINT,,present,x
+ETcVnDrawShape,Enums,TCVN_DS_DIAMOND,DINT,,present,Diamond
+ETcVnDrawShape,Enums,TCVN_DS_MAX,DINT,,present,"For internal use only, adapted when adding new values."
+ETcVnEdgeDetectionAlgorithm,Enums,TCVN_EDA_INTERPOLATION,DINT,,present,"Interpolates pixels (bilinear) and then finds the maximum gradient. This approach is fast and stable, but usually less precise than the function approximation methods."
+ETcVnEdgeDetectionAlgorithm,Enums,TCVN_EDA_APPROX_ERF,DINT,,present,"Approximates the edge with an erf function. This approach is slower than the interpolation method, but usually more precise. However, it can be inaccurate if the edge does not suit the erf model."
+ETcVnEdgeDetectionAlgorithm,Enums,TCVN_EDA_APPROX_GAUSSIAN,DINT,,present,"Approximates the edge with a gaussian function. This method is intended to find the center of relatively thin lines, so it is likely to be inaccurate for other edges."
+ETcVnEdgeDirection,Enums,TCVN_ED_DARK_TO_LIGHT,DINT,,present,Dark to light
+ETcVnEdgeDirection,Enums,TCVN_ED_LIGHT_TO_DARK,DINT,,present,Light to dark
+ETcVnEdgeSelection,Enums,TCVN_ES_RISING,DINT,,present,"Only search for rising edges, i.e. dark to light transitions"
+ETcVnEdgeSelection,Enums,TCVN_ES_FALLING,DINT,,present,"Only search for falling edges, i.e. light to dark transitions"
+ETcVnEdgeSelection,Enums,TCVN_ES_ANY,DINT,,present,"Search for any edge direction, i.e. rising or falling"
+ETcVnElementType,Enums,TCVN_ET_SAME_AS_SOURCE,DINT,,present,Sets the element type of the destination image to the source image element type.
+ETcVnElementType,Enums,TCVN_ET_USINT,DINT,,present,"USINT (depth: 8 bit, 0..255)"
+ETcVnElementType,Enums,TCVN_ET_SINT,DINT,,present,"SINT (depth: 8 bit, -128..127)"
+ETcVnElementType,Enums,TCVN_ET_UINT,DINT,,present,"UINT (depth: 16 bit, 0..65535)"
+ETcVnElementType,Enums,TCVN_ET_INT,DINT,,present,"INT (depth: 16 bit, -32768..32767)"
+ETcVnElementType,Enums,TCVN_ET_DINT,DINT,,present,"DINT (depth: 32 bit, -2147483648..2147483647)"
+ETcVnElementType,Enums,TCVN_ET_REAL,DINT,,present,"REAL (depth: 32 bit, ~ -3.402823E 10^38 .. ~ 3.402823E 38)"
+ETcVnElementType,Enums,TCVN_ET_LREAL,DINT,,present,"LREAL (depth: 64 bit, ~ -1.79769313486231E 308 .. ~ 1.79769313486232E 308)"
+ETcVnEstimationAlgorithm,Enums,TCVN_EA_DEFAULT,DINT,,present,Use all points.
+ETcVnEstimationAlgorithm,Enums,TCVN_EA_LMEDS,DINT,,present,Least Median of Squares
+ETcVnEstimationAlgorithm,Enums,TCVN_EA_RANSAC,DINT,,present,Random Sample Consensus
+ETcVnEstimationAlgorithm,Enums,TCVN_EA_RHO,DINT,,present,Progressive Sample Consensus
+ETcVnExtremePointDirection,Enums,TCVN_EPD_TOP_LEFT,DINT,,present,"Find the topmost point (min y, take left one if more than 1)."
+ETcVnExtremePointDirection,Enums,TCVN_EPD_TOP_MEDIAN,DINT,,present,"Find the topmost point (min y, take median one if more than 1)."
+ETcVnExtremePointDirection,Enums,TCVN_EPD_TOP_RIGHT,DINT,,present,"Find the topmost point (min y, take right one if more than 1)."
+ETcVnExtremePointDirection,Enums,TCVN_EPD_BOTTOM_LEFT,DINT,,present,"Find the bottommost point (max y, take left one if more than 1)."
+ETcVnExtremePointDirection,Enums,TCVN_EPD_BOTTOM_MEDIAN,DINT,,present,"Find the bottommost point (max y, take median one if more than 1)."
+ETcVnExtremePointDirection,Enums,TCVN_EPD_BOTTOM_RIGHT,DINT,,present,"Find the bottommost point (max y, take right one if more than 1)."
+ETcVnExtremePointDirection,Enums,TCVN_EPD_LEFT_TOP,DINT,,present,"Find the leftmost point (min x, take top one if more than 1)."
+ETcVnExtremePointDirection,Enums,TCVN_EPD_LEFT_MEDIAN,DINT,,present,"Find the leftmost point (min x, take median one if more than 1)."
+ETcVnExtremePointDirection,Enums,TCVN_EPD_LEFT_BOTTOM,DINT,,present,"Find the leftmost point (min x, take bottom one if more than 1)."
+ETcVnExtremePointDirection,Enums,TCVN_EPD_RIGHT_TOP,DINT,,present,"Find the rightmost point (max x, take top one if more than 1)."
+ETcVnExtremePointDirection,Enums,TCVN_EPD_RIGHT_MEDIAN,DINT,,present,"Find the rightmost point (max x, take median one if more than 1)."
+ETcVnExtremePointDirection,Enums,TCVN_EPD_RIGHT_BOTTOM,DINT,,present,"Find the rightmost point (max x, take bottom one if more than 1)."
+ETcVnFeatureDescriptorTypeAKAZE,Enums,TCVN_FDT_AKAZE_KAZE_UPRIGHT,DINT,,present,"KAZE descriptor (upright, i.e. rotation dependend)."
+ETcVnFeatureDescriptorTypeAKAZE,Enums,TCVN_FDT_AKAZE_KAZE,DINT,,present,KAZE descriptor (rotation invariant).
+ETcVnFeatureDescriptorTypeAKAZE,Enums,TCVN_FDT_AKAZE_MLDB_UPRIGHT,DINT,,present,"MLDB descriptor (upright, i.e. rotation dependend)."
+ETcVnFeatureDescriptorTypeAKAZE,Enums,TCVN_FDT_AKAZE_MLDB,DINT,,present,MLDB descriptor (rotation invariant).
+ETcVnFeatureScalingType,Enums,TCVN_FST1_MAXABS,DINT,,present,Use the max of the absolute values of the feature vector. The normlized values are in the range [-1 to 1] or [0 to 1] if all the original values are positive.
+ETcVnFeatureScalingType,Enums,TCVN_FST1_MINMAX,DINT,,present,Use the min and max values of the feature vector. The normlized values are in the range [0 to 1]
+ETcVnFeatureScalingType,Enums,TCVN_FST1_STANDARDIZATION,DINT,,present,Use the mean and the standard deviation of the feature vector. The normalized vector has a mean value equal to zero and standard deviation equal to one
+ETcVnFeatureScoreTypeORB,Enums,TCVN_FST_ORB_HARRIS,DINT,,present,"Harris algorithm (produces more stable keypoints, but computation takes longer)."
+ETcVnFeatureScoreTypeORB,Enums,TCVN_FST_ORB_FAST,DINT,,present,"FAST algorithm (produces slightly less stable keypoints, but computation is faster)."
+ETcVnFilterDirection,Enums,TCVN_FD_X,INT,,present,X-direction
+ETcVnFilterDirection,Enums,TCVN_FD_Y,INT,,present,Y-direction
+ETcVnFindRoisMethod,Enums,TCVN_FRM_GRID,UDINT,,present,Extracts ROIs by laying a regular grid of stRoiSize cells (see TcVnParamsFindRois) over the image and keeping only cells that contain sufficient texture. This method supports both binary and grayscale images.
+ETcVnFindRoisMethod,Enums,TCVN_FRM_CONNECTEDCOMPONENTS,UDINT,,present,"Extracts ROIs using connected-component analysis. The binary image is dilated to bridge nearby components, and then labeled."
+ETcVnFindTemplateWalshOptions,Enums,TCVN_FTWO_NONE,UDINT,,present,Do not use any special options.
+ETcVnFindTemplateWalshOptions,Enums,TCVN_FTWO_SKIP_DC,UDINT,,present,"Skip the DC component during similarity computation. The DC or ""direct current"" component is the first Walsh component. In contrast to further components, using it for projections captures total pixel intensities and not spatial differences. Therefore, skipping it may improve the robustness to illumination changes."
+ETcVnFindTemplateWalshOptions,Enums,TCVN_FTWO_WD_STOP_CORRECTION,UDINT,,present,Use an heuristic to adapt the match threshold in case of watchdog stops
+ETcVnFindTemplateWalshOptions,Enums,TCVN_FTWO_FUSE_MATCHES,UDINT,,present,Fuse matches with different rotations and similar locations.
+ETcVnFindTemplateWalshOptions,Enums,TCVN_FTWO_ROTATED_RECTANGLE,UDINT,,present,Return the results as a container of type ContainerType_Vector_TcVnRotatedRectangle
+ETcVnFindTemplateWalshOptions,Enums,TCVN_FTWO_MATCH_OPPOSITE_RANGE,UDINT,,present,Match with the given rotation angles and the opposite rotation angles (only usable with range-based functions)
+ETcVnFlipAxis,Enums,TCVN_FA_XY,INT,,present,Flip the image around both axes
+ETcVnFlipAxis,Enums,TCVN_FA_X,INT,,present,Flip the image around the X axis
+ETcVnFlipAxis,Enums,TCVN_FA_Y,INT,,present,Flip the image around the Y axis
+ETcVnFontType,Enums,TCVN_FT_HERSHEY_SIMPLEX,DINT,,present,Normal size sans-serif font.
+ETcVnFontType,Enums,TCVN_FT_HERSHEY_PLAIN,DINT,,present,Small size sans-serif font.
+ETcVnFontType,Enums,TCVN_FT_HERSHEY_DUPLEX,DINT,,present,More complex normal size sans-serif font.
+ETcVnFontType,Enums,TCVN_FT_HERSHEY_COMPLEX,DINT,,present,Normal size serif font.
+ETcVnFontType,Enums,TCVN_FT_HERSHEY_TRIPLEX,DINT,,present,More complex normal size serif font.
+ETcVnFontType,Enums,TCVN_FT_HERSHEY_COMPLEX_SMALL,DINT,,present,Small size serif font.
+ETcVnFontType,Enums,TCVN_FT_HERSHEY_SCRIPT_SIMPLEX,DINT,,present,Hand-writing style font.
+ETcVnFontType,Enums,TCVN_FT_HERSHEY_SCRIPT_COMPLEX,DINT,,present,More complex hand-writing style font.
+ETcVnFontType,Enums,TCVN_FT_HERSHEY_PLAIN_ITALIC,DINT,,present,Small size sans-serif font (italic).
+ETcVnFontType,Enums,TCVN_FT_HERSHEY_COMPLEX_ITALIC,DINT,,present,Normal size serif font (italic).
+ETcVnFontType,Enums,TCVN_FT_HERSHEY_TRIPLEX_ITALIC,DINT,,present,More complex normal size serif font (italic).
+ETcVnFontType,Enums,TCVN_FT_HERSHEY_COMPLEX_SMALL_ITALIC,DINT,,present,Small size serif font (italic).
+ETcVnHoughMethod,Enums,TCVN_HM_STANDARD,DINT,,present,"Classical or standard Hough transform. Every line is represented by two floating-point numbers (f1, f2), where f1 is a distance between (0,0) origin and the line, and f2 is the angle between x-axis and the normal to the line."
+ETcVnHoughMethod,Enums,TCVN_HM_PROBABILISTIC,DINT,,present,"Probabilistic Hough transform. More efficient for pictures containing long linear segments. Returns line segments rather than the whole line, while each segment is represented by start and end point."
+ETcVnHoughMethod,Enums,TCVN_HM_MULTI_SCALE,DINT,,present,Multi scale variant of classical Hough transform.
+ETcVnHoughMethod,Enums,TCVN_HM_GRADIENT,DINT,,present,"Method designed to find circles. See paper: HK Yuen, John Princen, John Illingworth, and Josef Kittler. Comparative study of hough transform methods for circle finding. Image and Vision Computing, 8(1):71–77, 1990"
+ETcVnHoughMethod,Enums,TCVN_HM_GRADIENT_ALT,DINT,,present,Variation of the GRADIENT method.
+ETcVnInitializableFunction,Enums,TCVN_IF_OCR,DINT,,present,F_VN_OCR
+ETcVnInitializableFunction,Enums,TCVN_IF_CODEDETECTION,DINT,,present,F_VN_DetectCodesNeuralNetwork
+ETcVnInterpolationType,Enums,TCVN_IT_NEAREST_NEIGHBOR,DINT,,present,Nearest neighbor interpolation
+ETcVnInterpolationType,Enums,TCVN_IT_BILINEAR,DINT,,present,Bilinear interpolation
+ETcVnInterpolationType,Enums,TCVN_IT_BICUBIC,DINT,,present,Bicubic interpolation
+ETcVnInterpolationType,Enums,TCVN_IT_AREA_BASED,DINT,,present,Area based interpolation
+ETcVnInterpolationType,Enums,TCVN_IT_LANCZOS4,DINT,,present,Lanczos4 interpolation
+ETcVnInterpolationType,Enums,TCVN_IT_BILINEAR_EXACT,DINT,,present,Bit exact bilinear interpolation
+ETcVnInterpolationType,Enums,TCVN_IT_NEAREST_NEIGHBOR_EXACT,DINT,,present,Bit exact nearest neighbor interpolation
+ETcVnJpegSampling,Enums,TCVN_JS_444,DINT,,present,"Sampling factors 1x1, 1x1, 1x1 (full chroma resolution)"
+ETcVnJpegSampling,Enums,TCVN_JS_440,DINT,,present,"Sampling factors 1x2, 1x1, 1x1"
+ETcVnJpegSampling,Enums,TCVN_JS_422,DINT,,present,"Sampling factors 2x1, 1x1, 1x1"
+ETcVnJpegSampling,Enums,TCVN_JS_420,DINT,,present,"Sampling factors 2x2, 1x1, 1x1 (default)"
+ETcVnJpegSampling,Enums,TCVN_JS_411,DINT,,present,"Sampling factors 4x1, 1x1, 1x1"
+ETcVnJpegSampling,Enums,TCVN_JS_410,DINT,,present,"Sampling factors 4x2, 1x1, 1x1 (lowest chroma resolution)"
+ETcVnKeypointDetectionTypeAGAST,Enums,TCVN_KDT_AGAST_5_8,DINT,,present,5 of 8
+ETcVnKeypointDetectionTypeAGAST,Enums,TCVN_KDT_AGAST_7_12d,DINT,,present,7 of 12 diamond
+ETcVnKeypointDetectionTypeAGAST,Enums,TCVN_KDT_AGAST_7_12s,DINT,,present,7 of 12 square
+ETcVnKeypointDetectionTypeAGAST,Enums,TCVN_KDT_AGAST_9_16,DINT,,present,9 of 16
+ETcVnKeypointDetectionTypeFAST,Enums,TCVN_KDT_FAST_5_8,DINT,,present,5 of 8
+ETcVnKeypointDetectionTypeFAST,Enums,TCVN_KDT_FAST_7_12,DINT,,present,7 of 12
+ETcVnKeypointDetectionTypeFAST,Enums,TCVN_KDT_FAST_9_16,DINT,,present,9 of 16
+ETcVnKnn,Enums,TCVN_KNN_CLASSIFIER,UDINT,,present,Classifier
+ETcVnKnn,Enums,TCVN_KNN_NOVELTY_DETECTOR,UDINT,,present,Novelty detector
+ETcVnKnn,Enums,TCVN_KNN_REGRESSOR,UDINT,,present,Regressor
+ETcVnLayerNameType,Enums,TCVN_LNT_ALL,DINT,,present,Return the name of all layers
+ETcVnLayerNameType,Enums,TCVN_LNT_OUTPUTS,DINT,,present,Return the names of unconnected output layers
+ETcVnLayerNameType,Enums,TCVN_LNT_INPUTS,DINT,,present,Return the names of model inputs
+ETcVnLineType,Enums,TCVN_LT_4_CONNECTED,DINT,,present,4-connected (pixels are connected horizontally and vertically).
+ETcVnLineType,Enums,TCVN_LT_8_CONNECTED,DINT,,present,"8-connected (pixels are connected horizontally, vertically and diagonally)."
+ETcVnLineType,Enums,TCVN_LT_ANTIALIASED,DINT,,present,"Antialiased (drawn using Gaussian filtering, only implemented for 8-bit images)."
+ETcVnMatchTemplateWalshOptions,Enums,TCVN_MTWO_NONE,UDINT,,present,Do not use any special options.
+ETcVnMatchTemplateWalshOptions,Enums,TCVN_MTWO_NORMED,UDINT,,present,"Normalize the elements of the output image to the interval [0, 1.0]."
+ETcVnMatchTemplateWalshOptions,Enums,TCVN_MTWO_SKIP_DC,UDINT,,present,"Skip the DC component during similarity computation. The DC or ""direct current"" component is the first Walsh component. In contrast to further components, using it for projections captures total pixel intensities and not spatial differences. Therefore, skipping it may improve the robustness to illumination changes."
+ETcVnMergeRegionsOptions,Enums,TCVN_MRO_UPRIGHTBOUNDINGRECT,ULINT,,present,Merge each group into an axis-aligned (upright) bounding rectangle.
+ETcVnMorphologicalOperator,Enums,TCVN_MO_EROSION,DINT,,present,"Shrinks objects (regions of foreground (i.e. white) pixels), removing regions smaller than the structuring element completely."
+ETcVnMorphologicalOperator,Enums,TCVN_MO_DILATION,DINT,,present,Expands objects and thereby closes small holes inside objects.
+ETcVnMorphologicalOperator,Enums,TCVN_MO_OPENING,DINT,,present,"Applies an erosion first, a dilation second. Objects smaller than the structuring element are removed while outer shapes remain largely the same."
+ETcVnMorphologicalOperator,Enums,TCVN_MO_CLOSING,DINT,,present,"Applies a dilation first, an erosion second. Holes inside objects that fit into the structuring element are closed completely while outer shapes remain largely the same."
+ETcVnMorphologicalOperator,Enums,TCVN_MO_GRADIENT,DINT,,present,Difference between the dilation and the erosion of an image.
+ETcVnMorphologicalOperator,Enums,TCVN_MO_WHITE_TOPHAT,DINT,,present,Difference between an input image and its opening.
+ETcVnMorphologicalOperator,Enums,TCVN_MO_BLACK_TOPHAT,DINT,,present,Difference between an input image and its closing.
+ETcVnMorphologicalOperator,Enums,TCVN_MO_OPENING_BY_RECONSTRUCTION,DINT,,present,Opening with subsequent reconstruction of objects that were not removed by the opening.
+ETcVnMorphologicalOperator,Enums,TCVN_MO_CLOSING_BY_RECONSTRUCTION,DINT,,present,Closing with subsequent reconstruction of objects that were not removed by the closing.
+ETcVnMorphologicalOperator,Enums,TCVN_MO_WHITE_TOPHAT_BY_RECONSTRUCTION,DINT,,present,White tophat with subsequent reconstruction of objects that were not removed by the white tophat.
+ETcVnMorphologicalOperator,Enums,TCVN_MO_BLACK_TOPHAT_BY_RECONSTRUCTION,DINT,,present,Black tophat with subsequent reconstruction of objects that were not removed by the black tophat.
+ETcVnNbc,Enums,TCVN_NBC_CLASSIFIER,UDINT,,present,Classifier
+ETcVnNbc,Enums,TCVN_NBC_NOVELTY_DETECTOR,UDINT,,present,Novelty detector
+ETcVnNormalizationType,Enums,TCVN_NT_INF,DINT,,present,Infinity norm
+ETcVnNormalizationType,Enums,TCVN_NT_L1,DINT,,present,L1 norm
+ETcVnNormalizationType,Enums,TCVN_NT_L2,DINT,,present,L2 (euclidean) norm
+ETcVnNormalizationType,Enums,TCVN_NT_L2SQR,DINT,,present,Squared L2 norm
+ETcVnNormalizationType,Enums,TCVN_NT_HAMMING,DINT,,present,Hamming distance (bitwise)
+ETcVnNormalizationType,Enums,TCVN_NT_HAMMING2,DINT,,present,Hamming distance (each 2 bits combined to one)
+ETcVnNormalizationType,Enums,TCVN_NT_RELATIVE_INF,DINT,,present,"Infinity norm (when comparing 2 arrays, the norm of their difference is divided by the norm of the second array)"
+ETcVnNormalizationType,Enums,TCVN_NT_RELATIVE_L1,DINT,,present,"L1 norm (when comparing 2 arrays, the norm of their difference is divided by the norm of the second array)"
+ETcVnNormalizationType,Enums,TCVN_NT_RELATIVE_L2,DINT,,present,"L2 (euclidean) norm (when comparing 2 arrays, the norm of their difference is divided by the norm of the second array)"
+ETcVnNormalizationType,Enums,TCVN_NT_RELATIVE_L2SQR,DINT,,present,"Squared L2 norm (when comparing 2 arrays, the norm of their difference is divided by the norm of the second array)"
+ETcVnNormalizationType,Enums,TCVN_NT_RELATIVE_HAMMING,DINT,,present,"Hamming distance (bitwise; when comparing 2 arrays, the norm of their difference is divided by the norm of the second array)"
+ETcVnNormalizationType,Enums,TCVN_NT_RELATIVE_HAMMING2,DINT,,present,"Hamming distance (each 2 bits combined to one; when comparing 2 arrays, the norm of their difference is divided by the norm of the second array)"
+ETcVnNormalizationType,Enums,TCVN_NT_MINMAX,DINT,,present,Normalize the values to a range given by a minimum and a maximum value.
+ETcVnOcrModelType,Enums,TCVN_OMT_NUMBERS,ULINT,,present,Classify numbers
+ETcVnOcrModelType,Enums,TCVN_OMT_NUMBERS_SC,ULINT,,present,Classify numbers and special characters
+ETcVnOcrModelType,Enums,TCVN_OMT_UCLETTERS,ULINT,,present,Classify uppercase letters
+ETcVnOcrModelType,Enums,TCVN_OMT_NUMBERS_SC_UCLETTERS,ULINT,,present,"Classify numbers, special characters and uppercase letters"
+ETcVnOcrModelType,Enums,TCVN_OMT_CNN_NUMBERS_SC_LETTERS,ULINT,,present,"Recognizes numbers, special characters, mixed-case letters. Bounding boxes are not returned. Pattern handling is not supported."
+ETcVnOcrOptions,Enums,TCVN_OO_NONE,UDINT,,present,No options
+ETcVnOcrOptions,Enums,TCVN_OO_WITHBLANKS,UDINT,,present,"Indicates that if blanks were found, they should be included in the result. By default, all blanks are omitted from the result."
+ETcVnOcrOptions,Enums,TCVN_OO_NOVELTY_LEVEL1,UDINT,,present,"The novelty detector is used with high sensitivity to novelty. It filters most unknown characters, but can reject valid characters. Novelty detector support depends on the selected model type."
+ETcVnOcrOptions,Enums,TCVN_OO_NOVELTY_LEVEL2,UDINT,,present,The novelty detector is used with balanced sensitivity to novelty. It filters many unknown characters with minimal rejection of valid characters. Novelty detector support depends on the selected model type.
+ETcVnOcrOptions,Enums,TCVN_OO_NOVELTY_LEVEL3,UDINT,,present,The novelty detector is used with reduced sensitivity to novelty. It filters clearly unknown characters and almost never rejects valid characters. Novelty detector support depends on the selected model type.
+ETcVnOrientationMethod,Enums,TCVN_OM_PCA,DINT,,present,Apply the PCA on the points and calculate the mean point as the center point and the rotation angle of the main principal axis
+ETcVnOrientationMethod,Enums,TCVN_OM_FITELLIPSE,DINT,,present,Fit an ellipse around the points and calculate the center point and the rotation angle of the main axis
+ETcVnOrientationMethod,Enums,TCVN_OM_MOMENTS,DINT,,present,Calculate the moments of the points and estimate the center of mass and the rotation angle
+ETcVnOrientationMethod,Enums,TCVN_OM_ENCLOSINGRECT,DINT,,present,Calculate a minimum area rectangle enclosing the points and calculate the center point and the rotation angle of the rectangle
+ETcVnPaddingMode,Enums,TCVN_PM_NONE,DINT,,present,Resize the image to the desired size without extra processing
+ETcVnPaddingMode,Enums,TCVN_PM_CROP_CENTER,DINT,,present,Resize and crop the image
+ETcVnPaddingMode,Enums,TCVN_PM_LETTERBOX,DINT,,present,Resize the image to the desired size while preserving the aspect ratio of the original image
+ETcVnPixelConnectivity,Enums,TCVN_PC_4,DINT,,present,4-way
+ETcVnPixelConnectivity,Enums,TCVN_PC_8,DINT,,present,8-way
+ETcVnPixelEncoding,Enums,TCVN_PE_NONE,BYTE,,present,"No encoding available, i.e. every pixel value is independent of other pixels."
+ETcVnPixelEncoding,Enums,TCVN_PE_BAYER_GR,BYTE,,present,Pixels are encoded as a BayerGR pattern.
+ETcVnPixelEncoding,Enums,TCVN_PE_BAYER_RG,BYTE,,present,Pixels are encoded as a BayerRG pattern.
+ETcVnPixelEncoding,Enums,TCVN_PE_BAYER_GB,BYTE,,present,Pixels are encoded as a BayerGB pattern.
+ETcVnPixelEncoding,Enums,TCVN_PE_BAYER_BG,BYTE,,present,Pixels are encoded as a BayerBG pattern.
+ETcVnPixelEncoding,Enums,TCVN_PE_YUV_411_UYYVYY,BYTE,,present,Pixels are encoded as YUV411 (UYYVYY).
+ETcVnPixelEncoding,Enums,TCVN_PE_YUV_422_UYVY,BYTE,,present,Pixels are encoded as YUV422 (UYVY).
+ETcVnPixelEncoding,Enums,TCVN_PE_YUV_422_YUYV,BYTE,,present,Pixels are encoded as YUV422 (YUYV).
+ETcVnPixelEncoding,Enums,TCVN_PE_YCBCR_411_CBYYCRYY,BYTE,,present,Pixels are encoded as YCbCr411 (CbYYCrYY).
+ETcVnPixelEncoding,Enums,TCVN_PE_YCBCR_422_CBYCRY,BYTE,,present,Pixels are encoded as YCbCr422 (CbYCrY).
+ETcVnPixelEncoding,Enums,TCVN_PE_YCBCR_422_YCBYCR,BYTE,,present,Pixels are encoded as YCbCr422 (YCbYCr).
+ETcVnPixelPackMode,Enums,TCVN_PPM_NONE,BYTE,,present,No packing
+ETcVnPixelPackMode,Enums,TCVN_PPM_MONO1P,BYTE,,present,Mono1p
+ETcVnPixelPackMode,Enums,TCVN_PPM_MONO2P,BYTE,,present,Mono2p
+ETcVnPixelPackMode,Enums,TCVN_PPM_MONO4P,BYTE,,present,Mono4p
+ETcVnPixelPackMode,Enums,TCVN_PPM_MONO10PACKED,BYTE,,present,Mono10Packed or BayerXX10Packed
+ETcVnPixelPackMode,Enums,TCVN_PPM_MONO12PACKED,BYTE,,present,Mono12Packed or BayerXX12Packed
+ETcVnPixelPackMode,Enums,TCVN_PPM_RGB10V1PACKED,BYTE,,present,RGB10V1Packed
+ETcVnPixelPackMode,Enums,TCVN_PPM_RGB10P32,BYTE,,present,RGB10V2Packed (RGB10p32)
+ETcVnPixelPackMode,Enums,TCVN_PPM_RGB12V1PACKED,BYTE,,present,RGB12V1Packed
+ETcVnPixelPackMode,Enums,TCVN_PPM_RGB565P,BYTE,,present,RGB565p
+ETcVnPixelPackMode,Enums,TCVN_PPM_BGR565P,BYTE,,present,BGR565p
+ETcVnPixelPackMode,Enums,TCVN_PPM_MONO10P,BYTE,,present,Mono10p or BayerXX10p
+ETcVnPixelPackMode,Enums,TCVN_PPM_MONO12P,BYTE,,present,Mono12p or BayerXX12p
+ETcVnPixelPackMode,Enums,TCVN_PPM_MONO14P,BYTE,,present,Mono14p or BayerXX14p
+ETcVnPolarizedImageInterpolation,Enums,TCVN_PII_NONE,DINT,,present,"No interpolation, i.e. demosaicing returns images with half width and height."
+ETcVnPolarizedImageInterpolation,Enums,TCVN_PII_NEAREST_NEIGHBOR,DINT,,present,Images are scaled to full resolution using nearest neighbor interpolation.
+ETcVnPolarizedImageInterpolation,Enums,TCVN_PII_BILINEAR,DINT,,present,Images are scaled to full resolution using bilinear interpolation.
+ETcVnPolarizedImageInterpolation,Enums,TCVN_PII_BICUBIC,DINT,,present,Images are scaled to full resolution using bicubic interpolation.
+ETcVnPolarizedImageInterpolation,Enums,TCVN_PII_LANCZOS4,DINT,,present,Images are scaled to full resolution using Lanczos4 interpolation.
+ETcVnPrototypeClusterer,Enums,TCVN_PC_NOVELTY_DETECTOR,UDINT,,present,Novelty detector
+ETcVnPrototypeClusterer,Enums,TCVN_PC_CLUSTERER,UDINT,,present,Clusterer
+ETcVnRTrees,Enums,TCVN_RT_CLASSIFIER,UDINT,,present,Classifier
+ETcVnRTrees,Enums,TCVN_RT_REGRESSOR,UDINT,,present,Regressor
+ETcVnRectangleIntersection,Enums,TCVN_RI_NONE,DINT,,present,No intersection
+ETcVnRectangleIntersection,Enums,TCVN_RI_PARTIAL,DINT,,present,Partial intersection
+ETcVnRectangleIntersection,Enums,TCVN_RI_FULL,DINT,,present,Full intersection
+ETcVnReduceType,Enums,TCVN_RT_REDUCE_SUM,DINT,,present,The sum (column/row-wise) of all rows/columns
+ETcVnReduceType,Enums,TCVN_RT_REDUCE_AVG,DINT,,present,The mean (column/row-wise) of all rows/columns
+ETcVnReduceType,Enums,TCVN_RT_REDUCE_MAX,DINT,,present,The maximum (column/row-wise) of all rows/columns
+ETcVnReduceType,Enums,TCVN_RT_REDUCE_MIN,DINT,,present,The minimum (column/row-wise) of all rows/columns
+ETcVnRotationAngle,Enums,TCVN_RA_90_DEG,DINT,,present,90 degrees
+ETcVnRotationAngle,Enums,TCVN_RA_180_DEG,DINT,,present,180 degrees
+ETcVnRotationAngle,Enums,TCVN_RA_270_DEG,DINT,,present,270 degrees
+ETcVnSalientFeaturesMethod,Enums,TCVN_SFM_WALSH_CODE,UDINT,,present,Walsh transform-based code detection.
+ETcVnSalientFeaturesMethod,Enums,TCVN_SFM_SOBEL,UDINT,,present,Sobel and Robinson compass filters for code detection.
+ETcVnSignedNormalization,Enums,TCVN_SN_FIX_ZERO,INT,,present,"The value 0 is fixed, i.e. the normalized image might only reach either the minimum or maximum value."
+ETcVnSignedNormalization,Enums,TCVN_SN_FULL_SCALE,INT,,present,"The image is normalized to the full value range, i.e. a prior value of 0 might be != 0 after normalization."
+ETcVnSolvePnPMethod,Enums,TCVN_SPM_ITERATIVE,DINT,,present,Levenberg-Marquardt optimization. Requires at least 4 planar or 6 non-planar reference points.
+ETcVnSolvePnPMethod,Enums,TCVN_SPM_EPNP,DINT,,present,Efficient perspective-n-point camera pose estimation. Requires at least 4 reference points.
+ETcVnSolvePnPMethod,Enums,TCVN_SPM_P3P,DINT,,present,Complete solution classification for the perspective-three-point problem. Requires exactly 4 reference points to find a unique solution.
+ETcVnSolvePnPMethod,Enums,TCVN_SPM_AP3P,DINT,,present,An efficient algebraic solution to the perspective-three-point problem. Requires exactly 4 reference points to find a unique solution.
+ETcVnSolvePnPMethod,Enums,TCVN_SPM_IPPE,DINT,,present,Infinitesimal plane-based pose estimation. Requires at least 4 coplanar reference points.
+ETcVnSolvePnPMethod,Enums,TCVN_SPM_IPPE_SQUARE,DINT,,present,"IPPE specialization for squares. Requires exactly 4 reference points in the following order (hsl: half square length): (-hsl, hsl, 0), (hsl, hsl, 0), (hsl, -hsl, 0), (-hsl, -hsl, 0)"
+ETcVnSolvePnPMethod,Enums,TCVN_SPM_SQPNP,DINT,,present,A consistently fast and globally optimal solution to the perspective-n-point problem. Requires at least 4 reference points.
+ETcVnSta,Enums,TCVN_STA_CLASSIFIER,UDINT,,present,Classifier
+ETcVnSta,Enums,TCVN_STA_NOVELTY_DETECTOR,UDINT,,present,Novelty detector
+ETcVnSta,Enums,TCVN_STA_REGRESSOR,UDINT,,present,Regressor
+ETcVnSta,Enums,TCVN_STA_CLUSTERER,UDINT,,present,Clusterer
+ETcVnStructuringElementShape,Enums,TCVN_SES_RECTANGLE,DINT,,present,Rectangle
+ETcVnStructuringElementShape,Enums,TCVN_SES_CROSS,DINT,,present,Cross
+ETcVnStructuringElementShape,Enums,TCVN_SES_ELLIPSE,DINT,,present,Ellipse
+ETcVnSvm,Enums,TCVN_SVM_C_CLASSIFIER,UDINT,,present,Classifier
+ETcVnSvm,Enums,TCVN_SVM_NU_CLASSIFIER,UDINT,,present,Classifier
+ETcVnSvm,Enums,TCVN_SVM_NOVELTY_DETECTOR,UDINT,,present,Novelty detector
+ETcVnSvm,Enums,TCVN_SVM_EPS_REGRESSOR,UDINT,,present,Regressor
+ETcVnSvm,Enums,TCVN_SVM_NU_REGRESSOR,UDINT,,present,Regressor
+ETcVnSvmKernelType,Enums,TCVN_SKT_LINEAR,DINT,,present,Linear kernel (fast)
+ETcVnSvmKernelType,Enums,TCVN_SKT_POLY,DINT,,present,Polynomial kernel
+ETcVnSvmKernelType,Enums,TCVN_SKT_RBF,DINT,,present,Radial basis function (RBF) kernel (good default)
+ETcVnSvmKernelType,Enums,TCVN_SKT_SIGMOID,DINT,,present,Sigmoid kernel
+ETcVnSvmKernelType,Enums,TCVN_SKT_CHI2,DINT,,present,Chi-squared kernel
+ETcVnSvmKernelType,Enums,TCVN_SKT_INTER,DINT,,present,Histogram intersection kernel
+ETcVnSvmSgdClassifierMarginType,Enums,TCVN_SSCMT_SOFT_MARGIN,DINT,,present,Soft margin allowing outliers. (beneficial for classes that cannot be separated linearly)
+ETcVnSvmSgdClassifierMarginType,Enums,TCVN_SSCMT_HARD_MARGIN,DINT,,present,Hard margin. (best-suited for linearly separable classes)
+ETcVnSvmSgdClassifierType,Enums,TCVN_SSCT_SGD,DINT,,present,Stochastic Gradient Descent
+ETcVnSvmSgdClassifierType,Enums,TCVN_SSCT_ASGD,DINT,,present,Average Stochastic Gradient Descent
+ETcVnTemplateMatchMethod,Enums,TCVN_TMM_SQDIFF,DINT,,present,Squared difference (supports template mask)
+ETcVnTemplateMatchMethod,Enums,TCVN_TMM_SQDIFF_NORMED,DINT,,present,Normalized squared difference
+ETcVnTemplateMatchMethod,Enums,TCVN_TMM_CCORR,DINT,,present,Cross-correlation
+ETcVnTemplateMatchMethod,Enums,TCVN_TMM_CCORR_NORMED,DINT,,present,Normalized cross-correlation (supports template mask)
+ETcVnTemplateMatchMethod,Enums,TCVN_TMM_CCOEFF,DINT,,present,Correlation coefficient
+ETcVnTemplateMatchMethod,Enums,TCVN_TMM_CCOEFF_NORMED,DINT,,present,Normalized correlation coefficient
+ETcVnThresholdType,Enums,TCVN_TT_BINARY,DINT,,present,Binary threshold
+ETcVnThresholdType,Enums,TCVN_TT_BINARY_INV,DINT,,present,Inverted binary threshold
+ETcVnThresholdType,Enums,TCVN_TT_TRUNC,DINT,,present,"Truncated threshold (pixels > thresh are set to thresh, others keep their value)"
+ETcVnThresholdType,Enums,TCVN_TT_TOZERO,DINT,,present,"To zero threshold (pixels < thresh are set to zero, others keep their value)"
+ETcVnThresholdType,Enums,TCVN_TT_TOZERO_INV,DINT,,present,"Inverted to zero threshold (pixels > thresh are set to zero, others keep their value)"
+ETcVnThresholdType,Enums,TCVN_TT_OTSU_BINARY,DINT,,present,Binary threshold with the threshold value selected according to the Otsu algorithm
+ETcVnThresholdType,Enums,TCVN_TT_OTSU_BINARY_INV,DINT,,present,Inverted binary threshold with the threshold value selected according to the Otsu algorithm
+ETcVnThresholdType,Enums,TCVN_TT_OTSU_TRUNC,DINT,,present,Truncated threshold with the threshold value selected according to the Otsu algorithm
+ETcVnThresholdType,Enums,TCVN_TT_OTSU_TOZERO,DINT,,present,To zero threshold with the threshold value selected according to the Otsu algorithm
+ETcVnThresholdType,Enums,TCVN_TT_OTSU_TOZERO_INV,DINT,,present,Inverted to zero threshold with the threshold value selected according to the Otsu algorithm
+ETcVnThresholdType,Enums,TCVN_TT_TRIANGLE_BINARY,DINT,,present,Binary threshold with the threshold value selected according to the Triangle algorithm
+ETcVnThresholdType,Enums,TCVN_TT_TRIANGLE_BINARY_INV,DINT,,present,Inverted binary threshold with the threshold value selected according to the Triangle algorithm
+ETcVnThresholdType,Enums,TCVN_TT_TRIANGLE_TRUNC,DINT,,present,Truncated threshold with the threshold value selected according to the Triangle algorithm
+ETcVnThresholdType,Enums,TCVN_TT_TRIANGLE_TOZERO,DINT,,present,To zero threshold with the threshold value selected according to the Triangle algorithm
+ETcVnThresholdType,Enums,TCVN_TT_TRIANGLE_TOZERO_INV,DINT,,present,Inverted to zero threshold with the threshold value selected according to the Triangle algorithm
+ETcVnTimestamp,Enums,TCVN_TS_IMAGE_COMPLETED,ULINT,,present,"Timestamp when the image was completed, i.e. all packets were received by the GigEVision driver and combined to an image."
+ETcVnTimestamp,Enums,TCVN_TS_RECEPTION_STARTED,ULINT,,present,"Timestamp when the image reception started, i.e. the GVSP leader packet was received by the GigEVision driver."
+ETcVnTimestamp,Enums,TCVN_TS_RECEPTION_FINISHED,ULINT,,present,"Timestamp when the image reception finished, i.e. the GVSP trailer packet was received by the GigEVision driver."
+ETcVnTimestamp,Enums,TCVN_TS_GETCURRENTIMAGE,ULINT,,present,Timestamp when the image was retrieved in the PLC by calling one of the GetCurrentImage methods of the CameraControl FB.
+ETcVnTimestamp,Enums,TCVN_TS_CAMERA,ULINT,,present,Timestamp created by the camera and transmitted as part of the GVSP leader packet. This timestamp is camera specific and by default not synchronized with TwinCAT.
+ETcVnTimestamp,Enums,TCVN_TS_CUSTOM,ULINT,,present,"Custom timestamp, that can optionally be set when creating a displayable image (nTimestamp parameter of Copy/TransformIntoDisplayableImage functions)."
+ETcVnTimestamp,Enums,TCVN_TS_LAST_CHANGE,ULINT,,present,Timestamp of the last content change of the image with TwinCAT Vision functions.
+ETcVnVectorCompareMethod,Enums,TCVN_VCM_EUCLIDEAN,DINT,,present,Euclidean
+ETcVnVectorCompareMethod,Enums,TCVN_VCM_ELEMENTWISE,DINT,,present,Elementwise
+ETcVnWorldCoordinateSystem,Enums,TCVN_WCS_X_RIGHT_Y_DOWN,DINT,,present,"X axis points right, Y axis down (same orientation as image coordinate system)"
+ETcVnWorldCoordinateSystem,Enums,TCVN_WCS_X_DOWN_Y_RIGHT,DINT,,present,"X axis points down, Y axis right"
+ETcVnWorldCoordinateSystem,Enums,TCVN_WCS_X_LEFT_Y_DOWN,DINT,,present,"X axis points left, Y axis down"
+ETcVnWorldCoordinateSystem,Enums,TCVN_WCS_X_UP_Y_RIGHT,DINT,,present,"X axis points up, Y axis right"
+ETcVnWorldCoordinateSystem,Enums,TCVN_WCS_X_RIGHT_Y_UP,DINT,,present,"X axis points right, Y axis up"
+ETcVnWorldCoordinateSystem,Enums,TCVN_WCS_X_DOWN_Y_LEFT,DINT,,present,"X axis points down, Y axis left"
+ETcVnWorldCoordinateSystem,Enums,TCVN_WCS_X_LEFT_Y_UP,DINT,,present,"X axis points left, Y axis up"
+ETcVnWorldCoordinateSystem,Enums,TCVN_WCS_X_UP_Y_LEFT,DINT,,present,"X axis points up, Y axis left"
+ETcWatchdogAccumulationType,Enums,WD_ACC_TYPE_MEAN,UINT,,present,Calculates the mean of the individual fractions processed over all monitored functions (recommended for independent functions).
+ETcWatchdogAccumulationType,Enums,WD_ACC_TYPE_PRODUCT,UINT,,present,Calculates the product of the individual fractions processed over all monitored functions (recommended for dependent functions).
+GEV_CAMERA_STATE,Enums,GEV_CAMERA_IDLE,BYTE,,present,Camera is idle (no control or stream channel open).
+GEV_CAMERA_STATE,Enums,GEV_CONTROL_CHANNEL_OPEN_MASK,BYTE,,present,The control channel is open.
+GEV_CAMERA_STATE,Enums,GEV_STREAM_CHANNELS_OPEN_MASK,BYTE,,present,At least 1 stream channel is open.
+GEV_CAMERA_STATE,Enums,GEV_CONTROL_CHANNEL_OPEN,BYTE,,present,"The control channel is open, but no stream channel."
+GEV_CAMERA_STATE,Enums,GEV_STREAM_CHANNELS_OPEN,BYTE,,present,At least 1 stream channel and the control channel are open.
+GVCP_ADDRESS_VALUE_PAIR,Structs,nAddress,GVCP_REGISTER_ADDRESS,,present,Register address
+GVCP_ADDRESS_VALUE_PAIR,Structs,nValue,GVCP_REGISTER_VALUE,,present,Register value
+GVSP_IMAGE_INFO,Structs,CameraIpAddress,UDINT,,present,Camera IP address
+GVSP_IMAGE_INFO,Structs,LocalIpAddress,UDINT,,present,Local IP address
+GVSP_IMAGE_INFO,Structs,CameraUdpPort,UINT,,present,Camera UDP port
+GVSP_IMAGE_INFO,Structs,LocalUdpPort,UINT,,present,Local UDP port
+GVSP_IMAGE_INFO,Structs,GvspChannelId,UINT,,present,ID of GVSP channel
+GVSP_IMAGE_INFO,Structs,GevStatus,UINT,,present,GigE Vision status code
+GVSP_IMAGE_INFO,Structs,BlockId,ULINT,,present,"Block Id (incremented for each acquired image, but reset to 0 on overflow)"
+GVSP_IMAGE_INFO,Structs,LeaderInfo,GVSP_LEADER_PAYLOAD_IMAGE,,present,"Contains information about timestamp, pixel format and size."
+GVSP_LEADER_PAYLOAD_IMAGE,Structs,Timestamp,ULINT,,present,Image timestamp
+GVSP_LEADER_PAYLOAD_IMAGE,Structs,PixelFormat,GVSP_PIXEL_FORMAT,,present,Image pixel format
+GVSP_LEADER_PAYLOAD_IMAGE,Structs,SizeX,UDINT,,present,Image size in x direction
+GVSP_LEADER_PAYLOAD_IMAGE,Structs,SizeY,UDINT,,present,Image size in y direction
+GVSP_LEADER_PAYLOAD_IMAGE,Structs,OffsetX,UDINT,,present,"Image x-offset from (0,0) origin"
+GVSP_LEADER_PAYLOAD_IMAGE,Structs,OffsetY,UDINT,,present,"Image y-offset from (0,0) origin"
+GVSP_LEADER_PAYLOAD_IMAGE,Structs,PaddingX,UINT,,present,Image padding in x direction
+GVSP_LEADER_PAYLOAD_IMAGE,Structs,PaddingY,UINT,,present,Image padding in y direction
+GVSP_PIXEL_FORMAT,Structs,Color,BYTE,,present,Indicates if the pixel format is mono or color.
+GVSP_PIXEL_FORMAT,Structs,EffectivePixelSize,BYTE,,present,Effective pixel size in bit
+GVSP_PIXEL_FORMAT,Structs,Id,UINT,,present,GVSP pixel format ID
+TcVnCameraCalibrationOptions,Structs,bUseIntrinsicGuess,BIT,,present,"The camera matrix and distortion coefficients already contain a valid initial guess, which is optimized further."
+TcVnCameraCalibrationOptions,Structs,bFixAspectRatio,BIT,,present,The ratio fx/fy stays the same as in the input camera matrix.
+TcVnCameraCalibrationOptions,Structs,bFixPrincipalPoint,BIT,,present,"The principal point is fixed to the image center (or provided cx,cy if bUseIntrinsicGuess)."
+TcVnCameraCalibrationOptions,Structs,bZeroTangentDist,BIT,,present,"The tangential distortion coefficients (p1, p2) are forced to 0."
+TcVnCameraCalibrationOptions,Structs,bFixFocalLength,BIT,,present,The parameters fx and fy stay the same as in the input camera matrix.
+TcVnCameraCalibrationOptions,Structs,bFixK1,BIT,,present,The radial distortion coefficient k1 is fixed to 0 (or provided input if bUseIntrinsicGuess)
+TcVnCameraCalibrationOptions,Structs,bFixK2,BIT,,present,The radial distortion coefficient k2 is fixed to 0 (or provided input if bUseIntrinsicGuess)
+TcVnCameraCalibrationOptions,Structs,bFixK3,BIT,,present,The radial distortion coefficient k3 is fixed to 0 (or provided input if bUseIntrinsicGuess)
+TcVnCameraCalibrationOptions,Structs,bFixK4,BIT,,present,The radial distortion coefficient k4 is fixed to 0 (or provided input if bUseIntrinsicGuess)
+TcVnCameraCalibrationOptions,Structs,bFixK5,BIT,,present,The radial distortion coefficient k5 is fixed to 0 (or provided input if bUseIntrinsicGuess)
+TcVnCameraCalibrationOptions,Structs,bFixK6,BIT,,present,The radial distortion coefficient k6 is fixed to 0 (or provided input if bUseIntrinsicGuess)
+TcVnCameraCalibrationOptions,Structs,bRationalModel,BIT,,present,"The radial distortion coefficients k4, k5, k6 are enabled."
+TcVnCircularArc,Structs,aCenter,TcVnPoint2_REAL,,present,Center of the circular arc
+TcVnCircularArc,Structs,fRadius,REAL,,present,Radius of the circular arc
+TcVnCircularArc,Structs,fStartAngle,REAL,,present,Start angle of the circular arc
+TcVnCircularArc,Structs,fEndAngle,REAL,,present,End angle of the circular arc
+TcVnCodeGrades1D,Structs,fDecode,REAL,,present,Decode grade
+TcVnCodeGrades1D,Structs,fSymbolContrast,REAL,,present,Symbol contrast grade
+TcVnCodeGrades1D,Structs,fMinReflectance,REAL,,present,Minimum reflectance grade
+TcVnCodeGrades1D,Structs,fMinEdgeContrast,REAL,,present,Minimum edge contrast grade
+TcVnCodeGrades1D,Structs,fModulation,REAL,,present,Modulation grade
+TcVnCodeGrades1D,Structs,fDefects,REAL,,present,Defects grade
+TcVnCodeGrades1D,Structs,fDecodability,REAL,,present,Decodability grade
+TcVnCodeGrades1D,Structs,fOverall,REAL,,present,"Overall code grade, i.e. the minimum achieved individual grade averaged over all scan lines. If different scan lines lead to different decoded data, the overall grade is 0."
+TcVnCodeGradesDM,Structs,nDecode,USINT,,present,Decode grade
+TcVnCodeGradesDM,Structs,nSymbolContrast,USINT,,present,Symbol contrast grade
+TcVnCodeGradesDM,Structs,nModulation,USINT,,present,Modulation grade
+TcVnCodeGradesDM,Structs,nReflectanceMargin,USINT,,present,Reflectance margin grade
+TcVnCodeGradesDM,Structs,nFixedPatternDamage,USINT,,present,Fixed pattern damage grade
+TcVnCodeGradesDM,Structs,nAxialNonuniformity,USINT,,present,Axial nonuniformity grade
+TcVnCodeGradesDM,Structs,nGridNonuniformity,USINT,,present,Grid nonuniformity grade
+TcVnCodeGradesDM,Structs,nUnusedErrorCorrection,USINT,,present,Unused error correction grade
+TcVnCodeGradesDM,Structs,nOverall,USINT,,present,"Overall code grade, i.e. the minimum achieved individual grade"
+TcVnCodeGradesQR,Structs,nDecode,USINT,,present,Decode grade
+TcVnCodeGradesQR,Structs,nSymbolContrast,USINT,,present,Symbol contrast grade
+TcVnCodeGradesQR,Structs,nModulation,USINT,,present,Modulation grade
+TcVnCodeGradesQR,Structs,nReflectanceMargin,USINT,,present,Reflectance margin grade
+TcVnCodeGradesQR,Structs,nFixedPatternDamage,USINT,,present,Fixed pattern damage grade
+TcVnCodeGradesQR,Structs,nAxialNonuniformity,USINT,,present,Axial nonuniformity grade
+TcVnCodeGradesQR,Structs,nGridNonuniformity,USINT,,present,Grid nonuniformity grade
+TcVnCodeGradesQR,Structs,nUnusedErrorCorrection,USINT,,present,Unused error correction grade
+TcVnCodeGradesQR,Structs,nFormatInfo,USINT,,present,Format information grade
+TcVnCodeGradesQR,Structs,nVersionInfo,USINT,,present,Version information grade
+TcVnCodeGradesQR,Structs,nOverall,USINT,,present,"Overall code grade, i.e. the minimum achieved individual grade"
+TcVnDMatch,Structs,nQueryIdx,DINT,,present,Query descriptor index
+TcVnDMatch,Structs,nTrainIdx,DINT,,present,Train descriptor index
+TcVnDMatch,Structs,nImageIdx,DINT,,present,Train image index
+TcVnDMatch,Structs,fDistance,REAL,,present,Distance between the descriptors (smaller distance means better match)
+TcVnImageInfo,Structs,nImageSize,ULINT,,present,Image size (number of pixels)
+TcVnImageInfo,Structs,nWidth,UDINT,,present,Image width
+TcVnImageInfo,Structs,nHeight,UDINT,,present,Image height
+TcVnImageInfo,Structs,nXPadding,UINT,,present,Image x-padding
+TcVnImageInfo,Structs,nYPadding,UINT,,present,Image y-padding
+TcVnImageInfo,Structs,stPixelFormat,TcVnPixelFormat,,present,Pixel format
+TcVnKeyPoint,Structs,aPoint,TcVnPoint2_REAL,,present,Position
+TcVnKeyPoint,Structs,fDiameter,REAL,,present,Diameter
+TcVnKeyPoint,Structs,fAngle,REAL,,present,Angle
+TcVnKeyPoint,Structs,fResponse,REAL,,present,Response
+TcVnKeyPoint,Structs,nOctave,DINT,,present,Octave
+TcVnKeyPoint,Structs,nClassId,DINT,,present,Class ID
+TcVnMatrix,Structs,nRows,UDINT,,present,Number of rows
+TcVnMatrix,Structs,nCols,UDINT,,present,Number of columns
+TcVnMatrix,Structs,eType,ETcVnElementType,,present,Element type
+TcVnMatrix,Structs,pData,PVOID,,present,Pointer to the data
+TcVnMoments,Structs,fM00,LREAL,,present,Spatial moment 00
+TcVnMoments,Structs,fM10,LREAL,,present,Spatial moment 10
+TcVnMoments,Structs,fM01,LREAL,,present,Spatial moment 01
+TcVnMoments,Structs,fM20,LREAL,,present,Spatial moment 20
+TcVnMoments,Structs,fM11,LREAL,,present,Spatial moment 11
+TcVnMoments,Structs,fM02,LREAL,,present,Spatial moment 02
+TcVnMoments,Structs,fM30,LREAL,,present,Spatial moment 30
+TcVnMoments,Structs,fM21,LREAL,,present,Spatial moment 21
+TcVnMoments,Structs,fM12,LREAL,,present,Spatial moment 12
+TcVnMoments,Structs,fM03,LREAL,,present,Spatial moment 03
+TcVnMoments,Structs,fMu20,LREAL,,present,Central moment 20
+TcVnMoments,Structs,fMu11,LREAL,,present,Central moment 11
+TcVnMoments,Structs,fMu02,LREAL,,present,Central moment 02
+TcVnMoments,Structs,fMu30,LREAL,,present,Central moment 30
+TcVnMoments,Structs,fMu21,LREAL,,present,Central moment 21
+TcVnMoments,Structs,fMu12,LREAL,,present,Central moment 12
+TcVnMoments,Structs,fMu03,LREAL,,present,Central moment 03
+TcVnMoments,Structs,fNu20,LREAL,,present,Normalized central moment 20
+TcVnMoments,Structs,fNu11,LREAL,,present,Normalized central moment 11
+TcVnMoments,Structs,fNu02,LREAL,,present,Normalized central moment 02
+TcVnMoments,Structs,fNu30,LREAL,,present,Normalized central moment 30
+TcVnMoments,Structs,fNu21,LREAL,,present,Normalized central moment 21
+TcVnMoments,Structs,fNu12,LREAL,,present,Normalized central moment 12
+TcVnMoments,Structs,fNu03,LREAL,,present,Normalized central moment 03
+TcVnParamsAGAST,Structs,nThreshold,DINT,10,present,Threshold for the intensity difference between the center pixel and its surrounding circle
+TcVnParamsAGAST,Structs,bNonMaxSuppression,BOOL,TRUE,present,"If true, non-maximum suppression is applied."
+TcVnParamsAGAST,Structs,eType,ETcVnKeypointDetectionTypeAGAST,TCVN_KDT_AGAST_9_16,present,Neighborhood type
+TcVnParamsAKAZE,Structs,eDescrType,ETcVnFeatureDescriptorTypeAKAZE,TCVN_FDT_AKAZE_MLDB,present,Type of the descriptor
+TcVnParamsAKAZE,Structs,nDescrSize,UDINT,0,present,Size of the descriptor in bits (only for MLDB; 0 = full size)
+TcVnParamsAKAZE,Structs,nDescrChannels,UDINT,3,present,Number of descriptor channels (currently only 3 supported for MLDB)
+TcVnParamsAKAZE,Structs,fThreshold,REAL,0.001,present,Detector response threshold
+TcVnParamsAKAZE,Structs,nOctaves,UDINT,2,present,Maximum octave evolution
+TcVnParamsAKAZE,Structs,nOctaveLayers,UDINT,1,present,Number of sublevels per scale level
+TcVnParamsAKAZE,Structs,eDiffusivity,ETcVnDiffusivityTypeKAZE,TCVN_DT1_KAZE_PM_G2,present,Diffusivity type
+TcVnParamsBRISK,Structs,nThreshold,DINT,30,present,Detection threshold
+TcVnParamsBRISK,Structs,nOctaves,UDINT,3,present,Detection octaves (0 for single scale)
+TcVnParamsBRISK,Structs,fPatternScale,REAL,1,present,Scale factor for the neighborhood pattern
+TcVnParamsBlobDetection,Structs,bFilterByArea,BOOL,TRUE,present,Enable filtering by area (fMinArea <= area <= fMaxArea); strongly recommended to activate for filtering noise with fMinArea.
+TcVnParamsBlobDetection,Structs,bFilterByCircularity,BOOL,FALSE,present,Enable filtering by circularity (fMinCircularity <= circularity(4pi * area / perimeter^2) <= fMaxCircularity).
+TcVnParamsBlobDetection,Structs,bFilterByConvexity,BOOL,FALSE,present,Enable filtering by convexity (fMinConvexity <= convexity(area / hullArea) <= fMaxConvexity).
+TcVnParamsBlobDetection,Structs,bFilterByEccentricity,BOOL,FALSE,present,Enable filtering by eccentricity (fMinEccentricity <= eccentricity <= fMaxEccentricity).
+TcVnParamsBlobDetection,Structs,bFilterByInertiaRatio,BOOL,FALSE,present,Enable filtering by inertia ratio (fMinInertiaRatio <= inertia ratio <= fMaxInertiaRatio).
+TcVnParamsBlobDetection,Structs,fMinArea,REAL,10,present,Min estimated blob area in pixel
+TcVnParamsBlobDetection,Structs,fMaxArea,REAL,100000000,present,Max estimated blob area in pixel
+TcVnParamsBlobDetection,Structs,fMinCircularity,REAL,0,present,"Min circularity (1.0: ideal circle, < 1: less circular, 0: not circular at all)"
+TcVnParamsBlobDetection,Structs,fMaxCircularity,REAL,1,present,"Max circularity (1.0: ideal circle, < 1: less circular, 0: not circular at all)"
+TcVnParamsBlobDetection,Structs,fMinConvexity,REAL,0,present,"Min convexity (1.0: blob fully convex, < 1: less convex)"
+TcVnParamsBlobDetection,Structs,fMaxConvexity,REAL,1,present,"Max convexity (1.0: blob fully convex, < 1: less convex)"
+TcVnParamsBlobDetection,Structs,fMinEccentricity,REAL,0,present,"Min eccentricity (0.0: circular, 1.0: linear)"
+TcVnParamsBlobDetection,Structs,fMaxEccentricity,REAL,1,present,"Max eccentricity (0.0: circular, 1.0: linear)"
+TcVnParamsBlobDetection,Structs,fMinInertiaRatio,REAL,0,present,"Min inertia ratio (1.0: equal width and height, 0.0: linear)"
+TcVnParamsBlobDetection,Structs,fMaxInertiaRatio,REAL,1,present,"Max inertia ratio (1.0: equal width and height, 0.0: linear)"
+TcVnParamsBlobDetection,Structs,eThresholdType,ETcVnThresholdType,TCVN_TT_BINARY,present,Threshold type for internally applied threshold method (OTSU_XXX only supported for USINT images).
+TcVnParamsBlobDetection,Structs,fMinThreshold,REAL,30,present,"Threshold to start with (if fThresholdStep > 0, otherwise this is the only threshold used)."
+TcVnParamsBlobDetection,Structs,fMaxThreshold,REAL,225,present,"Threshold to end with (if fThresholdStep > 0, otherwise this value is not used)."
+TcVnParamsBlobDetection,Structs,fThresholdStep,REAL,0,present,Sets to 0 if only 1 threshold should be used (much faster than multiple thresholds and combining the results).
+TcVnParamsBlobDetection,Structs,fMinBlobDistance,REAL,5,present,"Minimum distance between the center points of two different blobs (only used if fThresholdStep > 0; if distance < fMinBlobDistance, the blobs are treated as the same)."
+TcVnParamsBlobDetection,Structs,nMinRepeatability,UDINT,2,present,"Minimum number of threshold steps, for which the same contour has to be detected (only used if fThresholdStep > 0; same means center point distance < fMinBlobDistance)."
+TcVnParamsBlobDetection,Structs,eBlobCombination,ETcVnBlobCombination,TCVN_BC_MEDIAN_THRESHOLD,present,"Selects, which of the multi-threshold blob contours should be returned."
+TcVnParamsBlobDetection,Structs,bExcludeBorderBlobs,BOOL,FALSE,present,"If true, blobs touching the image border are excluded from the results."
+TcVnParamsFAST,Structs,nThreshold,DINT,10,present,Threshold for the intensity difference between the center pixel and its surrounding circle
+TcVnParamsFAST,Structs,bNonMaxSuppression,BOOL,TRUE,present,"If true, non-maximum suppression is applied."
+TcVnParamsFAST,Structs,eType,ETcVnKeypointDetectionTypeFAST,TCVN_KDT_FAST_9_16,present,Neighborhood type
+TcVnParamsFindRois,Structs,stRoiSize,TcVnSize2_DINT,"(.nWidth := 416, .nHeight := 416)",present,Desired ROI dimensions in original-image pixels.
+TcVnParamsFindRois,Structs,fMinDensity,LREAL,0.2,present,"Minimum density of salient features to keep an ROI (valid range [0.0, 1.0])."
+TcVnParamsFindRois,Structs,fDetectionScaleFactor,LREAL,0.25,present,"Scale factor that controls the resolution of the ROI detection (Lower = faster density evaluation; valid range [0.1, 1.0])."
+TcVnParamsFindRois,Structs,fMaxOversizeFraction,LREAL,1.0,present,Fraction by which ROIs may exceed stRoiSize (required only when eFindRoisMethod = TCVN_FRM_CONNECTEDCOMPONENTS).
+TcVnParamsGFTT,Structs,nMaxCorners,UDINT,1000,present,Maximum number of corners to return (strongest ones)
+TcVnParamsGFTT,Structs,fQualityLevel,LREAL,0.01,present,"Minimum accepted corner quality, relative to the strongest one"
+TcVnParamsGFTT,Structs,fMinDistance,LREAL,1,present,Minimum euclidean distance between returned keypoints
+TcVnParamsGFTT,Structs,nBlockSize,UDINT,3,present,Neighborhood block size
+TcVnParamsGFTT,Structs,bUseHarrisDetector,BOOL,FALSE,present,"If true, a Harris detector is used instead of the default method."
+TcVnParamsGFTT,Structs,fHarrisK,LREAL,0.04,present,Free parameter of the Harris detector
+TcVnParamsKAZE,Structs,bExtended,BOOL,FALSE,present,"If true, the descriptor size is extended from the default 64 byte to 128 byte."
+TcVnParamsKAZE,Structs,bUpright,BOOL,FALSE,present,"If true, upright (rotation dependent) descriptors are computed."
+TcVnParamsKAZE,Structs,fThreshold,REAL,0.001,present,Detector response threshold
+TcVnParamsKAZE,Structs,nOctaves,UDINT,4,present,Maximum octave evolution of the image
+TcVnParamsKAZE,Structs,nOctaveLayers,UDINT,2,present,Number of sublevels per scale level
+TcVnParamsKAZE,Structs,eDiffusivity,ETcVnDiffusivityTypeKAZE,TCVN_DT1_KAZE_PM_G2,present,Diffusivity type
+TcVnParamsMSER,Structs,nDelta,DINT,5,present,Delta for size comparison
+TcVnParamsMSER,Structs,nMinArea,UDINT,60,present,Minimum blob size
+TcVnParamsMSER,Structs,nMaxArea,UDINT,14400,present,Maximum blob size
+TcVnParamsMSER,Structs,fMaxVariation,LREAL,0.25,present,Maximum blob size variation
+TcVnParamsMSER,Structs,fMinDiversity,LREAL,0.2,present,Minimum MSER diversity
+TcVnParamsMSER,Structs,nMaxEvolution,UDINT,200,present,Maximum evolution steps (only used for color images)
+TcVnParamsMSER,Structs,fAreaThreshold,LREAL,1.01,present,Area threshold to cause re-initialization (only used for color images)
+TcVnParamsMSER,Structs,fMinMargin,LREAL,0.003,present,Minimum margin (only used for color images)
+TcVnParamsMSER,Structs,nEdgeBlurSize,UDINT,5,present,Aperture size for edge bluring (only used for color images)
+TcVnParamsORB,Structs,nMaxPoints,UDINT,500,present,Maximum number of returned keypoints
+TcVnParamsORB,Structs,fPyramidScale,REAL,1.2,present,"Pyramid decimation ratio (must be greater than 1, should be smaller than 2)"
+TcVnParamsORB,Structs,nPyramidLevels,UDINT,8,present,Number of pyramid levels
+TcVnParamsORB,Structs,nEdgeThreshold,UDINT,31,present,"Size of the border, where no features are detected (should match nPatchSize)"
+TcVnParamsORB,Structs,nFirstLevel,UDINT,0,present,"First pyramid level (currently, only 0 is supported)"
+TcVnParamsORB,Structs,nBriefPoints,UDINT,2,present,"Number of points to produce each BRIEF descriptor element (2, 3, 4)"
+TcVnParamsORB,Structs,eScoreType,ETcVnFeatureScoreTypeORB,TCVN_FST_ORB_HARRIS,present,Score type (HARRIS is more stable but slightly slower than FAST)
+TcVnParamsORB,Structs,nPatchSize,UDINT,31,present,Patch size of the BRIEF descriptor
+TcVnParamsORB,Structs,nFastThreshold,DINT,20,present,Threshold for the FAST keypoint detection
+TcVnParamsSB,Structs,bFilterByArea,BOOL,TRUE,present,Enable filtering by area (fMinArea <= area < fMaxArea).
+TcVnParamsSB,Structs,bFilterByCircularity,BOOL,FALSE,present,Enable filtering by circularity (fMinCircularity <= circularity(4pi * area / perimeter^2) < fMaxCircularity).
+TcVnParamsSB,Structs,bFilterByColor,BOOL,FALSE,present,Enable filtering by color (thresholdedColor(0 or 255) = nBlobColor).
+TcVnParamsSB,Structs,bFilterByConvexity,BOOL,FALSE,present,Enable filtering by convexity (fMinConvexity <= convexity(area / hullArea) < fMaxConvexity).
+TcVnParamsSB,Structs,bFilterByInertia,BOOL,FALSE,present,Enable filtering by inertia ratio (fMinInertiaRatio <= inertia ratio < fMaxInertiaRatio).
+TcVnParamsSB,Structs,fMinArea,REAL,25,present,Min estimated blob area in pixel
+TcVnParamsSB,Structs,fMaxArea,REAL,15000,present,Max estimated blob area in pixel
+TcVnParamsSB,Structs,fMinCircularity,REAL,0,present,"Min circularity (1.0: ideal circle, < 1: less circular, 0: not circular at all)"
+TcVnParamsSB,Structs,fMaxCircularity,REAL,1,present,"Max circularity (1.0: ideal circle, < 1: less circular, 0: not circular at all)"
+TcVnParamsSB,Structs,nBlobColor,USINT,255,present,0 or 255
+TcVnParamsSB,Structs,fMinConvexity,REAL,0,present,"Min convexity (1.0: blob fully convex, < 1: less convex)"
+TcVnParamsSB,Structs,fMaxConvexity,REAL,1,present,"Max convexity (1.0: blob fully convex, < 1: less convex)"
+TcVnParamsSB,Structs,fMinInertiaRatio,REAL,0,present,Min inertia ratio (0.0 .. 1.0)
+TcVnParamsSB,Structs,fMaxInertiaRatio,REAL,1,present,Max inertia ratio (0.0 .. 1.0)
+TcVnParamsSB,Structs,fMinBlobDist,REAL,5,present,Min distance between different blobs
+TcVnParamsSB,Structs,nMinRepeatability,UDINT,2,present,Min number of same detected blobs (dist < fMinBlobDist) in different thresholds
+TcVnParamsSB,Structs,fMinThreshold,REAL,30,present,Min threshold (start)
+TcVnParamsSB,Structs,fMaxThreshold,REAL,225,present,Max threshold (stop)
+TcVnParamsSB,Structs,fThresholdStep,REAL,10,present,Threshold step between min and max threshold
+TcVnParamsWalshBarcodeDetection,Structs,nMaxBarDistance,UDINT,8,present,maximum distance between to consecutive dark or bright bars in pixels
+TcVnParamsWalshBarcodeDetection,Structs,fMinAspectRatio,REAL,1.0,present,minimum aspect ratio (width / height) of valid code regions
+TcVnParamsWalshBarcodeDetection,Structs,fMaxAspectRatio,REAL,5.0,present,maximum aspect ratio (width / height) of valid code regions
+TcVnParamsWalshBarcodeDetection,Structs,nIntensityDifference,UDINT,100,present,approximate mean difference of dark and bright code pixels
+TcVnParamsWalshBarcodeDetection,Structs,nMinArea,DINT,-1,present,expected minimum code area in pixels (-1: use an automatic guess based on nMaxBarDistance)
+TcVnParamsWalshBarcodeDetection,Structs,nChannelIndex,DINT,-1,present,"Choose the index of a specific color channel (e.g., 0 = red, 1 = green, 2 = blue) or automatic graylevel conversion (-1). Using automatic graylevel conversion, 3-channel images and 4-channel images are considered as RGB and RGBA images, respectively, and converted to graylevel images before processing. For images with another number of channels the first one (index 0) is selected."
+TcVnParamsWalshBarcodeDetection,Structs,nWalshFilterNum,UDINT,5,present,number of Walsh filters to be used (higher values may result in improved results but require more time to compute)
+TcVnParamsWalshBarcodeDetection,Structs,fOutlierReductionFactor,REAL,1.0,present,factor to control outlier reduction (Higher values reduce the number of outlier pixels but may disturb the barcodes to be localized.)
+TcVnParamsWalshBarcodeDetection,Structs,fBarConnectionFactor,REAL,1.0,present,factor to control bar linking (Higher values reduce the number of outlier pixels but may disturb the barcodes to be localized.)
+TcVnParamsWalshBarcodeDetection,Structs,fRegionFilterFactor,REAL,1.0,present,"factor to control the rejection of small regions and region parts (Higher values reduce the number of found code regions, adjust their shape and increase the computation time.)"
+TcVnParamsWalshBarcodeDetection,Structs,fPostProcessingResizeFactor,REAL,0.5,present,factor to control resizing before post-processiong (Smaller values reduce the required computation time but may deteriorate the results.)
+TcVnParamsWalshBarcodeDetection,Structs,eInterpolationType,ETcVnInterpolationType,TCVN_IT_BILINEAR,present,Image rotation interpolation type (TCVN_IT_BILINEAR recommended for most cases)
+TcVnPixelFormat,Structs,bSupported,BIT,,present,"If false, the pixel format is not supported."
+TcVnPixelFormat,Structs,bSigned,BIT,,present,"If true, pixel intensities are signed values."
+TcVnPixelFormat,Structs,bPlanar,BIT,,present,"If true, the image channels are stored planar instead of interleaved (e.g. RRRRRGGGGGBBBBB instead of RGBRGBRGBRGBRGB)."
+TcVnPixelFormat,Structs,bFloat,BIT,,present,"If true, the pixel format is floating point."
+TcVnPixelFormat,Structs,nChannels,BYTE,,present,Number of channels
+TcVnPixelFormat,Structs,ePixelEncoding,ETcVnPixelEncoding,,present,Pixel encoding
+TcVnPixelFormat,Structs,ePixelPackMode,ETcVnPixelPackMode,,present,Pixel pack mode
+TcVnPixelFormat,Structs,nElementSize,UINT,,present,Size (bit) of a single pixel channel
+TcVnPixelFormat,Structs,nTotalSize,UINT,,present,Size (bit) of all pixel channels
+TcVnRectangle_DINT,Structs,nX,DINT,,present,X coordinate of the top-left corner
+TcVnRectangle_DINT,Structs,nY,DINT,,present,Y coordinate of the top-left corner
+TcVnRectangle_DINT,Structs,nWidth,DINT,,present,Width
+TcVnRectangle_DINT,Structs,nHeight,DINT,,present,Height
+TcVnRectangle_UDINT,Structs,nX,UDINT,,present,X coordinate of the top-left corner
+TcVnRectangle_UDINT,Structs,nY,UDINT,,present,Y coordinate of the top-left corner
+TcVnRectangle_UDINT,Structs,nWidth,UDINT,,present,Width
+TcVnRectangle_UDINT,Structs,nHeight,UDINT,,present,Height
+TcVnRotatedRectangle,Structs,aCenter,TcVnPoint2_REAL,,present,Center point
+TcVnRotatedRectangle,Structs,stSize,TcVnSize2_REAL,,present,Size composed of fWidth and fHeight
+TcVnRotatedRectangle,Structs,fAngle,REAL,,present,Angle in degree
+TcVnSize2_DINT,Structs,nWidth,DINT,,present,Width
+TcVnSize2_DINT,Structs,nHeight,DINT,,present,Height
+TcVnSize2_REAL,Structs,fWidth,REAL,,present,Width
+TcVnSize2_REAL,Structs,fHeight,REAL,,present,Height

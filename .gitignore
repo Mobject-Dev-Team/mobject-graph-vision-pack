@@ -1,0 +1,6 @@
+# Local Beckhoff API reference: never include this export in commits or pushes.
+Tc3_Vision_Api_5.10.2.html
+
+# Local Python tooling caches.
+__pycache__/
+*.pyc

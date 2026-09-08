@@ -92,6 +92,7 @@ AddLocalEnumeration('TCVN_PPM_RGB565P', ETcVnPixelPackMode.TCVN_PPM_RGB565P);
 AddLocalEnumeration('TCVN_PPM_BGR565P', ETcVnPixelPackMode.TCVN_PPM_BGR565P);
 AddLocalEnumeration('TCVN_PPM_MONO10P', ETcVnPixelPackMode.TCVN_PPM_MONO10P);
 AddLocalEnumeration('TCVN_PPM_MONO12P', ETcVnPixelPackMode.TCVN_PPM_MONO12P);
+AddLocalEnumeration('TCVN_PPM_MONO14P', ETcVnPixelPackMode.TCVN_PPM_MONO14P);
 ]]></ST>
       </Implementation>
     </Method>
