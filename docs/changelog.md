@@ -2,14 +2,16 @@
 
 ## Unreleased — Vision 5.10.2 source work
 
-- Added 15 value datatype wrappers and 42 enum values for Vision 5.10.2.
+- Added 15 value datatype wrappers and 41 enabled enum values from the Vision 5.10.2 reference. MONO14P remains disabled for the selected 5.10.3.0 build.
 - Added SalientFeatures, FindRois, and MergeRegions graph nodes.
 - Added eight image/matching nodes: InvertImageColorExp, NormalizeImageExp, MatchTemplateExp, MatchTemplateAndEvaluateExp, MatchDescriptorsBFExp, MatchDescriptorsKnnBFExp, MatchContours, and MatchContoursExp. Expert inputs include optional masks; template evaluation also exposes match scores.
-- Added numerical fixtures and precondition checks for the image/matching batch. Runtime execution remains pending.
+- Added image/matching precondition checks. Regression tests are deferred to a separate branch; the initial fixtures were removed in `604c579`.
+- Added ten polarization and coordinate image nodes: demosaicing, angle/degree of linear polarization, glare reduction, and Cartesian/polar angle, magnitude, and coordinate image conversions (including expert variants).
+- Added eight geometric transformation nodes: ConvertMaps, RemapImage/Exp, RemapImageToLogPolarSpaceExp/Exp2, RemapImageToPolarSpaceExp/Exp2, and AlignRotatedImageRegionExp, with shared validation for supported map pairs.
 - Added the enclosing-triangle area output and preserved its value when execution fails or is skipped.
 - Corrected the Huber enum and BRISK member labels while keeping legacy serialized values readable.
-- Updated Vision default resolution and aligned the test project's mobject dependencies.
-- Added datatype and node regression suites. TwinCAT build/runtime validation and regeneration of the distributed `.library` are pending.
+- Preserved the Vision 5.10.3.0 resolutions, GVCP constructor fixes, and corrected merge-region option from `604c579`.
+- The distributed `.library` was updated in `604c579`; the eighteen subsequent polarization/conversion/remapping nodes still need a TwinCAT build. Runtime validation and comprehensive tests remain pending.
 
 ## v0.11.0-beta
 

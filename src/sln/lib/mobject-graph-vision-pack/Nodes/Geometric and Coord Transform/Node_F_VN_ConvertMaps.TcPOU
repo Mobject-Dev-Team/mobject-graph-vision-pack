@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_ConvertMaps" Id="{f7cf0ca6-7de7-48a5-acd4-2eb55eb9da51}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ConvertMaps EXTENDS VisionNode
+VAR
+    ipSrcMap1 : _ITcVnImage;
+    ipSrcMap2 : _ITcVnImage;
+    ipDestMap1 : _ITcVnImage;
+    ipDestMap2 : _ITcVnImage;
+    eDestMap1Type : _ETcVnElementType(ETcVnElementType.TCVN_ET_INT);
+    nDestMap1Channels : _UINT(2);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Clone" Id="{d85e148b-3070-4229-96b2-8aa2dd992d98}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_ConvertMaps;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ConvertMaps);
+IF pNode = 0 THEN
+    RETURN;
+END_IF
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{1163a7a4-5ccd-42c7-8d48-32de05cdef28}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcMap1', ipSrcMap1);
+AddInput('ipSrcMap2', ipSrcMap2);
+AddOutput('ipDestMap1', ipDestMap1);
+AddOutput('ipDestMap2', ipDestMap2);
+AddParameter('eDestMap1Type', eDestMap1Type);
+AddParameter('nDestMap1Channels', nDestMap1Channels);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{1238f06b-85b4-4909-926f-d59ab04d8139}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ConvertMaps(
+    ipSrcMap1 := ipSrcMap1.Value,
+    ipSrcMap2 := ipSrcMap2.Value,
+    ipDestMap1 := ipDestMap1.Value,
+    ipDestMap2 := ipDestMap2.Value,
+    eDestMap1Type := eDestMap1Type.Value,
+    nDestMap1Channels := nDestMap1Channels.Value,
+    hrPrev := hrPrev.Value);
+// A combined REAL XY map has no second output. Clear any map retained from an earlier format.
+// Preserve the previous outputs if the native call failed or was skipped through hrPrev.
+IF SUCCEEDED(hresult.Value) AND (eDestMap1Type.Value = ETcVnElementType.TCVN_ET_REAL) AND
+   (nDestMap1Channels.Value = 2) THEN
+    FW_SafeRelease(ADR(ipDestMap2.Value));
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{419fa78c-9518-4098-bf1b-bbae5d7bcebf}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(IsRemapMapPairValid(ipSrcMap1.Value, ipSrcMap2.Value), 'Unsupported source map pair: use REAL XY, separate REAL X/Y, or INT XY with optional UINT coefficients');
+Check.IsTrue((eDestMap1Type.Value = ETcVnElementType.TCVN_ET_REAL) OR
+             (eDestMap1Type.Value = ETcVnElementType.TCVN_ET_INT), 'Destination map type must be REAL or INT');
+Check.IsTrue((nDestMap1Channels.Value = 1) OR (nDestMap1Channels.Value = 2), 'Destination map must have 1 or 2 channels');
+Check.IsTrue((eDestMap1Type.Value <> ETcVnElementType.TCVN_ET_INT) OR
+             (nDestMap1Channels.Value = 2), 'Fixed-point destination map must have 2 channels');
+Check.IsTrue((ipDestMap1.Value = 0) OR ((ipDestMap1.Value <> ipSrcMap1.Value) AND (ipDestMap1.Value <> ipSrcMap2.Value)), 'ipDestMap1 must be different from the source maps');
+Check.IsTrue((ipDestMap2.Value = 0) OR ((ipDestMap2.Value <> ipSrcMap1.Value) AND (ipDestMap2.Value <> ipSrcMap2.Value)), 'ipDestMap2 must be different from the source maps');
+Check.IsTrue((ipDestMap1.Value = 0) OR (ipDestMap1.Value <> ipDestMap2.Value), 'Destination maps must be different images');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

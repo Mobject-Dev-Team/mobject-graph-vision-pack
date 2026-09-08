@@ -534,7 +534,7 @@ ETcVnLineType,Enums,TCVN_LT_ANTIALIASED,DINT,,present,"Antialiased (drawn using 
 ETcVnMatchTemplateWalshOptions,Enums,TCVN_MTWO_NONE,UDINT,,present,Do not use any special options.
 ETcVnMatchTemplateWalshOptions,Enums,TCVN_MTWO_NORMED,UDINT,,present,"Normalize the elements of the output image to the interval [0, 1.0]."
 ETcVnMatchTemplateWalshOptions,Enums,TCVN_MTWO_SKIP_DC,UDINT,,present,"Skip the DC component during similarity computation. The DC or ""direct current"" component is the first Walsh component. In contrast to further components, using it for projections captures total pixel intensities and not spatial differences. Therefore, skipping it may improve the robustness to illumination changes."
-ETcVnMergeRegionsOptions,Enums,TCVN_MRO_UPRIGHTBOUNDINGRECT,ULINT,,present,Merge each group into an axis-aligned (upright) bounding rectangle.
+ETcVnMergeRegionsOptions,Enums,TCVN_MRO_UPRIGHTBOUNDINGRECT,ULINT,,missing_label,Merge each group into an axis-aligned (upright) bounding rectangle.
 ETcVnMorphologicalOperator,Enums,TCVN_MO_EROSION,DINT,,present,"Shrinks objects (regions of foreground (i.e. white) pixels), removing regions smaller than the structuring element completely."
 ETcVnMorphologicalOperator,Enums,TCVN_MO_DILATION,DINT,,present,Expands objects and thereby closes small holes inside objects.
 ETcVnMorphologicalOperator,Enums,TCVN_MO_OPENING,DINT,,present,"Applies an erosion first, a dilation second. Objects smaller than the structuring element are removed while outer shapes remain largely the same."
@@ -604,7 +604,7 @@ ETcVnPixelPackMode,Enums,TCVN_PPM_RGB565P,BYTE,,present,RGB565p
 ETcVnPixelPackMode,Enums,TCVN_PPM_BGR565P,BYTE,,present,BGR565p
 ETcVnPixelPackMode,Enums,TCVN_PPM_MONO10P,BYTE,,present,Mono10p or BayerXX10p
 ETcVnPixelPackMode,Enums,TCVN_PPM_MONO12P,BYTE,,present,Mono12p or BayerXX12p
-ETcVnPixelPackMode,Enums,TCVN_PPM_MONO14P,BYTE,,present,Mono14p or BayerXX14p
+ETcVnPixelPackMode,Enums,TCVN_PPM_MONO14P,BYTE,,missing_label,Mono14p or BayerXX14p
 ETcVnPolarizedImageInterpolation,Enums,TCVN_PII_NONE,DINT,,present,"No interpolation, i.e. demosaicing returns images with half width and height."
 ETcVnPolarizedImageInterpolation,Enums,TCVN_PII_NEAREST_NEIGHBOR,DINT,,present,Images are scaled to full resolution using nearest neighbor interpolation.
 ETcVnPolarizedImageInterpolation,Enums,TCVN_PII_BILINEAR,DINT,,present,Images are scaled to full resolution using bilinear interpolation.

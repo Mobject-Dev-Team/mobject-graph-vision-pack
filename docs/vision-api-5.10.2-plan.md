@@ -6,6 +6,16 @@ The initial scope was **225 new function nodes, completion of one disabled funct
 
 These are gaps between this project and the supplied API, **not a list of features introduced in 5.10.2**. The older complete API export is not present, and the library's wildcard reference does not prove which Vision PLC library was last used to compile it.
 
+## Current working baseline
+
+Reviewed commit `604c579` (`fix nodes`) before starting the third batch. Both PLC projects now explicitly resolve Vision to **5.10.3.0**, overriding their earlier 5.10.2.0 default. That commit also updated the distributed `.library` and added the 5.10.3.0 runtime repository. Preserve this baseline; the 5.10.2 HTML remains the inventory reference, not the selected build version.
+
+The commit supplies initial values when constructing the GVCP address/value wrappers, including their struct members and datatype-pack prototypes. New code must supply required `FB_init` arguments in both declarations and `__NEW` expressions. It also corrects the merge option to `TCVN_MRO_UPRIGHT_BOUNDING_RECT` and disables `TCVN_PPM_MONO14P`. The checked-in 5.10.3.0 header confirms the merge-option spelling and does not define the MONO14P option. Preserve these corrections rather than reintroducing the names from the HTML export.
+
+The raw 5.10.2 audit consequently reports two enum-label differences: the old merge-option spelling and MONO14P. These are known reference/build-version differences, recorded here rather than hidden from the inventory. Other new differences still require review.
+
+**Tests are deferred to a separate branch at the user's request.** Commit `604c579` removed both newly added TcUnit suites and their project/startup entries. Do not restore those suites or add tests during the current implementation batches. The test recommendations below remain the backlog for that later branch. Continue source/API, XML, registration, and project-reference checks here; those checks do not replace TwinCAT compilation or runtime validation.
+
 ## Implementation progress — first batch
 
 The following source changes are implemented; TwinCAT compilation and runtime acceptance remain pending:
@@ -15,12 +25,12 @@ The following source changes are implemented; TwinCAT compilation and runtime ac
 - Exposed the triangle `fArea` output. A skipped or failed call preserves the last successful area.
 - Added `Node_F_VN_SalientFeatures`, `Node_F_VN_FindRois`, and `Node_F_VN_MergeRegions` under `Vision/Image Analysis/Object Detection`, including ports, parameters, cloning, and pre-execution checks.
 - Set the Vision default resolution to `5.10.2.0` in both PLC projects. Aligned the test project with core `0.10.0`, graph `0.18.0`, and vision pack `0.11.0`.
-- Added two TcUnit suites covering datatype discovery, serialization and legacy names, numeric widths, nested references, defaults, clone independence, triangle area/failure chaining, region merging, and salient-feature/ROI processing.
+- Initially added two TcUnit suites covering datatype discovery, serialization and legacy names, numeric widths, nested references, defaults, clone independence, triangle area/failure chaining, region merging, and salient-feature/ROI processing. These suites were subsequently removed in `604c579`; coverage is deferred to the later test branch.
 - Added a repository ignore rule for the local HTML export and `--api PATH` support in the audit tool. Removing the local reference does not remove the saved inventories or affect the PLC sources.
 
 The first batch reached 873 registered nodes, including 816 API function nodes, and 185 registered datatypes. All 162 exported named value types have source wrappers; 161 are registered and `_TcVnMatrix` remains disabled. Interface and stateful-function-block work remains as listed below.
 
-Before running the new tests on Windows, install Vision `5.10.2.0`, build and install the modified `0.11.0` library, then rebuild the test PLC. An older installed `0.11.0` binary is not sufficient. Refresh the test project's `5.8.4.0` runtime repository through TwinCAT, confirm the resolved library/runtime versions, and run both new suites along with the existing suites. The root `.library` and checked-in runtime binaries have not been regenerated in this Linux workspace.
+For the later test branch, use the current Vision `5.10.3.0` resolution, build and install the modified `0.11.0` library, then rebuild the test PLC. An older installed `0.11.0` binary is not sufficient. The user updated the root `.library` and runtime repository in `604c579`; subsequent source additions still need a fresh build. No TwinCAT build or runtime execution has been performed in this Linux workspace.
 
 ## Implementation progress — second batch
 
@@ -35,15 +45,54 @@ Added eight function nodes with compile entries, factory registrations, cloning,
 
 Optional masks are exposed as image inputs and accept an unconnected value. Template evaluation exposes both matching positions and scores; its threshold is restricted to 0–1 only for normalized methods. Template checks distinguish USINT/REAL element types and check template/mask dimensions and formats. Descriptor nodes check matching descriptor formats and lengths, supported norms, and positive `nK`; KNN starts at 2 neighbors. Contour matching exposes scalar dissimilarity and the expert weighting factors.
 
-Extended the registered node TcUnit suite with four tests covering all eight nodes: custom 12-bit inversion and failure chaining; normalization range, destination type, and mask behavior; template result dimensions/scores and invalid threshold/scale/mask checks; descriptor self-matches and ordered neighbors; and contour translation invariance versus weighted position differences. These tests are authored but **not executed** here. The matching fixtures require the TC3 Vision Matching licence, in addition to the Base licence used by the image fixtures.
+Initially extended the node TcUnit suite with four tests covering all eight nodes: custom 12-bit inversion and failure chaining; normalization range, destination type, and mask behavior; template result dimensions/scores and invalid threshold/scale/mask checks; descriptor self-matches and ordered neighbors; and contour translation invariance versus weighted position differences. These tests were **not executed** here and were subsequently removed in `604c579`. Retain these scenarios for the later test branch. The matching fixtures require the TC3 Vision Matching licence, in addition to the Base licence used by the image fixtures.
 
-Current source coverage is **881 registered nodes**, including **824 API function nodes**, and **185 registered datatypes**. There are **214 missing function nodes** plus the disabled matrix-multiplication node. Structural inventory checks report no existing-wrapper argument or enum/member-label gaps. The generated audit files reflect this batch; the initial table below remains the baseline.
+The second batch reached **881 registered nodes**, including **824 API function nodes**, and **185 registered datatypes**, with **214 missing function nodes** plus the disabled matrix-multiplication node. Its audit originally reported no existing-wrapper argument or enum/member-label gaps; the subsequent 5.10.3 corrections introduce the two known differences described above.
 
 `CustomFilter`, `CustomFilterExp`, `SeparableCustomFilter`, and `SeparableCustomFilterExp` require `TcVnMatrix`. Their implementation is deferred until phase 2 provides a usable matrix wrapper and buffer lifetime handling. Other ordinary function batches using registered datatypes can proceed independently. TwinCAT build, TcUnit execution, and runtime validation remain required for both completed source batches.
 
+## Implementation progress — third batch
+
+Added ten function nodes using existing registered datatypes:
+
+| Graph category under `Vision` | Added API functions |
+| --- | --- |
+| Polarization | `F_VN_DemosaicPolarizedImage`, `F_VN_AngleAndDegreeOfLinearPolarization`, `F_VN_PolarizedImageGlareReduction` |
+| Geometric and Coordinate Transformations | `F_VN_ConvertCartesianToPolarAngleImage`, `F_VN_ConvertCartesianToPolarAngleImageExp`, `F_VN_ConvertCartesianToPolarImages`, `F_VN_ConvertCartesianToPolarImagesExp`, `F_VN_ConvertCartesianToPolarMagnitudeImage`, `F_VN_ConvertPolarToCartesianImages`, `F_VN_ConvertPolarToCartesianImagesExp` |
+
+All ten have explicit native argument wiring, graph ports and parameters, guarded node allocation, project compile entries, prototype registration, and pre-execution checks. Cartesian/polar image conversion requires matching image dimensions and pixel formats with REAL or LREAL elements; expert variants expose `bAngleInDegrees`, defaulting to radians.
+
+Polarization demosaicing exposes all four angle images. It defaults to monochrome encoding and no interpolation (half-width/half-height output). Angle/degree calculation exposes both AoLP and DoLP, defaults to REAL output, and checks matching USINT/UINT component images with 1 or 3 channels. The demosaicing and AoLP/DoLP nodes reject using source images as their destinations. Glare reduction accepts the full documented fractional intensity-index range of 0–3 and starts at 0. These are node defaults for required API parameters, not new library defaults.
+
+The third batch reached **891 registered nodes**, including **834 API function nodes**, and **185 registered datatypes**, with **204 missing function nodes** plus the disabled matrix-multiplication node. Its audit retained exactly the two known enum-label differences from `604c579` and no function-argument gaps. The new signatures were checked against the 5.10.2 export and the corresponding 5.10.3.0 C++ header declarations; the non-expert conversion calls use the PLC convenience forms documented in the export.
+
+No test files were added or changed. Future test scenarios include Cartesian/polar round trips in radians and degrees, mismatched image formats/dimensions, known four-angle sensor patterns, AoLP/DoLP output ranges, fractional glare selection, output reuse, and `hrPrev` failure chaining. TwinCAT compilation and runtime validation of this batch remain pending. The distributed `.library` remains the version committed by the user, so it does not yet contain these ten new nodes.
+
+## Implementation progress — fourth batch
+
+Added eight nodes under `Vision/Geometric and Coordinate Transformations`:
+
+- `F_VN_ConvertMaps`
+- `F_VN_RemapImage` and `F_VN_RemapImageExp`
+- `F_VN_RemapImageToLogPolarSpaceExp` and `F_VN_RemapImageToLogPolarSpaceExp2`
+- `F_VN_RemapImageToPolarSpaceExp` and `F_VN_RemapImageToPolarSpaceExp2`
+- `F_VN_AlignRotatedImageRegionExp`
+
+Each node has registered graph ports and parameters, explicit native argument wiring, guarded allocation, pre-execution checks, and a project compile entry. Center points, rotated rectangles, and border-color vectors are graph inputs; scalar and enum controls are parameters.
+
+The shared `IsRemapMapPairValid` check supports the four documented combinations: two-channel REAL XY with no second map; separate single-channel REAL X/Y; two-channel INT XY with single-channel UINT coefficients; and two-channel INT XY with no second map. It checks paired map dimensions without requiring them to match the source image dimensions, since the map determines the remapped output size.
+
+Map conversion defaults to two-channel INT output with a second coefficient-map output. REAL output can use one or two channels. After a successful switch to a combined two-channel REAL map, the unused second output is cleared; failed or skipped calls preserve its previous value. Source/destination alias checks enforce the native restrictions.
+
+Custom remapping exposes relative coordinates, interpolation, border interpolation, and border color. It excludes area-based and exact interpolation, while polar/log-polar remapping and rotated-region alignment exclude only exact interpolation, matching the documented restrictions. Border controls exclude isolated modes. Polar/log-polar expert nodes preserve zero for automatic radius/scale selection; their `Exp2` variants preserve `-1` for source dimensions, `0` for automatic dimensions, and positive explicit dimensions. Rotated-region alignment checks positive region width and height.
+
+Current source coverage is **899 registered nodes**, including **842 API function nodes**, and **185 registered datatypes**. There are **196 missing function nodes** plus the disabled matrix-multiplication node. The audit retains only the two known enum-label differences from `604c579`. Native signatures were checked against the HTML export and corresponding 5.10.3.0 header declarations, with omitted convenience-form parameters accounted for.
+
+No tests were added or restored. The later test branch should cover all four map pairs, fixed/floating conversion, format changes and stale second outputs, identity and relative remapping, border modes/colors, automatic and explicit polar output sizes, rotated-region alignment, invalid map pairs, aliasing, and failure chaining. TwinCAT compilation and runtime validation remain pending. The distributed `.library` still comes from `604c579` and does not yet include the third or fourth source batch.
+
 ## About box release notes
 
-Copy this entry into the About box release-notes array. It lists the 11 new nodes implemented across both batches. Keep this entry updated as further nodes are implemented. `v1.26.0 beta` is a proposed version following the supplied `v1.25.0 beta` example; adjust the version and date to match the eventual release. This is a draft while TwinCAT build and runtime validation remain pending.
+Copy this entry into the About box release-notes array. It lists the 29 new nodes implemented across all four batches. Keep this entry updated as further nodes are implemented. `v1.26.0 beta` is a proposed version following the supplied `v1.25.0 beta` example; adjust the version and date to match the eventual release. This is a draft while the latest source additions await TwinCAT build and runtime validation.
 
 ```javascript
 {
@@ -94,6 +143,78 @@ Copy this entry into the About box release-notes array. It lists the 11 new node
       name: "F_VN_MatchContoursExp",
       description: "Compare contours with additional weighting for area, position, and contour-count differences.",
     },
+    {
+      name: "F_VN_DemosaicPolarizedImage",
+      description: "Separate a polarized sensor image into its 0, 45, 90, and 135 degree components.",
+    },
+    {
+      name: "F_VN_AngleAndDegreeOfLinearPolarization",
+      description: "Calculate angle and degree of linear polarization from four polarization component images.",
+    },
+    {
+      name: "F_VN_PolarizedImageGlareReduction",
+      description: "Reduce glare in polarized images using configurable intensity selection.",
+    },
+    {
+      name: "F_VN_ConvertCartesianToPolarAngleImage",
+      description: "Convert Cartesian coordinate images into an image of angles in radians.",
+    },
+    {
+      name: "F_VN_ConvertCartesianToPolarAngleImageExp",
+      description: "Convert Cartesian coordinate images into an image of angles in radians or degrees.",
+    },
+    {
+      name: "F_VN_ConvertCartesianToPolarImages",
+      description: "Convert Cartesian coordinate images into magnitude and angle images.",
+    },
+    {
+      name: "F_VN_ConvertCartesianToPolarImagesExp",
+      description: "Convert Cartesian coordinate images into magnitude and angle images with selectable angle units.",
+    },
+    {
+      name: "F_VN_ConvertCartesianToPolarMagnitudeImage",
+      description: "Calculate a magnitude image from Cartesian coordinate images.",
+    },
+    {
+      name: "F_VN_ConvertPolarToCartesianImages",
+      description: "Convert magnitude and angle images into Cartesian coordinate images.",
+    },
+    {
+      name: "F_VN_ConvertPolarToCartesianImagesExp",
+      description: "Convert magnitude and angle images into Cartesian coordinate images with selectable angle units.",
+    },
+    {
+      name: "F_VN_ConvertMaps",
+      description: "Convert coordinate maps between floating-point and fixed-point formats for image remapping.",
+    },
+    {
+      name: "F_VN_RemapImage",
+      description: "Transform an image using custom coordinate maps.",
+    },
+    {
+      name: "F_VN_RemapImageExp",
+      description: "Remap an image with relative-coordinate support and configurable interpolation and borders.",
+    },
+    {
+      name: "F_VN_RemapImageToLogPolarSpaceExp",
+      description: "Remap an image to log-polar space with configurable scale and interpolation.",
+    },
+    {
+      name: "F_VN_RemapImageToLogPolarSpaceExp2",
+      description: "Remap an image to log-polar space with configurable scale, interpolation, and output dimensions.",
+    },
+    {
+      name: "F_VN_RemapImageToPolarSpaceExp",
+      description: "Remap an image to polar space with configurable radius and interpolation.",
+    },
+    {
+      name: "F_VN_RemapImageToPolarSpaceExp2",
+      description: "Remap an image to polar space with configurable radius, interpolation, and output dimensions.",
+    },
+    {
+      name: "F_VN_AlignRotatedImageRegionExp",
+      description: "Align a rotated image region to the image axes with configurable interpolation and borders.",
+    },
   ],
 },
 ```
@@ -134,14 +255,14 @@ At the initial audit, the [library project](../src/sln/lib/mobject-graph-vision-
 - `mobject-core` `0.10.0`, `mobject-graph` `0.18.0`, and `mobject-graph-plc-pack` `0.19.0`.
 - `Tc3_Vision, *` as a placeholder reference.
 
-The [test PLC project](../src/sln/libTest/Main/Main.plcproj) initially referenced `mobject-core` `0.9.0` and the installed `mobject-graph-vision-pack` `0.10.0`; these references are now aligned as described above. Its checked-in [Vision header](<../src/sln/libTest/_Repository/Beckhoff Automation GmbH/Tc3_Vision/5.8.4.0/Tc3_Vision.h>) and runtime modules remain version `5.8.4.0`. These files establish the checked-in dependency state, not the version installed on a developer's machine.
+The [test PLC project](../src/sln/libTest/Main/Main.plcproj) initially referenced `mobject-core` `0.9.0` and the installed `mobject-graph-vision-pack` `0.10.0`; these references are now aligned as described above. The original checked-in [Vision header](<../src/sln/libTest/_Repository/Beckhoff Automation GmbH/Tc3_Vision/5.8.4.0/Tc3_Vision.h>) and runtime modules were version `5.8.4.0`. Commit `604c579` added the [5.10.3.0 header](<../src/sln/libTest/_Repository/Beckhoff Automation GmbH/Tc3_Vision/5.10.3.0/Tc3_Vision.h>) and matching runtime modules, and selected that version in both PLC projects.
 
-Before implementing new nodes:
+The original baseline checklist below is retained for the later validation branch; use the current 5.10.3.0 resolution described above:
 
-1. Establish a Windows TwinCAT build environment with the supplied API's `Tc3_Vision` `5.10.2.0` PLC library and corresponding runtime components. Verify the required TwinCAT build and runtime licences there; the HTML is a reference export, not an installable library.
-2. Record or pin the intended Vision resolution so builds do not silently select a different API. Decide the minimum supported Vision version for the next release. Recommend targeting 5.10.2 for this coverage work; supporting older versions needs a separate compatibility build.
+1. Establish a Windows TwinCAT build environment with the selected `Tc3_Vision` `5.10.3.0` PLC library and corresponding runtime components. Verify the required TwinCAT build and runtime licences there; the 5.10.2 HTML is a reference export, not an installable library.
+2. Preserve the pinned Vision resolution so builds do not silently select a different API. The current implementation targets 5.10.3.0; supporting older versions needs a separate compatibility build.
 3. Update the test project's references to match the library under development and ensure the test PLC actually loads the newly built library. Align `mobject-core`, and refresh the checked-in runtime dependencies using TwinCAT tooling.
-4. Build the existing solution and run the existing TcUnit suites before making PLC changes. [MAIN](../src/sln/libTest/Main/POUs/MAIN.TcPOU) instantiates ten suites: seven enum suites, two interface suites, and one struct suite. There are no node-specific test suites in the checked-in test directory.
+4. On the later test branch, build the solution and run the existing TcUnit suites before adding the comprehensive coverage. [MAIN](../src/sln/libTest/Main/POUs/MAIN.TcPOU) instantiates ten suites: seven enum suites, two interface suites, and one struct suite. There are no node-specific test suites in the checked-in test directory.
 
 Acceptance: both PLC projects build against the recorded versions, the test PLC demonstrably uses the development library, and baseline test results are recorded. The older test dependency must not be used to claim validation of new nodes.
 

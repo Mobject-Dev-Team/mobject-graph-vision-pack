@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_DemosaicPolarizedImage" Id="{ba777b58-d1a3-4582-ad09-727ae04a5ba0}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_DemosaicPolarizedImage EXTENDS VisionNode
+VAR
+    ipPolarizedImage : _ITcVnImage;
+    ip0Deg : _ITcVnImage;
+    ip45Deg : _ITcVnImage;
+    ip90Deg : _ITcVnImage;
+    ip135Deg : _ITcVnImage;
+    eEncoding : _ETcVnPixelEncoding(ETcVnPixelEncoding.TCVN_PE_NONE);
+    eInterpolation : _ETcVnPolarizedImageInterpolation(ETcVnPolarizedImageInterpolation.TCVN_PII_NONE);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Clone" Id="{068449d7-7c9a-43f9-b8de-c62d666629f7}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_DemosaicPolarizedImage;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DemosaicPolarizedImage);
+IF pNode = 0 THEN
+    RETURN;
+END_IF
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{9ede8fcd-7b08-4cf3-a7b6-286275359c19}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipPolarizedImage', ipPolarizedImage);
+AddOutput('ip0Deg', ip0Deg);
+AddOutput('ip45Deg', ip45Deg);
+AddOutput('ip90Deg', ip90Deg);
+AddOutput('ip135Deg', ip135Deg);
+AddParameter('eEncoding', eEncoding);
+AddParameter('eInterpolation', eInterpolation);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{73172c9e-84fe-421d-ac08-56d158c7ae86}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_DemosaicPolarizedImage(
+    ipPolarizedImage := ipPolarizedImage.Value,
+    ip0Deg := ip0Deg.Value,
+    ip45Deg := ip45Deg.Value,
+    ip90Deg := ip90Deg.Value,
+    ip135Deg := ip135Deg.Value,
+    eEncoding := eEncoding.Value,
+    eInterpolation := eInterpolation.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{cf832b8b-9edb-46dd-b7a3-7d122fbcc343}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipPolarizedImage.IsValid, 'ipPolarizedImage must contain an image');
+Check.IsTrue(ipPolarizedImage.IsElementType(ETcVnElementType.TCVN_ET_USINT) OR
+             ipPolarizedImage.IsElementType(ETcVnElementType.TCVN_ET_UINT), 'Polarized image must contain USINT or UINT elements');
+Check.IsTrue((eEncoding.Value = ETcVnPixelEncoding.TCVN_PE_NONE) OR
+             (eEncoding.Value = ETcVnPixelEncoding.TCVN_PE_BAYER_GR) OR
+             (eEncoding.Value = ETcVnPixelEncoding.TCVN_PE_BAYER_RG) OR
+             (eEncoding.Value = ETcVnPixelEncoding.TCVN_PE_BAYER_GB) OR
+             (eEncoding.Value = ETcVnPixelEncoding.TCVN_PE_BAYER_BG), 'Unsupported eEncoding');
+Check.IsTrue((eInterpolation.Value = ETcVnPolarizedImageInterpolation.TCVN_PII_NONE) OR
+             (eInterpolation.Value = ETcVnPolarizedImageInterpolation.TCVN_PII_NEAREST_NEIGHBOR) OR
+             (eInterpolation.Value = ETcVnPolarizedImageInterpolation.TCVN_PII_BILINEAR) OR
+             (eInterpolation.Value = ETcVnPolarizedImageInterpolation.TCVN_PII_BICUBIC) OR
+             (eInterpolation.Value = ETcVnPolarizedImageInterpolation.TCVN_PII_LANCZOS4), 'Unsupported eInterpolation');
+Check.IsTrue((ip0Deg.Value = 0) OR (ip0Deg.Value <> ipPolarizedImage.Value), 'ip0Deg must be different from the source image');
+Check.IsTrue((ip45Deg.Value = 0) OR (ip45Deg.Value <> ipPolarizedImage.Value), 'ip45Deg must be different from the source image');
+Check.IsTrue((ip90Deg.Value = 0) OR (ip90Deg.Value <> ipPolarizedImage.Value), 'ip90Deg must be different from the source image');
+Check.IsTrue((ip135Deg.Value = 0) OR (ip135Deg.Value <> ipPolarizedImage.Value), 'ip135Deg must be different from the source image');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

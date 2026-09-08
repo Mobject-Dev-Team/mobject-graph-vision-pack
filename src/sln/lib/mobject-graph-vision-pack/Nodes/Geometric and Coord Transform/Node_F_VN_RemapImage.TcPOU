@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_RemapImage" Id="{e4d9df7e-d62c-4b9b-a904-a74cfdfa1ee1}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_RemapImage EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    ipMap1 : _ITcVnImage;
+    ipMap2 : _ITcVnImage;
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Clone" Id="{15bbb93e-f268-4117-8156-9339cb697a4c}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_RemapImage;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_RemapImage);
+IF pNode = 0 THEN
+    RETURN;
+END_IF
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ec1048e4-dad4-4282-8f11-2b5717357d7e}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddOutput('ipDestImage', ipDestImage);
+AddInput('ipMap1', ipMap1);
+AddInput('ipMap2', ipMap2);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{6383a916-4ecf-412f-9421-95a5f191a203}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_RemapImage(
+    ipSrcImage := ipSrcImage.Value,
+    ipDestImage := ipDestImage.Value,
+    ipMap1 := ipMap1.Value,
+    ipMap2 := ipMap2.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{711dde29-7356-448a-b34a-dd72dbc414f5}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue((ipDestImage.Value = 0) OR (ipDestImage.Value <> ipSrcImage.Value), 'Destination must be different from the source image');
+Check.IsTrue(IsRemapMapPairValid(ipMap1.Value, ipMap2.Value), 'Unsupported remap pair: use REAL XY, separate REAL X/Y, or INT XY with optional UINT coefficients');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

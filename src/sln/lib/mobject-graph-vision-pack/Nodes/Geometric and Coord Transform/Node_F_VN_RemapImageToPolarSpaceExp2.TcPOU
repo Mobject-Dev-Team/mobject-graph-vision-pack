@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_RemapImageToPolarSpaceExp2" Id="{ddad090e-911d-420f-aff4-e3db7c6d6904}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_RemapImageToPolarSpaceExp2 EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    aCenter : _TcVnPoint2_REAL;
+    fMaxRadius : _LREAL(0);
+    eInterpolationType : _ETcVnInterpolationType(ETcVnInterpolationType.TCVN_IT_BILINEAR);
+    nDestWidth : _DINT(-1);
+    nDestHeight : _DINT(-1);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Clone" Id="{0321856c-94e7-458c-ad5b-06131781e7bb}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_RemapImageToPolarSpaceExp2;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_RemapImageToPolarSpaceExp2);
+IF pNode = 0 THEN
+    RETURN;
+END_IF
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{025336e0-a325-41f5-a6d6-6179e2d53cbc}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddOutput('ipDestImage', ipDestImage);
+AddInput('aCenter', aCenter);
+AddParameter('fMaxRadius', fMaxRadius);
+AddParameter('eInterpolationType', eInterpolationType);
+AddParameter('nDestWidth', nDestWidth);
+AddParameter('nDestHeight', nDestHeight);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{20e4a750-278a-4ee4-8d55-6dd6809b03b3}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_RemapImageToPolarSpaceExp2(
+    ipSrcImage := ipSrcImage.Value,
+    ipDestImage := ipDestImage.Value,
+    aCenter := aCenter.Value,
+    fMaxRadius := fMaxRadius.Value,
+    eInterpolationType := eInterpolationType.Value,
+    nDestWidth := nDestWidth.Value,
+    nDestHeight := nDestHeight.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{bc3f41c7-93a8-40d3-a9e4-1880ae9bf495}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue((ipDestImage.Value = 0) OR (ipDestImage.Value <> ipSrcImage.Value), 'Destination must be different from the source image');
+Check.IsTrue((eInterpolationType.Value = ETcVnInterpolationType.TCVN_IT_NEAREST_NEIGHBOR) OR
+             (eInterpolationType.Value = ETcVnInterpolationType.TCVN_IT_BILINEAR) OR
+             (eInterpolationType.Value = ETcVnInterpolationType.TCVN_IT_BICUBIC) OR
+             (eInterpolationType.Value = ETcVnInterpolationType.TCVN_IT_AREA_BASED) OR
+             (eInterpolationType.Value = ETcVnInterpolationType.TCVN_IT_LANCZOS4), 'Unsupported eInterpolationType');
+Check.IsTrue(fMaxRadius.Value >= 0.0, 'Maximum radius must be non-negative; zero selects it automatically');
+Check.IsTrue(nDestWidth.Value >= -1, 'Destination width must be -1 for source width, 0 for automatic, or positive');
+Check.IsTrue(nDestHeight.Value >= -1, 'Destination height must be -1 for source height, 0 for automatic, or positive');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

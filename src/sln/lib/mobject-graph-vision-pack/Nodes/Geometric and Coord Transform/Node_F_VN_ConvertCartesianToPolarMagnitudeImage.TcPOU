@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_ConvertCartesianToPolarMagnitudeImage" Id="{8b144205-f4b3-4fb1-8f69-b5d6b74b77a1}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ConvertCartesianToPolarMagnitudeImage EXTENDS VisionNode
+VAR
+    ipSrcImageX : _ITcVnImage;
+    ipSrcImageY : _ITcVnImage;
+    ipDestImageMag : _ITcVnImage;
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Clone" Id="{4ff29bbe-ce42-4ce8-a863-641f46b704fb}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_ConvertCartesianToPolarMagnitudeImage;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ConvertCartesianToPolarMagnitudeImage);
+IF pNode = 0 THEN
+    RETURN;
+END_IF
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{b996def3-cac6-4d94-87a9-defb6a325959}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImageX', ipSrcImageX);
+AddInput('ipSrcImageY', ipSrcImageY);
+AddOutput('ipDestImageMag', ipDestImageMag);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{8b26230f-2879-4d82-b53d-4e21dfe44829}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ConvertCartesianToPolarMagnitudeImage(
+    ipSrcImageX := ipSrcImageX.Value,
+    ipSrcImageY := ipSrcImageY.Value,
+    ipDestImageMag := ipDestImageMag.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{37f2ff0f-774f-4a22-984d-ab1e46647c86}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImageX.IsValid, 'ipSrcImageX must contain an image');
+Check.IsTrue(ipSrcImageX.IsElementType(ETcVnElementType.TCVN_ET_REAL) OR
+             ipSrcImageX.IsElementType(ETcVnElementType.TCVN_ET_LREAL), 'Coordinate images must contain REAL or LREAL elements');
+Check.IsTrue(ipSrcImageY.IsValid, 'ipSrcImageY must contain an image');
+Check.IsTrue(ImagesHaveMatchingPixelFormats(ipSrcImageX.Value, ipSrcImageY.Value), 'Source images must have matching pixel formats');
+Check.IsTrue(IsImage1SizeEqualToImage2Size(ipSrcImageX.Value, ipSrcImageY.Value), 'Source images must have matching dimensions');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,1 +1,3 @@
 kind,symbol,missing,extra,path
+member_label,ETcVnMergeRegionsOptions,TCVN_MRO_UPRIGHTBOUNDINGRECT,,src/sln/lib/mobject-graph-vision-pack/Datatypes/Enums/_ETcVnMergeRegionsOptions.TcPOU
+member_label,ETcVnPixelPackMode,TCVN_PPM_MONO14P,,src/sln/lib/mobject-graph-vision-pack/Datatypes/Enums/_ETcVnPixelPackMode.TcPOU

@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_RemapImageExp" Id="{957b2a80-156b-4c61-84c7-db4ee367f99b}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_RemapImageExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    ipMap1 : _ITcVnImage;
+    ipMap2 : _ITcVnImage;
+    bRelativeMap : _BOOL(FALSE);
+    eInterpolationType : _ETcVnInterpolationType(ETcVnInterpolationType.TCVN_IT_BILINEAR);
+    eBorderInterpolation : _ETcVnBorderInterpolationMethod(ETcVnBorderInterpolationMethod.TCVN_BIM_CONSTANT);
+    aBorderValue : _TcVnVector4_LREAL;
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Clone" Id="{93ba6ab0-682a-4b67-9b03-80293df95cfd}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_RemapImageExp;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_RemapImageExp);
+IF pNode = 0 THEN
+    RETURN;
+END_IF
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{6ce66ea8-47c1-4db0-a3ef-a8b22205a069}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddOutput('ipDestImage', ipDestImage);
+AddInput('ipMap1', ipMap1);
+AddInput('ipMap2', ipMap2);
+AddParameter('bRelativeMap', bRelativeMap);
+AddParameter('eInterpolationType', eInterpolationType);
+AddParameter('eBorderInterpolation', eBorderInterpolation);
+AddInput('aBorderValue', aBorderValue);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{1000b438-607e-4684-9727-b65814699816}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_RemapImageExp(
+    ipSrcImage := ipSrcImage.Value,
+    ipDestImage := ipDestImage.Value,
+    ipMap1 := ipMap1.Value,
+    ipMap2 := ipMap2.Value,
+    bRelativeMap := bRelativeMap.Value,
+    eInterpolationType := eInterpolationType.Value,
+    eBorderInterpolation := eBorderInterpolation.Value,
+    aBorderValue := aBorderValue.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{8db6f3dd-9846-4e35-aa11-f8c921a0b0bc}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue((ipDestImage.Value = 0) OR (ipDestImage.Value <> ipSrcImage.Value), 'Destination must be different from the source image');
+Check.IsTrue(IsRemapMapPairValid(ipMap1.Value, ipMap2.Value), 'Unsupported remap pair: use REAL XY, separate REAL X/Y, or INT XY with optional UINT coefficients');
+Check.IsTrue((eInterpolationType.Value = ETcVnInterpolationType.TCVN_IT_NEAREST_NEIGHBOR) OR
+             (eInterpolationType.Value = ETcVnInterpolationType.TCVN_IT_BILINEAR) OR
+             (eInterpolationType.Value = ETcVnInterpolationType.TCVN_IT_BICUBIC) OR
+             (eInterpolationType.Value = ETcVnInterpolationType.TCVN_IT_LANCZOS4), 'Unsupported eInterpolationType');
+Check.IsTrue((eBorderInterpolation.Value = ETcVnBorderInterpolationMethod.TCVN_BIM_CONSTANT) OR
+             (eBorderInterpolation.Value = ETcVnBorderInterpolationMethod.TCVN_BIM_REPLICATE) OR
+             (eBorderInterpolation.Value = ETcVnBorderInterpolationMethod.TCVN_BIM_REFLECT) OR
+             (eBorderInterpolation.Value = ETcVnBorderInterpolationMethod.TCVN_BIM_WRAP) OR
+             (eBorderInterpolation.Value = ETcVnBorderInterpolationMethod.TCVN_BIM_REFLECT_101) OR
+             (eBorderInterpolation.Value = ETcVnBorderInterpolationMethod.TCVN_BIM_DEFAULT) OR
+             (eBorderInterpolation.Value = ETcVnBorderInterpolationMethod.TCVN_BIM_TRANSPARENT), 'Unsupported eBorderInterpolation');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

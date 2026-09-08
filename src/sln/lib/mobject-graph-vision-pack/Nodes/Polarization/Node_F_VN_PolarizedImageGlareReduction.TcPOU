@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_PolarizedImageGlareReduction" Id="{19d91116-2f96-445e-84b5-2ac752c72744}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_PolarizedImageGlareReduction EXTENDS VisionNode
+VAR
+    ipPolarizedImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    eEncoding : _ETcVnPixelEncoding(ETcVnPixelEncoding.TCVN_PE_NONE);
+    fIndex : _REAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Clone" Id="{e8d6c60b-c36c-4dc7-9678-f410c18c092a}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_PolarizedImageGlareReduction;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_PolarizedImageGlareReduction);
+IF pNode = 0 THEN
+    RETURN;
+END_IF
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{70ea6a78-201f-4a90-acce-fc587ca7721b}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipPolarizedImage', ipPolarizedImage);
+AddOutput('ipDestImage', ipDestImage);
+AddParameter('eEncoding', eEncoding);
+AddParameter('fIndex', fIndex);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{f33bd211-4220-4656-82f5-7c500aa53dcc}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_PolarizedImageGlareReduction(
+    ipPolarizedImage := ipPolarizedImage.Value,
+    ipDestImage := ipDestImage.Value,
+    eEncoding := eEncoding.Value,
+    fIndex := fIndex.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{d08e00f8-8cb6-4735-b2af-5be5c77cac7d}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipPolarizedImage.IsValid, 'ipPolarizedImage must contain an image');
+Check.IsTrue(ipPolarizedImage.IsElementType(ETcVnElementType.TCVN_ET_USINT) OR
+             ipPolarizedImage.IsElementType(ETcVnElementType.TCVN_ET_UINT), 'Polarized image must contain USINT or UINT elements');
+Check.IsTrue((eEncoding.Value = ETcVnPixelEncoding.TCVN_PE_NONE) OR
+             (eEncoding.Value = ETcVnPixelEncoding.TCVN_PE_BAYER_GR) OR
+             (eEncoding.Value = ETcVnPixelEncoding.TCVN_PE_BAYER_RG) OR
+             (eEncoding.Value = ETcVnPixelEncoding.TCVN_PE_BAYER_GB) OR
+             (eEncoding.Value = ETcVnPixelEncoding.TCVN_PE_BAYER_BG), 'Unsupported eEncoding');
+Check.IsTrue((fIndex.Value >= 0.0) AND (fIndex.Value <= 3.0), 'Intensity index must be between 0 and 3');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
