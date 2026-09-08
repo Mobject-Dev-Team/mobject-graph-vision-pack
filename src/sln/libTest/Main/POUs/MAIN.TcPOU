@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="MAIN" Id="{463fa965-bbc5-0563-1cd3-9689f2e8bda6}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-    _visionApi5102Datatypes : _VisionApi5102_Datatypes_TestSuite;
-    _visionApi5102Nodes : _VisionApi5102_Nodes_TestSuite;
     // enums
     _ETcVn2dCodeSearchStrategy_TestSuite : _ETcVn2dCodeSearchStrategy_TestSuite;
     _ETcVnAdaptiveThresholdMethod_TestSuite : _ETcVnAdaptiveThresholdMethod_TestSuite;

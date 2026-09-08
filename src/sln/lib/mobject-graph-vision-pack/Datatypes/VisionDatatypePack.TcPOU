@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="VisionDatatypePack" Id="{41aa96c4-4e58-0595-14c8-fb1325f46fff}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -7,8 +7,8 @@
 FUNCTION_BLOCK VisionDatatypePack
 VAR
     // aliases
-    _gVCP_REGISTER_ADDRESS : _GVCP_REGISTER_ADDRESS;
-    _gVCP_REGISTER_VALUE : _GVCP_REGISTER_VALUE;
+    _gVCP_REGISTER_ADDRESS : _GVCP_REGISTER_ADDRESS(0);
+    _gVCP_REGISTER_VALUE : _GVCP_REGISTER_VALUE(0);
     _tcVnPoint : _TcVnPoint;
     _tcVnPoint2_DINT : _TcVnPoint2_DINT;
     _tcVnPoint2_LREAL : _TcVnPoint2_LREAL;
@@ -163,7 +163,7 @@ VAR
     _eTcVnEdgeSelection : _ETcVnEdgeSelection(ETcVnEdgeSelection.TCVN_ES_RISING);
     _eTcVnFindRoisMethod : _ETcVnFindRoisMethod(ETcVnFindRoisMethod.TCVN_FRM_GRID);
     _eTcVnJpegSampling : _ETcVnJpegSampling(ETcVnJpegSampling.TCVN_JS_444);
-    _eTcVnMergeRegionsOptions : _ETcVnMergeRegionsOptions(ETcVnMergeRegionsOptions.TCVN_MRO_UPRIGHTBOUNDINGRECT);
+    _eTcVnMergeRegionsOptions : _ETcVnMergeRegionsOptions(ETcVnMergeRegionsOptions.TCVN_MRO_UPRIGHT_BOUNDING_RECT);
     _eTcVnPolarizedImageInterpolation : _ETcVnPolarizedImageInterpolation(ETcVnPolarizedImageInterpolation.TCVN_PII_NONE);
     _eTcVnSalientFeaturesMethod : _ETcVnSalientFeaturesMethod(ETcVnSalientFeaturesMethod.TCVN_SFM_WALSH_CODE);
     // structs

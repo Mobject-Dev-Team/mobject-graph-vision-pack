@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="_ETcVnMergeRegionsOptions" Id="{02831754-ed06-4090-8059-2e84a007d745}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'}
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -80,7 +80,7 @@ END_VAR
 AddBaseDatatype(enumBaseDatatype);
 ClearReference();
 
-AddLocalEnumeration('TCVN_MRO_UPRIGHTBOUNDINGRECT', ETcVnMergeRegionsOptions.TCVN_MRO_UPRIGHTBOUNDINGRECT);
+AddLocalEnumeration('TCVN_MRO_UPRIGHT_BOUNDING_RECT', ETcVnMergeRegionsOptions.TCVN_MRO_UPRIGHT_BOUNDING_RECT);
 ]]></ST>
       </Implementation>
     </Method>

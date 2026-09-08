@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="_GVCP_ADDRESS_VALUE_PAIR" Id="{a4330678-6c77-4bc9-b237-b8958c0f2499}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'}
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -8,17 +8,17 @@ FUNCTION_BLOCK _GVCP_ADDRESS_VALUE_PAIR EXTENDS StructuredDatatypeBase
 VAR
     localData : GVCP_ADDRESS_VALUE_PAIR;
     activeData : REFERENCE TO GVCP_ADDRESS_VALUE_PAIR REF= localData;
-    _nAddress : _GVCP_REGISTER_ADDRESS;
-    _nValue : _GVCP_REGISTER_VALUE;
+    _nAddress : _GVCP_REGISTER_ADDRESS(0);
+    _nValue : _GVCP_REGISTER_VALUE(0);
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST/>
+      <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Core" Id="{70a1f9ae-3f8c-4ff2-bfc4-71703e4002b9}"/>
+    <Folder Name="Core" Id="{70a1f9ae-3f8c-4ff2-bfc4-71703e4002b9}" />
     <Folder Name="Customize" Id="{cda594ed-6940-43c9-b908-bd8866789312}">
-      <Folder Name="Constructor" Id="{de4cf462-3a0d-48a7-b067-3084a74befd7}"/>
-      <Folder Name="Protected" Id="{a21a2292-39d3-47e1-bdbe-494701d99090}"/>
+      <Folder Name="Constructor" Id="{de4cf462-3a0d-48a7-b067-3084a74befd7}" />
+      <Folder Name="Protected" Id="{a21a2292-39d3-47e1-bdbe-494701d99090}" />
     </Folder>
     <Property Name="Address" Id="{c9161abe-46b3-48c2-9af4-97fa0c94c4f1}" FolderPath="Core\">
       <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
@@ -92,6 +92,24 @@ END_VAR
 SetMemberReference();]]></ST>
       </Implementation>
     </Method>
+    <Property Name="nAddress" Id="{08848fa3-323f-4d86-9f63-2a51ada16077}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nAddress : REFERENCE TO _GVCP_REGISTER_ADDRESS]]></Declaration>
+      <Get Name="Get" Id="{b5a175a9-4fd3-4899-9409-79fc62a798c3}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nAddress REF= _nAddress;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="nValue" Id="{9cb877a8-38d3-4022-8145-6ee47f18f5dc}">
+      <Declaration><![CDATA[PROPERTY PUBLIC nValue : REFERENCE TO _GVCP_REGISTER_VALUE]]></Declaration>
+      <Get Name="Get" Id="{de384220-b809-4f86-9cb8-68aff77d2464}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nValue REF= _nValue;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Method Name="SetMemberReference" Id="{09ef35fe-b0fe-45e5-b264-be8a87cb9d93}" FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetMemberReference
 VAR_INPUT
@@ -141,24 +159,6 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[Value REF= activeData;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
-    <Property Name="nAddress" Id="{08848fa3-323f-4d86-9f63-2a51ada16077}">
-      <Declaration><![CDATA[PROPERTY PUBLIC nAddress : REFERENCE TO _GVCP_REGISTER_ADDRESS]]></Declaration>
-      <Get Name="Get" Id="{b5a175a9-4fd3-4899-9409-79fc62a798c3}">
-        <Declaration><![CDATA[]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[nAddress REF= _nAddress;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
-    <Property Name="nValue" Id="{9cb877a8-38d3-4022-8145-6ee47f18f5dc}">
-      <Declaration><![CDATA[PROPERTY PUBLIC nValue : REFERENCE TO _GVCP_REGISTER_VALUE]]></Declaration>
-      <Get Name="Get" Id="{de384220-b809-4f86-9cb8-68aff77d2464}">
-        <Declaration><![CDATA[]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[nValue REF= _nValue;]]></ST>
         </Implementation>
       </Get>
     </Property>

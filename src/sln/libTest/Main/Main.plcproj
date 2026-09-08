@@ -65,6 +65,10 @@
     <Folder Include="Tests\Structs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="mobject-graph-plc-pack">
+      <DefaultResolution>mobject-graph-plc-pack, * (mobject)</DefaultResolution>
+      <Namespace>mobject_graph_plc_pack</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>
@@ -111,15 +115,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tests\Nodes" />
-    <Compile Include="Tests\Structs\_VisionApi5102_Datatypes_TestSuite.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Tests\Nodes\_VisionApi5102_Nodes_TestSuite.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <LibraryReference Include="mobject-graph,0.18.0,mobject">
       <Namespace>mobject_graph</Namespace>
     </LibraryReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderResolution Include="Tc3_Vision">
+      <Resolution>Tc3_Vision, 5.10.3.0 (Beckhoff Automation GmbH)</Resolution>
+    </PlaceholderResolution>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="_ETcVnPixelPackMode" Id="{d993a433-f6a2-41d8-9e7b-d4c38c49b5db}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -22,8 +22,7 @@ END_VAR
       <Folder Name="Private" Id="{6addf33c-582e-4555-b87b-f3eb8e51fc21}" />
       <Folder Name="Protected" Id="{f2040aaf-28c8-40da-83ac-de62342aea23}" />
     </Folder>
-    <Method Name="AddLocalEnumeration" Id="{20e09289-cd5b-4d32-b698-c4dc2e1e1079}"
-      FolderPath="Customize\Private\">
+    <Method Name="AddLocalEnumeration" Id="{20e09289-cd5b-4d32-b698-c4dc2e1e1079}" FolderPath="Customize\Private\">
       <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
 VAR_INPUT
 	Enumeration : T_MAXSTRING;
@@ -65,8 +64,7 @@ END_VAR
 Clone := pClone^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{e3b69484-84bb-47d6-8959-6fb3c14caba4}"
-      FolderPath="Customize\Constructor\">
+    <Method Name="FB_init" Id="{e3b69484-84bb-47d6-8959-6fb3c14caba4}" FolderPath="Customize\Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -92,7 +90,7 @@ AddLocalEnumeration('TCVN_PPM_RGB565P', ETcVnPixelPackMode.TCVN_PPM_RGB565P);
 AddLocalEnumeration('TCVN_PPM_BGR565P', ETcVnPixelPackMode.TCVN_PPM_BGR565P);
 AddLocalEnumeration('TCVN_PPM_MONO10P', ETcVnPixelPackMode.TCVN_PPM_MONO10P);
 AddLocalEnumeration('TCVN_PPM_MONO12P', ETcVnPixelPackMode.TCVN_PPM_MONO12P);
-AddLocalEnumeration('TCVN_PPM_MONO14P', ETcVnPixelPackMode.TCVN_PPM_MONO14P);
+// AddLocalEnumeration('TCVN_PPM_MONO14P', ETcVnPixelPackMode.TCVN_PPM_MONO14P);
 ]]></ST>
       </Implementation>
     </Method>
@@ -107,8 +105,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="IsEnumeratorValueEqual" Id="{a477fdc4-8b1e-4267-bc01-b44814d306fa}"
-      FolderPath="Customize\Protected\">
+    <Method Name="IsEnumeratorValueEqual" Id="{a477fdc4-8b1e-4267-bc01-b44814d306fa}" FolderPath="Customize\Protected\">
       <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
 VAR_INPUT
 	Enumerator : I_KeyValueForwardEnumerator;
@@ -124,8 +121,7 @@ END_IF
 IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="MakeReferenceTo" Id="{064f95b9-4036-477e-a1fa-35659ca9107d}"
-      FolderPath="Customize\">
+    <Method Name="MakeReferenceTo" Id="{064f95b9-4036-477e-a1fa-35659ca9107d}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
 VAR_INPUT
 	ReferenceTarget : REFERENCE TO ETcVnPixelPackMode;
@@ -136,8 +132,7 @@ END_VAR
 SetBaseDatatypeReference();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetBaseDatatypeReference" Id="{b23b6902-e441-068f-2b2d-477291a0b2d4}"
-      FolderPath="Core\Protected\">
+    <Method Name="SetBaseDatatypeReference" Id="{b23b6902-e441-068f-2b2d-477291a0b2d4}" FolderPath="Core\Protected\">
       <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
 VAR_INPUT
 END_VAR
@@ -157,8 +152,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="TryMakeReferenceTo" Id="{08b15d71-a9b3-41f5-a1c3-124f0b463897}"
-      FolderPath="Customize\">
+    <Method Name="TryMakeReferenceTo" Id="{08b15d71-a9b3-41f5-a1c3-124f0b463897}" FolderPath="Customize\">
       <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
 VAR_INPUT
 	Target : I_Datatype;

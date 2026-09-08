@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.25">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Node_F_VN_MergeRegions" Id="{d0287c22-20fe-40ae-8939-374a768b0f49}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'}
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -9,7 +9,7 @@ VAR
     ipSrcContainer : _ITcVnContainer;
     ipDestContainer : _ITcVnContainer;
     nDistance : _UDINT(0);
-    nOptions : _ETcVnMergeRegionsOptions(ETcVnMergeRegionsOptions.TCVN_MRO_UPRIGHTBOUNDINGRECT);
+    nOptions : _ETcVnMergeRegionsOptions(ETcVnMergeRegionsOptions.TCVN_MRO_UPRIGHT_BOUNDING_RECT);
     hrPrev : _HRESULT(S_OK);
     hresult : _HRESULT(S_OK);
 END_VAR
@@ -68,7 +68,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipSrcContainer.IsValid, 'ipSrcContainer must contain a container');
 Check.IsTrue(ipSrcContainer.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnRectangle_DINT), 'ipSrcContainer must contain TcVnRectangle_DINT elements');
-Check.IsTrue(nOptions.Value = ETcVnMergeRegionsOptions.TCVN_MRO_UPRIGHTBOUNDINGRECT, 'Unsupported region merge option');]]></ST>
+Check.IsTrue(nOptions.Value = ETcVnMergeRegionsOptions.TCVN_MRO_UPRIGHT_BOUNDING_RECT, 'Unsupported region merge option');]]></ST>
       </Implementation>
     </Method>
   </POU>
