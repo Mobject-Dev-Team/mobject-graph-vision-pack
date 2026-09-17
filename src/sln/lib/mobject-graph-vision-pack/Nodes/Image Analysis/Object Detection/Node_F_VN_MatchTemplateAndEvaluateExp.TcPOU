@@ -22,6 +22,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Constructor" Id="{940a3a9d-281c-414e-8bc8-e305940eed72}" />
     <Method Name="Clone" Id="{d4ae90fe-f4ab-403b-9b6f-7d4752cad466}">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
 VAR
@@ -30,13 +31,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[pNode := __NEW(Node_F_VN_MatchTemplateAndEvaluateExp);
-IF pNode = 0 THEN
-    RETURN;
-END_IF
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{226d647f-119c-4b48-b3e4-4b0ba8a9ffd2}">
+    <Method Name="FB_init" Id="{226d647f-119c-4b48-b3e4-4b0ba8a9ffd2}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
     bInitRetains : BOOL;

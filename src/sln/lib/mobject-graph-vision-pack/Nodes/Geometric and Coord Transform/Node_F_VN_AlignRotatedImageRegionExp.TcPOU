@@ -19,6 +19,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Constructor" Id="{0bf89db4-5de2-4f7c-8353-079d935a8791}" />
     <Method Name="Clone" Id="{f2023969-4cc9-48aa-b31e-4138457c4922}">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
 VAR
@@ -27,13 +28,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[pNode := __NEW(Node_F_VN_AlignRotatedImageRegionExp);
-IF pNode = 0 THEN
-    RETURN;
-END_IF
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{7971aee1-091b-4221-bea9-8dbcf69abfd3}">
+    <Method Name="FB_init" Id="{7971aee1-091b-4221-bea9-8dbcf69abfd3}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
     bInitRetains : BOOL;

@@ -20,6 +20,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Constructor" Id="{72f23646-806e-40a3-8b8c-8aac39107a99}" />
     <Method Name="Clone" Id="{0321856c-94e7-458c-ad5b-06131781e7bb}">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
 VAR
@@ -28,13 +29,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[pNode := __NEW(Node_F_VN_RemapImageToPolarSpaceExp2);
-IF pNode = 0 THEN
-    RETURN;
-END_IF
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{025336e0-a325-41f5-a6d6-6179e2d53cbc}">
+    <Method Name="FB_init" Id="{025336e0-a325-41f5-a6d6-6179e2d53cbc}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
     bInitRetains : BOOL;

@@ -17,6 +17,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Constructor" Id="{f676e069-d2bc-48c7-8a69-463a5615e2b3}" />
     <Method Name="Clone" Id="{c6721df4-ec68-4fea-a00a-b6d8477d53a7}">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
 VAR
@@ -25,13 +26,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[pNode := __NEW(Node_F_VN_FindRois);
-IF pNode = 0 THEN
-    RETURN;
-END_IF
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{3c12b882-9cbd-460f-9246-ca1f7ef3198d}">
+    <Method Name="FB_init" Id="{3c12b882-9cbd-460f-9246-ca1f7ef3198d}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
     bInitRetains : BOOL;

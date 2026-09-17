@@ -17,6 +17,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Constructor" Id="{433b9f9d-4304-471c-8a22-d7baa0b021f4}" />
     <Method Name="Clone" Id="{b6c28775-36a4-435b-bbc6-06a3327adebc}">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
 VAR
@@ -25,13 +26,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[pNode := __NEW(Node_F_VN_MergeRegions);
-IF pNode = 0 THEN
-    RETURN;
-END_IF
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{e44c5a78-7d75-4272-830e-18a6f673b389}">
+    <Method Name="FB_init" Id="{e44c5a78-7d75-4272-830e-18a6f673b389}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
     bInitRetains : BOOL;
