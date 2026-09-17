@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.25">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Node_F_VN_MatchContoursExp" Id="{dc4a2cb2-96d0-470d-bc43-872ad63cd1ed}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'}
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -21,6 +21,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Constructor" Id="{d9ac5e6d-0d7b-0a88-0c2e-4bfe3b2dc0f7}" />
     <Method Name="Clone" Id="{d028baad-3bc7-44f4-825f-3b95b9373aa5}">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
 VAR
@@ -29,13 +30,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[pNode := __NEW(Node_F_VN_MatchContoursExp);
-IF pNode = 0 THEN
-    RETURN;
-END_IF
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{a1dda0a1-1ef3-4fd8-b7ca-eeb4ef33bd68}">
+    <Method Name="FB_init" Id="{a1dda0a1-1ef3-4fd8-b7ca-eeb4ef33bd68}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
     bInitRetains : BOOL;

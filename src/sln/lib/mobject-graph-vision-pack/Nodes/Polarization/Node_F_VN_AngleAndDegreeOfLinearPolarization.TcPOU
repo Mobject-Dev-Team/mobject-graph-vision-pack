@@ -20,6 +20,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Constructor" Id="{45a2647b-6a24-0dc2-07db-303cc69ae73f}" />
     <Method Name="Clone" Id="{e6004ca0-28ae-458a-b498-a85d02d47050}">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
 VAR
@@ -28,13 +29,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[pNode := __NEW(Node_F_VN_AngleAndDegreeOfLinearPolarization);
-IF pNode = 0 THEN
-    RETURN;
-END_IF
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{32e58a82-36a2-423a-a237-2aac8d4e73dd}">
+    <Method Name="FB_init" Id="{32e58a82-36a2-423a-a237-2aac8d4e73dd}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
     bInitRetains : BOOL;

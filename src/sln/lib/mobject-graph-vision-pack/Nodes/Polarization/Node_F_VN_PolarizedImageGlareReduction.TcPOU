@@ -17,6 +17,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Constructor" Id="{95e4c52d-925a-01da-233b-c342409e4a00}" />
     <Method Name="Clone" Id="{e8d6c60b-c36c-4dc7-9678-f410c18c092a}">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
 VAR
@@ -25,13 +26,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[pNode := __NEW(Node_F_VN_PolarizedImageGlareReduction);
-IF pNode = 0 THEN
-    RETURN;
-END_IF
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{70ea6a78-201f-4a90-acce-fc587ca7721b}">
+    <Method Name="FB_init" Id="{70ea6a78-201f-4a90-acce-fc587ca7721b}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
     bInitRetains : BOOL;

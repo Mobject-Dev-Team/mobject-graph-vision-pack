@@ -17,6 +17,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Constructor" Id="{cdc5f6d4-1f64-073d-0785-62509f541e00}" />
     <Method Name="Clone" Id="{db04050f-ecc8-4c83-9cb6-ce099336a463}">
       <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
 VAR
@@ -25,13 +26,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[pNode := __NEW(Node_F_VN_ConvertPolarToCartesianImages);
-IF pNode = 0 THEN
-    RETURN;
-END_IF
 Clone := pNode^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{e90c0ac6-0bba-4f49-a41d-17fc7338c3ae}">
+    <Method Name="FB_init" Id="{e90c0ac6-0bba-4f49-a41d-17fc7338c3ae}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
     bInitRetains : BOOL;
