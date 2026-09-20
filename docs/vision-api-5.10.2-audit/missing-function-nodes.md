@@ -169,14 +169,6 @@ See [functions.csv](functions.csv) for signatures, defaults, dependencies, point
 - `F_VN_TransformIntoDisplayableImageExp2`
 - `F_VN_UpdateTimestamp`
 
-## TC3 Vision Code Reading (5)
-
-- `F_VN_AnalyzeBarcodeWalsh`
-- `F_VN_DetectBarcodesWalsh`
-- `F_VN_ReadBarcodeRoi`
-- `F_VN_ReadBarcodeRoiExp`
-- `F_VN_ReadDataMatrixCodeRoiExp`
-
 ## TC3 Vision Metrology 2D (15)
 
 - `F_VN_CalibrateCameraExp`

@@ -209,9 +209,69 @@ outputs when connected and unconnected, and `hrPrev` failure chaining. These fix
 TC3 Vision Matching licence. TwinCAT compilation and runtime validation remain pending; the
 distributed `.library` was rebuilt in `5669f4c` and contains neither this batch nor the fifth.
 
+## Implementation progress — seventh batch
+
+Added five nodes under `Vision/Code Reading`, closing the **TC3 Vision Code Reading**
+backlog to zero:
+
+- `F_VN_AnalyzeBarcodeWalsh` and `F_VN_DetectBarcodesWalsh`
+- `F_VN_ReadBarcodeRoi` and `F_VN_ReadBarcodeRoiExp`
+- `F_VN_ReadDataMatrixCodeRoiExp`
+
+Unlike the previous two batches these had no reserved placeholders in `VisionNodePack`, so the
+prototype declarations and registrations were inserted into the existing `Code Reading` block.
+
+The two Walsh nodes are a pair and are wired as one. `F_VN_AnalyzeBarcodeWalsh` takes an
+exemplary barcode image and a `TcVnParamsWalshBarcodeDetection` struct, and the call fills in the
+six members it can estimate while leaving the rest untouched. It is therefore exposed as a graph
+input that is echoed back as an output, the same InOut treatment `aCenter` gets in the arc and
+ellipse nodes — not as a pure result, which would discard the user's settings for the other six
+members. `F_VN_DetectBarcodesWalsh` takes that struct as a plain input. The intended graph is
+Analyze once against a representative code, then feed the tuned struct into Detect.
+
+The ROI readers restrict `eBarcodeType` to the seven types the export documents as supported
+(`CODE39`, `CODE128`, `EAN8`, `EAN13`, `ITF`, `UPCA`, `UPCE`) and default to `CODE128`. This is
+deliberately narrower than the registered `F_VN_ReadBarcode`, which defaults to `TCVN_BT_ANY`:
+the ROI variants' documentation lists a supported set that excludes `ANY`, `CODABAR`, `CODE93`
+and `CODE39EXTENDED`, so defaulting to `ANY` here would start the node in an unsupported state.
+
+`F_VN_ReadDataMatrixCodeRoiExp` follows the registered `F_VN_ReadDataMatrixCodeRoi` and
+`F_VN_ReadDotCodeRoiExp` for its module width, option bitmask and contour output. Its `eOptions`
+is a `_ULINT` initialised from `ETcVnDataMatrixOptions.TCVN_DMO_DEFAULT` and Walsh detection's is
+a `_UDINT` initialised from `ETcVnDetectBarcodesWalshOptions.TCVN_DBWO_HORIZONTAL`, matching how
+`F_VN_ReadDotCodeRoiExp` and `F_VN_ReadDataMatrixCodeExp2` carry their bitmask options. The
+export types both as plain integers rather than as the enum, and does not publish their numeric
+values, so the enum constant is used as the initialiser rather than a literal.
+
+`fAngleDeg` is written back unconditionally, matching `F_VN_ReadDotCodeRoiExp` and the
+`fAvgStrength` handling in the fifth batch. The registered `F_VN_ReadDataMatrixCodeRoi` instead
+guards the write with `SUCCEEDED`; that difference already exists in the pack and is left alone
+rather than changed under cover of this batch.
+
+Checks cover the documented 8-bit single-channel source images, the supported barcode types and
+search directions, a positive `nMaxScans`, `fModuleWidth` of at least 3, and the `0`-or-in-range
+rules for `nRows` (8–144) and `nCols` (10–144). The Walsh parameter struct is checked for a
+positive maximum bar distance, a coherent aspect-ratio range, a positive filter count and resize
+factor, and the two documented `-1` sentinels for `nMinArea` and `nChannelIndex`.
+
+The seventh batch reached **924 registered nodes**, including **867 API function nodes**, and
+**185 registered datatypes**, with **171 missing function nodes** plus the disabled
+matrix-multiplication node. Neither TC3 Vision Matching nor TC3 Vision Code Reading appears in
+the missing-by-licence breakdown any more; what remains is Vision Base (87), Metrology 2D (15),
+Machine Learning (58) and Neural Network (11). The audit reports no omitted call parameters and
+retains exactly the two known enum-label differences from `604c579`.
+
+No tests were added or restored. The later test branch should cover an Analyze-then-Detect round
+trip on a representative code, the Walsh direction options, each supported barcode type through
+both ROI readers, rejection of the unsupported types, the search directions and scan-line limit,
+Data Matrix size constraints against known codes, the optional contour outputs, and `hrPrev`
+failure chaining. These fixtures need the TC3 Vision Code Reading licence. TwinCAT compilation
+and runtime validation remain pending; the distributed `.library` was rebuilt in `5669f4c` and
+now lags three batches.
+
 ## About box release notes
 
-Copy this entry into the About box release-notes array. It lists the 49 new nodes implemented across all six batches. Keep this entry updated as further nodes are implemented. `v1.26.0 beta` is a proposed version following the supplied `v1.25.0 beta` example; adjust the version and date to match the eventual release. This is a draft while the latest source additions await TwinCAT build and runtime validation.
+Copy this entry into the About box release-notes array. It lists the 54 new nodes implemented across all seven batches. Keep this entry updated as further nodes are implemented. `v1.26.0 beta` is a proposed version following the supplied `v1.25.0 beta` example; adjust the version and date to match the eventual release. This is a draft while the latest source additions await TwinCAT build and runtime validation.
 
 ```javascript
 {
@@ -413,6 +473,26 @@ Copy this entry into the About box release-notes array. It lists the 49 new node
     {
       name: "F_VN_FindReferenceKeyPointsInImageORBExp",
       description: "Locate an ORB reference image with configurable ORB, matching, and estimation settings and an optional mask.",
+    },
+    {
+      name: "F_VN_AnalyzeBarcodeWalsh",
+      description: "Estimate Walsh barcode detection parameters from an exemplary barcode image.",
+    },
+    {
+      name: "F_VN_DetectBarcodesWalsh",
+      description: "Detect barcodes using the Walsh transform and return their positions as rotated rectangles.",
+    },
+    {
+      name: "F_VN_ReadBarcodeRoi",
+      description: "Read a single 1D barcode from a region of interest and return its rotation angle.",
+    },
+    {
+      name: "F_VN_ReadBarcodeRoiExp",
+      description: "Read a 1D barcode from a region of interest with a configurable search direction, scan limit, and contour output.",
+    },
+    {
+      name: "F_VN_ReadDataMatrixCodeRoiExp",
+      description: "Read a Data Matrix code from a region of interest with configurable options, module size, and grid dimensions.",
     },
   ],
 },

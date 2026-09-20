@@ -1921,6 +1921,21 @@
     <Compile Include="Nodes\Code Reading\Node_F_VN_ReadDataMatrixCodeRoi.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_AnalyzeBarcodeWalsh.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_DetectBarcodesWalsh.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadBarcodeRoi.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadBarcodeRoiExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Code Reading\Node_F_VN_ReadDataMatrixCodeRoiExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Code Reading\Node_F_VN_ReadDataMatrixCodeExp.TcPOU">
       <SubType>Code</SubType>
     </Compile>

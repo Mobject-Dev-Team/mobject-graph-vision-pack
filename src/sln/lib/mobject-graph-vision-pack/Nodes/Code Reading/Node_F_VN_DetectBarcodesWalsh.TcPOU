@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_DetectBarcodesWalsh" Id="{3e9b3c6e-c003-40ac-8f0f-e11097ce7c76}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_DetectBarcodesWalsh EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipBarcodes : _ITcVnContainer;
+    eOptions : _UDINT(ETcVnDetectBarcodesWalshOptions.TCVN_DBWO_HORIZONTAL);
+    stParams : _TcVnParamsWalshBarcodeDetection;
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{f744c2b1-32d1-4e09-847f-6961a1e65855}" />
+    <Method Name="Clone" Id="{07dd6c49-12e3-4d6c-bd82-d01113d3cafd}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_DetectBarcodesWalsh;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DetectBarcodesWalsh);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{0a6a9c11-abec-4bf2-ab64-4d02fb7a634a}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddOutput('ipBarcodes', ipBarcodes);
+AddParameter('eOptions', eOptions);
+AddInput('stParams', stParams);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{5ad85f8c-6211-42e3-8c80-cfdea48724e4}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_DetectBarcodesWalsh(
+    ipSrcImage := ipSrcImage.Value,
+    ipBarcodes := ipBarcodes.Value,
+    eOptions := eOptions.Value,
+    stParams := stParams.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{0690769a-24be-4b49-bcee-0856d6cb15d7}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(stParams.Value.nMaxBarDistance > 0, 'nMaxBarDistance must be greater than 0');
+Check.IsTrue(stParams.Value.fMinAspectRatio > 0.0, 'fMinAspectRatio must be greater than 0');
+Check.IsTrue(stParams.Value.fMaxAspectRatio >= stParams.Value.fMinAspectRatio, 'fMaxAspectRatio must be at least fMinAspectRatio');
+// -1 selects the automatic guess derived from nMaxBarDistance.
+Check.IsTrue((stParams.Value.nMinArea = -1) OR (stParams.Value.nMinArea > 0), 'nMinArea must be -1 for the automatic guess, or greater than 0');
+// -1 selects automatic graylevel conversion.
+Check.IsTrue(stParams.Value.nChannelIndex >= -1, 'nChannelIndex must be -1 for automatic graylevel conversion, or a channel index');
+Check.IsTrue(stParams.Value.nWalshFilterNum > 0, 'nWalshFilterNum must be greater than 0');
+Check.IsTrue(stParams.Value.fPostProcessingResizeFactor > 0.0, 'fPostProcessingResizeFactor must be greater than 0');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
