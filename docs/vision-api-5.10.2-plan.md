@@ -90,9 +90,69 @@ Current source coverage is **899 registered nodes**, including **842 API functio
 
 No tests were added or restored. The later test branch should cover all four map pairs, fixed/floating conversion, format changes and stale second outputs, identity and relative remapping, border modes/colors, automatic and explicit polar output sizes, rotated-region alignment, invalid map pairs, aliasing, and failure chaining. TwinCAT compilation and runtime validation remain pending. The distributed `.library` still comes from `604c579` and does not yet include the third or fourth source batch.
 
+## Implementation progress — fifth batch
+
+Added twelve nodes under `Vision/Measurement`, completing the expert variants of the
+edge-based metrology family:
+
+- `F_VN_LocateAxisAlignedEdges` and `F_VN_LocateAxisAlignedEdgesExp`
+- `F_VN_LocateCircularArcExp` and `F_VN_LocateCircularArcExp2`
+- `F_VN_LocateEdgeExp2` and `F_VN_LocateEdgesExp2`
+- `F_VN_LocateEllipseExp2`
+- `F_VN_MeasureAngleBetweenEdgesExp` and `F_VN_MeasureAngleBetweenEdgesExp2`
+- `F_VN_MeasureEdgeDistanceExp2`
+- `F_VN_MeasureMinEdgeDistanceExp` and `F_VN_MeasureMinEdgeDistanceExp2`
+
+All twelve use registered datatypes only, so no new ownership mechanism was needed. Each
+has graph ports and parameters, explicit native argument wiring, a project compile entry,
+prototype registration, and pre-execution checks. Three of them (`LocateCircularArcExp`,
+`MeasureAngleBetweenEdgesExp`, `MeasureMinEdgeDistanceExp`) replace commented-out
+placeholders that were already reserved in `VisionNodePack`.
+
+Images, points, and containers are graph ports; scalar and enum tuning values are
+parameters, matching the existing `Measurement` nodes. Result scalars (`fAvgStrength`,
+`fAngle`, `fAvgDistance`, `fMinDistance`) and the optional result containers
+(`ipEdgePoints`, `ipEdgeStrengths`, `ipContourPoints`, `ipDistances`, `ipDerivative`,
+`aPoint1`/`aPoint2`) are outputs; an unconnected optional container is passed as zero, which
+is what the API documents for "not required". `aCenter` is both an input estimate and an
+echoed output, following `F_VN_LocateCircularArc` and `F_VN_LocateEllipseExp`.
+
+Expert parameters take the documented API defaults: `nMaxThickness` 10,
+`nSubpixelsIterations` 10, `fApproxPrecision` 0.001, `fSearchLineDist` 1,
+`fRangeCutoffFactor` 0.135, `fAngleStepRad` 0.1, ellipse `nSearchLines` 92, and
+`TCVN_EDA_INTERPOLATION`. The required parameters that the export leaves without a default
+use node defaults consistent with the family, plus `nKernelSize` 5 and `TCVN_ES_ANY` for the
+axis-aligned locators. `fRangeCutoffFactor` is deliberately unchecked: the export documents
+negative values as valid and states no upper bound, so no invented range is enforced.
+
+Checks cover the single-channel source image, odd search-line counts and positive line
+distance, positive thickness and subpixel iterations, and a non-negative search gap.
+`fApproxPrecision` is only required to be positive for the two approximation algorithms,
+which is the only case the export says it is used in. The axis-aligned locators check that
+`aEndPoint` shares an axis with `aStartPoint`, that the kernel size is odd and at least 3,
+and that `fSigma` is non-negative — zero means the function derives it from `nKernelSize`.
+The circular-arc nodes reuse `F_VN_LocateCircularArc`'s search-window border checks and
+generalise its fixed `+- 0.4 rad` arc-validity check to `+- 4 * fAngleStepRad`, which is what
+the export actually documents. The ellipse node keeps the `>= 8` and multiple-of-4 search-line
+rule and additionally requires `fMinSearchRadius` to be below `fSearchRadius`. The angle
+nodes require at least three search lines, per their documented `(3, 5, 7, ...)` range.
+
+The fifth batch reached **911 registered nodes**, including **854 API function nodes**, and
+**185 registered datatypes**. There are **184 missing function nodes** plus the disabled
+matrix-multiplication node, and the Metrology 2D backlog drops from 27 to 15. The audit
+reports no omitted call parameters for any of the twelve and retains exactly the two known
+enum-label differences from `604c579`.
+
+No tests were added or restored. The later test branch should cover known-geometry fixtures
+for each locator, degrees versus radians for the angle nodes, the optional containers when
+connected and when left unconnected, `Exp` versus `Exp2` agreement at the default cutoff
+factor, the axis-alignment and kernel-size rejections, and `hrPrev` failure chaining.
+TwinCAT compilation and runtime validation remain pending. The distributed `.library` was
+rebuilt in `5669f4c` and does not yet include this batch.
+
 ## About box release notes
 
-Copy this entry into the About box release-notes array. It lists the 29 new nodes implemented across all four batches. Keep this entry updated as further nodes are implemented. `v1.26.0 beta` is a proposed version following the supplied `v1.25.0 beta` example; adjust the version and date to match the eventual release. This is a draft while the latest source additions await TwinCAT build and runtime validation.
+Copy this entry into the About box release-notes array. It lists the 41 new nodes implemented across all five batches. Keep this entry updated as further nodes are implemented. `v1.26.0 beta` is a proposed version following the supplied `v1.25.0 beta` example; adjust the version and date to match the eventual release. This is a draft while the latest source additions await TwinCAT build and runtime validation.
 
 ```javascript
 {
@@ -214,6 +274,54 @@ Copy this entry into the About box release-notes array. It lists the 29 new node
     {
       name: "F_VN_AlignRotatedImageRegionExp",
       description: "Align a rotated image region to the image axes with configurable interpolation and borders.",
+    },
+    {
+      name: "F_VN_LocateAxisAlignedEdges",
+      description: "Locate multiple axis-aligned edges inside a search window.",
+    },
+    {
+      name: "F_VN_LocateAxisAlignedEdgesExp",
+      description: "Locate multiple axis-aligned edges with a configurable sigma, individual edge strengths, and the derivative profile.",
+    },
+    {
+      name: "F_VN_LocateCircularArcExp",
+      description: "Locate a circular arc with configurable angle step, edge thickness, and subpixel algorithm.",
+    },
+    {
+      name: "F_VN_LocateCircularArcExp2",
+      description: "Locate a circular arc with the expert controls plus a configurable approximation range cutoff.",
+    },
+    {
+      name: "F_VN_LocateEdgeExp2",
+      description: "Locate the first edge in a search window with a configurable range cutoff and optional edge strengths.",
+    },
+    {
+      name: "F_VN_LocateEdgesExp2",
+      description: "Locate multiple edges in a search window with a configurable range cutoff and optional per-edge or averaged strengths.",
+    },
+    {
+      name: "F_VN_LocateEllipseExp2",
+      description: "Locate an ellipse with the expert controls plus a configurable approximation range cutoff.",
+    },
+    {
+      name: "F_VN_MeasureAngleBetweenEdgesExp",
+      description: "Measure the angle between two edges in radians or degrees, returning both sets of edge points.",
+    },
+    {
+      name: "F_VN_MeasureAngleBetweenEdgesExp2",
+      description: "Measure the angle between two edges with the expert controls plus a configurable approximation range cutoff.",
+    },
+    {
+      name: "F_VN_MeasureEdgeDistanceExp2",
+      description: "Measure the average distance between two parallel edges with a configurable approximation range cutoff.",
+    },
+    {
+      name: "F_VN_MeasureMinEdgeDistanceExp",
+      description: "Measure the minimum distance between two edges, returning the closest point on each.",
+    },
+    {
+      name: "F_VN_MeasureMinEdgeDistanceExp2",
+      description: "Measure the minimum distance between two edges with a configurable approximation range cutoff.",
     },
   ],
 },

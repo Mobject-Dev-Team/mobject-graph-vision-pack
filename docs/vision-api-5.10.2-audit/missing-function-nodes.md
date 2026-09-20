@@ -188,7 +188,7 @@ See [functions.csv](functions.csv) for signatures, defaults, dependencies, point
 - `F_VN_FindReferenceKeyPointsInImageORB`
 - `F_VN_FindReferenceKeyPointsInImageORBExp`
 
-## TC3 Vision Metrology 2D (27)
+## TC3 Vision Metrology 2D (15)
 
 - `F_VN_CalibrateCameraExp`
 - `F_VN_CalibrateCameraExp2`
@@ -200,18 +200,6 @@ See [functions.csv](functions.csv) for signatures, defaults, dependencies, point
 - `F_VN_DetectPatternPoints2`
 - `F_VN_DetectPatternPointsExp`
 - `F_VN_ImagePointsWorldDistance`
-- `F_VN_LocateAxisAlignedEdges`
-- `F_VN_LocateAxisAlignedEdgesExp`
-- `F_VN_LocateCircularArcExp`
-- `F_VN_LocateCircularArcExp2`
-- `F_VN_LocateEdgeExp2`
-- `F_VN_LocateEdgesExp2`
-- `F_VN_LocateEllipseExp2`
-- `F_VN_MeasureAngleBetweenEdgesExp`
-- `F_VN_MeasureAngleBetweenEdgesExp2`
-- `F_VN_MeasureEdgeDistanceExp2`
-- `F_VN_MeasureMinEdgeDistanceExp`
-- `F_VN_MeasureMinEdgeDistanceExp2`
 - `F_VN_SortAxisAlignedPatternPoints`
 - `F_VN_TransformCoordinatesImageToWorld_Container`
 - `F_VN_TransformCoordinatesImageToWorld_Point`

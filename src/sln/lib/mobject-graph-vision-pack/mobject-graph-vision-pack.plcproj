@@ -3313,6 +3313,42 @@
     <Compile Include="Nodes\Measurement\Node_F_VN_MeasureMinEdgeDistance.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_LocateAxisAlignedEdges.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_LocateAxisAlignedEdgesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_LocateCircularArcExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_LocateCircularArcExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_LocateEdgeExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_LocateEdgesExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_LocateEllipseExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_MeasureAngleBetweenEdgesExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_MeasureAngleBetweenEdgesExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_MeasureEdgeDistanceExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_MeasureMinEdgeDistanceExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Measurement\Node_F_VN_MeasureMinEdgeDistanceExp2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Miscellaneous\Node_FB_VN_InitializeFunction.TcPOU">
       <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>

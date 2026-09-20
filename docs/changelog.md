@@ -11,7 +11,8 @@
 - Added the enclosing-triangle area output and preserved its value when execution fails or is skipped.
 - Corrected the Huber enum and BRISK member labels while keeping legacy serialized values readable.
 - Preserved the Vision 5.10.3.0 resolutions, GVCP constructor fixes, and corrected merge-region option from `604c579`.
-- The distributed `.library` was updated in `604c579`; the eighteen subsequent polarization/conversion/remapping nodes still need a TwinCAT build. Runtime validation and comprehensive tests remain pending.
+- Added twelve measurement nodes completing the expert edge metrology family: LocateAxisAlignedEdges/Exp, LocateCircularArcExp/Exp2, LocateEdgeExp2, LocateEdgesExp2, LocateEllipseExp2, MeasureAngleBetweenEdgesExp/Exp2, MeasureEdgeDistanceExp2, and MeasureMinEdgeDistanceExp/Exp2. Optional edge-point, edge-strength, contour, distance, and derivative outputs may be left unconnected.
+- The distributed `.library` was rebuilt in `5669f4c`; the twelve measurement nodes added since still need a TwinCAT build. Runtime validation and comprehensive tests remain pending.
 
 ## v0.11.0-beta
 
