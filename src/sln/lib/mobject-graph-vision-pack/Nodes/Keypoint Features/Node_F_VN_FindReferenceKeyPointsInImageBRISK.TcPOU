@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_FindReferenceKeyPointsInImageBRISK" Id="{b093ee75-6c31-4ef5-bfb3-d222d8dda1cc}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_FindReferenceKeyPointsInImageBRISK EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipRefKeyPoints : _ITcVnContainer;
+    ipRefDescriptors : _ITcVnImage;
+    nRefImageWidth : _UDINT(0);
+    nRefImageHeight : _UDINT(0);
+    ipEdgePoints : _ITcVnContainer;
+    fMaxDist : _REAL(-1.0);
+    fMaxKnnRatio : _REAL(-1.0);
+    hrPrev : _HRESULT(S_OK);
+    aPerspectiveTransform : _TcVnMatrix3x3_LREAL;
+    nNumberOfGoodMatches : _UDINT(0);
+    nNumberOfInliers : _UDINT(0);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{6d268a09-7ce6-4444-a204-bf0a2da52707}" />
+    <Method Name="Clone" Id="{4539c556-b1a9-42b4-a53c-ddd4602ddc3a}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_FindReferenceKeyPointsInImageBRISK;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_FindReferenceKeyPointsInImageBRISK);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{d486be51-5ef5-4fab-b68f-b5587a9d9f59}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('ipRefKeyPoints', ipRefKeyPoints);
+AddInput('ipRefDescriptors', ipRefDescriptors);
+AddInput('nRefImageWidth', nRefImageWidth);
+AddInput('nRefImageHeight', nRefImageHeight);
+AddOutput('ipEdgePoints', ipEdgePoints);
+AddParameter('fMaxDist', fMaxDist);
+AddParameter('fMaxKnnRatio', fMaxKnnRatio);
+AddInput('hrPrev', hrPrev);
+AddOutput('aPerspectiveTransform', aPerspectiveTransform);
+AddOutput('nNumberOfGoodMatches', nNumberOfGoodMatches);
+AddOutput('nNumberOfInliers', nNumberOfInliers);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{f60b7b5f-9b5d-4146-9714-8d46c70d7390}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    perspectiveTransform : TcVnMatrix3x3_LREAL;
+    numberOfGoodMatches : UDINT;
+    numberOfInliers : UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_FindReferenceKeyPointsInImageBRISK(
+    ipSrcImage := ipSrcImage.Value,
+    ipRefKeyPoints := ipRefKeyPoints.Value,
+    ipRefDescriptors := ipRefDescriptors.Value,
+    nRefImageWidth := nRefImageWidth.Value,
+    nRefImageHeight := nRefImageHeight.Value,
+    ipEdgePoints := ipEdgePoints.Value,
+    fMaxDist := fMaxDist.Value,
+    fMaxKnnRatio := fMaxKnnRatio.Value,
+    hrPrev := hrPrev.Value,
+    aPerspectiveTransform => perspectiveTransform,
+    nNumberOfGoodMatches => numberOfGoodMatches,
+    nNumberOfInliers => numberOfInliers);
+
+aPerspectiveTransform.Value := perspectiveTransform;
+nNumberOfGoodMatches.Value := numberOfGoodMatches;
+nNumberOfInliers.Value := numberOfInliers;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{bf0b2ca8-8b6d-4a71-857b-641c24ea823d}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
+Check.IsTrue(ipRefKeyPoints.IsValid, 'ipRefKeyPoints must contain a container');
+Check.IsTrue(ipRefDescriptors.IsValid, 'ipRefDescriptors must contain an image');
+Check.IsTrue(nRefImageWidth.Value > 0, 'nRefImageWidth must be greater than 0');
+Check.IsTrue(nRefImageHeight.Value > 0, 'nRefImageHeight must be greater than 0');
+Check.IsTrue((fMaxDist.Value = -1.0) OR (fMaxDist.Value >= 0.0), 'fMaxDist must be -1 to disable the filter, or at least 0');
+Check.IsTrue((fMaxKnnRatio.Value = -1.0) OR
+             ((fMaxKnnRatio.Value >= 0.0) AND (fMaxKnnRatio.Value <= 1.0)), 'fMaxKnnRatio must be -1 to disable the filter, or between 0 and 1');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

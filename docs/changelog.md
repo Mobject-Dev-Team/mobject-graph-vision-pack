@@ -12,7 +12,8 @@
 - Corrected the Huber enum and BRISK member labels while keeping legacy serialized values readable.
 - Preserved the Vision 5.10.3.0 resolutions, GVCP constructor fixes, and corrected merge-region option from `604c579`.
 - Added twelve measurement nodes completing the expert edge metrology family: LocateAxisAlignedEdges/Exp, LocateCircularArcExp/Exp2, LocateEdgeExp2, LocateEdgesExp2, LocateEllipseExp2, MeasureAngleBetweenEdgesExp/Exp2, MeasureEdgeDistanceExp2, and MeasureMinEdgeDistanceExp/Exp2. Optional edge-point, edge-strength, contour, distance, and derivative outputs may be left unconnected.
-- The distributed `.library` was rebuilt in `5669f4c`; the twelve measurement nodes added since still need a TwinCAT build. Runtime validation and comprehensive tests remain pending.
+- Added the eight reference-keypoint matching nodes, closing the TC3 Vision Matching backlog: FindReferenceKeyPointsInImage/Exp plus the AKAZE, BRISK, and ORB variants and their expert forms. Together with the MatchDescriptors nodes these locate a known reference image in a source image and return its perspective transformation.
+- The distributed `.library` was rebuilt in `5669f4c`; the measurement and matching nodes added since still need a TwinCAT build. Runtime validation and comprehensive tests remain pending.
 
 ## v0.11.0-beta
 

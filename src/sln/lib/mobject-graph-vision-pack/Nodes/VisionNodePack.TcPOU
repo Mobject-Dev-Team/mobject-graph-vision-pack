@@ -957,14 +957,14 @@ VAR
     
     // Keypoint Features
     node_F_VN_FilterGoodMatches : Node_F_VN_FilterGoodMatches;
-    //node_F_VN_FindReferenceKeyPointsInImage : Node_F_VN_FindReferenceKeyPointsInImage;
-    //node_F_VN_FindReferenceKeyPointsInImageAKAZE : Node_F_VN_FindReferenceKeyPointsInImageAKAZE;
-    //node_F_VN_FindReferenceKeyPointsInImageAKAZEExp : Node_F_VN_FindReferenceKeyPointsInImageAKAZEExp;
-    //node_F_VN_FindReferenceKeyPointsInImageBRISK : Node_F_VN_FindReferenceKeyPointsInImageBRISK;
-    //node_F_VN_FindReferenceKeyPointsInImageBRISKExp : Node_F_VN_FindReferenceKeyPointsInImageBRISKExp;
-    //node_F_VN_FindReferenceKeyPointsInImageExp : Node_F_VN_FindReferenceKeyPointsInImageExp;
-    //node_F_VN_FindReferenceKeyPointsInImageORB : Node_F_VN_FindReferenceKeyPointsInImageORB;
-    //node_F_VN_FindReferenceKeyPointsInImageORBExp : Node_F_VN_FindReferenceKeyPointsInImageORBExp;
+    node_F_VN_FindReferenceKeyPointsInImage : Node_F_VN_FindReferenceKeyPointsInImage;
+    node_F_VN_FindReferenceKeyPointsInImageAKAZE : Node_F_VN_FindReferenceKeyPointsInImageAKAZE;
+    node_F_VN_FindReferenceKeyPointsInImageAKAZEExp : Node_F_VN_FindReferenceKeyPointsInImageAKAZEExp;
+    node_F_VN_FindReferenceKeyPointsInImageBRISK : Node_F_VN_FindReferenceKeyPointsInImageBRISK;
+    node_F_VN_FindReferenceKeyPointsInImageBRISKExp : Node_F_VN_FindReferenceKeyPointsInImageBRISKExp;
+    node_F_VN_FindReferenceKeyPointsInImageExp : Node_F_VN_FindReferenceKeyPointsInImageExp;
+    node_F_VN_FindReferenceKeyPointsInImageORB : Node_F_VN_FindReferenceKeyPointsInImageORB;
+    node_F_VN_FindReferenceKeyPointsInImageORBExp : Node_F_VN_FindReferenceKeyPointsInImageORBExp;
     node_F_VN_GetMatchCoordinates : Node_F_VN_GetMatchCoordinates;
     node_F_VN_KeyPointsAGAST : Node_F_VN_KeyPointsAGAST;
     node_F_VN_KeyPointsAGASTExp : Node_F_VN_KeyPointsAGASTExp;
@@ -2102,14 +2102,14 @@ NodeFactory.AddNodeAsPrototype('Vision/Image Segmentation/F_VN_SauvolaThreshold'
 
 // Keypoint Features
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FilterGoodMatches', node_F_VN_FilterGoodMatches);
-//NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImage', node_F_VN_FindReferenceKeyPointsInImage);
-//NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImageAKAZE', node_F_VN_FindReferenceKeyPointsInImageAKAZE);
-//NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImageAKAZEExp', node_F_VN_FindReferenceKeyPointsInImageAKAZEExp);
-//NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImageBRISK', node_F_VN_FindReferenceKeyPointsInImageBRISK);
-//NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImageBRISKExp', node_F_VN_FindReferenceKeyPointsInImageBRISKExp);
-//NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImageExp', node_F_VN_FindReferenceKeyPointsInImageExp);
-//NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImageORB', node_F_VN_FindReferenceKeyPointsInImageORB);
-//NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImageORBExp', node_F_VN_FindReferenceKeyPointsInImageORBExp);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImage', node_F_VN_FindReferenceKeyPointsInImage);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImageAKAZE', node_F_VN_FindReferenceKeyPointsInImageAKAZE);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImageAKAZEExp', node_F_VN_FindReferenceKeyPointsInImageAKAZEExp);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImageBRISK', node_F_VN_FindReferenceKeyPointsInImageBRISK);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImageBRISKExp', node_F_VN_FindReferenceKeyPointsInImageBRISKExp);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImageExp', node_F_VN_FindReferenceKeyPointsInImageExp);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImageORB', node_F_VN_FindReferenceKeyPointsInImageORB);
+NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_FindReferenceKeyPointsInImageORBExp', node_F_VN_FindReferenceKeyPointsInImageORBExp);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_GetMatchCoordinates', node_F_VN_GetMatchCoordinates);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAGAST', node_F_VN_KeyPointsAGAST);
 NodeFactory.AddNodeAsPrototype('Vision/Keypoint Features/F_VN_KeyPointsAGASTExp', node_F_VN_KeyPointsAGASTExp);

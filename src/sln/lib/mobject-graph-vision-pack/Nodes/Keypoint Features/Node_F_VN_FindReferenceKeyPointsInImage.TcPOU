@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_FindReferenceKeyPointsInImage" Id="{047e7b67-5cff-4529-9e5c-44280d172d2f}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_FindReferenceKeyPointsInImage EXTENDS VisionNode
+VAR
+    ipSrcKeyPoints : _ITcVnContainer;
+    ipSrcDescriptors : _ITcVnImage;
+    ipRefKeyPoints : _ITcVnContainer;
+    ipRefDescriptors : _ITcVnImage;
+    nRefImageWidth : _UDINT(0);
+    nRefImageHeight : _UDINT(0);
+    ipEdgePoints : _ITcVnContainer;
+    fMaxDist : _REAL(-1.0);
+    fMaxKnnRatio : _REAL(-1.0);
+    eNormType : _ETcVnNormalizationType(ETcVnNormalizationType.TCVN_NT_HAMMING);
+    hrPrev : _HRESULT(S_OK);
+    aPerspectiveTransform : _TcVnMatrix3x3_LREAL;
+    nNumberOfGoodMatches : _UDINT(0);
+    nNumberOfInliers : _UDINT(0);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{afeb1f94-03b9-4142-aece-a9d6c8c23393}" />
+    <Method Name="Clone" Id="{6809e5cf-ade8-4d3c-b97a-824cfd253cb9}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_FindReferenceKeyPointsInImage;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_FindReferenceKeyPointsInImage);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{2de48c6d-351c-4b88-9b4a-b3f0bf5b2b18}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcKeyPoints', ipSrcKeyPoints);
+AddInput('ipSrcDescriptors', ipSrcDescriptors);
+AddInput('ipRefKeyPoints', ipRefKeyPoints);
+AddInput('ipRefDescriptors', ipRefDescriptors);
+AddInput('nRefImageWidth', nRefImageWidth);
+AddInput('nRefImageHeight', nRefImageHeight);
+AddOutput('ipEdgePoints', ipEdgePoints);
+AddParameter('fMaxDist', fMaxDist);
+AddParameter('fMaxKnnRatio', fMaxKnnRatio);
+AddParameter('eNormType', eNormType);
+AddInput('hrPrev', hrPrev);
+AddOutput('aPerspectiveTransform', aPerspectiveTransform);
+AddOutput('nNumberOfGoodMatches', nNumberOfGoodMatches);
+AddOutput('nNumberOfInliers', nNumberOfInliers);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{f0720a1a-29b4-4b2f-870b-193c12a0e76f}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    perspectiveTransform : TcVnMatrix3x3_LREAL;
+    numberOfGoodMatches : UDINT;
+    numberOfInliers : UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_FindReferenceKeyPointsInImage(
+    ipSrcKeyPoints := ipSrcKeyPoints.Value,
+    ipSrcDescriptors := ipSrcDescriptors.Value,
+    ipRefKeyPoints := ipRefKeyPoints.Value,
+    ipRefDescriptors := ipRefDescriptors.Value,
+    nRefImageWidth := nRefImageWidth.Value,
+    nRefImageHeight := nRefImageHeight.Value,
+    ipEdgePoints := ipEdgePoints.Value,
+    fMaxDist := fMaxDist.Value,
+    fMaxKnnRatio := fMaxKnnRatio.Value,
+    eNormType := eNormType.Value,
+    hrPrev := hrPrev.Value,
+    aPerspectiveTransform => perspectiveTransform,
+    nNumberOfGoodMatches => numberOfGoodMatches,
+    nNumberOfInliers => numberOfInliers);
+
+aPerspectiveTransform.Value := perspectiveTransform;
+nNumberOfGoodMatches.Value := numberOfGoodMatches;
+nNumberOfInliers.Value := numberOfInliers;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{ca27224d-6f60-4c5e-8b8c-c3ef4ee02680}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcKeyPoints.IsValid, 'ipSrcKeyPoints must contain a container');
+Check.IsTrue(ipSrcDescriptors.IsValid, 'ipSrcDescriptors must contain an image');
+Check.IsTrue(ImagesHaveMatchingPixelFormats(ipSrcDescriptors.Value, ipRefDescriptors.Value), 'Source and reference descriptors must have matching pixel formats');
+Check.IsTrue(IsImage1WidthEqualToImage2Width(ipSrcDescriptors.Value, ipRefDescriptors.Value), 'Source and reference descriptors must have matching descriptor lengths');
+Check.IsTrue(ipRefKeyPoints.IsValid, 'ipRefKeyPoints must contain a container');
+Check.IsTrue(ipRefDescriptors.IsValid, 'ipRefDescriptors must contain an image');
+Check.IsTrue(nRefImageWidth.Value > 0, 'nRefImageWidth must be greater than 0');
+Check.IsTrue(nRefImageHeight.Value > 0, 'nRefImageHeight must be greater than 0');
+Check.IsTrue((fMaxDist.Value = -1.0) OR (fMaxDist.Value >= 0.0), 'fMaxDist must be -1 to disable the filter, or at least 0');
+Check.IsTrue((fMaxKnnRatio.Value = -1.0) OR
+             ((fMaxKnnRatio.Value >= 0.0) AND (fMaxKnnRatio.Value <= 1.0)), 'fMaxKnnRatio must be -1 to disable the filter, or between 0 and 1');
+Check.IsTrue((eNormType.Value = ETcVnNormalizationType.TCVN_NT_L1) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_L2) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_L2SQR) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_HAMMING) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_HAMMING2), 'Unsupported eNormType');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

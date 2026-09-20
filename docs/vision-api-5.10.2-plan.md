@@ -150,9 +150,68 @@ factor, the axis-alignment and kernel-size rejections, and `hrPrev` failure chai
 TwinCAT compilation and runtime validation remain pending. The distributed `.library` was
 rebuilt in `5669f4c` and does not yet include this batch.
 
+## Implementation progress — sixth batch
+
+Added eight nodes under `Vision/Keypoint Features`, closing the **TC3 Vision Matching**
+backlog to zero:
+
+- `F_VN_FindReferenceKeyPointsInImage` and `F_VN_FindReferenceKeyPointsInImageExp`
+- `F_VN_FindReferenceKeyPointsInImageAKAZE` and `F_VN_FindReferenceKeyPointsInImageAKAZEExp`
+- `F_VN_FindReferenceKeyPointsInImageBRISK` and `F_VN_FindReferenceKeyPointsInImageBRISKExp`
+- `F_VN_FindReferenceKeyPointsInImageORB` and `F_VN_FindReferenceKeyPointsInImageORBExp`
+
+All eight replace commented-out placeholders already reserved in `VisionNodePack`. They
+complete the pipeline started by the second batch: `MatchDescriptorsBFExp` and
+`MatchDescriptorsKnnBFExp` match descriptors, and these locate a known reference image in a
+source image and return the transformation that places it.
+
+The two generic variants take precomputed source keypoints and descriptors. The six detector
+variants take a source image and compute its keypoints internally; their `Exp` forms expose the
+detector's `TcVnParams*` struct and an optional source mask, following the registered
+`KeyPointsAndDescriptors*Exp` nodes, whose parameter checks are reused verbatim.
+
+`nRefImageWidth` and `nRefImageHeight` are graph **inputs**, not parameters. This departs from
+the `nWidth`/`nHeight` parameter precedent in `ResizeImage` and `SetRoi`, deliberately: there the
+dimensions are a target the user chooses, whereas here they must describe the reference image
+that produced `ipRefKeyPoints`. Wiring them from that image keeps the three consistent; a
+hard-coded parameter would silently go stale when the reference image changes.
+
+Expert parameters take the documented API defaults: `TCVN_NT_HAMMING`, `TCVN_EA_RANSAC`,
+`fReprojThreshold` 3, `nMaxIterations` 2000, and `fConfidence` 0.995. `fMaxDist` and
+`fMaxKnnRatio` have no documented default; both start at `-1`, the documented sentinel that
+disables that filter, so the node starts in an unfiltered state rather than one that silently
+discards matches.
+
+This is the first batch with a non-scalar output parameter. `aPerspectiveTransform`
+(`TcVnMatrix3x3_LREAL`) is read into a local of the native array type and assigned back through
+the wrapper's `Value` reference, extending the existing scalar `=> temp` pattern rather than
+introducing a new one. `nNumberOfGoodMatches` and `nNumberOfInliers` use the same pattern.
+
+Checks cover valid reference keypoints and descriptors, positive reference dimensions, the
+`-1`-or-in-range rule for both filters, and the descriptor-matching norms the family supports.
+The generic variants additionally require the source and reference descriptors to share a pixel
+format and descriptor length, reusing `ImagesHaveMatchingPixelFormats` and
+`IsImage1WidthEqualToImage2Width` as `MatchDescriptorsBFExp` does. `fReprojThreshold` is only
+required to be positive for RANSAC and RHO, the only algorithms the export says use it. A
+connected mask must match the source image size.
+
+The sixth batch reached **919 registered nodes**, including **862 API function nodes**, and
+**185 registered datatypes**, with **176 missing function nodes** plus the disabled
+matrix-multiplication node. TC3 Vision Matching no longer appears in the missing-by-licence
+breakdown. The audit reports no omitted call parameters and retains exactly the two known
+enum-label differences from `604c579`.
+
+No tests were added or restored. The later test branch should cover a reference image located in
+a transformed copy of itself for each detector, descriptor-compatibility rejection between
+mismatched detectors, both filter sentinels versus active thresholds, the estimation algorithms
+including the ones that ignore `fReprojThreshold`, the optional `ipGoodMatches`/`ipInlierMask`
+outputs when connected and unconnected, and `hrPrev` failure chaining. These fixtures need the
+TC3 Vision Matching licence. TwinCAT compilation and runtime validation remain pending; the
+distributed `.library` was rebuilt in `5669f4c` and contains neither this batch nor the fifth.
+
 ## About box release notes
 
-Copy this entry into the About box release-notes array. It lists the 41 new nodes implemented across all five batches. Keep this entry updated as further nodes are implemented. `v1.26.0 beta` is a proposed version following the supplied `v1.25.0 beta` example; adjust the version and date to match the eventual release. This is a draft while the latest source additions await TwinCAT build and runtime validation.
+Copy this entry into the About box release-notes array. It lists the 49 new nodes implemented across all six batches. Keep this entry updated as further nodes are implemented. `v1.26.0 beta` is a proposed version following the supplied `v1.25.0 beta` example; adjust the version and date to match the eventual release. This is a draft while the latest source additions await TwinCAT build and runtime validation.
 
 ```javascript
 {
@@ -322,6 +381,38 @@ Copy this entry into the About box release-notes array. It lists the 41 new node
     {
       name: "F_VN_MeasureMinEdgeDistanceExp2",
       description: "Measure the minimum distance between two edges with a configurable approximation range cutoff.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImage",
+      description: "Locate a reference image in a source image from precomputed keypoints and descriptors.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImageExp",
+      description: "Locate a reference image from precomputed keypoints, with a selectable estimation algorithm and optional match and inlier outputs.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImageAKAZE",
+      description: "Locate an AKAZE reference image in a source image using the default AKAZE parameters.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImageAKAZEExp",
+      description: "Locate an AKAZE reference image with configurable AKAZE, matching, and estimation settings and an optional mask.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImageBRISK",
+      description: "Locate a BRISK reference image in a source image using the default BRISK parameters.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImageBRISKExp",
+      description: "Locate a BRISK reference image with configurable BRISK, matching, and estimation settings and an optional mask.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImageORB",
+      description: "Locate an ORB reference image in a source image using the default ORB parameters.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImageORBExp",
+      description: "Locate an ORB reference image with configurable ORB, matching, and estimation settings and an optional mask.",
     },
   ],
 },

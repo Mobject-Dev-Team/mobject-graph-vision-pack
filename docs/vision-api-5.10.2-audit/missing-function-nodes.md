@@ -177,17 +177,6 @@ See [functions.csv](functions.csv) for signatures, defaults, dependencies, point
 - `F_VN_ReadBarcodeRoiExp`
 - `F_VN_ReadDataMatrixCodeRoiExp`
 
-## TC3 Vision Matching (8)
-
-- `F_VN_FindReferenceKeyPointsInImage`
-- `F_VN_FindReferenceKeyPointsInImageAKAZE`
-- `F_VN_FindReferenceKeyPointsInImageAKAZEExp`
-- `F_VN_FindReferenceKeyPointsInImageBRISK`
-- `F_VN_FindReferenceKeyPointsInImageBRISKExp`
-- `F_VN_FindReferenceKeyPointsInImageExp`
-- `F_VN_FindReferenceKeyPointsInImageORB`
-- `F_VN_FindReferenceKeyPointsInImageORBExp`
-
 ## TC3 Vision Metrology 2D (15)
 
 - `F_VN_CalibrateCameraExp`
