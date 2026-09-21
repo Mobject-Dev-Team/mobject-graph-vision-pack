@@ -47,7 +47,6 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
-AddInput('stEllipse', stEllipse);
 AddInput('aCenter', aCenter);
 AddInput('hrPrev', hrPrev);
 AddParameter('fSearchRadius', fSearchRadius);

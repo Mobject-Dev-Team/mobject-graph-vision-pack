@@ -48,6 +48,8 @@ AddInput('aStartPoint', aStartPoint);
 AddInput('aEndPoint', aEndPoint);
 AddInput('hrPrev', hrPrev);
 AddOutput('aLine', aLine);
+AddOutput('aStartPoint', aStartPoint);
+AddOutput('aEndPoint', aEndPoint);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
