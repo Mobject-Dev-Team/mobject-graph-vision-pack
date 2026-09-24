@@ -165,6 +165,60 @@ def licence(description):
     return match[1] if match else ""
 
 
+def written_by_call(param):
+    """Whether the native call writes this parameter.
+
+    Direction alone is not enough: this API uses InOut widely just to pass structs and
+    arrays by reference without copying. The export's own comment is what separates a
+    result ("Returns the ...") from a reference-passed input, and a "Reference To" type
+    is always a result here.
+    """
+    if param["Type"].startswith("Reference To"):
+        return True
+    return param.get("Direction") == "InOut" and bool(
+        re.match(r"(returns|return the|estimates?)\b", param.get("Comment", "").strip(), re.I))
+
+
+def port_registrations(source):
+    """{port name: set of registration kinds} from a node's FB_init."""
+    roles = {}
+    for kind, name in re.findall(r"Add(Input|Output|Parameter)\(\s*'(\w+)'",
+                                 source["methods"].get("FB_init", "")):
+        roles.setdefault(name, set()).add(kind)
+    return roles
+
+
+def write_through_ports(sources, functions):
+    """Node input ports that the native call writes into.
+
+    Connecting an input port aliases the upstream node's storage, so a written parameter
+    registered with AddInput makes the call write its result into whichever node feeds
+    that edge. Some of these are deliberate - writing into a supplied destination image
+    is a supported idiom - so this is a list to review, not a list of defects.
+    """
+    rows = []
+    for name, function in sorted(functions.items()):
+        source = sources.get("node_" + name.lower())
+        if source is None:
+            continue
+        roles = port_registrations(source)
+        execute = source["methods"].get("OnExecute", "")
+        written = {p["Parameter"]: p for p in function["params"] if written_by_call(p)}
+        for native, port in re.findall(r"(\w+)\s*:=\s*(\w+)\.Value", execute):
+            param = written.get(native)
+            if param is None or "Input" not in roles.get(port, set()):
+                continue
+            rows.append({
+                "node": source["name"], "source": source["path"], "api_function": name,
+                "port": port, "native_parameter": native, "type": param["Type"],
+                "direction": param.get("Direction", ""),
+                # Without an output the node's own result is unreachable from the graph.
+                "result_reachable": "yes" if "Output" in roles[port] else "NO",
+                "comment": param.get("Comment", ""),
+            })
+    return rows
+
+
 def write_csv(name, fields, rows):
     with (OUT / name).open("w", newline="", encoding="utf-8") as stream:
         writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
@@ -297,6 +351,9 @@ def main():
                                       "source": source["path"], "graph_path": regs.get(source["name"].lower(), "")})
     write_csv("project-registration.csv", list(registration_rows[0]), registration_rows)
 
+    port_rows = write_through_ports(sources, functions)
+    write_csv("port-write-through.csv", list(port_rows[0]), port_rows)
+
     summary = {
         "api_file": API.name,
         "api_sha256": hashlib.sha256(API.read_bytes()).hexdigest(),
@@ -307,6 +364,10 @@ def main():
         "missing_functions_by_licence": dict(Counter(r["licence"] for r in function_rows if r["status"] == "missing")),
         "registered_nodes": len(node_regs), "registered_datatypes": len(datatype_regs),
         "source_pous": len(sources), "existing_wrapper_gap_rows": len(repairs),
+        "write_through_input_ports": {
+            "total": len(port_rows),
+            "result_not_reachable_as_output": sum(1 for r in port_rows if r["result_reachable"] == "NO"),
+        },
     }
     (OUT / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
 

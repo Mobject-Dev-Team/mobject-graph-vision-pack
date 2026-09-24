@@ -42,5 +42,9 @@
   "registered_nodes": 924,
   "registered_datatypes": 185,
   "source_pous": 1148,
-  "existing_wrapper_gap_rows": 2
+  "existing_wrapper_gap_rows": 2,
+  "write_through_input_ports": {
+    "total": 11,
+    "result_not_reachable_as_output": 2
+  }
 }
