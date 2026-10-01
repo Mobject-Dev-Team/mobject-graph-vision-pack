@@ -290,6 +290,35 @@ def in_place_ports(sources, functions):
     return rows
 
 
+def var_output_ports(sources, functions, node_regs):
+    """Output ports bound to a genuine VAR_OUTPUT parameter of the native call.
+
+    ST binds a VAR_OUTPUT argument with `=>`, not `:=`, and a blueprint can't say which
+    parameters are VAR_OUTPUT: it only exposes the node's own ports. The ST codegen pack keeps
+    a hand-maintained table of these (standard-fb-var-output-overrides.js); this list is the
+    reference that table is checked against. `graph_path` is the blueprint path it is keyed by.
+    """
+    rows = []
+    for name, function in sorted(functions.items()):
+        source = sources.get("node_" + name.lower())
+        graph_path = node_regs.get("node_" + name.lower(), "")
+        if source is None or not graph_path:
+            continue
+        roles = port_registrations(source)
+        execute = source["methods"].get("OnExecute", "")
+        for param in function["params"]:
+            if param.get("Direction") != "Out":
+                continue
+            native = param["Parameter"]
+            rows.append({
+                "graph_path": graph_path, "port": native, "api_function": name, "node": source["name"],
+                "output_port": "yes" if "Output" in roles.get(native, set()) else "no",
+                "bound_with_arrow": "yes" if re.search(r"\b" + native + r"\s*=>", execute) else "no",
+                "type": param["Type"],
+            })
+    return rows
+
+
 def write_csv(name, fields, rows):
     with (OUT / name).open("w", newline="", encoding="utf-8") as stream:
         writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
@@ -429,6 +458,9 @@ def main():
     in_place_rows = in_place_ports(sources, functions)
     write_csv("port-in-place.csv", list(in_place_rows[0]), in_place_rows)
 
+    var_output_rows = var_output_ports(sources, functions, node_regs)
+    write_csv("var-output-ports.csv", list(var_output_rows[0]), var_output_rows)
+
     summary = {
         "api_file": API.name,
         "api_sha256": hashlib.sha256(API.read_bytes()).hexdigest(),
@@ -442,6 +474,11 @@ def main():
         "write_through_input_ports": {
             "total": len(port_rows),
             "result_not_reachable_as_output": sum(1 for r in port_rows if r["result_reachable"] == "NO"),
+        },
+        "var_output_ports": {
+            "total": len(var_output_rows),
+            "not_an_output_port": sum(1 for r in var_output_rows if r["output_port"] == "no"),
+            "not_bound_with_arrow": sum(1 for r in var_output_rows if r["bound_with_arrow"] == "no"),
         },
         "in_place_input_ports": {
             "total": len(in_place_rows),

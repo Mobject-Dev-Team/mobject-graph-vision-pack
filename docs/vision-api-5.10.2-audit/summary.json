@@ -47,6 +47,11 @@
     "total": 11,
     "result_not_reachable_as_output": 2
   },
+  "var_output_ports": {
+    "total": 48,
+    "not_an_output_port": 0,
+    "not_bound_with_arrow": 0
+  },
   "in_place_input_ports": {
     "total": 281,
     "nodes": 281,

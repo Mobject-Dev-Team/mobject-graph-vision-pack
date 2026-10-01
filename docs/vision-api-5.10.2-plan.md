@@ -374,6 +374,18 @@ a list to review rather than a defect list: drawing several shapes onto one imag
 a supported idiom. Changing any of these nodes to copy first is a behaviour change for saved
 graphs, unlike the unreleased sort above, and is out of scope here.
 
+### VAR_OUTPUT ports exported for the ST codegen pack
+
+A few API parameters are true `Out` parameters. A node binds them with `=>` and copies the value
+across from a local, as `nSolutions` does in the homography decomposition nodes. Generated ST must
+do the same. A blueprint exposes only the node's ports, so the ST codegen pack keeps a hand-written
+table of these, and that table had fallen behind: it listed 14 of the 48. The audit now writes
+`var-output-ports.csv` with the blueprint `graph_path`, port, API function, whether the port is
+registered as an output, and whether `OnExecute` binds it with `=>`. Its counts are in
+`summary.json` as `var_output_ports`. All 48 are output ports bound with `=>`. The
+`FindReferenceKeyPointsInImage*` nodes have three each, so one per node can't be assumed.
+The codegen pack's tests check its table against this file.
+
 ## About box release notes
 
 Copy this entry into the About box release-notes array. It lists the 54 new nodes implemented across all seven batches. Keep this entry updated as further nodes are implemented. `v1.26.0 beta` is a proposed version following the supplied `v1.25.0 beta` example; adjust the version and date to match the eventual release. This is a draft while the latest source additions await TwinCAT build and runtime validation.
