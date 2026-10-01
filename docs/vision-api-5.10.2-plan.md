@@ -296,11 +296,15 @@ distortion coefficients, rotation, translation, homography and planar transforma
 `nSolutions`, the export's only true `Out` parameter here, is read through a local, matching
 `fAngleDeg` in the code-quality nodes.
 
-`F_VN_SortAxisAlignedPatternPoints` sorts its input container in place, the same idiom as the
-registered `F_VN_ReverseContainer`: the input is not echoed as an output, and consumers of the
-sorted points connect to the upstream container and sequence on this node's `hresult`. The
-write-through check does not flag it, because its comment ("will be sorted by this function")
-does not start with "Returns"; it is in-place by design rather than an oversight.
+`F_VN_SortAxisAlignedPatternPoints` wraps an API that sorts its input container in place. The
+node copies the input with `F_VN_CopyContainer` into a container it owns, sorts that, and
+outputs it as `ipSortedPoints`, so the upstream container is only read. A node that changes
+data back up a link is harder to reason about, since every other consumer of that output sees
+the change in an order that depends on execution. The first version followed the
+`F_VN_ReverseContainer` idiom and sorted in place. That was changed before release, so no saved
+graph depends on it. The copy costs one container copy per execution, which is negligible for a
+calibration pattern. The write-through check could not catch this: the comment ("will be sorted
+by this function") does not start with "Returns". The in-place check below was added for it.
 
 `F_VN_DetectPatternPoints2` carries `nOptions` as a `_UDINT` initialised from
 `ETcVnDetectPatternPointsOptions.TCVN_DPPO_SYMMETRIC`, matching the bitmask convention from the
@@ -342,6 +346,33 @@ aligned pattern, homography decomposition with and without verification points, 
 failure chaining. Most fixtures need the TC3 Vision Metrology 2D licence. TwinCAT compilation and
 runtime validation remain pending; the distributed `.library` was last rebuilt in `7d67de2` and
 does not contain this batch.
+
+### In-place input ports in the audit
+
+The write-through check covers parameters the call *returns* into. It cannot see the other way a
+node changes data back up a link: a parameter passed by plain interface pointer (direction `In`)
+that the call modifies, such as appending to, sorting or drawing into it. The export's wording
+cannot find these on its own. `F_VN_AddToContainerElements` calls its target "Container with
+DINT elements", and `F_VN_SetPixel` calls the image it writes into "Source image". So
+`IN_PLACE_FAMILIES` in `tools/audit_vision_api.py` lists the modifying families by name prefix
+and target parameter, with a comment-wording net (`IN_PLACE_WORDING`) for anything a later
+API adds. Today the net matches nothing the table doesn't already cover.
+
+The result is `port-in-place.csv`, counted in `summary.json` as `in_place_input_ports`. A
+per-function `in_place_params` column in `functions.csv` also lets a new batch see the
+issue before writing the node. For example, `SortContainer`, `EraseFromContainer`,
+`ReserveContainerMemory` and `MultiplyWithContainerElements*` in the next batch all modify
+their container.
+
+281 registered nodes are listed: 224 container edits (`AppendToContainer`,
+`InsertIntoContainer`, `SetAt`, `FillContainer`, `AddToContainerElements`, `ReverseContainer`),
+51 drawing/painting/pixel/ROI nodes, the three Hough transforms (documented "may be modified"),
+`SetPixel`, `ResetRoi` and `SortDetectedPatternPoints`. Most of the container and drawing nodes
+echo the port as an output, the same convention `F_VN_DrawCircle` uses. That makes the change
+visible downstream but still changes the upstream object. Like `port-write-through.csv`, this is
+a list to review rather than a defect list: drawing several shapes onto one image in sequence is
+a supported idiom. Changing any of these nodes to copy first is a behaviour change for saved
+graphs, unlike the unreleased sort above, and is out of scope here.
 
 ## About box release notes
 

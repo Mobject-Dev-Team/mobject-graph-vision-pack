@@ -7,6 +7,7 @@
 FUNCTION_BLOCK Node_F_VN_SortAxisAlignedPatternPoints EXTENDS VisionNode
 VAR
     ipImagePoints : _ITcVnContainer;
+    ipSortedPoints : _ITcVnContainer;
     nPatternRows : _UDINT(0);
     nPatternCols : _UDINT(0);
     hrPrev : _HRESULT(S_OK);
@@ -40,6 +41,7 @@ END_VAR
 AddParameter('nPatternRows', nPatternRows);
 AddParameter('nPatternCols', nPatternCols);
 AddInput('hrPrev', hrPrev);
+AddOutput('ipSortedPoints', ipSortedPoints);
 AddOutput('hresult', hresult);]]></ST>
       </Implementation>
     </Method>
@@ -47,11 +49,17 @@ AddOutput('hresult', hresult);]]></ST>
       <Declaration><![CDATA[METHOD PROTECTED OnExecute
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_SortAxisAlignedPatternPoints(
-    ipImagePoints := ipImagePoints.Value,
+        <ST><![CDATA[// The API sorts in place. Sort a copy so the upstream container is only read.
+hresult.Value := F_VN_CopyContainer(
+    ipSrcContainer := ipImagePoints.Value,
+    ipDestContainer := ipSortedPoints.Value,
+    hrPrev := hrPrev.Value);
+
+hresult.Value := F_VN_SortAxisAlignedPatternPoints(
+    ipImagePoints := ipSortedPoints.Value,
     nPatternRows := nPatternRows.Value,
     nPatternCols := nPatternCols.Value,
-    hrPrev := hrPrev.Value);]]></ST>
+    hrPrev := hresult.Value);]]></ST>
       </Implementation>
     </Method>
     <Method Name="PreExecutionCheck" Id="{b2459f4f-48e7-49c0-a699-49c69015a9f1}">

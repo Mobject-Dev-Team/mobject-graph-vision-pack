@@ -179,6 +179,45 @@ def written_by_call(param):
         re.match(r"(returns|return the|estimates?)\b", param.get("Comment", "").strip(), re.I))
 
 
+# Functions that modify an object passed by plain interface pointer (direction In, not a
+# "Reference To" result). The export's wording can't find these on its own: AddToContainerElements
+# calls its target "Container with DINT elements", and SetPixel calls the image it paints into
+# "Source image". So the families are listed here, by function-name prefix and target parameter.
+IN_PLACE_FAMILIES = [
+    (r"(AddToContainerElements|MultiplyWithContainerElements|AppendToContainer|InsertIntoContainer"
+     r"|SetAt|FillContainer|EraseFromContainer|ReserveContainerMemory|ReverseContainer|SortContainer)",
+     "ipContainer", "edits the container"),
+    (r"(SortAxisAlignedPatternPoints|SortDetectedPatternPoints)", "ipImagePoints", "sorts the points"),
+    (r"(Draw|Fill(Circle|Contours|Ellipse|Polygon|Rectangle|RotatedRectangle)|PutText|PutLabel|SetPixels"
+     r"|CopyImageRegionToRegion|SetRoi)", "ipDestImage", "draws into or edits the image"),
+    (r"SetPixel(_|$)", "ipSrcImage", "sets a pixel in the image"),
+    (r"(ResetRoi|ReinterpretUnsupportedImage)", "ipImage", "edits the image"),
+    (r"HoughLines", "ipSrcImage", "documented as possibly modifying the image"),
+    (r"AdjustActiveContour", "ipActiveContour", "adjusts the contour"),
+    (r"(AdvanceIterator|IncrementIterator|SetIteratorToBegin|SetContainer)", "ipIterator", "moves or writes through the iterator"),
+    (r"Train", "ipMlModel|ipClassifier|ipClusterer|ipRegressor|ipColorModel", "trains the model"),
+    (r"UpdateTimestamp", "ipUnknown", "updates the timestamp"),
+]
+# A safety net for families the table doesn't list yet (for example after an API update).
+IN_PLACE_WORDING = re.compile(
+    r"in[- ]place|will be (sorted|adjusted|appended|reversed)|may be modified|to be (reversed|advanced|reinterpreted)"
+    r"|to which the element|in which to insert|from which to erase|for which to reserve|in which the element", re.I)
+
+
+def in_place_params(name, function):
+    """{parameter: basis} for parameters passed by plain pointer that the call modifies."""
+    found = {}
+    for param in function["params"]:
+        if param.get("Direction") != "In" or not re.match(r"I[A-Z]", param["Type"]):
+            continue
+        for family, targets, basis in IN_PLACE_FAMILIES:
+            if re.match(r"F_VN_" + family, name) and re.fullmatch(targets, param["Parameter"]):
+                found[param["Parameter"]] = basis
+        if param["Parameter"] not in found and IN_PLACE_WORDING.search(param.get("Comment", "")):
+            found[param["Parameter"]] = "export comment wording"
+    return found
+
+
 def port_registrations(source):
     """{port name: set of registration kinds} from a node's FB_init."""
     roles = {}
@@ -215,6 +254,38 @@ def write_through_ports(sources, functions):
                 # Without an output the node's own result is unreachable from the graph.
                 "result_reachable": "yes" if "Output" in roles[port] else "NO",
                 "comment": param.get("Comment", ""),
+            })
+    return rows
+
+
+def in_place_ports(sources, functions):
+    """Node input ports whose upstream object the native call modifies in place.
+
+    The same aliasing as write_through_ports, but for objects passed by plain interface
+    pointer rather than returned: sorting, appending to or drawing into an input changes the
+    upstream node's object, so every other consumer of that output sees the change, in an
+    order that depends on execution. A node avoids it by copying the input first and operating
+    on a copy it owns (SortAxisAlignedPatternPoints does). Some uses may be deliberate, so this
+    is a list to review rather than a defect list.
+    """
+    rows = []
+    for name, function in sorted(functions.items()):
+        source = sources.get("node_" + name.lower())
+        if source is None:
+            continue
+        modified = in_place_params(name, function)
+        comments = {p["Parameter"]: p.get("Comment", "") for p in function["params"]}
+        roles = port_registrations(source)
+        execute = source["methods"].get("OnExecute", "")
+        for native, port in re.findall(r"(\w+)\s*:=\s*(\w+)\.Value", execute):
+            if native not in modified or "Input" not in roles.get(port, set()):
+                continue
+            rows.append({
+                "node": source["name"], "source": source["path"], "api_function": name,
+                "port": port, "native_parameter": native,
+                "also_output": "yes" if "Output" in roles[port] else "no",
+                "basis": modified[native],
+                "comment": comments[native],
             })
     return rows
 
@@ -275,6 +346,7 @@ def main():
             "buffer_or_pointer_params": "; ".join(p["Parameter"] + ": " + p["Type"] for p in function["params"] if re.search(r"PVOID|Pointer To", p["Type"], re.I)),
             "other_call_sites": "; ".join(s["path"] for s in sources.values() if name in s["calls"] and s != source),
             "omitted_call_parameters": "; ".join(missing),
+            "in_place_params": "; ".join(in_place_params(name, function)),
             "signature": signature(function["params"]),
         })
     write_csv("functions.csv", list(function_rows[0]), function_rows)
@@ -354,6 +426,9 @@ def main():
     port_rows = write_through_ports(sources, functions)
     write_csv("port-write-through.csv", list(port_rows[0]), port_rows)
 
+    in_place_rows = in_place_ports(sources, functions)
+    write_csv("port-in-place.csv", list(in_place_rows[0]), in_place_rows)
+
     summary = {
         "api_file": API.name,
         "api_sha256": hashlib.sha256(API.read_bytes()).hexdigest(),
@@ -367,6 +442,11 @@ def main():
         "write_through_input_ports": {
             "total": len(port_rows),
             "result_not_reachable_as_output": sum(1 for r in port_rows if r["result_reachable"] == "NO"),
+        },
+        "in_place_input_ports": {
+            "total": len(in_place_rows),
+            "nodes": len({r["node"] for r in in_place_rows}),
+            "by_basis": dict(Counter(r["basis"] for r in in_place_rows)),
         },
     }
     (OUT / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")

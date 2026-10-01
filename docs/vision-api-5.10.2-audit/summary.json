@@ -46,5 +46,17 @@
   "write_through_input_ports": {
     "total": 11,
     "result_not_reachable_as_output": 2
+  },
+  "in_place_input_ports": {
+    "total": 281,
+    "nodes": 281,
+    "by_basis": {
+      "edits the container": 224,
+      "draws into or edits the image": 51,
+      "documented as possibly modifying the image": 3,
+      "edits the image": 1,
+      "sets a pixel in the image": 1,
+      "sorts the points": 1
+    }
   }
 }
