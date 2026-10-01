@@ -2,8 +2,8 @@
   "api_file": "Tc3_Vision_Api_5.10.2.html",
   "api_sha256": "140d4fd65a33150f6be3c5536c30c17d1f8b6508875fbc4e7c6b87be8cc77405",
   "functions": {
-    "registered": 867,
-    "missing": 171,
+    "registered": 882,
+    "missing": 156,
     "excluded_from_build": 1
   },
   "datatypes_and_constants": {
@@ -34,14 +34,14 @@
     "excluded_from_build": 1
   },
   "missing_functions_by_licence": {
-    "TC3 Vision Base": 87,
-    "TC3 Vision Metrology 2D": 15,
+    "TC3 Vision Base": 82,
+    "TC3 Vision Metrology 2D": 5,
     "TC3 Machine Learning Realtime Inference": 58,
     "TC3 Neural Network Realtime Inference": 11
   },
-  "registered_nodes": 924,
+  "registered_nodes": 939,
   "registered_datatypes": 185,
-  "source_pous": 1148,
+  "source_pous": 1163,
   "existing_wrapper_gap_rows": 2,
   "write_through_input_ports": {
     "total": 11,

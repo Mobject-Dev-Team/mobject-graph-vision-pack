@@ -18,7 +18,8 @@
 - SetImageChannel and WhiteBalance keep their ipDestImage input. Writing into a supplied destination is how the Golden Template and Colour Balance examples compose an image one channel at a time, sequenced with hrPrev, so it is a supported idiom rather than an oversight.
 - Added the five code reading nodes, closing the TC3 Vision Code Reading backlog: AnalyzeBarcodeWalsh and DetectBarcodesWalsh, which pair to tune and then run Walsh barcode detection, plus ReadBarcodeRoi/Exp and ReadDataMatrixCodeRoiExp. The ROI readers accept only the barcode types their documentation lists as supported.
 - The audit tool now reports write-through input ports (`port-write-through.csv`, counted in `summary.json`), so ports whose result the native call writes back through an input edge are a tracked category rather than something to rediscover.
-- The distributed `.library` was rebuilt in `5669f4c`; the measurement, matching and code reading nodes added since still need a TwinCAT build. Runtime validation and comprehensive tests remain pending.
+- Added fifteen calibration and coordinate transformation nodes, so a calibration result can now be used: TransformCoordinatesImageToWorld, TransformCoordinatesWorldToImage and TransformCoordinatesPlanar (point and container forms each), ImagePointsWorldDistance, CalibrateCameraManually/Exp, CalibrateCameraPlanarExp, DetectPatternPoints2, DetectPatternPointsExp, SortAxisAlignedPatternPoints, and DecomposeHomography/Exp. SortAxisAlignedPatternPoints sorts its input container in place, like ReverseContainer; sequence its consumers with hrPrev.
+- The distributed `.library` was last rebuilt in `7d67de2`; the calibration nodes added since still need a TwinCAT build. Runtime validation and comprehensive tests remain pending.
 
 ## v0.11.0-beta
 

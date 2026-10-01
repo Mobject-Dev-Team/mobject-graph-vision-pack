@@ -2776,6 +2776,51 @@
     <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_DetectPatternPoints.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CalibrateCameraManually.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CalibrateCameraManuallyExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_CalibrateCameraPlanarExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_DetectPatternPointsExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_ImagePointsWorldDistance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_TransformCoordinatesImageToWorld_Container.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_TransformCoordinatesImageToWorld_Point.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_TransformCoordinatesPlanar_Container.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_TransformCoordinatesPlanar_Point.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_TransformCoordinatesWorldToImage_Container.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_TransformCoordinatesWorldToImage_Point.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_DecomposeHomography.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_DecomposeHomographyExp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_DetectPatternPoints2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\Geometric and Coord Transform\Calibration\Node_F_VN_SortAxisAlignedPatternPoints.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Nodes\Geometric and Coord Transform\Node_F_VN_ResizeRegion_TcVnRectangle_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>

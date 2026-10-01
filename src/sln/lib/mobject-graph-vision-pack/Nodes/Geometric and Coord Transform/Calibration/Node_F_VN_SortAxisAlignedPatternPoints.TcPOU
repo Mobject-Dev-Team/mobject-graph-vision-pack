@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_SortAxisAlignedPatternPoints" Id="{6e0f2409-fb0f-45b3-a2b8-32bf3f6f287e}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_SortAxisAlignedPatternPoints EXTENDS VisionNode
+VAR
+    ipImagePoints : _ITcVnContainer;
+    nPatternRows : _UDINT(0);
+    nPatternCols : _UDINT(0);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{75515be8-4484-4096-9df7-231df281153d}" />
+    <Method Name="Clone" Id="{0ed3d28a-6116-4906-9ab9-f999bd79f4f1}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_SortAxisAlignedPatternPoints;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_SortAxisAlignedPatternPoints);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{01ab9806-bbaf-47f5-b875-92661e75bb14}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipImagePoints', ipImagePoints);
+AddParameter('nPatternRows', nPatternRows);
+AddParameter('nPatternCols', nPatternCols);
+AddInput('hrPrev', hrPrev);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{22c3d0e2-8dc6-4ece-9eae-559efe5d61d9}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_SortAxisAlignedPatternPoints(
+    ipImagePoints := ipImagePoints.Value,
+    nPatternRows := nPatternRows.Value,
+    nPatternCols := nPatternCols.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{b2459f4f-48e7-49c0-a699-49c69015a9f1}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipImagePoints.IsValid, 'ipImagePoints must be a valid container');
+Check.IsTrue(ipImagePoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL), 'ipImagePoints contains incorrect type');
+Check.IsTrue(nPatternRows.Value > 0, 'nPatternRows must be greater than 0');
+Check.IsTrue(nPatternCols.Value > 0, 'nPatternCols must be greater than 0');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

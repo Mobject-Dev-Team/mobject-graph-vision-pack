@@ -79,14 +79,13 @@ See [functions.csv](functions.csv) for signatures, defaults, dependencies, point
 - `F_VN_GetNeuralNetworkLayerNamesExp`
 - `F_VN_GetNeuralNetworkLayerNamesExp_String`
 
-## TC3 Vision Base (87)
+## TC3 Vision Base (82)
 
 - `F_VN_AdjustActiveContour`
 - `F_VN_AdvanceIterator`
 - `F_VN_AppendToContainer_ITcVnForwardIterator`
 - `F_VN_ApplyLut`
 - `F_VN_BlendImages`
-- `F_VN_CalibrateCameraPlanarExp`
 - `F_VN_CheckIfIteratorIsAtEnd`
 - `F_VN_CombineImageChannels`
 - `F_VN_ConvertContainerType`
@@ -105,8 +104,6 @@ See [functions.csv](functions.csv) for signatures, defaults, dependencies, point
 - `F_VN_CustomElementWiseContainerOperation_ITcVnForwardIterator`
 - `F_VN_CustomFilter`
 - `F_VN_CustomFilterExp`
-- `F_VN_DecomposeHomography`
-- `F_VN_DecomposeHomographyExp`
 - `F_VN_EraseFromContainer`
 - `F_VN_ExportContainer`
 - `F_VN_ExportContainerSize`
@@ -164,28 +161,16 @@ See [functions.csv](functions.csv) for signatures, defaults, dependencies, point
 - `F_VN_TrainImageColorExp2_ITcVnMlModel`
 - `F_VN_TrainImageColorExp_ITcVnMlModel`
 - `F_VN_TrainImageColor_ITcVnMlModel`
-- `F_VN_TransformCoordinatesPlanar_Container`
-- `F_VN_TransformCoordinatesPlanar_Point`
 - `F_VN_TransformIntoDisplayableImageExp2`
 - `F_VN_UpdateTimestamp`
 
-## TC3 Vision Metrology 2D (15)
+## TC3 Vision Metrology 2D (5)
 
 - `F_VN_CalibrateCameraExp`
 - `F_VN_CalibrateCameraExp2`
 - `F_VN_CalibrateCameraExp3`
-- `F_VN_CalibrateCameraManually`
-- `F_VN_CalibrateCameraManuallyExp`
 - `F_VN_CalibrateLinescanCamera`
 - `F_VN_CalibrateLinescanCameraExp`
-- `F_VN_DetectPatternPoints2`
-- `F_VN_DetectPatternPointsExp`
-- `F_VN_ImagePointsWorldDistance`
-- `F_VN_SortAxisAlignedPatternPoints`
-- `F_VN_TransformCoordinatesImageToWorld_Container`
-- `F_VN_TransformCoordinatesImageToWorld_Point`
-- `F_VN_TransformCoordinatesWorldToImage_Container`
-- `F_VN_TransformCoordinatesWorldToImage_Point`
 
 ## Existing but unavailable
 

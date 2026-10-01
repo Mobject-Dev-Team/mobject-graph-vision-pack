@@ -269,6 +269,80 @@ failure chaining. These fixtures need the TC3 Vision Code Reading licence. TwinC
 and runtime validation remain pending; the distributed `.library` was rebuilt in `5669f4c` and
 now lags three batches.
 
+## Implementation progress — eighth batch
+
+Added fifteen calibration and coordinate-transformation nodes. Before this batch the pack could
+calibrate (`F_VN_CalibrateCamera`, `F_VN_CalibrateCameraPlanar`) but offered no node that consumed
+the result, so a calibration ended the graph. These close that gap:
+
+- Under `Vision/Geometric and Coordinate Transformations/Calibration`:
+  `F_VN_TransformCoordinatesImageToWorld_Point`/`_Container`,
+  `F_VN_TransformCoordinatesWorldToImage_Point`/`_Container`,
+  `F_VN_TransformCoordinatesPlanar_Point`/`_Container`, `F_VN_ImagePointsWorldDistance`,
+  `F_VN_CalibrateCameraManually`/`Exp`, `F_VN_CalibrateCameraPlanarExp`,
+  `F_VN_DetectPatternPoints2`, `F_VN_DetectPatternPointsExp` and
+  `F_VN_SortAxisAlignedPatternPoints`.
+- Under `Vision/Geometric and Coordinate Transformations`: `F_VN_DecomposeHomography`/`Exp`.
+
+Thirteen filled reserved placeholders in `VisionNodePack`; `F_VN_DetectPatternPoints2` and
+`F_VN_SortAxisAlignedPatternPoints` had none and were inserted alphabetically in the
+Calibration block.
+
+Port directions follow the export comments, not the declared direction. The camera matrix,
+distortion coefficients, rotation, translation, homography and planar transformation matrix are
+`InOut` only to pass arrays by reference, so they are plain inputs. Every parameter documented as
+"Returns ..." is output-only, so the batch adds no write-through ports (still 11).
+`aMarkerImagePositions` in `F_VN_CalibrateCameraPlanarExp` is output-only for the same reason.
+`nSolutions`, the export's only true `Out` parameter here, is read through a local, matching
+`fAngleDeg` in the code-quality nodes.
+
+`F_VN_SortAxisAlignedPatternPoints` sorts its input container in place, the same idiom as the
+registered `F_VN_ReverseContainer`: the input is not echoed as an output, and consumers of the
+sorted points connect to the upstream container and sequence on this node's `hresult`. The
+write-through check does not flag it, because its comment ("will be sorted by this function")
+does not start with "Returns"; it is in-place by design rather than an oversight.
+
+`F_VN_DetectPatternPoints2` carries `nOptions` as a `_UDINT` initialised from
+`ETcVnDetectPatternPointsOptions.TCVN_DPPO_SYMMETRIC`, matching the bitmask convention from the
+seventh batch, so `DPPO_CLUSTERING` can still be OR-ed in. The documented rule that exactly one of
+`SYMMETRIC`/`ASYMMETRIC` is set is not checked: the export does not publish the enum's numeric
+values, and a check that assumes one of them is non-zero could be silently wrong.
+
+Checks guard against unconnected calibration data: the camera matrix must have positive `fx`
+and `fy`, and the homography/planar transformation matrix a non-zero `[2, 2]` element. Both are
+all zeros when the input is unconnected. Point containers are checked against the element types
+the export lists. The manual calibrations check both containers' nested types, that they hold
+the same non-zero number of views, and positive image dimensions. The documented per-view
+minimum of six points, and the per-view count match, are not checked because that needs
+iterating the inner containers. `F_VN_DecomposeHomographyExp` treats its verification points
+as optional but paired: both or neither must be connected. The optional inlier mask, if given,
+must be `SINT`/`USINT` with one entry per point. `F_VN_DetectPatternPointsExp` checks its edge
+parameters unconditionally rather than only when `bSubpixelAccuracy` is set, because the export
+does not say they are unused otherwise.
+
+The eighth batch reaches **939 registered nodes**, including **882 API function nodes**, with
+**156 missing function nodes** plus the disabled matrix-multiplication node. Metrology 2D drops
+from 15 to 5: the remaining `F_VN_CalibrateCameraExp`/`Exp2`/`Exp3` and
+`F_VN_CalibrateLinescanCamera`/`Exp` take `pSrcImages : PVOID` and wait for the phase-2 buffer
+work. Vision Base drops from 87 to 82. The audit reports no omitted call parameters and retains
+exactly the two known enum-label differences.
+
+The registered `F_VN_SortDetectedPatternPoints` appears broken and is left unchanged in this
+batch. It registers `ipPatternPoints` as an output only, although the export documents it as the
+reference pattern the call reads (`ContainerType_Vector_TcVnPoint3_REAL`). Its pre-execution
+check then requires that output port to be a valid `TcVnPoint2_REAL` container. As written the
+node can never be supplied its reference points.
+
+No tests were added or restored. The later test branch should cover an image-to-world and
+world-to-image round trip against `F_VN_CalibrateCamera` output on a known pattern, planar
+transformation with the matrix and its inverse, world distance against a measured fixture,
+manual calibration from known correspondences (both world coordinate systems), the symmetric and
+asymmetric `DetectPatternPoints2` grids with and without clustering, sorting of a shuffled axis-
+aligned pattern, homography decomposition with and without verification points, and `hrPrev`
+failure chaining. Most fixtures need the TC3 Vision Metrology 2D licence. TwinCAT compilation and
+runtime validation remain pending; the distributed `.library` was last rebuilt in `7d67de2` and
+does not contain this batch.
+
 ## About box release notes
 
 Copy this entry into the About box release-notes array. It lists the 54 new nodes implemented across all seven batches. Keep this entry updated as further nodes are implemented. `v1.26.0 beta` is a proposed version following the supplied `v1.25.0 beta` example; adjust the version and date to match the eventual release. This is a draft while the latest source additions await TwinCAT build and runtime validation.

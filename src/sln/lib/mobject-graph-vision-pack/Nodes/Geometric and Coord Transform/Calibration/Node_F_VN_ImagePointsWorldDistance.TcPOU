@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_ImagePointsWorldDistance" Id="{edaec783-8512-42b2-87cb-199818170f5b}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ImagePointsWorldDistance EXTENDS VisionNode
+VAR
+    aImagePoint1 : _TcVnPoint2_REAL;
+    aImagePoint2 : _TcVnPoint2_REAL;
+    fWorldDistance : _LREAL(0.0);
+    aCameraMatrix : _TcVnMatrix3x3_LREAL;
+    aDistortionCoefficients : _TcVnArray8_LREAL;
+    aRotationMatrix : _TcVnMatrix3x3_LREAL;
+    aTranslationVector : _TcVnVector3_LREAL;
+    fZ : _LREAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{263b0abd-2180-4ea5-a724-2d03ab1aecd5}" />
+    <Method Name="Clone" Id="{707b1bc3-fd58-4e11-b508-af346a83605e}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_ImagePointsWorldDistance;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ImagePointsWorldDistance);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ae76f5f4-047f-407d-9cce-6f61dfb28ba7}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('aImagePoint1', aImagePoint1);
+AddInput('aImagePoint2', aImagePoint2);
+AddInput('aCameraMatrix', aCameraMatrix);
+AddInput('aDistortionCoefficients', aDistortionCoefficients);
+AddInput('aRotationMatrix', aRotationMatrix);
+AddInput('aTranslationVector', aTranslationVector);
+AddParameter('fZ', fZ);
+AddInput('hrPrev', hrPrev);
+AddOutput('fWorldDistance', fWorldDistance);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{a942575f-443f-499e-9da3-edfe9b56759d}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ImagePointsWorldDistance(
+    aImagePoint1 := aImagePoint1.Value,
+    aImagePoint2 := aImagePoint2.Value,
+    fWorldDistance := fWorldDistance.Value,
+    aCameraMatrix := aCameraMatrix.Value,
+    aDistortionCoefficients := aDistortionCoefficients.Value,
+    aRotationMatrix := aRotationMatrix.Value,
+    aTranslationVector := aTranslationVector.Value,
+    fZ := fZ.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{7f4df538-df59-467d-a5be-54497dfc70f4}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue((aCameraMatrix.Value[0, 0] > 0.0) AND (aCameraMatrix.Value[1, 1] > 0.0),
+             'aCameraMatrix must contain positive focal lengths fx and fy (connect a calibration result)');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

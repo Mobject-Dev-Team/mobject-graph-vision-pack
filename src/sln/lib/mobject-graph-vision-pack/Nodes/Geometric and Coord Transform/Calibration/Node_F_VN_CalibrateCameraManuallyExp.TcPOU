@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_CalibrateCameraManuallyExp" Id="{641f85bd-e63b-4421-b9df-f68a028bed58}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_CalibrateCameraManuallyExp EXTENDS VisionNode
+VAR
+    ipImagePoints : _ITcVnContainer;
+    nImageWidth : _UDINT(0);
+    nImageHeight : _UDINT(0);
+    ipReferencePoints : _ITcVnContainer;
+    aCameraMatrix : _TcVnMatrix3x3_LREAL;
+    aDistortionCoefficients : _TcVnArray8_LREAL;
+    aRotationMatrix : _TcVnMatrix3x3_LREAL;
+    aTranslationVector : _TcVnVector3_LREAL;
+    fReprojError : _LREAL(0.0);
+    stCalibrationOptions : _TcVnCameraCalibrationOptions;
+    eWorldSystem : _ETcVnWorldCoordinateSystem(ETcVnWorldCoordinateSystem.TCVN_WCS_X_RIGHT_Y_DOWN);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{a22821bc-543e-4d21-b75b-ae4d947d14bb}" />
+    <Method Name="Clone" Id="{5a4f7bb3-e180-4eb5-b3ba-4dbf6a94baa2}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_CalibrateCameraManuallyExp;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_CalibrateCameraManuallyExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{8b7fe49d-8db3-4728-9b05-e548ca878f36}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipImagePoints', ipImagePoints);
+AddParameter('nImageWidth', nImageWidth);
+AddParameter('nImageHeight', nImageHeight);
+AddInput('ipReferencePoints', ipReferencePoints);
+AddInput('stCalibrationOptions', stCalibrationOptions);
+AddParameter('eWorldSystem', eWorldSystem);
+AddInput('hrPrev', hrPrev);
+AddOutput('aCameraMatrix', aCameraMatrix);
+AddOutput('aDistortionCoefficients', aDistortionCoefficients);
+AddOutput('aRotationMatrix', aRotationMatrix);
+AddOutput('aTranslationVector', aTranslationVector);
+AddOutput('fReprojError', fReprojError);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{e7ed299c-f2b3-407b-9918-21df9c801fcc}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_CalibrateCameraManuallyExp(
+    ipImagePoints := ipImagePoints.Value,
+    nImageWidth := nImageWidth.Value,
+    nImageHeight := nImageHeight.Value,
+    ipReferencePoints := ipReferencePoints.Value,
+    aCameraMatrix := aCameraMatrix.Value,
+    aDistortionCoefficients := aDistortionCoefficients.Value,
+    aRotationMatrix := aRotationMatrix.Value,
+    aTranslationVector := aTranslationVector.Value,
+    fReprojError := fReprojError.Value,
+    stCalibrationOptions := stCalibrationOptions.Value,
+    eWorldSystem := eWorldSystem.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{789473d8-4216-48f5-9945-82b1fb01d29c}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    imageViews : ULINT;
+    referenceViews : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipImagePoints.IsValid, 'ipImagePoints must be a valid container');
+Check.IsTrue(ipImagePoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_Vector_TcVnPoint2_REAL), 'ipImagePoints contains incorrect type');
+Check.IsTrue(ipReferencePoints.IsValid, 'ipReferencePoints must be a valid container');
+Check.IsTrue(ipReferencePoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_Vector_TcVnPoint3_REAL), 'ipReferencePoints contains incorrect type');
+Check.IsTrue((ipImagePoints.TryGetElementNum(imageViews) AND (imageViews > 0)), 'ipImagePoints must contain at least one view');
+Check.IsTrue((ipReferencePoints.TryGetElementNum(referenceViews) AND (referenceViews = imageViews)), 'ipReferencePoints must contain the same number of views as ipImagePoints');
+Check.IsTrue(nImageWidth.Value > 0, 'nImageWidth must be greater than 0');
+Check.IsTrue(nImageHeight.Value > 0, 'nImageHeight must be greater than 0');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
