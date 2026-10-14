@@ -43,6 +43,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[AddInput('ipImagePoints', ipImagePoints);
 AddInput('ipReferencePoints', ipReferencePoints);
+AddInput('aCameraMatrix', aCameraMatrix);
+AddInput('aDistortionCoefficients', aDistortionCoefficients);
 AddParameter('eMethod', eMethod);
 AddParameter('bUseExtrinsicGuess', bUseExtrinsicGuess);
 AddInput('hrPrev', hrPrev);
@@ -88,7 +90,15 @@ Check.IsTrue((ipImagePoints.TryGetElementNum(imagePointsElementNum) AND (imagePo
 
 Check.IsTrue(ipReferencePoints.IsValid, 'ipReferencePoints must be a valid container');
 Check.IsTrue(ipReferencePoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint3_REAL), 'ipReferencePoints contains incorrect type, must be ContainerType_Vector_TcVnPoint3_REAL');
-Check.IsTrue((ipImagePoints.TryGetElementNum(referencePointsElementNum) AND (referencePointsElementNum = imagePointsElementNum)), 'ipReferencePoints must have same number of points as ipImagePoints');
+Check.IsTrue((ipReferencePoints.TryGetElementNum(referencePointsElementNum) AND (referencePointsElementNum = imagePointsElementNum)), 'ipReferencePoints must have same number of points as ipImagePoints');
+
+Check.IsTrue((aCameraMatrix.Value[0, 0] > 0.0) AND (aCameraMatrix.Value[1, 1] > 0.0),
+             'aCameraMatrix must contain positive focal lengths fx and fy (connect a calibration result)');
+
+IF (eMethod.Value = ETcVnSolvePnPMethod.TCVN_SPM_P3P) OR (eMethod.Value = ETcVnSolvePnPMethod.TCVN_SPM_AP3P)
+    OR (eMethod.Value = ETcVnSolvePnPMethod.TCVN_SPM_IPPE_SQUARE) THEN
+    Check.IsTrue(imagePointsElementNum = 4, 'P3P, AP3P and IPPE_SQUARE require exactly 4 points');
+END_IF
 
 IF (eMethod.Value <> ETcVnSolvePnPMethod.TCVN_SPM_ITERATIVE) THEN
     Check.IsFalse(bUseExtrinsicGuess.Value, 'bUseExtrinsicGuess only supported for ITERATIVE method');

@@ -41,6 +41,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[AddInput('ipImagePoints', ipImagePoints);
 AddInput('ipReferencePoints', ipReferencePoints);
+AddInput('aCameraMatrix', aCameraMatrix);
+AddInput('aDistortionCoefficients', aDistortionCoefficients);
 AddInput('hrPrev', hrPrev);
 AddOutput('aCameraMatrix', aCameraMatrix);
 AddOutput('aDistortionCoefficients', aDistortionCoefficients);
@@ -82,7 +84,10 @@ Check.IsTrue((ipImagePoints.TryGetElementNum(imagePointsElementNum) AND (imagePo
 
 Check.IsTrue(ipReferencePoints.IsValid, 'ipReferencePoints must be a valid container');
 Check.IsTrue(ipReferencePoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint3_REAL), 'ipReferencePoints contains incorrect type, must be ContainerType_Vector_TcVnPoint3_REAL');
-Check.IsTrue((ipImagePoints.TryGetElementNum(referencePointsElementNum) AND (referencePointsElementNum = imagePointsElementNum)), 'ipReferencePoints must have same number of points as ipImagePoints');
+Check.IsTrue((ipReferencePoints.TryGetElementNum(referencePointsElementNum) AND (referencePointsElementNum = imagePointsElementNum)), 'ipReferencePoints must have same number of points as ipImagePoints');
+
+Check.IsTrue((aCameraMatrix.Value[0, 0] > 0.0) AND (aCameraMatrix.Value[1, 1] > 0.0),
+             'aCameraMatrix must contain positive focal lengths fx and fy (connect a calibration result)');
 ]]></ST>
       </Implementation>
     </Method>

@@ -386,6 +386,31 @@ registered as an output, and whether `OnExecute` binds it with `=>`. Its counts 
 `FindReferenceKeyPointsInImage*` nodes have three each, so one per node can't be assumed.
 The codegen pack's tests check its table against this file.
 
+### Supplied InOut parameters registered only as outputs
+
+The eighth batch's rule, that a reference-passed `InOut` is a plain input, was applied to the
+nodes it added but not to the older `F_VN_SolvePnP` and `F_VN_SolvePnPExp`. Those registered
+`aCameraMatrix` and `aDistortionCoefficients` with `AddOutput` only. A calibration result couldn't
+be wired in, so the call always ran on an all-zero camera matrix. The write-through check only
+looks at the opposite direction, a written parameter registered as an input, so it couldn't see
+this.
+
+`port-input-as-output.csv` lists `InOut` parameters that the call only reads, where the node
+registers the port only as an output. It is counted in `summary.json` as `input_as_output_ports`.
+Both checks rely on `written_by_call`, which originally recognised only "Returns ..." comments.
+It now also matches "Resulting ...", "Output parameter ..." and "... filled by this function".
+`WRITTEN_PARAMS` lists results that the wording can't identify. "Destination point" is a result
+in `WarpAffine_Point`, but "Destination points" is an input in `GetAffineTransformation`, and
+`DecomposeAffineTransformation`/`DecomposeHomography` only name their results. With the wider
+definition the write-through list is unchanged, at 11.
+
+The two SolvePnP nodes now take both values as inputs and echo them as outputs, the same as
+`aCenter` in the arc and ellipse nodes. Keeping the outputs means a saved graph that linked one
+of them still loads, and the intrinsics can be chained on to a coordinate transformation node.
+Both nodes now check for positive `fx`/`fy` and read the reference point count from
+`ipReferencePoints`, not `ipImagePoints`. The Exp node also checks that P3P, AP3P and
+IPPE_SQUARE get exactly 4 points. The list is now empty.
+
 ## About box release notes
 
 Copy this entry into the About box release-notes array. It lists the 54 new nodes implemented across all seven batches. Keep this entry updated as further nodes are implemented. `v1.26.0 beta` is a proposed version following the supplied `v1.25.0 beta` example; adjust the version and date to match the eventual release. This is a draft while the latest source additions await TwinCAT build and runtime validation.
@@ -641,6 +666,7 @@ The accompanying files identify every symbol; they are the implementation checkl
 - [All function blocks](vision-api-5.10.2-audit/function-blocks.csv): status, cyclic input/output parameters, or method signatures for blocks exposing methods.
 - [Existing wrapper gaps](vision-api-5.10.2-audit/existing-wrapper-gaps.csv), [project registration](vision-api-5.10.2-audit/project-registration.csv), and [count summary](vision-api-5.10.2-audit/summary.json).
 - [Write-through input ports](vision-api-5.10.2-audit/port-write-through.csv): node input ports that the native call writes into. Connecting an input port aliases the upstream node's storage, so a written parameter registered with `AddInput` makes the call write its result into whichever node feeds that edge. Some are deliberate — writing into a supplied destination image is how `SetImageChannel` composes an image one channel at a time — so this is a list to review rather than a defect list. `result_reachable = NO` marks the stronger case where the node offers no output for that value at all.
+- [Input-as-output ports](vision-api-5.10.2-audit/port-input-as-output.csv): the reverse case. These are `InOut` parameters the call only reads, such as a camera matrix passed by reference, where the node registers the port only as an output, so the value can't be supplied. Every row is a defect.
 
 Regenerate these inventories with `python3 tools/audit_vision_api.py` while the ignored local export is present, or `python3 tools/audit_vision_api.py --api /path/to/Tc3_Vision_Api_5.10.2.html`. The script uses Python's standard library and only writes the audit directory. It reports a clear error if the local export has been removed; the saved inventories remain readable. The plan itself is maintained separately. Keep the generated CSV files together so source absence, build exclusion, and missing registration remain distinguishable.
 

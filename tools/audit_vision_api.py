@@ -165,18 +165,34 @@ def licence(description):
     return match[1] if match else ""
 
 
-def written_by_call(param):
+# InOut results whose comment doesn't say so. "Destination point" is a result in WarpAffine_Point
+# but "Destination points" is an input in GetAffineTransformation, and DecomposeAffineTransformation
+# just names its results ("Rotation angle (radian) ..."), so these are listed by function and parameter.
+WRITTEN_PARAMS = [
+    (r"DecomposeAffineTransformation(Exp)?", r"fRotationAngle|aTranslationVector|aScaleVector|aSkewVector"),
+    (r"DecomposeHomography(Exp)?", r"a(RotationMatrix|TranslationVector|NormVector)[AB]"),
+    (r"GetLayoutInfo", r"aLayoutInfo"),
+    (r"Warp(Affine|Perspective)_Point", r"aDestPoint"),
+]
+WRITTEN_WORDING = re.compile(r"^(returns|return the|estimates?|resulting|output parameter)\b|filled by this function", re.I)
+
+
+def written_by_call(param, function_name):
     """Whether the native call writes this parameter.
 
     Direction alone is not enough: this API uses InOut widely just to pass structs and
     arrays by reference without copying. The export's own comment is what separates a
-    result ("Returns the ...") from a reference-passed input, and a "Reference To" type
-    is always a result here.
+    result ("Returns the ...", "Resulting ...") from a reference-passed input, and a
+    "Reference To" type is always a result here. WRITTEN_PARAMS covers results whose
+    comment doesn't say so.
     """
     if param["Type"].startswith("Reference To"):
         return True
-    return param.get("Direction") == "InOut" and bool(
-        re.match(r"(returns|return the|estimates?)\b", param.get("Comment", "").strip(), re.I))
+    if param.get("Direction") != "InOut":
+        return False
+    return bool(WRITTEN_WORDING.search(param.get("Comment", "").strip())) or any(
+        re.fullmatch(r"F_VN_" + f, function_name) and re.fullmatch(p, param["Parameter"])
+        for f, p in WRITTEN_PARAMS)
 
 
 # Functions that modify an object passed by plain interface pointer (direction In, not a
@@ -242,7 +258,7 @@ def write_through_ports(sources, functions):
             continue
         roles = port_registrations(source)
         execute = source["methods"].get("OnExecute", "")
-        written = {p["Parameter"]: p for p in function["params"] if written_by_call(p)}
+        written = {p["Parameter"]: p for p in function["params"] if written_by_call(p, name)}
         for native, port in re.findall(r"(\w+)\s*:=\s*(\w+)\.Value", execute):
             param = written.get(native)
             if param is None or "Input" not in roles.get(port, set()):
@@ -253,6 +269,35 @@ def write_through_ports(sources, functions):
                 "direction": param.get("Direction", ""),
                 # Without an output the node's own result is unreachable from the graph.
                 "result_reachable": "yes" if "Output" in roles[port] else "NO",
+                "comment": param.get("Comment", ""),
+            })
+    return rows
+
+
+def input_as_output_ports(sources, functions):
+    """Node ports registered only as outputs for an InOut parameter the call only reads.
+
+    The reverse of write_through_ports. The API passes arrays and structs InOut just to avoid a
+    copy, so a camera matrix or distortion coefficients arrive InOut although the caller supplies
+    them. Registered only with AddOutput, the value can't be wired in and the call always runs on
+    the node's initial value, usually all zeros.
+    """
+    rows = []
+    for name, function in sorted(functions.items()):
+        source = sources.get("node_" + name.lower())
+        if source is None:
+            continue
+        roles = port_registrations(source)
+        execute = source["methods"].get("OnExecute", "")
+        params = {p["Parameter"]: p for p in function["params"]}
+        for native, port in re.findall(r"(\w+)\s*:=\s*(\w+)\.Value", execute):
+            param = params.get(native)
+            if (param is None or param.get("Direction") != "InOut" or written_by_call(param, name)
+                    or roles.get(port) != {"Output"}):
+                continue
+            rows.append({
+                "node": source["name"], "source": source["path"], "api_function": name,
+                "port": port, "native_parameter": native, "type": param["Type"],
                 "comment": param.get("Comment", ""),
             })
     return rows
@@ -455,6 +500,12 @@ def main():
     port_rows = write_through_ports(sources, functions)
     write_csv("port-write-through.csv", list(port_rows[0]), port_rows)
 
+    # Explicit fields: once every node is fixed this list is empty.
+    input_as_output_rows = input_as_output_ports(sources, functions)
+    write_csv("port-input-as-output.csv",
+              ["node", "source", "api_function", "port", "native_parameter", "type", "comment"],
+              input_as_output_rows)
+
     in_place_rows = in_place_ports(sources, functions)
     write_csv("port-in-place.csv", list(in_place_rows[0]), in_place_rows)
 
@@ -475,6 +526,7 @@ def main():
             "total": len(port_rows),
             "result_not_reachable_as_output": sum(1 for r in port_rows if r["result_reachable"] == "NO"),
         },
+        "input_as_output_ports": len(input_as_output_rows),
         "var_output_ports": {
             "total": len(var_output_rows),
             "not_an_output_port": sum(1 for r in var_output_rows if r["output_port"] == "no"),

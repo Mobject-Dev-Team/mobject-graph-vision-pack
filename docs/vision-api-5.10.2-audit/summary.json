@@ -47,6 +47,7 @@
     "total": 11,
     "result_not_reachable_as_output": 2
   },
+  "input_as_output_ports": 0,
   "var_output_ports": {
     "total": 48,
     "not_an_output_port": 0,
