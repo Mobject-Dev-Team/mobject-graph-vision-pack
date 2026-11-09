@@ -73,7 +73,7 @@ IF NOT (fMaxDist.Value = -1) THEN
 END_IF
 
 IF NOT (fMaxKnnRatio.Value = -1) THEN
-    Check.IsTrue((fMaxKnnRatio.Value >= 0 OR fMaxDist.Value <= 1), 'fMaxDist must be within 0 to 1');
+    Check.IsTrue((fMaxKnnRatio.Value >= 0) AND (fMaxKnnRatio.Value <= 1), 'fMaxKnnRatio must be within 0 to 1');
 END_IF
 ]]></ST>
       </Implementation>

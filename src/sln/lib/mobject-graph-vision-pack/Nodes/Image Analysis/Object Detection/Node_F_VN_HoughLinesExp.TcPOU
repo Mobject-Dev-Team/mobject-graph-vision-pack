@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_HoughLinesExp" Id="{f86fc4a2-a3a9-4fff-9986-f31188d6e3b3}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_HoughLinesExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipLines : _ITcVnContainer;
+    fDistRes : _LREAL(1.0);
+    fAngleRes : _LREAL(1.0);
+    nAccuThreshold : _UDINT(0);
+    fDistResDiv : _LREAL(0.0);
+    fAngleResDiv : _LREAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{d16e50a4-c7e2-437d-b6a1-0a3fb100ace2}" />
+    <Method Name="Clone" Id="{0ac76c70-977a-4068-bb50-4260a29c2c96}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_HoughLinesExp;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_HoughLinesExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{72d100a6-ef3e-4be4-b572-153e331899b1}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('fDistRes', fDistRes);
+AddParameter('fAngleRes', fAngleRes);
+AddParameter('nAccuThreshold', nAccuThreshold);
+AddParameter('fDistResDiv', fDistResDiv);
+AddParameter('fAngleResDiv', fAngleResDiv);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipLines', ipLines);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{d8924d87-bafa-4efb-8864-69a6f6c31bea}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_HoughLinesExp(
+    ipSrcImage := ipSrcImage.Value,
+    ipLines := ipLines.Value,
+    fDistRes := fDistRes.Value,
+    fAngleRes := fAngleRes.Value,
+    nAccuThreshold := nAccuThreshold.Value,
+    fDistResDiv := fDistResDiv.Value,
+    fAngleResDiv := fAngleResDiv.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{dac8b884-1142-4695-8830-fd113ef6523c}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must be 8 bit pixel depth');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+Check.IsTrue((fDistRes.Value > 0), 'fDistRes must be greater than 0');
+Check.IsTrue((fAngleRes.Value > 0), 'fAngleRes must be greater than 0');
+Check.IsTrue((fDistResDiv.Value >= 0), 'fDistResDiv must be greater than or equal to 0');
+Check.IsTrue((fAngleResDiv.Value >= 0), 'fAngleResDiv must be greater than or equal to 0');
+Check.IsTrue((fDistResDiv.Value > 0) OR (fAngleResDiv.Value = 0), 'fDistResDiv must be greater than 0 when fAngleResDiv is greater than 0');
+Check.IsTrue((fAngleResDiv.Value > 0) OR (fDistResDiv.Value = 0), 'fAngleResDiv must be greater than 0 when fDistResDiv is greater than 0');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

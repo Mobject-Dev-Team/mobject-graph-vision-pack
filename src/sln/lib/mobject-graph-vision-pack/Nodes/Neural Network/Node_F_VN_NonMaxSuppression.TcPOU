@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_NonMaxSuppression" Id="{bda5873f-9849-4b7f-ad25-9067bcfee9de}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_NonMaxSuppression EXTENDS VisionNode
+VAR
+    ipBoundingBoxes : _ITcVnContainer;
+    ipScores : _ITcVnContainer;
+    ipDestIndcies : _ITcVnContainer;
+    fScoreThreshold : _REAL(0.5);
+    fOverlapThreshold : _REAL(0.5);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{52aa0254-a4ba-4f02-99fa-4233805cfd2e}" />
+    <Method Name="Clone" Id="{48506cb0-2a29-4098-bb9a-e9409977f93c}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_NonMaxSuppression;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_NonMaxSuppression);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{2b2a0501-0aba-4487-bee4-9ed3369a9923}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipBoundingBoxes', ipBoundingBoxes);
+AddInput('ipScores', ipScores);
+AddParameter('fScoreThreshold', fScoreThreshold);
+AddParameter('fOverlapThreshold', fOverlapThreshold);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestIndcies', ipDestIndcies);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{48d7f167-039e-4ad7-8b2c-cb20858cca3e}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_NonMaxSuppression(
+    ipBoundingBoxes := ipBoundingBoxes.Value,
+    ipScores := ipScores.Value,
+    ipDestIndcies := ipDestIndcies.Value,
+    fScoreThreshold := fScoreThreshold.Value,
+    fOverlapThreshold := fOverlapThreshold.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{4004589e-3db1-4fff-8b23-bb7c226a67f4}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipBoundingBoxes.IsValid, 'ipBoundingBoxes must be a valid container');
+Check.IsTrue(ipBoundingBoxes.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnRectangle_DINT), 'ipBoundingBoxes contains incorrect type');
+Check.IsTrue(ipScores.IsValid, 'ipScores must be a valid container');
+Check.IsTrue(ipScores.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_REAL), 'ipScores contains incorrect type');
+Check.IsTrue(ContainersHaveMatchingNumberOfElements(ipBoundingBoxes.Value, ipScores.Value), 'ipScores must contain one score per bounding box');
+Check.IsTrue((fScoreThreshold.Value >= 0) AND (fScoreThreshold.Value <= 1), 'fScoreThreshold must be between 0 and 1');
+Check.IsTrue((fOverlapThreshold.Value >= 0) AND (fOverlapThreshold.Value <= 1), 'fOverlapThreshold must be between 0 and 1');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

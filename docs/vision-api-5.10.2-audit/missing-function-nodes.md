@@ -79,24 +79,19 @@ See [functions.csv](functions.csv) for signatures, defaults, dependencies, point
 - `F_VN_GetNeuralNetworkLayerNamesExp`
 - `F_VN_GetNeuralNetworkLayerNamesExp_String`
 
-## TC3 Vision Base (82)
+## TC3 Vision Base (59)
 
 - `F_VN_AdjustActiveContour`
 - `F_VN_AdvanceIterator`
 - `F_VN_AppendToContainer_ITcVnForwardIterator`
-- `F_VN_ApplyLut`
-- `F_VN_BlendImages`
 - `F_VN_CheckIfIteratorIsAtEnd`
 - `F_VN_CombineImageChannels`
-- `F_VN_ConvertContainerType`
-- `F_VN_ConvertDataLayout`
 - `F_VN_ConvertITcUnknownToITcVnBitmapExport`
 - `F_VN_ConvertITcUnknownToITcVnContainer`
 - `F_VN_ConvertITcUnknownToITcVnImage`
 - `F_VN_ConvertITcUnknownToITcVnMlModel`
 - `F_VN_CopyContainerElementsConditional_ITcVnContainer`
 - `F_VN_CopyContainerElementsConditional_ITcVnForwardIterator`
-- `F_VN_CopyIntoDisplayableImageExp`
 - `F_VN_CreateContainerFromArray`
 - `F_VN_CreateImageFromArray`
 - `F_VN_CreateNDimensionalImageFromArray`
@@ -104,7 +99,6 @@ See [functions.csv](functions.csv) for signatures, defaults, dependencies, point
 - `F_VN_CustomElementWiseContainerOperation_ITcVnForwardIterator`
 - `F_VN_CustomFilter`
 - `F_VN_CustomFilterExp`
-- `F_VN_EraseFromContainer`
 - `F_VN_ExportContainer`
 - `F_VN_ExportContainerSize`
 - `F_VN_ExportImage`
@@ -114,41 +108,25 @@ See [functions.csv](functions.csv) for signatures, defaults, dependencies, point
 - `F_VN_ExportImageAsJpegExp`
 - `F_VN_ExportSubContainer`
 - `F_VN_ExportSubContainerSize`
-- `F_VN_FourierDescriptors`
-- `F_VN_FuseImagesArray`
-- `F_VN_GetAffineTransformation2DExp`
 - `F_VN_GetContainer`
 - `F_VN_GetContainerExp`
 - `F_VN_GetForwardIterator`
 - `F_VN_GetRandomAccessIterator`
 - `F_VN_GetTimestamp`
-- `F_VN_HoughLinesExp`
 - `F_VN_IncrementIterator`
 - `F_VN_InitMatrixStruct`
-- `F_VN_InnerCircle`
-- `F_VN_InnerCircleExp`
 - `F_VN_InsertIntoContainer_ITcVnForwardIterator`
 - `F_VN_IteratorDistance`
-- `F_VN_MultiplyWithContainerElements1`
-- `F_VN_MultiplyWithContainerElements2`
-- `F_VN_MultiplyWithContainerElements3`
-- `F_VN_MultiplyWithContainerElements4`
-- `F_VN_NonMaxSuppression`
-- `F_VN_NonMaxSuppressionExp`
 - `F_VN_ReferenceColorSimilarityExp_ITcVnColorModel`
 - `F_VN_ReferenceColorSimilarityExp_ITcVnMlModel`
 - `F_VN_ReferenceColorSimilarity_ITcVnColorModel`
 - `F_VN_ReferenceColorSimilarity_ITcVnMlModel`
-- `F_VN_ReinterpretUnsupportedImage`
 - `F_VN_ReserveContainerMemory`
-- `F_VN_ReshapeImage`
 - `F_VN_SeparableCustomFilter`
 - `F_VN_SeparableCustomFilterExp`
 - `F_VN_SetContainer`
 - `F_VN_SetIteratorToBegin`
 - `F_VN_SetRngSeed`
-- `F_VN_SortContainer`
-- `F_VN_SortContainerExp`
 - `F_VN_SplitImageChannels`
 - `F_VN_StartAbsWatchdog`
 - `F_VN_StartAbsWatchdogExp`
@@ -161,7 +139,6 @@ See [functions.csv](functions.csv) for signatures, defaults, dependencies, point
 - `F_VN_TrainImageColorExp2_ITcVnMlModel`
 - `F_VN_TrainImageColorExp_ITcVnMlModel`
 - `F_VN_TrainImageColor_ITcVnMlModel`
-- `F_VN_TransformIntoDisplayableImageExp2`
 - `F_VN_UpdateTimestamp`
 
 ## TC3 Vision Metrology 2D (5)
