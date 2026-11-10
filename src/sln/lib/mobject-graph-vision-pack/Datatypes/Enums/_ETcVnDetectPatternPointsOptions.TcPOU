@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="_ETcVnDetectPatternPointsOptions" Id="{6b17cc51-ecd5-4243-945c-c01222643d49}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnDetectPatternPointsOptions EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnDetectPatternPointsOptions;
+	activeData : REFERENCE TO ETcVnDetectPatternPointsOptions;
+	enumBaseDatatype : _UDINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{807990c8-a7b7-4024-8613-7d2d99de1a26}">
+      <Folder Name="Protected" Id="{30fbe3a3-a261-40fc-9934-afad6b0031c5}" />
+    </Folder>
+    <Folder Name="Customize" Id="{f412673c-168e-408b-a90c-5302d94d9c41}">
+      <Folder Name="Constructor" Id="{1ade9173-df55-4620-9be6-970bb46b0fbd}" />
+      <Folder Name="Private" Id="{2fc461cd-5886-4e90-a290-6f71027a67d6}" />
+      <Folder Name="Protected" Id="{d4b65e7c-0fb9-4937-9ffc-a334e3467b67}" />
+    </Folder>
+    <Method Name="AddLocalEnumeration" Id="{98a2ba4a-d8d4-406f-b08c-1b01ae9de14f}" FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnDetectPatternPointsOptions;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{6bd25b11-a96d-4321-86a5-f292b920fb65}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{291ad20f-dcd6-4f44-a1dc-218117ff7d89}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{f223578f-adf4-4866-9103-152b78cbff3e}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{32b381f9-086b-451d-bb9e-587e2fadffaa}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnDetectPatternPointsOptions;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnDetectPatternPointsOptions(InitialValue := Value));
+IF pClone = 0 THEN
+    RETURN;
+END_IF
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{e4fd6b37-f9f9-4974-86a6-7f29a2cde7c3}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnDetectPatternPointsOptions;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_DPPO_SYMMETRIC', ETcVnDetectPatternPointsOptions.TCVN_DPPO_SYMMETRIC);
+AddLocalEnumeration('TCVN_DPPO_ASYMMETRIC', ETcVnDetectPatternPointsOptions.TCVN_DPPO_ASYMMETRIC);
+AddLocalEnumeration('TCVN_DPPO_CLUSTERING', ETcVnDetectPatternPointsOptions.TCVN_DPPO_CLUSTERING);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{ab6b181f-7aca-4269-adac-f2d8b385a04f}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{36bd47ff-3be3-4d00-a3b0-a6b95c5f8bab}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnDetectPatternPointsOptions';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{99859ab2-1925-47fd-957d-62b008e8a601}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnDetectPatternPointsOptions;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{6f35ae2d-1cff-4fc6-895d-ca36d4a96e47}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnDetectPatternPointsOptions;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{fe8205fc-9a89-460e-8aaf-a25cda9502e8}" FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{aae03e00-c5b0-402e-bc53-1f2e1cacf794}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{427d5a67-98ac-4531-89e8-ec8e02607e27}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{47286b06-8685-421b-91f1-c091b88af934}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO ETcVnDetectPatternPointsOptions;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{687455b2-fb9e-4229-b637-5d25bcc766e0}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnDetectPatternPointsOptions]]></Declaration>
+      <Get Name="Get" Id="{60444e2a-ac46-45f3-bb66-87a333e75a02}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{cf663a86-1a1d-4965-b5cf-604b8aad0bb6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

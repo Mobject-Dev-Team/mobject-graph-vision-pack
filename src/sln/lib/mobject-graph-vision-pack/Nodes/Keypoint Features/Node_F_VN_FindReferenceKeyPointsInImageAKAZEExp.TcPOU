@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_FindReferenceKeyPointsInImageAKAZEExp" Id="{dc9b03f5-68ef-49b4-a964-578a3d7b9a7d}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_FindReferenceKeyPointsInImageAKAZEExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipRefKeyPoints : _ITcVnContainer;
+    ipRefDescriptors : _ITcVnImage;
+    nRefImageWidth : _UDINT(0);
+    nRefImageHeight : _UDINT(0);
+    ipEdgePoints : _ITcVnContainer;
+    fMaxDist : _REAL(-1.0);
+    fMaxKnnRatio : _REAL(-1.0);
+    eNormType : _ETcVnNormalizationType(ETcVnNormalizationType.TCVN_NT_HAMMING);
+    ipSrcImageMask : _ITcVnImage;
+    stAkazeParams : _TcVnParamsAKAZE;
+    eAlgorithm : _ETcVnEstimationAlgorithm(ETcVnEstimationAlgorithm.TCVN_EA_RANSAC);
+    fReprojThreshold : _LREAL(3.0);
+    nMaxIterations : _UDINT(2000);
+    fConfidence : _LREAL(0.995);
+    hrPrev : _HRESULT(S_OK);
+    aPerspectiveTransform : _TcVnMatrix3x3_LREAL;
+    nNumberOfGoodMatches : _UDINT(0);
+    nNumberOfInliers : _UDINT(0);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{566ccfc0-0aee-4664-929c-0a7fd295ba3a}" />
+    <Method Name="Clone" Id="{638242ab-e24f-4036-8d2c-126f8f54c133}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_FindReferenceKeyPointsInImageAKAZEExp;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_FindReferenceKeyPointsInImageAKAZEExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{49acb2f4-01b1-4f17-bfb5-6504001033bb}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('ipRefKeyPoints', ipRefKeyPoints);
+AddInput('ipRefDescriptors', ipRefDescriptors);
+AddInput('nRefImageWidth', nRefImageWidth);
+AddInput('nRefImageHeight', nRefImageHeight);
+AddOutput('ipEdgePoints', ipEdgePoints);
+AddParameter('fMaxDist', fMaxDist);
+AddParameter('fMaxKnnRatio', fMaxKnnRatio);
+AddParameter('eNormType', eNormType);
+AddInput('ipSrcImageMask', ipSrcImageMask);
+AddInput('stAkazeParams', stAkazeParams);
+AddParameter('eAlgorithm', eAlgorithm);
+AddParameter('fReprojThreshold', fReprojThreshold);
+AddParameter('nMaxIterations', nMaxIterations);
+AddParameter('fConfidence', fConfidence);
+AddInput('hrPrev', hrPrev);
+AddOutput('aPerspectiveTransform', aPerspectiveTransform);
+AddOutput('nNumberOfGoodMatches', nNumberOfGoodMatches);
+AddOutput('nNumberOfInliers', nNumberOfInliers);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{6c695c89-e4dc-4e9f-977b-4e7a6e3cbe41}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    perspectiveTransform : TcVnMatrix3x3_LREAL;
+    numberOfGoodMatches : UDINT;
+    numberOfInliers : UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_FindReferenceKeyPointsInImageAKAZEExp(
+    ipSrcImage := ipSrcImage.Value,
+    ipRefKeyPoints := ipRefKeyPoints.Value,
+    ipRefDescriptors := ipRefDescriptors.Value,
+    nRefImageWidth := nRefImageWidth.Value,
+    nRefImageHeight := nRefImageHeight.Value,
+    ipEdgePoints := ipEdgePoints.Value,
+    fMaxDist := fMaxDist.Value,
+    fMaxKnnRatio := fMaxKnnRatio.Value,
+    eNormType := eNormType.Value,
+    ipSrcImageMask := ipSrcImageMask.Value,
+    stAkazeParams := stAkazeParams.Value,
+    eAlgorithm := eAlgorithm.Value,
+    fReprojThreshold := fReprojThreshold.Value,
+    nMaxIterations := nMaxIterations.Value,
+    fConfidence := fConfidence.Value,
+    hrPrev := hrPrev.Value,
+    aPerspectiveTransform => perspectiveTransform,
+    nNumberOfGoodMatches => numberOfGoodMatches,
+    nNumberOfInliers => numberOfInliers);
+
+aPerspectiveTransform.Value := perspectiveTransform;
+nNumberOfGoodMatches.Value := numberOfGoodMatches;
+nNumberOfInliers.Value := numberOfInliers;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{a341f196-55cc-4bff-91ac-7e7f8d7716ea}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
+IF ipSrcImageMask.Value <> 0 THEN
+    Check.IsTrue(ipSrcImageMask.IsValid, 'ipSrcImageMask must contain an image when connected');
+    Check.IsTrue(IsImage1SizeEqualToImage2Size(ipSrcImage.Value, ipSrcImageMask.Value), 'ipSrcImageMask must have the same size as ipSrcImage');
+END_IF
+Check.IsTrue(ipRefKeyPoints.IsValid, 'ipRefKeyPoints must contain a container');
+Check.IsTrue(ipRefDescriptors.IsValid, 'ipRefDescriptors must contain an image');
+Check.IsTrue(nRefImageWidth.Value > 0, 'nRefImageWidth must be greater than 0');
+Check.IsTrue(nRefImageHeight.Value > 0, 'nRefImageHeight must be greater than 0');
+Check.IsTrue((fMaxDist.Value = -1.0) OR (fMaxDist.Value >= 0.0), 'fMaxDist must be -1 to disable the filter, or at least 0');
+Check.IsTrue((fMaxKnnRatio.Value = -1.0) OR
+             ((fMaxKnnRatio.Value >= 0.0) AND (fMaxKnnRatio.Value <= 1.0)), 'fMaxKnnRatio must be -1 to disable the filter, or between 0 and 1');
+Check.IsTrue((eNormType.Value = ETcVnNormalizationType.TCVN_NT_L1) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_L2) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_L2SQR) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_HAMMING) OR
+             (eNormType.Value = ETcVnNormalizationType.TCVN_NT_HAMMING2), 'Unsupported eNormType');
+IF ((stAkazeParams.Value.eDescrType = ETcVnFeatureDescriptorTypeAKAZE.TCVN_FDT_AKAZE_MLDB) OR
+    (stAkazeParams.Value.eDescrType = ETcVnFeatureDescriptorTypeAKAZE.TCVN_FDT_AKAZE_MLDB_UPRIGHT)) THEN
+    Check.IsTrue(stAkazeParams.Value.nDescrChannels = 3, 'nDescrChannels must be 3 when using AKAZE_MLDB');
+END_IF
+Check.IsTrue((eAlgorithm.Value = ETcVnEstimationAlgorithm.TCVN_EA_DEFAULT) OR
+             (eAlgorithm.Value = ETcVnEstimationAlgorithm.TCVN_EA_LMEDS) OR
+             (eAlgorithm.Value = ETcVnEstimationAlgorithm.TCVN_EA_RANSAC) OR
+             (eAlgorithm.Value = ETcVnEstimationAlgorithm.TCVN_EA_RHO), 'Unsupported eAlgorithm');
+// fReprojThreshold is only used by RANSAC and RHO.
+Check.IsTrue(((eAlgorithm.Value <> ETcVnEstimationAlgorithm.TCVN_EA_RANSAC) AND
+              (eAlgorithm.Value <> ETcVnEstimationAlgorithm.TCVN_EA_RHO)) OR
+             (fReprojThreshold.Value > 0.0), 'fReprojThreshold must be greater than 0 for RANSAC and RHO');
+Check.IsTrue(nMaxIterations.Value > 0, 'nMaxIterations must be greater than 0');
+Check.IsTrue((fConfidence.Value > 0.0) AND (fConfidence.Value < 1.0), 'fConfidence must be between 0 and 1');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

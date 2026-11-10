@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_ConvertDataLayout" Id="{6df592f4-414e-42ca-bfec-c3d85275f074}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ConvertDataLayout EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    nSrcDataLayout : _ULINT(ETcVnDataLayout.TCVN_DL_DEFAULT);
+    nDestDataLayout : _ULINT(ETcVnDataLayout.TCVN_DL_3D_CHW);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{b4d7e482-a8e0-4bb3-841b-4864528fdb6f}" />
+    <Method Name="Clone" Id="{438af4f9-1988-4d80-9edf-2e61d972ce19}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_ConvertDataLayout;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ConvertDataLayout);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{9887a487-9c66-4483-8939-22e2a728266b}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('nSrcDataLayout', nSrcDataLayout);
+AddParameter('nDestDataLayout', nDestDataLayout);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{33c2ec74-8c97-4763-8050-3cb08a913c21}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ConvertDataLayout(
+    ipSrcImage := ipSrcImage.Value,
+    ipDestImage := ipDestImage.Value,
+    nSrcDataLayout := nSrcDataLayout.Value,
+    nDestDataLayout := nDestDataLayout.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{9cded2d8-3487-4ba3-b139-3149b2ef314d}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue((nDestDataLayout.Value <> 0) AND (nDestDataLayout.Value <> ETcVnDataLayout.TCVN_DL_DEFAULT), 'nDestDataLayout must not be 0 or TCVN_DL_DEFAULT');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

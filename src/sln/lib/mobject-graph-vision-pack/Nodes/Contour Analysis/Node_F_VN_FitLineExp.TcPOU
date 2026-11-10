@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Node_F_VN_FitLineExp" Id="{42f001f2-96ce-07c1-3b44-7ff1b38a7729}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -8,16 +8,16 @@ FUNCTION_BLOCK Node_F_VN_FitLineExp EXTENDS VisionNode
 VAR
     ipPointSet : _ITcVnContainer;
     aFitLine : _TcVnVector4_LREAL;
-	eDistanceType : ETcVnDistanceType;
-    fParam : LREAL;
-    fEpsRadius : LREAL;
-    fEpsAngle : LREAL;
+	eDistanceType : _ETcVnDistanceType(ETcVnDistanceType.TCVN_DT_HUBER);
+    fParam : _LREAL(0);
+    fEpsRadius : _LREAL(0.01);
+    fEpsAngle : _LREAL(0.01);
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[here]]></ST>
+      <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Constructor" Id="{eded6123-f78e-0bb7-1e67-b71681141b36}" />
     <Method Name="Clone" Id="{4be168ba-c9d3-032b-1d8b-ebcf4536b7a7}">
@@ -40,9 +40,12 @@ END_VAR
       <Implementation>
         <ST><![CDATA[AddInput('ipPointSet', ipPointSet);
 AddInput('hrPrev', hrPrev);
+AddParameter('eDistanceType',eDistanceType);
+AddParameter('fParam',fParam);
+AddParameter('fEpsRadius',fEpsRadius);
+AddParameter('fEpsAngle',fEpsAngle);
 AddOutput('aFitLine', aFitLine);
-AddOutput('hresult',hresult);
-]]></ST>
+AddOutput('hresult',hresult);]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{6257a886-5f31-04c4-1bcb-e2559a798035}">
@@ -52,8 +55,11 @@ AddOutput('hresult',hresult);
         <ST><![CDATA[hresult.Value := F_VN_FitLineExp(
 	ipPointSet := ipPointSet.Value,
     aFitLine := aFitLine.Value,
-	hrPrev:= hrPrev.Value);
-]]></ST>
+	eDistanceType := eDistanceType.Value,
+	fParam := fParam.Value,
+	fEpsRadius := fEpsRadius.Value,
+	fEpsAngle := fEpsAngle.Value,
+	hrPrev:= hrPrev.Value);]]></ST>
       </Implementation>
     </Method>
     <Method Name="PreExecutionCheck" Id="{91bd6219-cebf-0412-1a3d-3ca5af7c1c90}">
@@ -63,10 +69,37 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[Check.IsTrue(ipPointSet.IsValid, 'ipPointSet must be a valid container');
-Check.IsTrue((ipPointSet.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
-              ipPointSet.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL)),
-              'ipPointSet contains incorrect type');
-]]></ST>
+
+Check.IsTrue(
+    ipPointSet.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+    ipPointSet.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL),
+    'ipPointSet contains incorrect type'
+);
+
+Check.IsTrue(
+    (eDistanceType.Value = ETcVnDistanceType.TCVN_DT_L1) OR
+    (eDistanceType.Value = ETcVnDistanceType.TCVN_DT_L2) OR
+    (eDistanceType.Value = ETcVnDistanceType.TCVN_DT_L12) OR
+    (eDistanceType.Value = ETcVnDistanceType.TCVN_DT_FAIR) OR
+    (eDistanceType.Value = ETcVnDistanceType.TCVN_DT_WELSCH) OR
+    (eDistanceType.Value = ETcVnDistanceType.TCVN_DT_HUBER),
+    'eDistanceType is not supported'
+);
+
+Check.IsTrue(
+    fParam.Value >= 0.0,
+    'fParam must be greater than or equal to 0'
+);
+
+Check.IsTrue(
+    fEpsRadius.Value > 0.0,
+    'fEpsRadius must be greater than 0'
+);
+
+Check.IsTrue(
+    fEpsAngle.Value > 0.0,
+    'fEpsAngle must be greater than 0'
+);]]></ST>
       </Implementation>
     </Method>
   </POU>

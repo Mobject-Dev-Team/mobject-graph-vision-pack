@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_ReshapeImage" Id="{7b6180d5-e120-4fae-9d41-b75e99336d0c}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ReshapeImage EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    aNewShape : _TcVnArray33_UDINT;
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{a6cbb446-f233-4be4-ad67-a88d2891f0ed}" />
+    <Method Name="Clone" Id="{814c8aed-005a-470a-a7b7-0ab939f9b0f4}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_ReshapeImage;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ReshapeImage);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{07bb4bb8-e143-4f01-b0ec-f21c4b8903a9}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddParameter('aNewShape', aNewShape);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{dabfe9f2-900f-4049-9e40-d7ce007d4f44}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ReshapeImage(
+    ipSrcImage := ipSrcImage.Value,
+    ipDestImage := ipDestImage.Value,
+    aNewShape := aNewShape.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{f926223b-47ea-4bbd-9021-94136e2bcd00}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    i : UDINT;
+    zeroDimensions : UDINT;
+    dimensionCountIsValid : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must have 1 channel');
+
+dimensionCountIsValid := (aNewShape.Value[0] >= 1) AND (aNewShape.Value[0] <= 32);
+Check.IsTrue(dimensionCountIsValid, 'aNewShape[0] must give the number of dimensions (1 to 32)');
+IF dimensionCountIsValid THEN
+    FOR i := 1 TO aNewShape.Value[0] DO
+        IF aNewShape.Value[i] = 0 THEN
+            zeroDimensions := zeroDimensions + 1;
+        END_IF
+    END_FOR
+END_IF
+Check.IsTrue(zeroDimensions <= 1, 'Only one dimension of aNewShape may be 0');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="_ETcVnJpegSampling" Id="{d0216769-5d65-48f3-bcfa-5f1e9a1e68eb}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnJpegSampling EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnJpegSampling;
+	activeData : REFERENCE TO ETcVnJpegSampling;
+	enumBaseDatatype : _DINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{90cdae18-1153-4857-8352-ca324ababd21}">
+      <Folder Name="Protected" Id="{fa145706-a48f-458c-9162-5cc33676cb5e}" />
+    </Folder>
+    <Folder Name="Customize" Id="{019ec14b-6d12-4563-bf38-10fb702f6aae}">
+      <Folder Name="Constructor" Id="{19639b56-6054-4872-93bf-69107f46a7fe}" />
+      <Folder Name="Private" Id="{55f0db1c-5728-409d-b164-da86f8b25b2f}" />
+      <Folder Name="Protected" Id="{92ca1a85-4b4f-4b8a-97f2-896924e5ce6e}" />
+    </Folder>
+    <Method Name="AddLocalEnumeration" Id="{a6be9e3e-b1e8-4bd0-a851-9c4f0e55304d}" FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnJpegSampling;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{76bf1f96-c3b3-4ec3-84d9-747d05cea4c4}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{e2661fc9-f7a9-4398-97e8-d0a752f10040}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{cdcb9cdd-ad26-42c0-9a60-57468ecb5de0}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{84e226fc-6d94-4fdb-868a-53817a498444}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnJpegSampling;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnJpegSampling(InitialValue := Value));
+IF pClone = 0 THEN
+    RETURN;
+END_IF
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{94ec4e74-f5a2-43e8-8038-5fe312d49dc8}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnJpegSampling;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_JS_444', ETcVnJpegSampling.TCVN_JS_444);
+AddLocalEnumeration('TCVN_JS_440', ETcVnJpegSampling.TCVN_JS_440);
+AddLocalEnumeration('TCVN_JS_422', ETcVnJpegSampling.TCVN_JS_422);
+AddLocalEnumeration('TCVN_JS_420', ETcVnJpegSampling.TCVN_JS_420);
+AddLocalEnumeration('TCVN_JS_411', ETcVnJpegSampling.TCVN_JS_411);
+AddLocalEnumeration('TCVN_JS_410', ETcVnJpegSampling.TCVN_JS_410);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{0ff4902b-a186-4c55-91cd-4a3ade5dc9a8}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{2b8d286c-7af2-494f-b8bb-0ce4f54317a2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnJpegSampling';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{7563782f-65c9-4a7d-8289-14de6ed4b1be}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnJpegSampling;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{8741b726-1667-4e02-a482-d3ce5908de7b}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnJpegSampling;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{bdb2af3d-3fa7-4f5d-802f-5752ec02b737}" FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{bc7a79c4-c4c1-431a-a77b-2bb469374134}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{eb8f5725-3904-411c-a4bf-aed8dad625dd}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{314ae94d-8b2b-4efe-b096-3141170967c2}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO ETcVnJpegSampling;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{cc5b12cf-da7b-4735-b3d9-45464002c29c}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnJpegSampling]]></Declaration>
+      <Get Name="Get" Id="{09d94427-ac10-4857-8cbb-e79d84589768}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{e76c1643-8c0b-4edc-91c0-1a2ea463b368}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

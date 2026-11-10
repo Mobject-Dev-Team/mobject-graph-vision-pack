@@ -8,6 +8,7 @@ FUNCTION_BLOCK Node_F_VN_SortDetectedPatternPoints EXTENDS VisionNode
 VAR
 	ipImagePoints : _ITcVnContainer;
     ipPatternPoints : _ITcVnContainer;
+    ipSortedPoints : _ITcVnContainer;
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -35,8 +36,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddInput('ipImagePoints', ipImagePoints);
+AddInput('ipPatternPoints', ipPatternPoints);
 AddInput('hrPrev', hrPrev);
 AddOutput('ipPatternPoints', ipPatternPoints);
+AddOutput('ipSortedPoints', ipSortedPoints);
 AddOutput('hresult', hresult);
 ]]></ST>
       </Implementation>
@@ -44,10 +47,16 @@ AddOutput('hresult', hresult);
     <Method Name="OnExecute" Id="{fd8bba8c-3b46-0242-0abc-c98c03b55f69}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute]]></Declaration>
       <Implementation>
-        <ST><![CDATA[hresult.Value := F_VN_SortDetectedPatternPoints(
-	ipImagePoints := ipImagePoints.Value,
+        <ST><![CDATA[// The API sorts in place. Sort a copy so the upstream container is only read.
+hresult.Value := F_VN_CopyContainer(
+    ipSrcContainer := ipImagePoints.Value,
+    ipDestContainer := ipSortedPoints.Value,
+    hrPrev := hrPrev.Value);
+
+hresult.Value := F_VN_SortDetectedPatternPoints(
+	ipImagePoints := ipSortedPoints.Value,
 	ipPatternPoints := ipPatternPoints.Value,
-	hrPrev := hrPrev.Value);
+	hrPrev := hresult.Value);
 ]]></ST>
       </Implementation>
     </Method>
@@ -57,9 +66,12 @@ VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Check.IsTrue(ipPatternPoints.IsValid, 'ipPatternPoints must be a valid container');
-Check.IsTrue(ipPatternPoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL), 'ipPatternPoints contains incorrect type');
-         ]]></ST>
+        <ST><![CDATA[Check.IsTrue(ipImagePoints.IsValid, 'ipImagePoints must be a valid container');
+Check.IsTrue(ipImagePoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL), 'ipImagePoints contains incorrect type');
+Check.IsTrue(ipPatternPoints.IsValid, 'ipPatternPoints must be a valid container');
+Check.IsTrue(ipPatternPoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint3_REAL), 'ipPatternPoints contains incorrect type');
+Check.IsTrue(ContainersHaveMatchingNumberOfElements(ipImagePoints.Value, ipPatternPoints.Value), 'ipImagePoints must contain one point per pattern point');
+]]></ST>
       </Implementation>
     </Method>
   </POU>

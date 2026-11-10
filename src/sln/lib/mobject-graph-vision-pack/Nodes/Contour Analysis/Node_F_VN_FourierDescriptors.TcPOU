@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_FourierDescriptors" Id="{5d143326-45b7-44a8-a2db-5b5f04fa43c8}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_FourierDescriptors EXTENDS VisionNode
+VAR
+    ipContour : _ITcVnContainer;
+    ipDescriptors : _ITcVnContainer;
+    nDescriptors : _DINT(-1);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{4da0c4b4-f396-4d6e-8eb0-d3479b3ac244}" />
+    <Method Name="Clone" Id="{698fa930-0263-4721-9a49-8086ff181a96}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_FourierDescriptors;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_FourierDescriptors);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{90eaf1fc-3362-4350-a75a-a7b9073dee0c}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipContour', ipContour);
+AddParameter('nDescriptors', nDescriptors);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDescriptors', ipDescriptors);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{8f4a6ca5-f9ee-4e08-9805-e36023700558}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_FourierDescriptors(
+    ipContour := ipContour.Value,
+    ipDescriptors := ipDescriptors.Value,
+    nDescriptors := nDescriptors.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{862eb760-6a85-4a90-a293-bd12e827f498}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipContour.IsValid, 'ipContour must be a valid container');
+Check.IsTrue((ipContour.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipContour.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL) OR
+              ipContour.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_LREAL)),
+              'ipContour contains incorrect type');
+Check.IsTrue((nDescriptors.Value = -1) OR (nDescriptors.Value > 0), 'nDescriptors must be greater than 0, or -1 for all descriptors');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

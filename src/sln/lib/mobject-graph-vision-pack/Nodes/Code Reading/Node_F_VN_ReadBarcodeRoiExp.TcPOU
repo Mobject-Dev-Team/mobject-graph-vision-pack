@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_ReadBarcodeRoiExp" Id="{38ce484e-50f3-492d-9a78-c4d47a144fc3}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ReadBarcodeRoiExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDecodedData : _ITcVnContainer;
+    eBarcodeType : _ETcVnBarcodeType(ETcVnBarcodeType.TCVN_BT_CODE128);
+    eSearchDirection : _ETcVnBarcodeSearchDirection(ETcVnBarcodeSearchDirection.TCVN_BSD_ANY);
+    ipContour : _ITcVnContainer;
+    nMaxScans : _DINT(30);
+    hrPrev : _HRESULT(S_OK);
+    fAngleDeg : _REAL(0);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{7f8e22e0-f1b5-417d-bd99-0347fd4f76a8}" />
+    <Method Name="Clone" Id="{e3b53e70-9bf0-465b-b182-cf02d97ef7df}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_ReadBarcodeRoiExp;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ReadBarcodeRoiExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{d8498409-1350-4112-befb-b462027a58bc}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddOutput('ipDecodedData', ipDecodedData);
+AddParameter('eBarcodeType', eBarcodeType);
+AddParameter('eSearchDirection', eSearchDirection);
+AddOutput('ipContour', ipContour);
+AddParameter('nMaxScans', nMaxScans);
+AddInput('hrPrev', hrPrev);
+AddOutput('fAngleDeg', fAngleDeg);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{2881518c-7243-41db-8774-67e50dcefdd2}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    angleDeg : REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ReadBarcodeRoiExp(
+    ipSrcImage := ipSrcImage.Value,
+    ipDecodedData := ipDecodedData.Value,
+    eBarcodeType := eBarcodeType.Value,
+    eSearchDirection := eSearchDirection.Value,
+    ipContour := ipContour.Value,
+    nMaxScans := nMaxScans.Value,
+    hrPrev := hrPrev.Value,
+    fAngleDeg => angleDeg);
+
+fAngleDeg.Value := angleDeg;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{5cb8355d-58e2-4abc-807b-539f30b6f595}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+Check.IsTrue((eBarcodeType.Value = ETcVnBarcodeType.TCVN_BT_CODE39) OR
+             (eBarcodeType.Value = ETcVnBarcodeType.TCVN_BT_CODE128) OR
+             (eBarcodeType.Value = ETcVnBarcodeType.TCVN_BT_EAN8) OR
+             (eBarcodeType.Value = ETcVnBarcodeType.TCVN_BT_EAN13) OR
+             (eBarcodeType.Value = ETcVnBarcodeType.TCVN_BT_ITF) OR
+             (eBarcodeType.Value = ETcVnBarcodeType.TCVN_BT_UPCA) OR
+             (eBarcodeType.Value = ETcVnBarcodeType.TCVN_BT_UPCE), 'eBarcodeType must be one of CODE39, CODE128, EAN8, EAN13, ITF, UPCA or UPCE');
+Check.IsTrue((eSearchDirection.Value = ETcVnBarcodeSearchDirection.TCVN_BSD_ANY) OR
+             (eSearchDirection.Value = ETcVnBarcodeSearchDirection.TCVN_BSD_HORIZONTAL) OR
+             (eSearchDirection.Value = ETcVnBarcodeSearchDirection.TCVN_BSD_VERTICAL), 'Unsupported eSearchDirection');
+Check.IsTrue(nMaxScans.Value > 0, 'nMaxScans must be greater than 0');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

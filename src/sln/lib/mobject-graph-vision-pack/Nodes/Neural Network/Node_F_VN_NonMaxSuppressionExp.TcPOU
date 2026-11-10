@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_NonMaxSuppressionExp" Id="{2d280487-488b-4251-8f28-57524dbbb349}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_NonMaxSuppressionExp EXTENDS VisionNode
+VAR
+    ipBoundingBoxes : _ITcVnContainer;
+    ipScores : _ITcVnContainer;
+    ipDestIndcies : _ITcVnContainer;
+    fScoreThreshold : _REAL(0.5);
+    fOverlapThreshold : _REAL(0.5);
+    ipClassIndcies : _ITcVnContainer;
+    fEta : _REAL(1.0);
+    nTopK : _DINT(0);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{4115bcdd-2aaf-4ce0-b155-4e5e5416e10f}" />
+    <Method Name="Clone" Id="{e46ca02d-1ac2-4b85-99d2-754f5233a232}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_NonMaxSuppressionExp;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_NonMaxSuppressionExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{5a9bf726-8b95-4082-99d4-d7cc8af03c5b}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipBoundingBoxes', ipBoundingBoxes);
+AddInput('ipScores', ipScores);
+AddInput('ipClassIndcies', ipClassIndcies);
+AddParameter('fScoreThreshold', fScoreThreshold);
+AddParameter('fOverlapThreshold', fOverlapThreshold);
+AddParameter('fEta', fEta);
+AddParameter('nTopK', nTopK);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestIndcies', ipDestIndcies);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{30c529f6-600a-4da5-9f6c-49bd28a399f6}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_NonMaxSuppressionExp(
+    ipBoundingBoxes := ipBoundingBoxes.Value,
+    ipScores := ipScores.Value,
+    ipDestIndcies := ipDestIndcies.Value,
+    fScoreThreshold := fScoreThreshold.Value,
+    fOverlapThreshold := fOverlapThreshold.Value,
+    ipClassIndcies := ipClassIndcies.Value,
+    fEta := fEta.Value,
+    nTopK := nTopK.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{20625e58-9dc4-48f4-9671-8184b8ada9c3}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipBoundingBoxes.IsValid, 'ipBoundingBoxes must be a valid container');
+Check.IsTrue(ipBoundingBoxes.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnRectangle_DINT), 'ipBoundingBoxes contains incorrect type');
+Check.IsTrue(ipScores.IsValid, 'ipScores must be a valid container');
+Check.IsTrue(ipScores.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_REAL), 'ipScores contains incorrect type');
+Check.IsTrue(ContainersHaveMatchingNumberOfElements(ipBoundingBoxes.Value, ipScores.Value), 'ipScores must contain one score per bounding box');
+Check.IsTrue((fScoreThreshold.Value >= 0) AND (fScoreThreshold.Value <= 1), 'fScoreThreshold must be between 0 and 1');
+Check.IsTrue((fOverlapThreshold.Value >= 0) AND (fOverlapThreshold.Value <= 1), 'fOverlapThreshold must be between 0 and 1');
+IF ipClassIndcies.Value <> 0 THEN
+    Check.IsTrue(ipClassIndcies.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_DINT), 'ipClassIndcies contains incorrect type');
+    Check.IsTrue(ContainersHaveMatchingNumberOfElements(ipBoundingBoxes.Value, ipClassIndcies.Value), 'ipClassIndcies must contain one class index per bounding box when connected');
+END_IF
+Check.IsTrue((fEta.Value >= 0) AND (fEta.Value <= 1), 'fEta must be between 0 and 1');
+Check.IsTrue(nTopK.Value >= 0, 'nTopK must be greater than or equal to 0');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="IsRemapMapPairValid" Id="{26ea1ff9-b274-4700-9cd0-f6f97505fc03}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION IsRemapMapPairValid : BOOL
+VAR_INPUT
+    Map1 : ITcVnImage;
+    Map2 : ITcVnImage;
+END_VAR
+VAR
+    format1 : TcVnPixelFormat;
+    format2 : TcVnPixelFormat;
+    map1IsReal : BOOL;
+    map1IsInt : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// The map pair determines the destination size; it need not match the source image size.
+IF NOT IsValidImage(Map1) THEN
+    RETURN;
+END_IF
+IF FAILED(Map1.GetPixelFormat(format1)) THEN
+    RETURN;
+END_IF
+map1IsReal := ImageHasElementType(Map1, ETcVnElementType.TCVN_ET_REAL);
+map1IsInt := ImageHasElementType(Map1, ETcVnElementType.TCVN_ET_INT);
+
+IF Map2 = 0 THEN
+    // Interleaved floating-point coordinates, or rounded fixed-point coordinates.
+    IsRemapMapPairValid := (format1.nChannels = 2) AND (map1IsReal OR map1IsInt);
+    RETURN;
+END_IF
+IF FAILED(Map2.GetPixelFormat(format2)) THEN
+    RETURN;
+END_IF
+IF NOT IsImage1SizeEqualToImage2Size(Map1, Map2) THEN
+    RETURN;
+END_IF
+IF format2.nChannels <> 1 THEN
+    RETURN;
+END_IF
+// Separate floating-point X/Y maps, or fixed-point coordinates plus interpolation coefficients.
+IsRemapMapPairValid := ((format1.nChannels = 1) AND map1IsReal AND
+                       ImageHasElementType(Map2, ETcVnElementType.TCVN_ET_REAL)) OR
+                      ((format1.nChannels = 2) AND map1IsInt AND
+                       ImageHasElementType(Map2, ETcVnElementType.TCVN_ET_UINT));]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

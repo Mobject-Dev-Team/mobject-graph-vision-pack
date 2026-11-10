@@ -1,0 +1,888 @@
+# TwinCAT Vision 5.10.2 coverage and implementation plan
+
+Initially reviewed 8 September 2026 against repository commit `e46b70f` and the supplied Tc3 Vision API 5.10.2.0 export, dated 26 June 2026. The export is a local reference named `Tc3_Vision_Api_5.10.2.html`; it is deliberately ignored by Git and must never be committed or pushed.
+
+The initial scope was **225 new function nodes, completion of one disabled function node, 15 new named value datatype wrappers, and updates to existing wrappers**. There is also a substantial interface and stateful function-block backlog. Implement the foundations and repairs first, then deliver related node families in buildable batches.
+
+These are gaps between this project and the supplied API, **not a list of features introduced in 5.10.2**. The older complete API export is not present, and the library's wildcard reference does not prove which Vision PLC library was last used to compile it.
+
+## Current working baseline
+
+Reviewed commit `604c579` (`fix nodes`) before starting the third batch. Both PLC projects now explicitly resolve Vision to **5.10.3.0**, overriding their earlier 5.10.2.0 default. That commit also updated the distributed `.library` and added the 5.10.3.0 runtime repository. Preserve this baseline; the 5.10.2 HTML remains the inventory reference, not the selected build version.
+
+The commit supplies initial values when constructing the GVCP address/value wrappers, including their struct members and datatype-pack prototypes. New code must supply required `FB_init` arguments in both declarations and `__NEW` expressions. It also corrects the merge option to `TCVN_MRO_UPRIGHT_BOUNDING_RECT` and disables `TCVN_PPM_MONO14P`. The checked-in 5.10.3.0 header confirms the merge-option spelling and does not define the MONO14P option. Preserve these corrections rather than reintroducing the names from the HTML export.
+
+The raw 5.10.2 audit consequently reports two enum-label differences: the old merge-option spelling and MONO14P. These are known reference/build-version differences, recorded here rather than hidden from the inventory. Other new differences still require review.
+
+**Tests are deferred to a separate branch at the user's request.** Commit `604c579` removed both newly added TcUnit suites and their project/startup entries. Do not restore those suites or add tests during the current implementation batches. The test recommendations below remain the backlog for that later branch. Continue source/API, XML, registration, and project-reference checks here; those checks do not replace TwinCAT compilation or runtime validation.
+
+## Implementation progress — first batch
+
+The following source changes are implemented; TwinCAT compilation and runtime acceptance remain pending:
+
+- Added and registered all 15 named value datatype wrappers, including documented ROI/Walsh defaults, nested member references, and clones that copy the active value.
+- Added the 42 missing enum values. Corrected the Huber enum and BRISK member labels while retaining deserialization of their legacy names.
+- Exposed the triangle `fArea` output. A skipped or failed call preserves the last successful area.
+- Added `Node_F_VN_SalientFeatures`, `Node_F_VN_FindRois`, and `Node_F_VN_MergeRegions` under `Vision/Image Analysis/Object Detection`, including ports, parameters, cloning, and pre-execution checks.
+- Set the Vision default resolution to `5.10.2.0` in both PLC projects. Aligned the test project with core `0.10.0`, graph `0.18.0`, and vision pack `0.11.0`.
+- Initially added two TcUnit suites covering datatype discovery, serialization and legacy names, numeric widths, nested references, defaults, clone independence, triangle area/failure chaining, region merging, and salient-feature/ROI processing. These suites were subsequently removed in `604c579`; coverage is deferred to the later test branch.
+- Added a repository ignore rule for the local HTML export and `--api PATH` support in the audit tool. Removing the local reference does not remove the saved inventories or affect the PLC sources.
+
+The first batch reached 873 registered nodes, including 816 API function nodes, and 185 registered datatypes. All 162 exported named value types have source wrappers; 161 are registered and `_TcVnMatrix` remains disabled. Interface and stateful-function-block work remains as listed below.
+
+For the later test branch, use the current Vision `5.10.3.0` resolution, build and install the modified `0.11.0` library, then rebuild the test PLC. An older installed `0.11.0` binary is not sufficient. The user updated the root `.library` and runtime repository in `604c579`; subsequent source additions still need a fresh build. No TwinCAT build or runtime execution has been performed in this Linux workspace.
+
+## Implementation progress — second batch
+
+Added eight function nodes with compile entries, factory registrations, cloning, documented expert defaults, and pre-execution checks:
+
+| Graph category under `Vision` | Added API functions |
+| --- | --- |
+| Image Color and Contrast Processing | `F_VN_InvertImageColorExp`, `F_VN_NormalizeImageExp` |
+| Image Analysis/Object Detection | `F_VN_MatchTemplateExp`, `F_VN_MatchTemplateAndEvaluateExp` |
+| Keypoint Features | `F_VN_MatchDescriptorsBFExp`, `F_VN_MatchDescriptorsKnnBFExp` |
+| Contour Analysis | `F_VN_MatchContours`, `F_VN_MatchContoursExp` |
+
+Optional masks are exposed as image inputs and accept an unconnected value. Template evaluation exposes both matching positions and scores; its threshold is restricted to 0–1 only for normalized methods. Template checks distinguish USINT/REAL element types and check template/mask dimensions and formats. Descriptor nodes check matching descriptor formats and lengths, supported norms, and positive `nK`; KNN starts at 2 neighbors. Contour matching exposes scalar dissimilarity and the expert weighting factors.
+
+Initially extended the node TcUnit suite with four tests covering all eight nodes: custom 12-bit inversion and failure chaining; normalization range, destination type, and mask behavior; template result dimensions/scores and invalid threshold/scale/mask checks; descriptor self-matches and ordered neighbors; and contour translation invariance versus weighted position differences. These tests were **not executed** here and were subsequently removed in `604c579`. Retain these scenarios for the later test branch. The matching fixtures require the TC3 Vision Matching licence, in addition to the Base licence used by the image fixtures.
+
+The second batch reached **881 registered nodes**, including **824 API function nodes**, and **185 registered datatypes**, with **214 missing function nodes** plus the disabled matrix-multiplication node. Its audit originally reported no existing-wrapper argument or enum/member-label gaps; the subsequent 5.10.3 corrections introduce the two known differences described above.
+
+`CustomFilter`, `CustomFilterExp`, `SeparableCustomFilter`, and `SeparableCustomFilterExp` require `TcVnMatrix`. Their implementation is deferred until phase 2 provides a usable matrix wrapper and buffer lifetime handling. Other ordinary function batches using registered datatypes can proceed independently. TwinCAT build, TcUnit execution, and runtime validation remain required for both completed source batches.
+
+## Implementation progress — third batch
+
+Added ten function nodes using existing registered datatypes:
+
+| Graph category under `Vision` | Added API functions |
+| --- | --- |
+| Polarization | `F_VN_DemosaicPolarizedImage`, `F_VN_AngleAndDegreeOfLinearPolarization`, `F_VN_PolarizedImageGlareReduction` |
+| Geometric and Coordinate Transformations | `F_VN_ConvertCartesianToPolarAngleImage`, `F_VN_ConvertCartesianToPolarAngleImageExp`, `F_VN_ConvertCartesianToPolarImages`, `F_VN_ConvertCartesianToPolarImagesExp`, `F_VN_ConvertCartesianToPolarMagnitudeImage`, `F_VN_ConvertPolarToCartesianImages`, `F_VN_ConvertPolarToCartesianImagesExp` |
+
+All ten have explicit native argument wiring, graph ports and parameters, guarded node allocation, project compile entries, prototype registration, and pre-execution checks. Cartesian/polar image conversion requires matching image dimensions and pixel formats with REAL or LREAL elements; expert variants expose `bAngleInDegrees`, defaulting to radians.
+
+Polarization demosaicing exposes all four angle images. It defaults to monochrome encoding and no interpolation (half-width/half-height output). Angle/degree calculation exposes both AoLP and DoLP, defaults to REAL output, and checks matching USINT/UINT component images with 1 or 3 channels. The demosaicing and AoLP/DoLP nodes reject using source images as their destinations. Glare reduction accepts the full documented fractional intensity-index range of 0–3 and starts at 0. These are node defaults for required API parameters, not new library defaults.
+
+The third batch reached **891 registered nodes**, including **834 API function nodes**, and **185 registered datatypes**, with **204 missing function nodes** plus the disabled matrix-multiplication node. Its audit retained exactly the two known enum-label differences from `604c579` and no function-argument gaps. The new signatures were checked against the 5.10.2 export and the corresponding 5.10.3.0 C++ header declarations; the non-expert conversion calls use the PLC convenience forms documented in the export.
+
+No test files were added or changed. Future test scenarios include Cartesian/polar round trips in radians and degrees, mismatched image formats/dimensions, known four-angle sensor patterns, AoLP/DoLP output ranges, fractional glare selection, output reuse, and `hrPrev` failure chaining. TwinCAT compilation and runtime validation of this batch remain pending. The distributed `.library` remains the version committed by the user, so it does not yet contain these ten new nodes.
+
+## Implementation progress — fourth batch
+
+Added eight nodes under `Vision/Geometric and Coordinate Transformations`:
+
+- `F_VN_ConvertMaps`
+- `F_VN_RemapImage` and `F_VN_RemapImageExp`
+- `F_VN_RemapImageToLogPolarSpaceExp` and `F_VN_RemapImageToLogPolarSpaceExp2`
+- `F_VN_RemapImageToPolarSpaceExp` and `F_VN_RemapImageToPolarSpaceExp2`
+- `F_VN_AlignRotatedImageRegionExp`
+
+Each node has registered graph ports and parameters, explicit native argument wiring, guarded allocation, pre-execution checks, and a project compile entry. Center points, rotated rectangles, and border-color vectors are graph inputs; scalar and enum controls are parameters.
+
+The shared `IsRemapMapPairValid` check supports the four documented combinations: two-channel REAL XY with no second map; separate single-channel REAL X/Y; two-channel INT XY with single-channel UINT coefficients; and two-channel INT XY with no second map. It checks paired map dimensions without requiring them to match the source image dimensions, since the map determines the remapped output size.
+
+Map conversion defaults to two-channel INT output with a second coefficient-map output. REAL output can use one or two channels. After a successful switch to a combined two-channel REAL map, the unused second output is cleared; failed or skipped calls preserve its previous value. Source/destination alias checks enforce the native restrictions.
+
+Custom remapping exposes relative coordinates, interpolation, border interpolation, and border color. It excludes area-based and exact interpolation, while polar/log-polar remapping and rotated-region alignment exclude only exact interpolation, matching the documented restrictions. Border controls exclude isolated modes. Polar/log-polar expert nodes preserve zero for automatic radius/scale selection; their `Exp2` variants preserve `-1` for source dimensions, `0` for automatic dimensions, and positive explicit dimensions. Rotated-region alignment checks positive region width and height.
+
+Current source coverage is **899 registered nodes**, including **842 API function nodes**, and **185 registered datatypes**. There are **196 missing function nodes** plus the disabled matrix-multiplication node. The audit retains only the two known enum-label differences from `604c579`. Native signatures were checked against the HTML export and corresponding 5.10.3.0 header declarations, with omitted convenience-form parameters accounted for.
+
+No tests were added or restored. The later test branch should cover all four map pairs, fixed/floating conversion, format changes and stale second outputs, identity and relative remapping, border modes/colors, automatic and explicit polar output sizes, rotated-region alignment, invalid map pairs, aliasing, and failure chaining. TwinCAT compilation and runtime validation remain pending. The distributed `.library` still comes from `604c579` and does not yet include the third or fourth source batch.
+
+## Implementation progress — fifth batch
+
+Added twelve nodes under `Vision/Measurement`, completing the expert variants of the
+edge-based metrology family:
+
+- `F_VN_LocateAxisAlignedEdges` and `F_VN_LocateAxisAlignedEdgesExp`
+- `F_VN_LocateCircularArcExp` and `F_VN_LocateCircularArcExp2`
+- `F_VN_LocateEdgeExp2` and `F_VN_LocateEdgesExp2`
+- `F_VN_LocateEllipseExp2`
+- `F_VN_MeasureAngleBetweenEdgesExp` and `F_VN_MeasureAngleBetweenEdgesExp2`
+- `F_VN_MeasureEdgeDistanceExp2`
+- `F_VN_MeasureMinEdgeDistanceExp` and `F_VN_MeasureMinEdgeDistanceExp2`
+
+All twelve use registered datatypes only, so no new ownership mechanism was needed. Each
+has graph ports and parameters, explicit native argument wiring, a project compile entry,
+prototype registration, and pre-execution checks. Three of them (`LocateCircularArcExp`,
+`MeasureAngleBetweenEdgesExp`, `MeasureMinEdgeDistanceExp`) replace commented-out
+placeholders that were already reserved in `VisionNodePack`.
+
+Images, points, and containers are graph ports; scalar and enum tuning values are
+parameters, matching the existing `Measurement` nodes. Result scalars (`fAvgStrength`,
+`fAngle`, `fAvgDistance`, `fMinDistance`) and the optional result containers
+(`ipEdgePoints`, `ipEdgeStrengths`, `ipContourPoints`, `ipDistances`, `ipDerivative`,
+`aPoint1`/`aPoint2`) are outputs; an unconnected optional container is passed as zero, which
+is what the API documents for "not required". `aCenter` is both an input estimate and an
+echoed output, following `F_VN_LocateCircularArc` and `F_VN_LocateEllipseExp`.
+
+Expert parameters take the documented API defaults: `nMaxThickness` 10,
+`nSubpixelsIterations` 10, `fApproxPrecision` 0.001, `fSearchLineDist` 1,
+`fRangeCutoffFactor` 0.135, `fAngleStepRad` 0.1, ellipse `nSearchLines` 92, and
+`TCVN_EDA_INTERPOLATION`. The required parameters that the export leaves without a default
+use node defaults consistent with the family, plus `nKernelSize` 5 and `TCVN_ES_ANY` for the
+axis-aligned locators. `fRangeCutoffFactor` is deliberately unchecked: the export documents
+negative values as valid and states no upper bound, so no invented range is enforced.
+
+Checks cover the single-channel source image, odd search-line counts and positive line
+distance, positive thickness and subpixel iterations, and a non-negative search gap.
+`fApproxPrecision` is only required to be positive for the two approximation algorithms,
+which is the only case the export says it is used in. The axis-aligned locators check that
+`aEndPoint` shares an axis with `aStartPoint`, that the kernel size is odd and at least 3,
+and that `fSigma` is non-negative — zero means the function derives it from `nKernelSize`.
+The circular-arc nodes reuse `F_VN_LocateCircularArc`'s search-window border checks and
+generalise its fixed `+- 0.4 rad` arc-validity check to `+- 4 * fAngleStepRad`, which is what
+the export actually documents. The ellipse node keeps the `>= 8` and multiple-of-4 search-line
+rule and additionally requires `fMinSearchRadius` to be below `fSearchRadius`. The angle
+nodes require at least three search lines, per their documented `(3, 5, 7, ...)` range.
+
+The fifth batch reached **911 registered nodes**, including **854 API function nodes**, and
+**185 registered datatypes**. There are **184 missing function nodes** plus the disabled
+matrix-multiplication node, and the Metrology 2D backlog drops from 27 to 15. The audit
+reports no omitted call parameters for any of the twelve and retains exactly the two known
+enum-label differences from `604c579`.
+
+No tests were added or restored. The later test branch should cover known-geometry fixtures
+for each locator, degrees versus radians for the angle nodes, the optional containers when
+connected and when left unconnected, `Exp` versus `Exp2` agreement at the default cutoff
+factor, the axis-alignment and kernel-size rejections, and `hrPrev` failure chaining.
+TwinCAT compilation and runtime validation remain pending. The distributed `.library` was
+rebuilt in `5669f4c` and does not yet include this batch.
+
+## Implementation progress — sixth batch
+
+Added eight nodes under `Vision/Keypoint Features`, closing the **TC3 Vision Matching**
+backlog to zero:
+
+- `F_VN_FindReferenceKeyPointsInImage` and `F_VN_FindReferenceKeyPointsInImageExp`
+- `F_VN_FindReferenceKeyPointsInImageAKAZE` and `F_VN_FindReferenceKeyPointsInImageAKAZEExp`
+- `F_VN_FindReferenceKeyPointsInImageBRISK` and `F_VN_FindReferenceKeyPointsInImageBRISKExp`
+- `F_VN_FindReferenceKeyPointsInImageORB` and `F_VN_FindReferenceKeyPointsInImageORBExp`
+
+All eight replace commented-out placeholders already reserved in `VisionNodePack`. They
+complete the pipeline started by the second batch: `MatchDescriptorsBFExp` and
+`MatchDescriptorsKnnBFExp` match descriptors, and these locate a known reference image in a
+source image and return the transformation that places it.
+
+The two generic variants take precomputed source keypoints and descriptors. The six detector
+variants take a source image and compute its keypoints internally; their `Exp` forms expose the
+detector's `TcVnParams*` struct and an optional source mask, following the registered
+`KeyPointsAndDescriptors*Exp` nodes, whose parameter checks are reused verbatim.
+
+`nRefImageWidth` and `nRefImageHeight` are graph **inputs**, not parameters. This departs from
+the `nWidth`/`nHeight` parameter precedent in `ResizeImage` and `SetRoi`, deliberately: there the
+dimensions are a target the user chooses, whereas here they must describe the reference image
+that produced `ipRefKeyPoints`. Wiring them from that image keeps the three consistent; a
+hard-coded parameter would silently go stale when the reference image changes.
+
+Expert parameters take the documented API defaults: `TCVN_NT_HAMMING`, `TCVN_EA_RANSAC`,
+`fReprojThreshold` 3, `nMaxIterations` 2000, and `fConfidence` 0.995. `fMaxDist` and
+`fMaxKnnRatio` have no documented default; both start at `-1`, the documented sentinel that
+disables that filter, so the node starts in an unfiltered state rather than one that silently
+discards matches.
+
+This is the first batch with a non-scalar output parameter. `aPerspectiveTransform`
+(`TcVnMatrix3x3_LREAL`) is read into a local of the native array type and assigned back through
+the wrapper's `Value` reference, extending the existing scalar `=> temp` pattern rather than
+introducing a new one. `nNumberOfGoodMatches` and `nNumberOfInliers` use the same pattern.
+
+Checks cover valid reference keypoints and descriptors, positive reference dimensions, the
+`-1`-or-in-range rule for both filters, and the descriptor-matching norms the family supports.
+The generic variants additionally require the source and reference descriptors to share a pixel
+format and descriptor length, reusing `ImagesHaveMatchingPixelFormats` and
+`IsImage1WidthEqualToImage2Width` as `MatchDescriptorsBFExp` does. `fReprojThreshold` is only
+required to be positive for RANSAC and RHO, the only algorithms the export says use it. A
+connected mask must match the source image size.
+
+The sixth batch reached **919 registered nodes**, including **862 API function nodes**, and
+**185 registered datatypes**, with **176 missing function nodes** plus the disabled
+matrix-multiplication node. TC3 Vision Matching no longer appears in the missing-by-licence
+breakdown. The audit reports no omitted call parameters and retains exactly the two known
+enum-label differences from `604c579`.
+
+No tests were added or restored. The later test branch should cover a reference image located in
+a transformed copy of itself for each detector, descriptor-compatibility rejection between
+mismatched detectors, both filter sentinels versus active thresholds, the estimation algorithms
+including the ones that ignore `fReprojThreshold`, the optional `ipGoodMatches`/`ipInlierMask`
+outputs when connected and unconnected, and `hrPrev` failure chaining. These fixtures need the
+TC3 Vision Matching licence. TwinCAT compilation and runtime validation remain pending; the
+distributed `.library` was rebuilt in `5669f4c` and contains neither this batch nor the fifth.
+
+## Implementation progress — seventh batch
+
+Added five nodes under `Vision/Code Reading`, closing the **TC3 Vision Code Reading**
+backlog to zero:
+
+- `F_VN_AnalyzeBarcodeWalsh` and `F_VN_DetectBarcodesWalsh`
+- `F_VN_ReadBarcodeRoi` and `F_VN_ReadBarcodeRoiExp`
+- `F_VN_ReadDataMatrixCodeRoiExp`
+
+Unlike the previous two batches these had no reserved placeholders in `VisionNodePack`, so the
+prototype declarations and registrations were inserted into the existing `Code Reading` block.
+
+The two Walsh nodes are a pair and are wired as one. `F_VN_AnalyzeBarcodeWalsh` takes an
+exemplary barcode image and a `TcVnParamsWalshBarcodeDetection` struct, and the call fills in the
+six members it can estimate while leaving the rest untouched. It is therefore exposed as a graph
+input that is echoed back as an output, the same InOut treatment `aCenter` gets in the arc and
+ellipse nodes — not as a pure result, which would discard the user's settings for the other six
+members. `F_VN_DetectBarcodesWalsh` takes that struct as a plain input. The intended graph is
+Analyze once against a representative code, then feed the tuned struct into Detect.
+
+The ROI readers restrict `eBarcodeType` to the seven types the export documents as supported
+(`CODE39`, `CODE128`, `EAN8`, `EAN13`, `ITF`, `UPCA`, `UPCE`) and default to `CODE128`. This is
+deliberately narrower than the registered `F_VN_ReadBarcode`, which defaults to `TCVN_BT_ANY`:
+the ROI variants' documentation lists a supported set that excludes `ANY`, `CODABAR`, `CODE93`
+and `CODE39EXTENDED`, so defaulting to `ANY` here would start the node in an unsupported state.
+
+`F_VN_ReadDataMatrixCodeRoiExp` follows the registered `F_VN_ReadDataMatrixCodeRoi` and
+`F_VN_ReadDotCodeRoiExp` for its module width, option bitmask and contour output. Its `eOptions`
+is a `_ULINT` initialised from `ETcVnDataMatrixOptions.TCVN_DMO_DEFAULT` and Walsh detection's is
+a `_UDINT` initialised from `ETcVnDetectBarcodesWalshOptions.TCVN_DBWO_HORIZONTAL`, matching how
+`F_VN_ReadDotCodeRoiExp` and `F_VN_ReadDataMatrixCodeExp2` carry their bitmask options. The
+export types both as plain integers rather than as the enum, and does not publish their numeric
+values, so the enum constant is used as the initialiser rather than a literal.
+
+`fAngleDeg` is written back unconditionally, matching `F_VN_ReadDotCodeRoiExp` and the
+`fAvgStrength` handling in the fifth batch. The registered `F_VN_ReadDataMatrixCodeRoi` instead
+guards the write with `SUCCEEDED`; that difference already exists in the pack and is left alone
+rather than changed under cover of this batch.
+
+Checks cover the documented 8-bit single-channel source images, the supported barcode types and
+search directions, a positive `nMaxScans`, `fModuleWidth` of at least 3, and the `0`-or-in-range
+rules for `nRows` (8–144) and `nCols` (10–144). The Walsh parameter struct is checked for a
+positive maximum bar distance, a coherent aspect-ratio range, a positive filter count and resize
+factor, and the two documented `-1` sentinels for `nMinArea` and `nChannelIndex`.
+
+The seventh batch reached **924 registered nodes**, including **867 API function nodes**, and
+**185 registered datatypes**, with **171 missing function nodes** plus the disabled
+matrix-multiplication node. Neither TC3 Vision Matching nor TC3 Vision Code Reading appears in
+the missing-by-licence breakdown any more; what remains is Vision Base (87), Metrology 2D (15),
+Machine Learning (58) and Neural Network (11). The audit reports no omitted call parameters and
+retains exactly the two known enum-label differences from `604c579`.
+
+No tests were added or restored. The later test branch should cover an Analyze-then-Detect round
+trip on a representative code, the Walsh direction options, each supported barcode type through
+both ROI readers, rejection of the unsupported types, the search directions and scan-line limit,
+Data Matrix size constraints against known codes, the optional contour outputs, and `hrPrev`
+failure chaining. These fixtures need the TC3 Vision Code Reading licence. TwinCAT compilation
+and runtime validation remain pending; the distributed `.library` was rebuilt in `5669f4c` and
+now lags three batches.
+
+## Implementation progress — eighth batch
+
+Added fifteen calibration and coordinate-transformation nodes. Before this batch the pack could
+calibrate (`F_VN_CalibrateCamera`, `F_VN_CalibrateCameraPlanar`) but offered no node that consumed
+the result, so a calibration ended the graph. These close that gap:
+
+- Under `Vision/Geometric and Coordinate Transformations/Calibration`:
+  `F_VN_TransformCoordinatesImageToWorld_Point`/`_Container`,
+  `F_VN_TransformCoordinatesWorldToImage_Point`/`_Container`,
+  `F_VN_TransformCoordinatesPlanar_Point`/`_Container`, `F_VN_ImagePointsWorldDistance`,
+  `F_VN_CalibrateCameraManually`/`Exp`, `F_VN_CalibrateCameraPlanarExp`,
+  `F_VN_DetectPatternPoints2`, `F_VN_DetectPatternPointsExp` and
+  `F_VN_SortAxisAlignedPatternPoints`.
+- Under `Vision/Geometric and Coordinate Transformations`: `F_VN_DecomposeHomography`/`Exp`.
+
+Thirteen filled reserved placeholders in `VisionNodePack`; `F_VN_DetectPatternPoints2` and
+`F_VN_SortAxisAlignedPatternPoints` had none and were inserted alphabetically in the
+Calibration block.
+
+Port directions follow the export comments, not the declared direction. The camera matrix,
+distortion coefficients, rotation, translation, homography and planar transformation matrix are
+`InOut` only to pass arrays by reference, so they are plain inputs. Every parameter documented as
+"Returns ..." is output-only, so the batch adds no write-through ports (still 11).
+`aMarkerImagePositions` in `F_VN_CalibrateCameraPlanarExp` is output-only for the same reason.
+`nSolutions`, the export's only true `Out` parameter here, is read through a local, matching
+`fAngleDeg` in the code-quality nodes.
+
+`F_VN_SortAxisAlignedPatternPoints` wraps an API that sorts its input container in place. The
+node copies the input with `F_VN_CopyContainer` into a container it owns, sorts that, and
+outputs it as `ipSortedPoints`, so the upstream container is only read. A node that changes
+data back up a link is harder to reason about, since every other consumer of that output sees
+the change in an order that depends on execution. The first version followed the
+`F_VN_ReverseContainer` idiom and sorted in place. That was changed before release, so no saved
+graph depends on it. The copy costs one container copy per execution, which is negligible for a
+calibration pattern. The write-through check could not catch this: the comment ("will be sorted
+by this function") does not start with "Returns". The in-place check below was added for it.
+
+`F_VN_DetectPatternPoints2` carries `nOptions` as a `_UDINT` initialised from
+`ETcVnDetectPatternPointsOptions.TCVN_DPPO_SYMMETRIC`, matching the bitmask convention from the
+seventh batch, so `DPPO_CLUSTERING` can still be OR-ed in. The documented rule that exactly one of
+`SYMMETRIC`/`ASYMMETRIC` is set is not checked: the export does not publish the enum's numeric
+values, and a check that assumes one of them is non-zero could be silently wrong.
+
+Checks guard against unconnected calibration data: the camera matrix must have positive `fx`
+and `fy`, and the homography/planar transformation matrix a non-zero `[2, 2]` element. Both are
+all zeros when the input is unconnected. Point containers are checked against the element types
+the export lists. The manual calibrations check both containers' nested types, that they hold
+the same non-zero number of views, and positive image dimensions. The documented per-view
+minimum of six points, and the per-view count match, are not checked because that needs
+iterating the inner containers. `F_VN_DecomposeHomographyExp` treats its verification points
+as optional but paired: both or neither must be connected. The optional inlier mask, if given,
+must be `SINT`/`USINT` with one entry per point. `F_VN_DetectPatternPointsExp` checks its edge
+parameters unconditionally rather than only when `bSubpixelAccuracy` is set, because the export
+does not say they are unused otherwise.
+
+The eighth batch reaches **939 registered nodes**, including **882 API function nodes**, with
+**156 missing function nodes** plus the disabled matrix-multiplication node. Metrology 2D drops
+from 15 to 5: the remaining `F_VN_CalibrateCameraExp`/`Exp2`/`Exp3` and
+`F_VN_CalibrateLinescanCamera`/`Exp` take `pSrcImages : PVOID` and wait for the phase-2 buffer
+work. Vision Base drops from 87 to 82. The audit reports no omitted call parameters and retains
+exactly the two known enum-label differences.
+
+The registered `F_VN_SortDetectedPatternPoints` appears broken and is left unchanged in this
+batch. It registers `ipPatternPoints` as an output only, although the export documents it as the
+reference pattern the call reads (`ContainerType_Vector_TcVnPoint3_REAL`). Its pre-execution
+check then requires that output port to be a valid `TcVnPoint2_REAL` container. As written the
+node can never be supplied its reference points.
+
+No tests were added or restored. The later test branch should cover an image-to-world and
+world-to-image round trip against `F_VN_CalibrateCamera` output on a known pattern, planar
+transformation with the matrix and its inverse, world distance against a measured fixture,
+manual calibration from known correspondences (both world coordinate systems), the symmetric and
+asymmetric `DetectPatternPoints2` grids with and without clustering, sorting of a shuffled axis-
+aligned pattern, homography decomposition with and without verification points, and `hrPrev`
+failure chaining. Most fixtures need the TC3 Vision Metrology 2D licence. TwinCAT compilation and
+runtime validation remain pending; the distributed `.library` was last rebuilt in `7d67de2` and
+does not contain this batch.
+
+### In-place input ports in the audit
+
+The write-through check covers parameters the call *returns* into. It cannot see the other way a
+node changes data back up a link: a parameter passed by plain interface pointer (direction `In`)
+that the call modifies, such as appending to, sorting or drawing into it. The export's wording
+cannot find these on its own. `F_VN_AddToContainerElements` calls its target "Container with
+DINT elements", and `F_VN_SetPixel` calls the image it writes into "Source image". So
+`IN_PLACE_FAMILIES` in `tools/audit_vision_api.py` lists the modifying families by name prefix
+and target parameter, with a comment-wording net (`IN_PLACE_WORDING`) for anything a later
+API adds. Today the net matches nothing the table doesn't already cover.
+
+The result is `port-in-place.csv`, counted in `summary.json` as `in_place_input_ports`. A
+per-function `in_place_params` column in `functions.csv` also lets a new batch see the
+issue before writing the node. For example, `SortContainer`, `EraseFromContainer`,
+`ReserveContainerMemory` and `MultiplyWithContainerElements*` in the next batch all modify
+their container.
+
+281 registered nodes are listed: 224 container edits (`AppendToContainer`,
+`InsertIntoContainer`, `SetAt`, `FillContainer`, `AddToContainerElements`, `ReverseContainer`),
+51 drawing/painting/pixel/ROI nodes, the three Hough transforms (documented "may be modified"),
+`SetPixel`, `ResetRoi` and `SortDetectedPatternPoints`. Most of the container and drawing nodes
+echo the port as an output, the same convention `F_VN_DrawCircle` uses. That makes the change
+visible downstream but still changes the upstream object. Like `port-write-through.csv`, this is
+a list to review rather than a defect list: drawing several shapes onto one image in sequence is
+a supported idiom. Changing any of these nodes to copy first is a behaviour change for saved
+graphs, unlike the unreleased sort above, and is out of scope here.
+
+### VAR_OUTPUT ports exported for the ST codegen pack
+
+A few API parameters are true `Out` parameters. A node binds them with `=>` and copies the value
+across from a local, as `nSolutions` does in the homography decomposition nodes. Generated ST must
+do the same. A blueprint exposes only the node's ports, so the ST codegen pack keeps a hand-written
+table of these, and that table had fallen behind: it listed 14 of the 48. The audit now writes
+`var-output-ports.csv` with the blueprint `graph_path`, port, API function, whether the port is
+registered as an output, and whether `OnExecute` binds it with `=>`. Its counts are in
+`summary.json` as `var_output_ports`. All 48 are output ports bound with `=>`. The
+`FindReferenceKeyPointsInImage*` nodes have three each, so one per node can't be assumed.
+The codegen pack's tests check its table against this file.
+
+### Supplied InOut parameters registered only as outputs
+
+The eighth batch's rule, that a reference-passed `InOut` is a plain input, was applied to the
+nodes it added but not to the older `F_VN_SolvePnP` and `F_VN_SolvePnPExp`. Those registered
+`aCameraMatrix` and `aDistortionCoefficients` with `AddOutput` only. A calibration result couldn't
+be wired in, so the call always ran on an all-zero camera matrix. The write-through check only
+looks at the opposite direction, a written parameter registered as an input, so it couldn't see
+this.
+
+`port-input-as-output.csv` lists `InOut` parameters that the call only reads, where the node
+registers the port only as an output. It is counted in `summary.json` as `input_as_output_ports`.
+Both checks rely on `written_by_call`, which originally recognised only "Returns ..." comments.
+It now also matches "Resulting ...", "Output parameter ..." and "... filled by this function".
+`WRITTEN_PARAMS` lists results that the wording can't identify. "Destination point" is a result
+in `WarpAffine_Point`, but "Destination points" is an input in `GetAffineTransformation`, and
+`DecomposeAffineTransformation`/`DecomposeHomography` only name their results. With the wider
+definition the write-through list is unchanged, at 11.
+
+The two SolvePnP nodes now take both values as inputs and echo them as outputs, the same as
+`aCenter` in the arc and ellipse nodes. Keeping the outputs means a saved graph that linked one
+of them still loads, and the intrinsics can be chained on to a coordinate transformation node.
+Both nodes now check for positive `fx`/`fy` and read the reference point count from
+`ipReferencePoints`, not `ipImagePoints`. The Exp node also checks that P3P, AP3P and
+IPPE_SQUARE get exactly 4 points. The list is now empty.
+
+## Implementation progress — ninth batch
+
+Added the 23 remaining Vision Base functions whose signatures need no new datatype, buffer or
+interface ownership work, released as 0.12.0 with three node fixes:
+
+- Under `Vision/Neural Network`: `F_VN_NonMaxSuppression`/`Exp`, `F_VN_ReshapeImage`,
+  `F_VN_ConvertDataLayout`.
+- Image operations: `F_VN_ApplyLut`, `F_VN_BlendImages`, `F_VN_FuseImagesArray`,
+  `F_VN_ReinterpretUnsupportedImage`, `F_VN_CopyIntoDisplayableImageExp`,
+  `F_VN_TransformIntoDisplayableImageExp2`.
+- Shape analysis: `F_VN_InnerCircle`/`Exp`, `F_VN_FourierDescriptors`, `F_VN_HoughLinesExp`,
+  `F_VN_GetAffineTransformation2DExp`.
+- Containers: `F_VN_ConvertContainerType`, `F_VN_SortContainer`/`Exp`, `F_VN_EraseFromContainer`,
+  `F_VN_MultiplyWithContainerElements1`–`4`.
+
+Ports follow the pack's convention: images, containers and `hrPrev` are inputs; scalars, enums,
+the destination type GUID, `aNewShape` and the `aValue` multipliers are parameters (a parameter
+can still be driven by a link). Sort, Erase and Multiply edit a copy, as `SortAxisAlignedPatternPoints`
+does, and output it as `ipSortedContainer` or `ipDestContainer`. `ReinterpretUnsupportedImage` acts
+on the connected image by design, and `HoughLinesExp` works in place like the other Hough nodes;
+both are counted in the in-place audit. `FuseImagesArray` exposes ten image inputs because no node
+produces `TcVnArray10_ITcVnImage`. `SortContainerExp` defaults `nLastIdx` to `16#FFFFFFFF` rather
+than the ULINT maximum, which a JSON number cannot carry exactly; the call crops it to the last
+element. `ConvertDataLayout` keeps its layouts as `ULINT` so custom layouts remain possible, the
+convention the seventh batch set for options masks. A new `GetContainerTypeDimensions` helper backs
+the element-index and dimension checks.
+
+Fixes: `F_VN_SortDetectedPatternPoints` now takes its reference pattern as an input and sorts a
+copy (closing the eighth-batch finding); `HomographyExp`'s confidence check always failed;
+`FilterGoodMatches`' knn-ratio check tested the wrong parameter.
+
+The batch reaches **905 API function nodes**, with **133 missing**: Vision Base 59, Metrology 2D 5,
+Machine Learning 58, Neural Network 11. Everything left in Vision Base needs the phase-2 buffer,
+iterator, callback or interface work, or the watchdog decision. This is the first batch built
+against a dev runtime: it compiled with 0 errors on TwinCAT 3.1.4026.27 and .28, loaded under
+GraphPlc on the dev UmRT, and all 23 nodes registered over `GetBlueprints`. Per-node runtime
+fixtures are still to be written.
+
+## About box release notes
+
+Copy this entry into the About box release-notes array. It lists the 54 new nodes implemented across all seven batches. Keep this entry updated as further nodes are implemented. `v1.26.0 beta` is a proposed version following the supplied `v1.25.0 beta` example; adjust the version and date to match the eventual release. This is a draft while the latest source additions await TwinCAT build and runtime validation.
+
+```javascript
+{
+  version: "v1.26.0 beta",
+  date: "8th September 2026",
+  nodes: [
+    {
+      name: "F_VN_SalientFeatures",
+      description: "Extract salient image features for region detection.",
+    },
+    {
+      name: "F_VN_FindRois",
+      description: "Find regions of interest in a feature image.",
+    },
+    {
+      name: "F_VN_MergeRegions",
+      description: "Merge overlapping or nearby rectangular regions.",
+    },
+    {
+      name: "F_VN_InvertImageColorExp",
+      description: "Invert image colors with a configurable maximum pixel value.",
+    },
+    {
+      name: "F_VN_NormalizeImageExp",
+      description: "Normalize image values with configurable range, output type, and optional mask.",
+    },
+    {
+      name: "F_VN_MatchTemplateExp",
+      description: "Match a template image using a selectable comparison method and optional mask.",
+    },
+    {
+      name: "F_VN_MatchTemplateAndEvaluateExp",
+      description: "Find template matches and return their positions and scores, with optional masking and scaling.",
+    },
+    {
+      name: "F_VN_MatchDescriptorsBFExp",
+      description: "Match descriptors using brute force with selectable distance norm, optional mask, and cross-checking.",
+    },
+    {
+      name: "F_VN_MatchDescriptorsKnnBFExp",
+      description: "Find the nearest descriptor matches with configurable neighbor count, distance norm, and optional mask.",
+    },
+    {
+      name: "F_VN_MatchContours",
+      description: "Compare contours using Hu moment invariants and return their dissimilarity.",
+    },
+    {
+      name: "F_VN_MatchContoursExp",
+      description: "Compare contours with additional weighting for area, position, and contour-count differences.",
+    },
+    {
+      name: "F_VN_DemosaicPolarizedImage",
+      description: "Separate a polarized sensor image into its 0, 45, 90, and 135 degree components.",
+    },
+    {
+      name: "F_VN_AngleAndDegreeOfLinearPolarization",
+      description: "Calculate angle and degree of linear polarization from four polarization component images.",
+    },
+    {
+      name: "F_VN_PolarizedImageGlareReduction",
+      description: "Reduce glare in polarized images using configurable intensity selection.",
+    },
+    {
+      name: "F_VN_ConvertCartesianToPolarAngleImage",
+      description: "Convert Cartesian coordinate images into an image of angles in radians.",
+    },
+    {
+      name: "F_VN_ConvertCartesianToPolarAngleImageExp",
+      description: "Convert Cartesian coordinate images into an image of angles in radians or degrees.",
+    },
+    {
+      name: "F_VN_ConvertCartesianToPolarImages",
+      description: "Convert Cartesian coordinate images into magnitude and angle images.",
+    },
+    {
+      name: "F_VN_ConvertCartesianToPolarImagesExp",
+      description: "Convert Cartesian coordinate images into magnitude and angle images with selectable angle units.",
+    },
+    {
+      name: "F_VN_ConvertCartesianToPolarMagnitudeImage",
+      description: "Calculate a magnitude image from Cartesian coordinate images.",
+    },
+    {
+      name: "F_VN_ConvertPolarToCartesianImages",
+      description: "Convert magnitude and angle images into Cartesian coordinate images.",
+    },
+    {
+      name: "F_VN_ConvertPolarToCartesianImagesExp",
+      description: "Convert magnitude and angle images into Cartesian coordinate images with selectable angle units.",
+    },
+    {
+      name: "F_VN_ConvertMaps",
+      description: "Convert coordinate maps between floating-point and fixed-point formats for image remapping.",
+    },
+    {
+      name: "F_VN_RemapImage",
+      description: "Transform an image using custom coordinate maps.",
+    },
+    {
+      name: "F_VN_RemapImageExp",
+      description: "Remap an image with relative-coordinate support and configurable interpolation and borders.",
+    },
+    {
+      name: "F_VN_RemapImageToLogPolarSpaceExp",
+      description: "Remap an image to log-polar space with configurable scale and interpolation.",
+    },
+    {
+      name: "F_VN_RemapImageToLogPolarSpaceExp2",
+      description: "Remap an image to log-polar space with configurable scale, interpolation, and output dimensions.",
+    },
+    {
+      name: "F_VN_RemapImageToPolarSpaceExp",
+      description: "Remap an image to polar space with configurable radius and interpolation.",
+    },
+    {
+      name: "F_VN_RemapImageToPolarSpaceExp2",
+      description: "Remap an image to polar space with configurable radius, interpolation, and output dimensions.",
+    },
+    {
+      name: "F_VN_AlignRotatedImageRegionExp",
+      description: "Align a rotated image region to the image axes with configurable interpolation and borders.",
+    },
+    {
+      name: "F_VN_LocateAxisAlignedEdges",
+      description: "Locate multiple axis-aligned edges inside a search window.",
+    },
+    {
+      name: "F_VN_LocateAxisAlignedEdgesExp",
+      description: "Locate multiple axis-aligned edges with a configurable sigma, individual edge strengths, and the derivative profile.",
+    },
+    {
+      name: "F_VN_LocateCircularArcExp",
+      description: "Locate a circular arc with configurable angle step, edge thickness, and subpixel algorithm.",
+    },
+    {
+      name: "F_VN_LocateCircularArcExp2",
+      description: "Locate a circular arc with the expert controls plus a configurable approximation range cutoff.",
+    },
+    {
+      name: "F_VN_LocateEdgeExp2",
+      description: "Locate the first edge in a search window with a configurable range cutoff and optional edge strengths.",
+    },
+    {
+      name: "F_VN_LocateEdgesExp2",
+      description: "Locate multiple edges in a search window with a configurable range cutoff and optional per-edge or averaged strengths.",
+    },
+    {
+      name: "F_VN_LocateEllipseExp2",
+      description: "Locate an ellipse with the expert controls plus a configurable approximation range cutoff.",
+    },
+    {
+      name: "F_VN_MeasureAngleBetweenEdgesExp",
+      description: "Measure the angle between two edges in radians or degrees, returning both sets of edge points.",
+    },
+    {
+      name: "F_VN_MeasureAngleBetweenEdgesExp2",
+      description: "Measure the angle between two edges with the expert controls plus a configurable approximation range cutoff.",
+    },
+    {
+      name: "F_VN_MeasureEdgeDistanceExp2",
+      description: "Measure the average distance between two parallel edges with a configurable approximation range cutoff.",
+    },
+    {
+      name: "F_VN_MeasureMinEdgeDistanceExp",
+      description: "Measure the minimum distance between two edges, returning the closest point on each.",
+    },
+    {
+      name: "F_VN_MeasureMinEdgeDistanceExp2",
+      description: "Measure the minimum distance between two edges with a configurable approximation range cutoff.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImage",
+      description: "Locate a reference image in a source image from precomputed keypoints and descriptors.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImageExp",
+      description: "Locate a reference image from precomputed keypoints, with a selectable estimation algorithm and optional match and inlier outputs.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImageAKAZE",
+      description: "Locate an AKAZE reference image in a source image using the default AKAZE parameters.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImageAKAZEExp",
+      description: "Locate an AKAZE reference image with configurable AKAZE, matching, and estimation settings and an optional mask.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImageBRISK",
+      description: "Locate a BRISK reference image in a source image using the default BRISK parameters.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImageBRISKExp",
+      description: "Locate a BRISK reference image with configurable BRISK, matching, and estimation settings and an optional mask.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImageORB",
+      description: "Locate an ORB reference image in a source image using the default ORB parameters.",
+    },
+    {
+      name: "F_VN_FindReferenceKeyPointsInImageORBExp",
+      description: "Locate an ORB reference image with configurable ORB, matching, and estimation settings and an optional mask.",
+    },
+    {
+      name: "F_VN_AnalyzeBarcodeWalsh",
+      description: "Estimate Walsh barcode detection parameters from an exemplary barcode image.",
+    },
+    {
+      name: "F_VN_DetectBarcodesWalsh",
+      description: "Detect barcodes using the Walsh transform and return their positions as rotated rectangles.",
+    },
+    {
+      name: "F_VN_ReadBarcodeRoi",
+      description: "Read a single 1D barcode from a region of interest and return its rotation angle.",
+    },
+    {
+      name: "F_VN_ReadBarcodeRoiExp",
+      description: "Read a 1D barcode from a region of interest with a configurable search direction, scan limit, and contour output.",
+    },
+    {
+      name: "F_VN_ReadDataMatrixCodeRoiExp",
+      description: "Read a Data Matrix code from a region of interest with configurable options, module size, and grid dimensions.",
+    },
+  ],
+},
+```
+
+## Initial coverage and complete inventories
+
+“Registered” means that the source exists, is enabled in the library `.plcproj`, and is registered in `VisionNodePack` or `VisionDatatypePack`. It does not certify runtime correctness or compatibility with an installed 5.10.2 runtime.
+
+| API surface | API entries | Registered | Existing but unavailable | No wrapper source |
+| --- | ---: | ---: | ---: | ---: |
+| `F_VN_*` functions | 1,039 | 813 | 1 excluded | 225 |
+| Aliases | 9 | 8 | 0 | 1 |
+| Named arrays | 29 | 29 | 0 | 0 |
+| Enums | 92 | 82 | 0 | 10 |
+| Structs | 32 | 27 | 1 excluded | 4 |
+| Interfaces | 113 | 3 | 1 unregistered | 109 |
+| Constants, exposed as nodes | 47 | 47 | 0 | 0 |
+| `FB_VN_*` function blocks | 25 | 0 | 1 excluded | 24 |
+
+The initial project had 870 registered nodes overall and 170 registered datatypes. Those totals also include graph helpers, colour constants, and backing array wrappers that are not separate entries in the API inventory. Do not add these totals to the API counts above.
+
+The accompanying files identify every symbol; they are the implementation checklist:
+
+- [All remaining missing function nodes](vision-api-5.10.2-audit/missing-function-nodes.md), grouped by the export's required licence.
+- [All 1,039 functions](vision-api-5.10.2-audit/functions.csv): status, proposed node name, existing graph path, signature, defaults, required types, missing types mentioned in parameter comments, pointer parameters, and existing helper call sites.
+- [All datatypes and constants](vision-api-5.10.2-audit/datatypes-and-constants.csv), plus [every enum value and struct member](vision-api-5.10.2-audit/datatype-members.csv).
+- [All interfaces](vision-api-5.10.2-audit/interfaces.csv): wrapper status, scope, inheritance description, and declared method signatures. Inherited methods belong to the base-interface entry.
+- [All function blocks](vision-api-5.10.2-audit/function-blocks.csv): status, cyclic input/output parameters, or method signatures for blocks exposing methods.
+- [Existing wrapper gaps](vision-api-5.10.2-audit/existing-wrapper-gaps.csv), [project registration](vision-api-5.10.2-audit/project-registration.csv), and [count summary](vision-api-5.10.2-audit/summary.json).
+- [Write-through input ports](vision-api-5.10.2-audit/port-write-through.csv): node input ports that the native call writes into. Connecting an input port aliases the upstream node's storage, so a written parameter registered with `AddInput` makes the call write its result into whichever node feeds that edge. Some are deliberate — writing into a supplied destination image is how `SetImageChannel` composes an image one channel at a time — so this is a list to review rather than a defect list. `result_reachable = NO` marks the stronger case where the node offers no output for that value at all.
+- [Input-as-output ports](vision-api-5.10.2-audit/port-input-as-output.csv): the reverse case. These are `InOut` parameters the call only reads, such as a camera matrix passed by reference, where the node registers the port only as an output, so the value can't be supplied. Every row is a defect.
+
+Regenerate these inventories with `python3 tools/audit_vision_api.py` while the ignored local export is present, or `python3 tools/audit_vision_api.py --api /path/to/Tc3_Vision_Api_5.10.2.html`. The script uses Python's standard library and only writes the audit directory. It reports a clear error if the local export has been removed; the saved inventories remain readable. The plan itself is maintained separately. Keep the generated CSV files together so source absence, build exclusion, and missing registration remain distinguishable.
+
+## Establish the version and test baseline first
+
+At the initial audit, the [library project](../src/sln/lib/mobject-graph-vision-pack/mobject-graph-vision-pack.plcproj) declared:
+
+- Project version `0.11.0`; TwinCAT `ProgramVersion` `3.1.4026.25`.
+- `mobject-core` `0.10.0`, `mobject-graph` `0.18.0`, and `mobject-graph-plc-pack` `0.19.0`.
+- `Tc3_Vision, *` as a placeholder reference.
+
+The [test PLC project](../src/sln/libTest/Main/Main.plcproj) initially referenced `mobject-core` `0.9.0` and the installed `mobject-graph-vision-pack` `0.10.0`; these references are now aligned as described above. The original checked-in [Vision header](<../src/sln/libTest/_Repository/Beckhoff Automation GmbH/Tc3_Vision/5.8.4.0/Tc3_Vision.h>) and runtime modules were version `5.8.4.0`. Commit `604c579` added the [5.10.3.0 header](<../src/sln/libTest/_Repository/Beckhoff Automation GmbH/Tc3_Vision/5.10.3.0/Tc3_Vision.h>) and matching runtime modules, and selected that version in both PLC projects.
+
+The original baseline checklist below is retained for the later validation branch; use the current 5.10.3.0 resolution described above:
+
+1. Establish a Windows TwinCAT build environment with the selected `Tc3_Vision` `5.10.3.0` PLC library and corresponding runtime components. Verify the required TwinCAT build and runtime licences there; the 5.10.2 HTML is a reference export, not an installable library.
+2. Preserve the pinned Vision resolution so builds do not silently select a different API. The current implementation targets 5.10.3.0; supporting older versions needs a separate compatibility build.
+3. Update the test project's references to match the library under development and ensure the test PLC actually loads the newly built library. Align `mobject-core`, and refresh the checked-in runtime dependencies using TwinCAT tooling.
+4. On the later test branch, build the solution and run the existing TcUnit suites before adding the comprehensive coverage. [MAIN](../src/sln/libTest/Main/POUs/MAIN.TcPOU) instantiates ten suites: seven enum suites, two interface suites, and one struct suite. There are no node-specific test suites in the checked-in test directory.
+
+Acceptance: both PLC projects build against the recorded versions, the test PLC demonstrably uses the development library, and baseline test results are recorded. The older test dependency must not be used to claim validation of new nodes.
+
+## Repair existing coverage
+
+These repairs are additional to the missing-source counts.
+
+| Existing implementation | Finding | Work required |
+| --- | --- | --- |
+| `Node_F_VN_MultiplyMatrices` and `_TcVnMatrix` | Both exist, are excluded from compilation, and are absent from pack registration. | Finish matrix buffer handling, validate shape and element type, enable both, and register them. Coordinate with the missing `F_VN_InitMatrixStruct` node. |
+| `Node_FB_VN_InitializeFunction` | Exists but is excluded and unregistered. `OnExecute` hardcodes `TCVN_IF_OCR` despite exposing `eFunction`; it omits timeout and busy/error outputs and collapses errors to `-1`. | Use `eFunction.Value`, expose `nTimeout`, `bBusy`, `bError`, and `nErrorId`, preserve useful failure information, and define execution across PLC cycles before enabling it. |
+| `_ITcVnBidirectionalIterator` | Compiled but not registered. | Review its copy/reference/release behavior and register it with the iterator family. |
+| `Node_F_VN_EnclosingTriangle` | Omits the API's `fArea : LREAL` output from the call and graph ports. | Add an output wrapper, capture `fArea =>` through an appropriate local value, and publish the result. |
+| `_ETcVnDistanceType` | Registers the label `TCVN_DT_HUBER ` with a trailing space. | Correct the label, considering compatibility with saved enum values. |
+| `_TcVnParamsBRISK` | Registers the member label `fPatternScale ` with a trailing space. | Correct the member name, considering compatibility with saved structured values. |
+
+Add **42 enum values across six existing wrappers**:
+
+| Wrapper | Missing values |
+| --- | --- |
+| `_ETcVnColorSpaceTransform` | 28 RGB/BGR/RGBA/BGRA to YUV 4:2:2 entries. The complete names are in `existing-wrapper-gaps.csv`. |
+| `_ETcVnInterpolationType` | `TCVN_IT_BILINEAR_EXACT`, `TCVN_IT_NEAREST_NEIGHBOR_EXACT` |
+| `_ETcVnOcrModelType` | `TCVN_OMT_CNN_NUMBERS_SC_LETTERS` |
+| `_ETcVnOcrOptions` | `TCVN_OO_NONE`, `TCVN_OO_NOVELTY_LEVEL1`, `TCVN_OO_NOVELTY_LEVEL2`, `TCVN_OO_NOVELTY_LEVEL3` |
+| `_ETcVnPixelPackMode` | `TCVN_PPM_MONO14P` |
+| `_ETcVnTimestamp` | `TCVN_TS_CAMERA`, `TCVN_TS_CUSTOM`, `TCVN_TS_GETCURRENTIMAGE`, `TCVN_TS_LAST_CHANGE`, `TCVN_TS_RECEPTION_FINISHED`, `TCVN_TS_RECEPTION_STARTED` |
+
+Seven backing arrays also exist and compile but are not registered directly: `_Array0to2OfTcVnPoint2_REAL`, `_Array0to32OfUDINT`, `_Array0to3OfSINT`, `_Array0to3OfTcVnPoint2_REAL`, `_Array0to3OfUINT`, `_Array0to3OfUSINT`, and `_Array0to9OfITcVnImage`. Their named Vision aliases **are registered**. Check whether standalone backing-array construction/deserialization needs direct registration; this is not seven missing named Vision arrays. Register them if that is the graph datatype pack's intended convention and add the corresponding construction test.
+
+`_ALIASTYP` and `_Array0to1OfARRAYTYP` are excluded templates. Keep them excluded; they are not missing API implementations.
+
+## Create the 15 missing named value datatype wrappers
+
+Use `_TypeName` wrappers around the native `Tc3_Vision` type; do not redefine Beckhoff's types. Each needs a `.TcPOU`, a project compile entry, and a declaration and registration in `VisionDatatypePack`. Use existing alias, enum, and structured datatype patterns for references, cloning, and member access.
+
+| New wrapper | Native base or prerequisite | Purpose / dependent work |
+| --- | --- | --- |
+| `_GVCP_REGISTER_VALUE` | `UDINT` | Register values and the address/value pair below. |
+| `_ETcVnComparisonOperator` | `INT` | `SortContainer` and `SortContainerExp`. |
+| `_ETcVnDetectBarcodesWalshOptions` | `UDINT` | Walsh barcode detection options. |
+| `_ETcVnDetectPatternPointsOptions` | `UDINT` | `DetectPatternPoints2` flags. |
+| `_ETcVnDotCodeOptions` | `ULINT` | Named options for existing DotCode reading nodes. |
+| `_ETcVnEdgeSelection` | `DINT` | Axis-aligned edge location. |
+| `_ETcVnFindRoisMethod` | `UDINT` | ROI finding. |
+| `_ETcVnJpegSampling` | `DINT` | JPEG export options. |
+| `_ETcVnMergeRegionsOptions` | `ULINT` | Region merging flags. |
+| `_ETcVnPolarizedImageInterpolation` | `DINT` | Polarized-image demosaicing. |
+| `_ETcVnSalientFeaturesMethod` | `UDINT` | Salient feature extraction. |
+| `_GVCP_ADDRESS_VALUE_PAIR` | Existing `_GVCP_REGISTER_ADDRESS` and new `_GVCP_REGISTER_VALUE` | `nAddress`, `nValue`; multi-register camera writes. |
+| `_TcVnSize2_DINT` | `_DINT` | `nWidth`, `nHeight`; create before `_TcVnParamsFindRois`. |
+| `_TcVnParamsFindRois` | `_TcVnSize2_DINT`, `_LREAL` | ROI size, minimum density, detection scale, maximum oversize fraction. Preserve the export's documented defaults. |
+| `_TcVnParamsWalshBarcodeDetection` | Existing scalar and interpolation wrappers | Twelve members covering barcode size, contrast, filtering, channel selection, and interpolation. Preserve the export's documented defaults. |
+
+The complete enum members, struct fields, and documented defaults are in `datatype-members.csv`. In particular, preserve signed sentinel defaults such as `nMinArea = -1` and `nChannelIndex = -1` in Walsh detection parameters.
+
+Some API parameters use `UDINT`/`ULINT` for an options mask and describe its enum in the comment. Parameter-type matching alone misses those dependencies. Use typed options where compatible with the pack's existing conventions, with explicit bitmask conversion at the call if needed; retain a way to combine supported flags. For existing nodes, check saved-graph compatibility before changing the port datatype.
+
+## Build the interface and buffer foundations
+
+The 109 absent interface wrappers are fully named in `interfaces.csv`. They are not all required to make ordinary Vision functions available as graph nodes.
+
+**Eleven missing interface datatypes directly appear in function signatures:**
+
+- Models: `_ITcVnMlModel`, `_ITcVnColorModel`, `_ITcVnNeuralNetwork`.
+- Iterators: `_ITcVnForwardIterator`, `_ITcVnRandomAccessIterator`; complete and register the existing bidirectional wrapper with these.
+- Export handles: `_ITcVnBitmapExport`, `_ITcVnDataExport`.
+- Callbacks: `_ITcVnCustomContainerOperation_ITcVnContainer`, `_ITcVnCustomContainerOperation_ITcVnForwardIterator`, `_ITcVnCustomElementCondition_ITcVnContainer`, `_ITcVnCustomElementCondition_ITcVnForwardIterator`.
+
+Also plan `_ITcVnIteratorBase` and `_ITcVnIteratorCopyCreator` to expose iterator base operations and independent iterator copies where needed. For each public interface datatype, add its appropriate `I_InterfaceDatatype_<Type>` contract and resolve/copy/reference support, following the image and container datatype pattern.
+
+**An additional generic interface adapter is needed for `ITcUnknown`.** This type is defined outside the export's interface list but appears in 34 missing function signatures, including conversions, timestamps, and feature operations. Provide a checked, reference-counted wrapper or adapt the existing graph interface abstraction to supply it. The checked-out sibling core/graph/PLC-pack sources contain `_PVOID` support but no `_ITcUnknown` wrapper by that name; confirm the packaged dependency versions before deciding where to add the adapter.
+
+Interface wrappers need explicit ownership rules for stored values, borrowed references, replacements, cloning, and destruction. Copying an interface pointer requires maintaining its reference count; release retained pointers when their owner is destroyed. These requirements follow Beckhoff's [interface pointer guidance](https://infosys.beckhoff.com/content/1033/tf7xxx_tc3_vision/5502731787.html) and [FW_SafeRelease documentation](https://infosys.beckhoff.com/content/1033/tcplclib_tc3_module/1900190219.html). Callback wrappers additionally need a concrete implementation supplied by PLC application code or a defined graph callback adapter; a bare stored interface will not perform a callback.
+
+Nineteen missing functions declare `PVOID` parameters. A `_PVOID` scalar alone does not define the pointed-to memory's lifetime, capacity, or element count. Reuse a suitable existing buffer facility if available in the selected dependency versions; otherwise create an owned buffer/array adapter with bounded access. It must cover creation from arrays, binary exports, matrix data, and memory/register operations. Keep raw memory addresses out of persistent graph values. Some pointer parameters refer to interfaces or typed arrays rather than raw byte buffers; inspect each signature instead of treating every pointer identically.
+
+The remaining absent interface wrappers are **74 typed access adapters** (`ITcVnAccess_*`, `ITcVnRandomAccess_*`) and **22 device, image-provider, notification, export, timestamp, or other infrastructure interfaces**. Plan them as an advanced parity phase. Existing `GetAt`, `SetAt`, and other function nodes already cover many typed access operations. Do not create duplicate public method nodes merely because the corresponding low-level interface exists. If full low-level interface access is required, build and register all listed adapters and expose the useful methods through explicit facades; record any intentionally internal interfaces as such.
+
+## Implement the missing function families
+
+The missing-source total breaks down as follows. These licence labels are taken directly from the supplied API export; they do not indicate which licences are installed locally.
+
+| Export licence family | New function wrappers | Main work |
+| --- | ---: | --- |
+| TC3 Vision Base | 110 | Image/container operations, filters, remapping, polarization, regions, buffers/exports, iterators, callbacks, timestamps, watchdog control. |
+| TC3 Vision Metrology 2D | 27 | Calibration variants, linescan calibration, coordinate transforms, edge/arc/ellipse location, distance and angle measurement. |
+| TC3 Vision Matching | 14 | Reference-keypoint matching variants, contour matching, template matching expert variants. |
+| TC3 Vision Code Reading | 5 | Walsh barcode analysis/detection and barcode/Data Matrix ROI expert reading. |
+| TC3 Machine Learning Realtime Inference | 58 | Model construction, training, inference, clustering, scaling, transforms, colour models. |
+| TC3 Neural Network Realtime Inference | 11 | Single/multiple input/output execution, layer outputs, layer-name queries. |
+
+Use the complete missing-function list rather than these examples to determine batch membership. Add `Node_<exact API function name>` for each ordinary function, retaining suffixes such as `Exp`, `Exp2`, `_Point`, `_Container`, and typed overload suffixes. Those identify distinct API entries.
+
+Recommended order within the function work:
+
+1. **Functions using existing graph datatypes:** fill expert-variant gaps around existing nodes, ordinary filters and colour/image operations, contour and template matching. The eight image/matching functions in the second-batch progress section now have registered source wrappers. Start subsequent batches with signatures requiring no new ownership mechanism. Custom and separable custom filters depend on the disabled matrix wrapper and belong after the phase-2 buffer work.
+2. **New options and struct consumers:** sorting, salient features, `FindRois`, `MergeRegions`, Walsh barcode detection, polarized-image processing, and axis-aligned edge selection. Build the datatype prerequisites first.
+3. **Calibration and measurement:** implement the missing calibration, linescan, coordinate transformation, and expert metrology functions together with known-coordinate fixtures. Preserve units, coordinate conventions, and all returned arrays/containers.
+4. **Iterators, callbacks, buffers, and generic interfaces:** add the missing iterator/container functions, conditional copying, custom element operations, array creation/export, matrix initialization/multiplication, JPEG/BMP export, and timestamp/conversion nodes once their ownership adapters are ready.
+5. **Machine learning and neural networks:** land usable pipelines. Pair model/network loading with execution so graph users can obtain the required handles. Implement constructors and training before prediction examples; add feature scaling/transforms, cluster/novelty results, and layer-name/multiple-output handling in coherent batches.
+
+Each new node requires the project compile entry, prototype declaration and graph-category registration in `VisionNodePack`, cloning, graph ports/parameters, execution, and meaningful pre-execution checks. Prefer the existing category of the nearest related function. Create explicit categories for new model, neural-network, and polarization families where necessary.
+
+Review parameter directions together with comments. The API often describes a result as `Reference To ITcVnImage` with direction `In`; it still needs to be exposed as the graph's result. Similarly, read `InOut` scalars/structs and `Out` parameters carefully. Preserve `hrPrev` failure chaining and surface the function result. Use the documented defaults for expert parameters and verify image/container element types, dimensions, and counts appropriate to the operation.
+
+### Existing helper coverage and watchdog scope
+
+Four functions in the missing-node list already have internal call sites:
+
+- `F_VN_CreateImageFromArray` and `F_VN_ExportImage` are used inside `_ITcVnImage`. These uses do not provide standalone graph nodes; reuse their ownership lessons when adding the nodes.
+- `F_VN_StartRelWatchdog` and `F_VN_StopWatchdog` are used by `WatchdogCheckExtension` around `VisionNode` execution.
+
+The five missing standalone watchdog functions are `F_VN_StartAbsWatchdog`, `F_VN_StartAbsWatchdogExp`, `F_VN_StartRelWatchdog`, `F_VN_StartRelWatchdogExp`, and `F_VN_StopWatchdog`. Recommend extending the existing watchdog extension for these modes and diagnostics first. If standalone watchdog nodes are required for strict function-node parity, use an execution design that does not automatically start/stop another watchdog around those nodes. Record this choice explicitly in the coverage checklist; the five entries must not silently disappear from the backlog.
+
+## Implement stateful function-block facades
+
+No `FB_VN_*` wrapper is currently available through the node factory. Twenty-four are absent and the initialization wrapper is disabled. One block may need a facade with several commands or cooperating nodes; the 25 blocks are not an estimate of exactly 25 final graph nodes.
+
+| Facade family | Complete API block list | Prerequisites |
+| --- | --- | --- |
+| Initialization | `FB_VN_InitializeFunction` | Repair the existing implementation and define busy/error/timeout handling. |
+| Image/container files | `FB_VN_ReadImage`, `FB_VN_WriteImage`, `FB_VN_ReadContainer`, `FB_VN_WriteContainer` | Image/container wrappers, path and trigger parameters, operation state. |
+| Calibration files | `FB_VN_ReadCalibrationPattern`, `FB_VN_ReadCalibrationResult`, `FB_VN_WriteCalibrationResult` | Calibration arrays/containers and a consistent representation of a loaded result. |
+| Model/network files | `FB_VN_ReadMlModel`, `FB_VN_WriteMlModel`, `FB_VN_ReadNeuralNetwork` | Model/network interface wrappers; schedule these alongside inference nodes. |
+| Camera acquisition | `FB_VN_FileSourceControl`, `FB_VN_GevCameraControl`, `FB_VN_SimpleCameraControl` | Device association, acquisition state, trigger/recovery policy, image ownership. |
+| Camera memory | `FB_VN_ReadMemory`, `FB_VN_WriteMemory` | Device association and owned buffers with bounded sizes. |
+| Register reads | `FB_VN_ReadRegister_REAL`, `FB_VN_ReadRegister_UDINT`, `FB_VN_ReadRegister_ULINT` | Device association and register address wrappers. |
+| Register writes | `FB_VN_WriteRegister_REAL`, `FB_VN_WriteRegister_UDINT`, `FB_VN_WriteRegister_ULINT`, `FB_VN_WriteRegisters_UDINT` | Address/value pairs and owned storage for multi-register writes. |
+| Stateful matching | `FB_VN_GeneralizedHoughBallard`, `FB_VN_SSIM` | Retained template/reference, parameter setup, and explicit reset/reconfiguration behavior. |
+
+For asynchronous blocks, retain the FB instance across calls, trigger an operation once, continue servicing it while busy, and expose completion/error information without retriggering accidentally. The repository has a `VisionHardwareNode` base, but its suitability for servicing operations across cycles must be checked against the graph scheduler before choosing the final base class. Method-based camera and matching blocks need explicit commands and state rather than the cyclic `bBusy` contract being applied indiscriminately.
+
+Plan file/model facades early enough to support the function pipelines. Camera and register integration can follow as a separate hardware-tested batch. Real camera register writes belong in those controlled integration tests, not the general unit-test startup path.
+
+## Delivery sequence and acceptance criteria
+
+| Phase | Deliverable | Dependencies and completion check |
+| --- | --- | --- |
+| 0 | Reproducible TwinCAT 5.10.2 development/test baseline | Correct dependency resolution; existing library and test PLC build; baseline TcUnit results. |
+| 1 | Existing wrapper repairs and 15 value datatypes | Enum/member construction and round trips; triangle area output; all new datatypes discoverable. Matrix and initialization activation wait for the relevant phase-2 foundations. |
+| 2 | Interface ownership, iterator contracts, buffer/matrix design, asynchronous operation pattern | Copy/reference/release and buffer lifetime tests; activate matrix multiplication and initialization once these checks pass. |
+| 3 | Ordinary image/container, matching, code-reading, calibration, metrology and polarization function batches | Datatype prerequisites from phases 1–2; representative numerical/image fixtures and node discovery for each batch. |
+| 4 | ML/NN datatypes, loading facades, constructors/training/execution pipelines | Phase 2 handles; end-to-end model/network loading and results; licence-dependent test results recorded. |
+| 5 | Remaining file/camera/memory/register/stateful-matching facades | Asynchronous scheduling proven; simulated file/error tests and separate camera integration tests. |
+| 6 | Remaining low-level interface adapters and explicit watchdog coverage decision | Every interface/function entry either implemented and registered or documented as intentionally internal/extension-managed. Strict standalone parity requires implementing any remaining entries. |
+| 7 | Release | Full solution build and runtime validation; updated docs/examples/changelog; rebuild and replace the root `.library` from validated source. |
+
+For each implementation batch:
+
+- Run the inventory and check for absent compile entries, excluded wrappers, unregistered prototypes/datatypes, and missing enum/member labels. The script checks unique declarations and prototype registration paths as well as referenced source-file existence.
+- Test behavior rather than only mirroring constructor code: enum parsing/serialization, struct copy/reference behavior, graph save/load compatibility, image/container ownership, failure chaining, and output values against known fixtures or a direct API call on the same input.
+- For iterator/model/buffer wrappers, test replacement, cloning, cleanup, null values, and repeated graph execution to catch leaks or stale references. Use independent iterator positions where a clone promises independent traversal.
+- For asynchronous facades, test completion over multiple cycles, timeout, failure, re-trigger after completion, and reset while an operation is in progress.
+- Run the required TwinCAT build and applicable TcUnit/integration tests. Record unavailable hardware, model assets, or licences as untested coverage rather than passing results.
+
+Completion means the checklist has a deliberate disposition for every API entry, all intended public nodes and datatypes are discoverable and usable, and the published library is built from that validated source. A CSV row becoming “registered” is necessary but insufficient for completion.
+
+## Review boundaries
+
+This audit parsed the entire supplied API and all 1,078 library `.TcPOU` files, checked project compilation settings and pack registrations, compared enum/member labels, and checked the named arguments of existing function calls. It also inspected representative node/datatype implementations, the extension/base classes, dependency settings, and the test structure. The generated results account for all exported functions, named types, interfaces, constants, and function blocks.
+
+The audit is a structural comparison, not a complete semantic review of every precondition, default, parameter expression, or algorithm. The HTML does not provide every enum's numeric value or all runtime constraints; use native constants and validate against the installed target library during implementation. TwinCAT compilation, TcUnit execution, real-time behavior, and hardware tests were not run in this Linux workspace. The existing compiled `.library` was not rebuilt or used as proof of source compatibility.

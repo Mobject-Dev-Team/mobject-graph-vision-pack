@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_CalibrateCameraPlanarExp" Id="{23519fc5-21ca-45b6-9da2-1b0985657e0d}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_CalibrateCameraPlanarExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    aMarkerPositions : _TcVnArray4_Point2_REAL;
+    aTransformationMatrix : _TcVnMatrix3x3_LREAL;
+    aMarkerImagePositions : _TcVnArray4_Point2_REAL;
+    nMinMarkerArea : _UDINT(100);
+    nMaxMarkerArea : _UDINT(10000);
+    fMaxMarkerEccentricity : _LREAL(0.05);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{a77cb063-46f0-4af5-b221-ebaf423fbe55}" />
+    <Method Name="Clone" Id="{96a2389f-38f7-4c61-9814-cb59c829372a}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_CalibrateCameraPlanarExp;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_CalibrateCameraPlanarExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{f1c33923-dfee-4b20-a7fe-ec2a5dfc3532}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddInput('aMarkerPositions', aMarkerPositions);
+AddParameter('nMinMarkerArea', nMinMarkerArea);
+AddParameter('nMaxMarkerArea', nMaxMarkerArea);
+AddParameter('fMaxMarkerEccentricity', fMaxMarkerEccentricity);
+AddInput('hrPrev', hrPrev);
+AddOutput('aTransformationMatrix', aTransformationMatrix);
+AddOutput('aMarkerImagePositions', aMarkerImagePositions);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{e0659227-cd4d-449f-b3ff-462998005a36}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_CalibrateCameraPlanarExp(
+    ipSrcImage := ipSrcImage.Value,
+    aMarkerPositions := aMarkerPositions.Value,
+    aTransformationMatrix := aTransformationMatrix.Value,
+    aMarkerImagePositions := aMarkerImagePositions.Value,
+    nMinMarkerArea := nMinMarkerArea.Value,
+    nMaxMarkerArea := nMaxMarkerArea.Value,
+    fMaxMarkerEccentricity := fMaxMarkerEccentricity.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{15989551-a428-4c62-8cac-1a7edbab7c48}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must be a binary image with 1 channel');
+Check.IsTrue(nMinMarkerArea.Value <= nMaxMarkerArea.Value, 'nMinMarkerArea must not be greater than nMaxMarkerArea');
+Check.IsTrue((fMaxMarkerEccentricity.Value >= 0.0) AND (fMaxMarkerEccentricity.Value <= 1.0), 'fMaxMarkerEccentricity must be in [0, 1]');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

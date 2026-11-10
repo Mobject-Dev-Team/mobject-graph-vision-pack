@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="_ETcVnDetectBarcodesWalshOptions" Id="{05084adb-6e52-4f98-af76-1434c289e7bb}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnDetectBarcodesWalshOptions EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnDetectBarcodesWalshOptions;
+	activeData : REFERENCE TO ETcVnDetectBarcodesWalshOptions;
+	enumBaseDatatype : _UDINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{d6fe9b04-bab6-4b89-a856-fce334837956}">
+      <Folder Name="Protected" Id="{ce713da5-b68f-48a7-b3d8-2b84537450eb}" />
+    </Folder>
+    <Folder Name="Customize" Id="{b3346b1e-ca4f-4179-ac20-139bdbb97d4f}">
+      <Folder Name="Constructor" Id="{8c1409ab-314d-4d9f-a2b6-4a18ce1050a5}" />
+      <Folder Name="Private" Id="{5ed77874-2200-4fc7-aa15-ad640a08b651}" />
+      <Folder Name="Protected" Id="{979a1b2c-7faf-42fc-adfb-7722c6e58b36}" />
+    </Folder>
+    <Method Name="AddLocalEnumeration" Id="{f0d147f6-a17e-4d64-b46d-004b88a218c0}" FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnDetectBarcodesWalshOptions;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{7d0c229c-170c-4c53-b3df-e9d438e36930}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{0bc2dce1-3ba7-4e25-bc84-8522325ef36a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{7f4986f0-1bb0-45c4-9f05-f83a87e983bd}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{487a9c2d-8c86-4ec0-8d54-42f749f680dd}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnDetectBarcodesWalshOptions;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnDetectBarcodesWalshOptions(InitialValue := Value));
+IF pClone = 0 THEN
+    RETURN;
+END_IF
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{b39ec7df-b847-4e29-a1df-84bd5a9254c1}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnDetectBarcodesWalshOptions;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_DBWO_HORIZONTAL', ETcVnDetectBarcodesWalshOptions.TCVN_DBWO_HORIZONTAL);
+AddLocalEnumeration('TCVN_DBWO_VERTICAL', ETcVnDetectBarcodesWalshOptions.TCVN_DBWO_VERTICAL);
+AddLocalEnumeration('TCVN_DBWO_DIAGONAL_45', ETcVnDetectBarcodesWalshOptions.TCVN_DBWO_DIAGONAL_45);
+AddLocalEnumeration('TCVN_DBWO_DIAGONAL_135', ETcVnDetectBarcodesWalshOptions.TCVN_DBWO_DIAGONAL_135);
+AddLocalEnumeration('TCVN_DBWO_ALL_DIRECTIONS', ETcVnDetectBarcodesWalshOptions.TCVN_DBWO_ALL_DIRECTIONS);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{57709980-79ca-474f-8767-0cf4dfffd9eb}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{ce3b2027-611b-4f92-95e6-cea4faf77425}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnDetectBarcodesWalshOptions';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{baf9f37e-9a41-4d84-a1fd-fce9b6d7824d}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnDetectBarcodesWalshOptions;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{46b22653-ab7e-4db8-9703-864475ad3a35}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnDetectBarcodesWalshOptions;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{6c0bf3a4-3703-420b-929a-5e7420894c86}" FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{e5a9dba3-8945-4731-935b-9a61104efd44}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{3587f60b-735b-4b0f-a38d-3048ff1338bc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{0f5a7eb3-f532-456f-a7e3-b577f2eca924}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO ETcVnDetectBarcodesWalshOptions;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{566113cd-288b-49b3-9093-bdc516cba1f1}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnDetectBarcodesWalshOptions]]></Declaration>
+      <Get Name="Get" Id="{99afee35-f8b3-41ad-8ba5-55825f95c301}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{615894f2-a554-467d-bf4f-4cbb984ff6a6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

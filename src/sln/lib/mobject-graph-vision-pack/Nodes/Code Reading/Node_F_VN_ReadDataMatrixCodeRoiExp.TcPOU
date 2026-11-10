@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_ReadDataMatrixCodeRoiExp" Id="{72d52645-e959-4cc9-b684-a934f246d5f7}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ReadDataMatrixCodeRoiExp EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipDecodedData : _ITcVnContainer;
+    fModuleWidth : _REAL(3);
+    ipContour : _ITcVnContainer;
+    eOptions : _ULINT(ETcVnDataMatrixOptions.TCVN_DMO_DEFAULT);
+    nRows : _USINT(0);
+    nCols : _USINT(0);
+    bExtensiveSearch : _BOOL(TRUE);
+    hrPrev : _HRESULT(S_OK);
+    fAngleDeg : _REAL(0);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{04497a81-acb3-4235-89c9-c60bc181c8b1}" />
+    <Method Name="Clone" Id="{585a0015-0c47-461f-a54e-a09384e30731}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_ReadDataMatrixCodeRoiExp;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ReadDataMatrixCodeRoiExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{d183cd34-ded7-4521-b581-73af8a34c239}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddOutput('ipDecodedData', ipDecodedData);
+AddParameter('fModuleWidth', fModuleWidth);
+AddOutput('ipContour', ipContour);
+AddParameter('eOptions', eOptions);
+AddParameter('nRows', nRows);
+AddParameter('nCols', nCols);
+AddParameter('bExtensiveSearch', bExtensiveSearch);
+AddInput('hrPrev', hrPrev);
+AddOutput('fAngleDeg', fAngleDeg);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{2ecd0dc0-77c0-45ed-be81-5bc166e0ecd0}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    angleDeg : REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ReadDataMatrixCodeRoiExp(
+    ipSrcImage := ipSrcImage.Value,
+    ipDecodedData := ipDecodedData.Value,
+    fModuleWidth := fModuleWidth.Value,
+    ipContour := ipContour.Value,
+    eOptions := eOptions.Value,
+    nRows := nRows.Value,
+    nCols := nCols.Value,
+    bExtensiveSearch := bExtensiveSearch.Value,
+    hrPrev := hrPrev.Value,
+    fAngleDeg => angleDeg);
+
+fAngleDeg.Value := angleDeg;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{0005cda6-0963-4c09-8172-de1a18429cd1}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth');
+Check.IsTrue(fModuleWidth.Value >= 3.0, 'fModuleWidth must be at least 3');
+// 0 searches for any size.
+Check.IsTrue((nRows.Value = 0) OR ((nRows.Value >= 8) AND (nRows.Value <= 144)), 'nRows must be 0 to search any size, or between 8 and 144');
+Check.IsTrue((nCols.Value = 0) OR ((nCols.Value >= 10) AND (nCols.Value <= 144)), 'nCols must be 0 to search any size, or between 10 and 144');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

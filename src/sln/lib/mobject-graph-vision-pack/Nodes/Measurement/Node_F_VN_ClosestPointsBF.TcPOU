@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="Node_F_VN_ClosestPointsBF" Id="{dc6f4f5d-6288-072e-3c71-807dcce0252c}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_ClosestPointsBF EXTENDS VisionNode
+VAR
+	ipPointSet1 : _ITcVnContainer;
+    ipPointSet2 : _ITcVnContainer;
+    fMinDist : _LREAL(0.0);
+    aPoint1 : _TcVnPoint2_LREAL;
+	aPoint2 : _TcVnPoint2_LREAL;
+    hrPrev : _HRESULT(S_OK);
+	hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{841598e2-0731-0ce2-0f9f-e1b1fd097656}" />
+    <Method Name="Clone" Id="{a1f46ed5-6a0e-0091-2f85-cff14a1e4f3c}">
+      <Declaration><![CDATA[METHOD PUBLIC  Clone : I_Node
+VAR
+	pNode : POINTER TO Node_F_VN_ClosestPointsBF;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_ClosestPointsBF);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{2d28a0d3-dd94-0a42-1550-675dd9749e4d}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipPointSet1', ipPointSet1);
+AddInput('ipPointSet2', ipPointSet2);
+AddInput('hrPrev', hrPrev);
+AddOutput('fMinDist', fMinDist);
+AddOutput('aPoint1', aPoint1);
+AddOutput('aPoint2',aPoint2);
+AddOutput('hresult',hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{a8f9bd71-ed48-02b3-3cd6-dfc0180c4d87}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    avgStrength : REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_ClosestPointsBF(
+	ipPointSet1 := ipPointSet1.Value,
+	ipPointSet2 := ipPointSet2.Value,
+    hrPrev := hrPrev.Value,
+    fMinDist := fMinDist.Value,
+    aPoint1 := aPoint1.Value,
+	aPoint2 := aPoint2.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{f0020cb2-ef65-0221-2ea0-d70afd8e5c6d}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+	Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipPointSet1.IsValid, 'ipPointSet1 must be a valid container');
+Check.IsTrue(ipPointSet2.IsValid, 'ipPointSet2 must be a valid container');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

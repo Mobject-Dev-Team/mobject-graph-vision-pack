@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_FuseImagesArray" Id="{67297352-65a2-4de5-949d-0b0211871314}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_FuseImagesArray EXTENDS VisionNode
+VAR
+    ipSrcImage0 : _ITcVnImage;
+    ipSrcImage1 : _ITcVnImage;
+    ipSrcImage2 : _ITcVnImage;
+    ipSrcImage3 : _ITcVnImage;
+    ipSrcImage4 : _ITcVnImage;
+    ipSrcImage5 : _ITcVnImage;
+    ipSrcImage6 : _ITcVnImage;
+    ipSrcImage7 : _ITcVnImage;
+    ipSrcImage8 : _ITcVnImage;
+    ipSrcImage9 : _ITcVnImage;
+    ipDestImage : _ITcVnImage;
+    nValidImages : _UDINT(2);
+    nFirstLine : _UDINT(0);
+    nNumLines : _UDINT(0);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{2a438391-0916-43f0-a8af-954610051db9}" />
+    <Method Name="Clone" Id="{7b0e7f95-5a49-4725-b354-5147e043affe}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_FuseImagesArray;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_FuseImagesArray);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{53e1c537-63c0-478d-a1ed-39ff596e4a1b}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage0', ipSrcImage0);
+AddInput('ipSrcImage1', ipSrcImage1);
+AddInput('ipSrcImage2', ipSrcImage2);
+AddInput('ipSrcImage3', ipSrcImage3);
+AddInput('ipSrcImage4', ipSrcImage4);
+AddInput('ipSrcImage5', ipSrcImage5);
+AddInput('ipSrcImage6', ipSrcImage6);
+AddInput('ipSrcImage7', ipSrcImage7);
+AddInput('ipSrcImage8', ipSrcImage8);
+AddInput('ipSrcImage9', ipSrcImage9);
+AddParameter('nValidImages', nValidImages);
+AddParameter('nFirstLine', nFirstLine);
+AddParameter('nNumLines', nNumLines);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestImage', ipDestImage);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{7b4cdf51-2487-4feb-aad2-73b5c8548a17}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    aSrcImageArray : TcVnArray10_ITcVnImage;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// The API takes the images as one array; the graph offers one input per element.
+aSrcImageArray[0] := ipSrcImage0.Value;
+aSrcImageArray[1] := ipSrcImage1.Value;
+aSrcImageArray[2] := ipSrcImage2.Value;
+aSrcImageArray[3] := ipSrcImage3.Value;
+aSrcImageArray[4] := ipSrcImage4.Value;
+aSrcImageArray[5] := ipSrcImage5.Value;
+aSrcImageArray[6] := ipSrcImage6.Value;
+aSrcImageArray[7] := ipSrcImage7.Value;
+aSrcImageArray[8] := ipSrcImage8.Value;
+aSrcImageArray[9] := ipSrcImage9.Value;
+
+hresult.Value := F_VN_FuseImagesArray(
+    aSrcImageArray := aSrcImageArray,
+    nValidImages := nValidImages.Value,
+    ipDestImage := ipDestImage.Value,
+    nFirstLine := nFirstLine.Value,
+    nNumLines := nNumLines.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{d88ddaf7-2b88-4d0b-a78f-ec280be2a3e7}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    aSrcImageArray : TcVnArray10_ITcVnImage;
+    i : UDINT;
+    countIsValid : BOOL;
+    allValid : BOOL := TRUE;
+    widthsMatch : BOOL := TRUE;
+    formatsMatch : BOOL := TRUE;
+    height : UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[aSrcImageArray[0] := ipSrcImage0.Value;
+aSrcImageArray[1] := ipSrcImage1.Value;
+aSrcImageArray[2] := ipSrcImage2.Value;
+aSrcImageArray[3] := ipSrcImage3.Value;
+aSrcImageArray[4] := ipSrcImage4.Value;
+aSrcImageArray[5] := ipSrcImage5.Value;
+aSrcImageArray[6] := ipSrcImage6.Value;
+aSrcImageArray[7] := ipSrcImage7.Value;
+aSrcImageArray[8] := ipSrcImage8.Value;
+aSrcImageArray[9] := ipSrcImage9.Value;
+
+countIsValid := (nValidImages.Value >= 1) AND (nValidImages.Value <= 10);
+Check.IsTrue(countIsValid, 'nValidImages must be between 1 and 10');
+IF countIsValid THEN
+    FOR i := 0 TO nValidImages.Value - 1 DO
+        IF NOT IsValidImage(aSrcImageArray[i]) THEN
+            allValid := FALSE;
+        ELSIF i > 0 AND IsValidImage(aSrcImageArray[0]) THEN
+            widthsMatch := widthsMatch AND IsImage1WidthEqualToImage2Width(aSrcImageArray[0], aSrcImageArray[i]);
+            formatsMatch := formatsMatch AND ImagesHaveMatchingPixelFormats(aSrcImageArray[0], aSrcImageArray[i]);
+        END_IF
+    END_FOR
+END_IF
+Check.IsTrue(allValid, 'ipSrcImage0 to ipSrcImage(nValidImages - 1) must each contain an image');
+Check.IsTrue(widthsMatch, 'All fused images must have the same width');
+Check.IsTrue(formatsMatch, 'All fused images must have matching pixel formats');
+
+ipSrcImage0.TryGetHeight(height);
+Check.IsTrue(nFirstLine.Value < height, 'nFirstLine must be a line of ipSrcImage0');
+Check.IsTrue(nNumLines.Value > 0, 'nNumLines must be greater than 0');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

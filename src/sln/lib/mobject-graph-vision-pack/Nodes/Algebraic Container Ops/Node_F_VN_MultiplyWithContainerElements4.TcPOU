@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_MultiplyWithContainerElements4" Id="{d64db12e-9c23-4c91-9250-fb08824f24f1}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_MultiplyWithContainerElements4 EXTENDS VisionNode
+VAR
+    ipContainer : _ITcVnContainer;
+    ipDestContainer : _ITcVnContainer;
+    aValue : _TcVnVector4_LREAL;
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{ebaf1632-26c7-49cc-9c49-2f414b44fd73}" />
+    <Method Name="Clone" Id="{772092df-98c4-4e24-86f6-03e895802208}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_MultiplyWithContainerElements4;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_MultiplyWithContainerElements4);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{8818916b-d6ff-4886-bc5c-4fa191a5054d}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipContainer', ipContainer);
+AddParameter('aValue', aValue);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestContainer', ipDestContainer);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{33fd6606-405e-4bba-bc4b-2399615f1680}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// The API edits the container in place. Edit a copy so the upstream container is only read.
+hresult.Value := F_VN_CopyContainer(
+    ipSrcContainer := ipContainer.Value,
+    ipDestContainer := ipDestContainer.Value,
+    hrPrev := hrPrev.Value);
+
+hresult.Value := F_VN_MultiplyWithContainerElements4(
+    aValue := aValue.Value,
+    ipContainer := ipDestContainer.Value,
+    hrPrev := hresult.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{ddcfc3f5-8522-4c11-ba48-a081c75c5159}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    typeGuid : GUID;
+    dimensions : UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
+IF ipContainer.IsValid THEN
+    ipContainer.Value.GetTypeGuid(typeGuid);
+END_IF
+dimensions := GetContainerTypeDimensions(typeGuid);
+Check.IsTrue(dimensions = 4, 'ipContainer must hold TcVnVector4 elements');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

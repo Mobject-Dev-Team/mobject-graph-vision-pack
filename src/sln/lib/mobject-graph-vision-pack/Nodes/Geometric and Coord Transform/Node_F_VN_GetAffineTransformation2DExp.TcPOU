@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_GetAffineTransformation2DExp" Id="{0b8c7e9f-f89e-4421-8be9-2f165ebbc17c}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_GetAffineTransformation2DExp EXTENDS VisionNode
+VAR
+    ipSrcPoints : _ITcVnContainer;
+    ipDestPoints : _ITcVnContainer;
+    aAffineTransform : _TcVnMatrix2x3_LREAL;
+    eAlgorithm : _ETcVnEstimationAlgorithm(ETcVnEstimationAlgorithm.TCVN_EA_RANSAC);
+    fReprojThreshold : _LREAL(3.0);
+    ipInlierMask : _ITcVnContainer;
+    nMaxIterations : _UDINT(2000);
+    fConfidence : _LREAL(0.995);
+    nRefineIters : _UDINT(10);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{55f23e66-a17c-4afe-87f9-4ab1951789ec}" />
+    <Method Name="Clone" Id="{5b476680-24dd-4b16-81dd-440a77b843a5}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_GetAffineTransformation2DExp;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_GetAffineTransformation2DExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{e125ce8d-293c-4b2c-8c2a-9096799b32bb}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcPoints', ipSrcPoints);
+AddInput('ipDestPoints', ipDestPoints);
+AddParameter('eAlgorithm', eAlgorithm);
+AddParameter('fReprojThreshold', fReprojThreshold);
+AddParameter('nMaxIterations', nMaxIterations);
+AddParameter('fConfidence', fConfidence);
+AddParameter('nRefineIters', nRefineIters);
+AddInput('hrPrev', hrPrev);
+AddOutput('aAffineTransform', aAffineTransform);
+AddOutput('ipInlierMask', ipInlierMask);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{0acb1225-8b90-41e4-83cf-de6208c25846}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_GetAffineTransformation2DExp(
+    ipSrcPoints := ipSrcPoints.Value,
+    ipDestPoints := ipDestPoints.Value,
+    aAffineTransform := aAffineTransform.Value,
+    eAlgorithm := eAlgorithm.Value,
+    fReprojThreshold := fReprojThreshold.Value,
+    ipInlierMask := ipInlierMask.Value,
+    nMaxIterations := nMaxIterations.Value,
+    fConfidence := fConfidence.Value,
+    nRefineIters := nRefineIters.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{9a25ad38-55d4-462f-9041-8d88893823d6}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    elementNum : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcPoints.IsValid, 'ipSrcPoints must be a valid container');
+Check.IsTrue((ipSrcPoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL) OR
+              ipSrcPoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR
+              ipSrcPoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_LREAL)),
+              'ipSrcPoints contains incorrect type');
+Check.IsTrue((ipSrcPoints.TryGetElementNum(elementNum) AND (elementNum >= 3)), 'ipSrcPoints must contain at least 3 points');
+Check.IsTrue(ipDestPoints.IsValid, 'ipDestPoints must be a valid container');
+Check.IsTrue(ContainersHaveMatchingTypes(ipSrcPoints.Value, ipDestPoints.Value), 'ipDestPoints must have the same type as ipSrcPoints');
+Check.IsTrue(ContainersHaveMatchingNumberOfElements(ipSrcPoints.Value, ipDestPoints.Value), 'ipDestPoints must contain the same number of points as ipSrcPoints');
+Check.IsTrue((eAlgorithm.Value = ETcVnEstimationAlgorithm.TCVN_EA_RANSAC) OR
+             (eAlgorithm.Value = ETcVnEstimationAlgorithm.TCVN_EA_LMEDS), 'eAlgorithm must be RANSAC or LMEDS');
+Check.IsTrue(fReprojThreshold.Value > 0, 'fReprojThreshold must be greater than 0');
+Check.IsTrue(nMaxIterations.Value > 0, 'nMaxIterations must be greater than 0');
+Check.IsTrue((fConfidence.Value >= 0) AND (fConfidence.Value <= 1), 'fConfidence must be between 0 and 1');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

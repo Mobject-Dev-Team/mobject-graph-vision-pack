@@ -80,6 +80,10 @@ AddBaseDatatype(enumBaseDatatype);
 ClearReference();
 
 AddLocalEnumeration('TCVN_OO_WITHBLANKS', ETcVnOcrOptions.TCVN_OO_WITHBLANKS);
+AddLocalEnumeration('TCVN_OO_NONE', ETcVnOcrOptions.TCVN_OO_NONE);
+AddLocalEnumeration('TCVN_OO_NOVELTY_LEVEL1', ETcVnOcrOptions.TCVN_OO_NOVELTY_LEVEL1);
+AddLocalEnumeration('TCVN_OO_NOVELTY_LEVEL2', ETcVnOcrOptions.TCVN_OO_NOVELTY_LEVEL2);
+AddLocalEnumeration('TCVN_OO_NOVELTY_LEVEL3', ETcVnOcrOptions.TCVN_OO_NOVELTY_LEVEL3);
 ]]></ST>
       </Implementation>
     </Method>

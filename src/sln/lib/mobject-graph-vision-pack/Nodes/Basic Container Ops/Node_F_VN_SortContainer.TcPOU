@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_SortContainer" Id="{44cb04df-c1b2-4676-8ff5-bb5d7e4c4921}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_SortContainer EXTENDS VisionNode
+VAR
+    ipContainer : _ITcVnContainer;
+    ipSortedContainer : _ITcVnContainer;
+    nSortByElemIdx : _UINT(0);
+    eComparisonOp : _ETcVnComparisonOperator(ETcVnComparisonOperator.TCVN_CO_LESS);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{7ad9d168-5fed-4c5a-b188-fce5132fdada}" />
+    <Method Name="Clone" Id="{a663ec10-b49c-499d-bfbe-5b659cbe2d7d}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_SortContainer;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_SortContainer);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{53a7117e-d4e0-40d5-b2b4-6e3dbde6c9c0}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipContainer', ipContainer);
+AddParameter('nSortByElemIdx', nSortByElemIdx);
+AddParameter('eComparisonOp', eComparisonOp);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipSortedContainer', ipSortedContainer);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{bc629d65-56e9-4b46-9773-b4300f283f1e}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// The API edits the container in place. Edit a copy so the upstream container is only read.
+hresult.Value := F_VN_CopyContainer(
+    ipSrcContainer := ipContainer.Value,
+    ipDestContainer := ipSortedContainer.Value,
+    hrPrev := hrPrev.Value);
+
+hresult.Value := F_VN_SortContainer(
+    ipContainer := ipSortedContainer.Value,
+    nSortByElemIdx := nSortByElemIdx.Value,
+    eComparisonOp := eComparisonOp.Value,
+    hrPrev := hresult.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{187ff3ab-9d3d-46e8-a417-7f4d972e8532}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    typeGuid : GUID;
+    dimensions : UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
+IF ipContainer.IsValid THEN
+    ipContainer.Value.GetTypeGuid(typeGuid);
+END_IF
+dimensions := GetContainerTypeDimensions(typeGuid);
+Check.IsTrue(dimensions > 0, 'ipContainer must hold arithmetic, TcVnPoint or TcVnVector elements');
+Check.IsTrue(nSortByElemIdx.Value < dimensions, 'nSortByElemIdx must index a value within each element');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

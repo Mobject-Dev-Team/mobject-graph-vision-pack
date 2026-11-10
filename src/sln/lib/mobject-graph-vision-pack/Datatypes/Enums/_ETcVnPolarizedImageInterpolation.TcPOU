@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="_ETcVnPolarizedImageInterpolation" Id="{0cd28b82-4b16-444a-9325-3eee09475e35}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK _ETcVnPolarizedImageInterpolation EXTENDS EnumDatatypeBase
+VAR
+	localData : ETcVnPolarizedImageInterpolation;
+	activeData : REFERENCE TO ETcVnPolarizedImageInterpolation;
+	enumBaseDatatype : _DINT(localData);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Core" Id="{06348fc1-f0b0-420b-a9d7-23b1db144130}">
+      <Folder Name="Protected" Id="{3c43e577-f2e3-4a6a-9e94-03ed9c937822}" />
+    </Folder>
+    <Folder Name="Customize" Id="{4fb7ccfa-3e4e-432f-9392-ff29313fba37}">
+      <Folder Name="Constructor" Id="{3f8dbbee-4d4a-416f-a60a-0a25c7bc6b47}" />
+      <Folder Name="Private" Id="{e40c89fa-fe7e-4cb6-b857-0f31f3216138}" />
+      <Folder Name="Protected" Id="{401f4967-ca1d-4b12-b155-6feb7fcc7115}" />
+    </Folder>
+    <Method Name="AddLocalEnumeration" Id="{2a2aa78f-b25d-4468-aa46-e9c741d4d280}" FolderPath="Customize\Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddLocalEnumeration
+VAR_INPUT
+	Enumeration : T_MAXSTRING;
+	Value : ETcVnPolarizedImageInterpolation;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddEnumeration(Enumeration, Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Address" Id="{90b89c65-28f5-499f-96fa-db37ebb83f48}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Address : PVOID]]></Declaration>
+      <Get Name="Get" Id="{1268dbbc-e690-45ff-a9a6-7bbc9a23066e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Address := ADR(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearReference" Id="{00ed4828-a56a-4a28-95f5-20e668a1411a}" FolderPath="Core\">
+      <Declaration><![CDATA[METHOD PUBLIC ClearReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= localData;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clone" Id="{34d894f5-4bd1-442a-92fe-8aa26e6d58ae}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Datatype
+VAR
+    pClone : POINTER TO _ETcVnPolarizedImageInterpolation;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pClone := __NEW(_ETcVnPolarizedImageInterpolation(InitialValue := Value));
+IF pClone = 0 THEN
+    RETURN;
+END_IF
+Clone := pClone^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{cdf3cabc-1bf6-4e9f-a650-dc0f961b0dd2}" FolderPath="Customize\Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	InitialValue : ETcVnPolarizedImageInterpolation;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[localData := InitialValue;
+AddBaseDatatype(enumBaseDatatype);
+ClearReference();
+
+AddLocalEnumeration('TCVN_PII_NONE', ETcVnPolarizedImageInterpolation.TCVN_PII_NONE);
+AddLocalEnumeration('TCVN_PII_NEAREST_NEIGHBOR', ETcVnPolarizedImageInterpolation.TCVN_PII_NEAREST_NEIGHBOR);
+AddLocalEnumeration('TCVN_PII_BILINEAR', ETcVnPolarizedImageInterpolation.TCVN_PII_BILINEAR);
+AddLocalEnumeration('TCVN_PII_BICUBIC', ETcVnPolarizedImageInterpolation.TCVN_PII_BICUBIC);
+AddLocalEnumeration('TCVN_PII_LANCZOS4', ETcVnPolarizedImageInterpolation.TCVN_PII_LANCZOS4);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Identifier" Id="{19fb6ccf-046c-4b1d-b16a-220bfb497e19}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Identifier : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{c8c0b415-b44c-463a-97ee-46daa141de7e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Identifier := 'ETcVnPolarizedImageInterpolation';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsEnumeratorValueEqual" Id="{825a0932-9499-4d1f-8ce1-fba72a58dac2}" FolderPath="Customize\Protected\">
+      <Declaration><![CDATA[METHOD IsEnumeratorValueEqual : BOOL
+VAR_INPUT
+	Enumerator : I_KeyValueForwardEnumerator;
+END_VAR
+VAR
+	storedValue : ETcVnPolarizedImageInterpolation;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT Enumerator.TryGet(storedValue) THEN
+	RETURN;
+END_IF
+
+IsEnumeratorValueEqual := storedValue = activeData;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MakeReferenceTo" Id="{b604fa0e-9cd2-4a68-bdbb-58ba0882dba4}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD PUBLIC MakeReferenceTo
+VAR_INPUT
+	ReferenceTarget : REFERENCE TO ETcVnPolarizedImageInterpolation;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[activeData REF= ReferenceTarget;
+SetBaseDatatypeReference();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBaseDatatypeReference" Id="{a24946c2-75dd-4a68-8aac-ae24fa9658dc}" FolderPath="Core\Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED SetBaseDatatypeReference
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[enumBaseDatatype.MakeReferenceTo(activeData);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Size" Id="{9d6f0e5d-0f36-4cf0-9a7d-c16580047454}" FolderPath="Core\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Size : UDINT]]></Declaration>
+      <Get Name="Get" Id="{ac05c1a0-7afb-41f2-b7b4-7ea180e27319}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Size := SIZEOF(activeData);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="TryMakeReferenceTo" Id="{3419053a-e4ae-4bd1-9c0f-4692d43fc443}" FolderPath="Customize\">
+      <Declaration><![CDATA[METHOD TryMakeReferenceTo : BOOL
+VAR_INPUT
+	Target : I_Datatype;
+END_VAR
+VAR
+	pTargetData : POINTER TO ETcVnPolarizedImageInterpolation;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsEquivalentTo(Target) THEN
+	RETURN;
+END_IF
+
+pTargetData := Target.Address;
+activeData REF= pTargetData^;
+SetBaseDatatypeReference();
+TryMakeReferenceTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{5f6b049f-0d8f-4529-a470-b4be442cb872}" FolderPath="Customize\">
+      <Declaration><![CDATA[PROPERTY PUBLIC Value : ETcVnPolarizedImageInterpolation]]></Declaration>
+      <Get Name="Get" Id="{f220ad93-621f-4cb8-80d3-fd2993369f58}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := activeData;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{9d2b1609-8ec3-49ff-a5d7-6809b8cd5ff2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[activeData := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

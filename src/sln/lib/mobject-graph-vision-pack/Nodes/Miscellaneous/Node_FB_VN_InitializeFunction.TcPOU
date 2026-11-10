@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Node_FB_VN_InitializeFunction" Id="{81dcaabb-16eb-0a21-0b7d-9e0b30687d2d}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
@@ -14,7 +14,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[// This is currently disabled as it's an FB and not a function.]]></ST>
     </Implementation>
     <Folder Name="Constructor" Id="{1d65190d-0365-048f-0e3c-580fa4c504d4}" />
     <Method Name="Clone" Id="{fb52ccad-99d5-05b8-2a54-203e6b543320}">

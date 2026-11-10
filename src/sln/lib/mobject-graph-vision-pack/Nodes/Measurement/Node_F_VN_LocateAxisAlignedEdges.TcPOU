@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_LocateAxisAlignedEdges" Id="{c5d5fd9a-9052-4dac-a524-585ad27966b8}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_LocateAxisAlignedEdges EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipEdgePoints : _ITcVnContainer;
+    aStartPoint : _TcVnPoint2_DINT;
+    aEndPoint : _TcVnPoint2_DINT;
+    nSearchWindowHeight : _UDINT(1);
+    nKernelSize : _UDINT(5);
+    nNumEdges : _UDINT(1);
+    eEdgeSelection : _ETcVnEdgeSelection(ETcVnEdgeSelection.TCVN_ES_ANY);
+    fMinStrength : _REAL(0.0);
+    hrPrev : _HRESULT(S_OK);
+    fAvgStrength : _REAL(0.0);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{cea63a70-a8bb-4c6c-8571-64ac66f20758}" />
+    <Method Name="Clone" Id="{e7c4ad6a-e7b8-4d28-834e-d6251a3b8989}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_LocateAxisAlignedEdges;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_LocateAxisAlignedEdges);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{cf095908-5f9f-4782-b6f1-d603ac67f099}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddOutput('ipEdgePoints', ipEdgePoints);
+AddInput('aStartPoint', aStartPoint);
+AddInput('aEndPoint', aEndPoint);
+AddParameter('nSearchWindowHeight', nSearchWindowHeight);
+AddParameter('nKernelSize', nKernelSize);
+AddParameter('nNumEdges', nNumEdges);
+AddParameter('eEdgeSelection', eEdgeSelection);
+AddParameter('fMinStrength', fMinStrength);
+AddInput('hrPrev', hrPrev);
+AddOutput('fAvgStrength', fAvgStrength);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{3954fd7c-818e-42cf-8e16-8d11b1c05925}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    avgStrength : REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_LocateAxisAlignedEdges(
+    ipSrcImage := ipSrcImage.Value,
+    ipEdgePoints := ipEdgePoints.Value,
+    aStartPoint := aStartPoint.Value,
+    aEndPoint := aEndPoint.Value,
+    nSearchWindowHeight := nSearchWindowHeight.Value,
+    nKernelSize := nKernelSize.Value,
+    nNumEdges := nNumEdges.Value,
+    eEdgeSelection := eEdgeSelection.Value,
+    fMinStrength := fMinStrength.Value,
+    hrPrev := hrPrev.Value,
+    fAvgStrength => avgStrength);
+
+fAvgStrength.Value := avgStrength;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{377bf7a1-cf98-4a9f-af31-83bc619ddb21}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+Check.IsTrue((aStartPoint.Value[0] = aEndPoint.Value[0]) OR (aStartPoint.Value[1] = aEndPoint.Value[1]), 'aEndPoint must share the x- or y-coordinate of aStartPoint');
+Check.IsTrue(nSearchWindowHeight.Value > 0, 'nSearchWindowHeight must be at least 1');
+Check.IsTrue(nKernelSize.IsOdd, 'nKernelSize must be an odd number');
+Check.IsTrue(nKernelSize.Value >= 3, 'nKernelSize must be at least 3');
+Check.IsTrue(nNumEdges.Value > 0, 'nNumEdges must be at least 1');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

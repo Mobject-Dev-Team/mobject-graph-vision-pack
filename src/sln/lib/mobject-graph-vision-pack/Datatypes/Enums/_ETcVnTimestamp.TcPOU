@@ -78,6 +78,12 @@ AddBaseDatatype(enumBaseDatatype);
 ClearReference();
 
 AddLocalEnumeration('TCVN_TS_IMAGE_COMPLETED', ETcVnTimestamp.TCVN_TS_IMAGE_COMPLETED);
+AddLocalEnumeration('TCVN_TS_RECEPTION_STARTED', ETcVnTimestamp.TCVN_TS_RECEPTION_STARTED);
+AddLocalEnumeration('TCVN_TS_RECEPTION_FINISHED', ETcVnTimestamp.TCVN_TS_RECEPTION_FINISHED);
+AddLocalEnumeration('TCVN_TS_GETCURRENTIMAGE', ETcVnTimestamp.TCVN_TS_GETCURRENTIMAGE);
+AddLocalEnumeration('TCVN_TS_CAMERA', ETcVnTimestamp.TCVN_TS_CAMERA);
+AddLocalEnumeration('TCVN_TS_CUSTOM', ETcVnTimestamp.TCVN_TS_CUSTOM);
+AddLocalEnumeration('TCVN_TS_LAST_CHANGE', ETcVnTimestamp.TCVN_TS_LAST_CHANGE);
 ]]></ST>
       </Implementation>
     </Method>

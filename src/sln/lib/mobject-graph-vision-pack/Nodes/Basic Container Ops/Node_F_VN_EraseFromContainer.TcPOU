@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_EraseFromContainer" Id="{c5c29521-7e2f-4c25-9e71-e9607d57bdff}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_EraseFromContainer EXTENDS VisionNode
+VAR
+    ipContainer : _ITcVnContainer;
+    ipDestContainer : _ITcVnContainer;
+    nStartIdx : _ULINT(0);
+    nCount : _ULINT(1);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{34cefee4-a39d-4124-98cb-d35e78813308}" />
+    <Method Name="Clone" Id="{b0c54429-a695-4a62-80c4-0f915bb6ca8f}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_EraseFromContainer;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_EraseFromContainer);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{4e9d4b78-3c7d-438e-90dd-e88555e96365}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipContainer', ipContainer);
+AddParameter('nStartIdx', nStartIdx);
+AddParameter('nCount', nCount);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestContainer', ipDestContainer);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{0005d2be-8651-4f08-b481-1e40e14c4c43}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// The API edits the container in place. Edit a copy so the upstream container is only read.
+hresult.Value := F_VN_CopyContainer(
+    ipSrcContainer := ipContainer.Value,
+    ipDestContainer := ipDestContainer.Value,
+    hrPrev := hrPrev.Value);
+
+hresult.Value := F_VN_EraseFromContainer(
+    ipContainer := ipDestContainer.Value,
+    nStartIdx := nStartIdx.Value,
+    nCount := nCount.Value,
+    hrPrev := hresult.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{5c77a9f9-a7b2-4564-b2aa-34ecbcb72bd5}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    elementNum : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipContainer.IsValid, 'ipContainer must be a valid container');
+ipContainer.TryGetElementNum(elementNum);
+Check.IsTrue(nStartIdx.Value < elementNum, 'nStartIdx out of range');
+Check.IsTrue(nCount.Value <= elementNum - MIN(nStartIdx.Value, elementNum), 'nStartIdx + nCount must not pass the end of ipContainer');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

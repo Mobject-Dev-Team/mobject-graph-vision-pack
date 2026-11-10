@@ -1,21 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <POU Name="VisionNode" Id="{f924a3b9-a7ea-048f-393e-cff5c17d2882}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT VisionNode EXTENDS Node IMPLEMENTS I_PreCheckedNode
 VAR
 	preExecutionCheckExtension : PreExecutionCheckExtension('precheck', THIS^);
+	watchdogCheckExtension : WatchdogCheckExtension('watchdog', THIS^);
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Method Name="Execute" Id="{8505f98d-9e97-07b5-148b-0e469a2003d1}">
-      <Declaration><![CDATA[METHOD PUBLIC Execute]]></Declaration>
+      <Declaration><![CDATA[METHOD PUBLIC Execute
+VAR
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF NOT preExecutionCheckExtension.Check() THEN
 	RETURN;
 END_IF
-SUPER^.Execute();]]></ST>
+
+watchdogCheckExtension.Start();
+SUPER^.Execute();
+watchdogCheckExtension.Stop();]]></ST>
       </Implementation>
     </Method>
     <Method Name="PreExecutionCheck" Id="{1cc0fb1a-9fc7-05d0-0dda-466734a3a96c}">

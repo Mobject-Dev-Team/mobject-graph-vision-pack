@@ -91,7 +91,7 @@ Check.IsTrue(ipDestPoints.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnP
 ipDestPoints.TryGetElementNum(elementNumDest);
 Check.IsTrue(elementNumSrc = elementNumDest, 'ipDestPoints must contain the same number of elements as ipSrcPoints');
 
-Check.IsFalse((fConfidence.Value >= 0 OR fConfidence.Value <= 1), 'fConfidence must be between 0 and 1');
+Check.IsTrue((fConfidence.Value >= 0) AND (fConfidence.Value <= 1), 'fConfidence must be between 0 and 1');
 ]]></ST>
       </Implementation>
     </Method>

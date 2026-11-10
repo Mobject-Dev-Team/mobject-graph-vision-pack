@@ -1,5 +1,41 @@
 # Changelog
 
+## v0.12.0-beta — Vision 5.10.2 source work
+
+- Added 23 TC3 Vision Base nodes that need no new datatypes: NonMaxSuppression/Exp, ReshapeImage, ConvertDataLayout, ApplyLut, BlendImages, FuseImagesArray, ReinterpretUnsupportedImage, CopyIntoDisplayableImageExp, TransformIntoDisplayableImageExp2, InnerCircle/Exp, FourierDescriptors, HoughLinesExp, GetAffineTransformation2DExp, ConvertContainerType, SortContainer/Exp, EraseFromContainer and MultiplyWithContainerElements1-4. Sort, Erase and Multiply work on a copy (ipSortedContainer / ipDestContainer), so the upstream container is only read. FuseImagesArray takes up to ten images as separate inputs.
+- SortDetectedPatternPoints now takes ipPatternPoints as an input (TcVnPoint3_REAL) and returns a sorted copy as ipSortedPoints. It previously registered the reference pattern only as an output and could never run. ipPatternPoints is still offered as an output so saved graphs load.
+- HomographyExp's fConfidence check always failed, so the node could never run; FilterGoodMatches' fMaxKnnRatio check tested fMaxDist and never fired. Both are fixed.
+- Built and runtime-checked on TwinCAT 3.1.4026.28 (dev UmRT): all 23 nodes register and the library loads under GraphPlc. Production's earlier 0.11.0 build (`d3dc717`) already contained the items below up to the SolvePnP change; this release supersedes it.
+
+- Added 15 value datatype wrappers and 41 enabled enum values from the Vision 5.10.2 reference. MONO14P remains disabled for the selected 5.10.3.0 build.
+- Added SalientFeatures, FindRois, and MergeRegions graph nodes.
+- Added eight image/matching nodes: InvertImageColorExp, NormalizeImageExp, MatchTemplateExp, MatchTemplateAndEvaluateExp, MatchDescriptorsBFExp, MatchDescriptorsKnnBFExp, MatchContours, and MatchContoursExp. Expert inputs include optional masks; template evaluation also exposes match scores.
+- Added image/matching precondition checks. Regression tests are deferred to a separate branch; the initial fixtures were removed in `604c579`.
+- Added ten polarization and coordinate image nodes: demosaicing, angle/degree of linear polarization, glare reduction, and Cartesian/polar angle, magnitude, and coordinate image conversions (including expert variants).
+- Added eight geometric transformation nodes: ConvertMaps, RemapImage/Exp, RemapImageToLogPolarSpaceExp/Exp2, RemapImageToPolarSpaceExp/Exp2, and AlignRotatedImageRegionExp, with shared validation for supported map pairs.
+- Added the enclosing-triangle area output and preserved its value when execution fails or is skipped.
+- Corrected the Huber enum and BRISK member labels while keeping legacy serialized values readable.
+- Preserved the Vision 5.10.3.0 resolutions, GVCP constructor fixes, and corrected merge-region option from `604c579`.
+- Added twelve measurement nodes completing the expert edge metrology family: LocateAxisAlignedEdges/Exp, LocateCircularArcExp/Exp2, LocateEdgeExp2, LocateEdgesExp2, LocateEllipseExp2, MeasureAngleBetweenEdgesExp/Exp2, MeasureEdgeDistanceExp2, and MeasureMinEdgeDistanceExp/Exp2. Optional edge-point, edge-strength, contour, distance, and derivative outputs may be left unconnected.
+- Added the eight reference-keypoint matching nodes, closing the TC3 Vision Matching backlog: FindReferenceKeyPointsInImage/Exp plus the AKAZE, BRISK, and ORB variants and their expert forms. Together with the MatchDescriptors nodes these locate a known reference image in a source image and return its perspective transformation.
+- **breaking** the elementwise container statistics nodes (Max/Min/Median, 96 typed variants) and LocateEllipseExp no longer register their result as an input port. The result was offered as both an input and an output, and because an input port aliases the upstream node's storage, connecting it made the call write its result into whichever node fed the edge. The result remains available as an output. A saved graph breaks only if it actually connected one of these input ports; none of the shipped examples do, but such a graph fails to deserialize as a whole rather than dropping the one link.
+- ClipLineToBoundary (all three variants) now exposes aStartPoint and aEndPoint as outputs. They are documented as returning the clipped points but were registered as inputs only, so the node's results were unreachable from its outputs. The inputs are kept so existing saved links still resolve.
+- SetImageChannel and WhiteBalance keep their ipDestImage input. Writing into a supplied destination is how the Golden Template and Colour Balance examples compose an image one channel at a time, sequenced with hrPrev, so it is a supported idiom rather than an oversight.
+- Added the five code reading nodes, closing the TC3 Vision Code Reading backlog: AnalyzeBarcodeWalsh and DetectBarcodesWalsh, which pair to tune and then run Walsh barcode detection, plus ReadBarcodeRoi/Exp and ReadDataMatrixCodeRoiExp. The ROI readers accept only the barcode types their documentation lists as supported.
+- The audit tool now reports write-through input ports (`port-write-through.csv`, counted in `summary.json`), so ports whose result the native call writes back through an input edge are a tracked category rather than something to rediscover.
+- Added fifteen calibration and coordinate transformation nodes, so a calibration result can now be used: TransformCoordinatesImageToWorld, TransformCoordinatesWorldToImage and TransformCoordinatesPlanar (point and container forms each), ImagePointsWorldDistance, CalibrateCameraManually/Exp, CalibrateCameraPlanarExp, DetectPatternPoints2, DetectPatternPointsExp, SortAxisAlignedPatternPoints, and DecomposeHomography/Exp. SortAxisAlignedPatternPoints sorts a copy and returns it as ipSortedPoints, leaving the input container unchanged.
+- The audit tool now reports in-place input ports (`port-in-place.csv`, counted in `summary.json`, plus an `in_place_params` column in `functions.csv`): inputs whose upstream object the native call modifies, such as sorting, appending to or drawing into it. These change the upstream node's data for every other consumer of that output. 281 registered nodes are listed for review: container editing, drawing, pixel and ROI setters, region copy and the Hough transforms.
+- The audit tool now exports `var-output-ports.csv`: every node output bound to a genuine VAR_OUTPUT parameter (48 ports on 33 nodes), keyed by graph path. ST binds these with `=>`, and blueprints can't say which parameters they are, so the ST codegen pack checks its hand-maintained override table against this file.
+- SolvePnP and SolvePnPExp now take aCameraMatrix and aDistortionCoefficients as inputs. They were registered only as outputs, so a calibration result couldn't be connected and the solve always ran on an all-zero camera matrix. Both are still echoed as outputs, so saved graphs still load. The reference point count check now reads ipReferencePoints (it compared ipImagePoints with itself), a camera matrix without positive focal lengths is rejected, and SolvePnPExp requires exactly 4 points for P3P, AP3P and IPPE_SQUARE.
+- The audit tool now reports input-as-output ports (`port-input-as-output.csv`, counted in `summary.json`): InOut parameters the call only reads that a node registers only as an output. It also recognises more result wordings ("Resulting ...", "Output parameter ...", "... filled by this function", plus a table for results only identifiable by name), which both port checks share.
+- Comprehensive runtime tests remain pending.
+
+## v0.11.0-beta
+
+- Added nodes
+- added support for mobject-graph v0.18.0
+- updated to support mobject-core v0.10.0
+
 ## v0.10.0-beta
 
 - updated to 4026.22

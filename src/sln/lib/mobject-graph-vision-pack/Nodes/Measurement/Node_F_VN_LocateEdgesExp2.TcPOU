@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_LocateEdgesExp2" Id="{e762121d-8385-46ed-a181-baf5dbb09d4e}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_LocateEdgesExp2 EXTENDS VisionNode
+VAR
+    ipSrcImage : _ITcVnImage;
+    ipEdgePoints : _ITcVnContainer;
+    aStartPoint : _TcVnPoint2_REAL;
+    aEndPoint : _TcVnPoint2_REAL;
+    nNumEdges : _UDINT(1);
+    eEdgeDirection : _ETcVnEdgeDirection(ETcVnEdgeDirection.TCVN_ED_DARK_TO_LIGHT);
+    bAlternateDirection : _BOOL(FALSE);
+    fMinStrength : _REAL(0.0);
+    nSearchLines : _UDINT(1);
+    fSearchLineDist : _REAL(1.0);
+    nMaxThickness : _UDINT(10);
+    nSubpixelsIterations : _UDINT(10);
+    fApproxPrecision : _REAL(0.001);
+    eAlgorithm : _ETcVnEdgeDetectionAlgorithm(ETcVnEdgeDetectionAlgorithm.TCVN_EDA_INTERPOLATION);
+    fRangeCutoffFactor : _REAL(0.135);
+    ipEdgeStrengths : _ITcVnContainer;
+    bAvgEdgeStrengths : _BOOL(FALSE);
+    hrPrev : _HRESULT(S_OK);
+    fAvgStrength : _REAL(0.0);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{7a99c378-7e72-4cd0-8365-b5d6f3b2b194}" />
+    <Method Name="Clone" Id="{ee186c9e-45ab-4d27-a2dc-7f12d41d916f}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_LocateEdgesExp2;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_LocateEdgesExp2);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{8b509b0d-52e5-4e74-89ad-fe2a448330dc}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcImage', ipSrcImage);
+AddOutput('ipEdgePoints', ipEdgePoints);
+AddInput('aStartPoint', aStartPoint);
+AddInput('aEndPoint', aEndPoint);
+AddParameter('nNumEdges', nNumEdges);
+AddParameter('eEdgeDirection', eEdgeDirection);
+AddParameter('bAlternateDirection', bAlternateDirection);
+AddParameter('fMinStrength', fMinStrength);
+AddParameter('nSearchLines', nSearchLines);
+AddParameter('fSearchLineDist', fSearchLineDist);
+AddParameter('nMaxThickness', nMaxThickness);
+AddParameter('nSubpixelsIterations', nSubpixelsIterations);
+AddParameter('fApproxPrecision', fApproxPrecision);
+AddParameter('eAlgorithm', eAlgorithm);
+AddParameter('fRangeCutoffFactor', fRangeCutoffFactor);
+AddOutput('ipEdgeStrengths', ipEdgeStrengths);
+AddParameter('bAvgEdgeStrengths', bAvgEdgeStrengths);
+AddInput('hrPrev', hrPrev);
+AddOutput('fAvgStrength', fAvgStrength);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{cd85a8df-4903-4742-8bf7-fece7d09fccf}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    avgStrength : REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_LocateEdgesExp2(
+    ipSrcImage := ipSrcImage.Value,
+    ipEdgePoints := ipEdgePoints.Value,
+    aStartPoint := aStartPoint.Value,
+    aEndPoint := aEndPoint.Value,
+    nNumEdges := nNumEdges.Value,
+    eEdgeDirection := eEdgeDirection.Value,
+    bAlternateDirection := bAlternateDirection.Value,
+    fMinStrength := fMinStrength.Value,
+    nSearchLines := nSearchLines.Value,
+    fSearchLineDist := fSearchLineDist.Value,
+    nMaxThickness := nMaxThickness.Value,
+    nSubpixelsIterations := nSubpixelsIterations.Value,
+    fApproxPrecision := fApproxPrecision.Value,
+    eAlgorithm := eAlgorithm.Value,
+    fRangeCutoffFactor := fRangeCutoffFactor.Value,
+    ipEdgeStrengths := ipEdgeStrengths.Value,
+    bAvgEdgeStrengths := bAvgEdgeStrengths.Value,
+    hrPrev := hrPrev.Value,
+    fAvgStrength => avgStrength);
+
+fAvgStrength.Value := avgStrength;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{747309e7-acce-4e85-8ce9-58564c9f9164}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcImage.IsValid, 'ipSrcImage must contain an image');
+Check.IsTrue(ipSrcImage.HasChannelCount(1), 'ipSrcImage must contain 1 channel');
+Check.IsTrue(nNumEdges.Value > 0, 'nNumEdges must be at least 1');
+Check.IsTrue(nSearchLines.IsOdd, 'nSearchLines must be an odd number');
+Check.IsTrue(fSearchLineDist.Value > 0.0, 'fSearchLineDist must be greater than 0');
+Check.IsTrue(nMaxThickness.Value > 0, 'nMaxThickness must be at least 1');
+Check.IsTrue(nSubpixelsIterations.Value > 0, 'nSubpixelsIterations must be greater than 0');
+Check.IsTrue((eAlgorithm.Value = ETcVnEdgeDetectionAlgorithm.TCVN_EDA_INTERPOLATION) OR
+             (fApproxPrecision.Value > 0.0), 'fApproxPrecision must be greater than 0 for the approximation algorithms');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

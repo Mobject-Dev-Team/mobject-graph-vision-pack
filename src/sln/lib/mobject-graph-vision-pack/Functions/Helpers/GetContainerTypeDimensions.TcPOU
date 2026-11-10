@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="GetContainerTypeDimensions" Id="{d7e779e3-d88f-4b3c-85f6-fd5761433ffb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION GetContainerTypeDimensions : UINT
+VAR_INPUT
+    ContainerType : GUID;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Values per element of a basic arithmetic, TcVnPoint or TcVnVector container type, else 0.
+IF GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_SINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_USINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_INT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_UINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_DINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_UDINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_ULINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_REAL) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_LREAL) THEN
+    GetContainerTypeDimensions := 1;
+ELSIF GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_DINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_LREAL) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_SINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_USINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_INT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_UINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_DINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector2_REAL) THEN
+    GetContainerTypeDimensions := 2;
+ELSIF GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint3_REAL) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint3_LREAL) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_SINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_USINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_INT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_UINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector3_REAL) THEN
+    GetContainerTypeDimensions := 3;
+ELSIF GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_SINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_USINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_INT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_UINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_DINT) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_REAL) OR_ELSE
+    GuidsEqualByVal(ContainerType, TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnVector4_LREAL) THEN
+    GetContainerTypeDimensions := 4;
+ELSE
+    GetContainerTypeDimensions := 0;
+END_IF
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

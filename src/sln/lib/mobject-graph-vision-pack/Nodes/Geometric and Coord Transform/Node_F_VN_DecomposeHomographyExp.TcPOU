@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_DecomposeHomographyExp" Id="{025a1997-def8-4841-ab87-4285b0e2659b}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_DecomposeHomographyExp EXTENDS VisionNode
+VAR
+    aHomography : _TcVnMatrix3x3_LREAL;
+    aCameraMatrix : _TcVnMatrix3x3_LREAL;
+    aRotationMatrixA : _TcVnMatrix3x3_LREAL;
+    aTranslationVectorA : _TcVnVector3_LREAL;
+    aNormVectorA : _TcVnVector3_LREAL;
+    aRotationMatrixB : _TcVnMatrix3x3_LREAL;
+    aTranslationVectorB : _TcVnVector3_LREAL;
+    aNormVectorB : _TcVnVector3_LREAL;
+    ipPointsSrc : _ITcVnContainer;
+    ipPointsDes : _ITcVnContainer;
+    ipInlierMask : _ITcVnContainer;
+    nSolutions : _UDINT(0);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{0d73929a-72e0-4f55-bd22-4c4855a8be1b}" />
+    <Method Name="Clone" Id="{56f99b39-7342-41cf-aea5-7fab6439a008}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_DecomposeHomographyExp;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DecomposeHomographyExp);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{7cf2319b-cc42-4df5-9669-fcec4eee8668}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('aHomography', aHomography);
+AddInput('aCameraMatrix', aCameraMatrix);
+AddInput('ipPointsSrc', ipPointsSrc);
+AddInput('ipPointsDes', ipPointsDes);
+AddInput('ipInlierMask', ipInlierMask);
+AddInput('hrPrev', hrPrev);
+AddOutput('aRotationMatrixA', aRotationMatrixA);
+AddOutput('aTranslationVectorA', aTranslationVectorA);
+AddOutput('aNormVectorA', aNormVectorA);
+AddOutput('aRotationMatrixB', aRotationMatrixB);
+AddOutput('aTranslationVectorB', aTranslationVectorB);
+AddOutput('aNormVectorB', aNormVectorB);
+AddOutput('nSolutions', nSolutions);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{aee76c17-9501-4afb-b425-d34547248e81}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    solutions : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_DecomposeHomographyExp(
+    aHomography := aHomography.Value,
+    aCameraMatrix := aCameraMatrix.Value,
+    aRotationMatrixA := aRotationMatrixA.Value,
+    aTranslationVectorA := aTranslationVectorA.Value,
+    aNormVectorA := aNormVectorA.Value,
+    aRotationMatrixB := aRotationMatrixB.Value,
+    aTranslationVectorB := aTranslationVectorB.Value,
+    aNormVectorB := aNormVectorB.Value,
+    ipPointsSrc := ipPointsSrc.Value,
+    ipPointsDes := ipPointsDes.Value,
+    ipInlierMask := ipInlierMask.Value,
+    hrPrev := hrPrev.Value,
+    nSolutions => solutions);
+
+nSolutions.Value := solutions;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{68293245-0564-46bc-8cf4-228a5e9e7c1d}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR
+VAR
+    srcPoints : ULINT;
+    desPoints : ULINT;
+    maskElements : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(aHomography.Value[2, 2] <> 0.0, 'aHomography must be a valid homography matrix');
+Check.IsTrue((aCameraMatrix.Value[0, 0] > 0.0) AND (aCameraMatrix.Value[1, 1] > 0.0),
+             'aCameraMatrix must contain positive focal lengths fx and fy (connect a calibration result)');
+
+// The verification points are optional, but only make sense as a pair.
+Check.IsTrue(ipPointsSrc.IsValid = ipPointsDes.IsValid, 'ipPointsSrc and ipPointsDes must either both be connected or both be left unconnected');
+IF ipPointsSrc.IsValid THEN
+    Check.IsTrue(ipPointsSrc.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL), 'ipPointsSrc contains incorrect type');
+    Check.IsTrue(ipPointsSrc.TryGetElementNum(srcPoints), 'ipPointsSrc must report its element count');
+END_IF
+IF ipPointsDes.IsValid THEN
+    Check.IsTrue(ipPointsDes.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint2_REAL), 'ipPointsDes contains incorrect type');
+    Check.IsTrue((ipPointsDes.TryGetElementNum(desPoints) AND (desPoints = srcPoints)), 'ipPointsDes must contain the same number of points as ipPointsSrc');
+END_IF
+IF ipInlierMask.IsValid THEN
+    Check.IsTrue((ipInlierMask.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_SINT) OR
+                  ipInlierMask.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_USINT)),
+                  'ipInlierMask contains incorrect type');
+    Check.IsTrue((ipInlierMask.TryGetElementNum(maskElements) AND (maskElements = srcPoints)), 'ipInlierMask must contain one entry per point in ipPointsSrc');
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

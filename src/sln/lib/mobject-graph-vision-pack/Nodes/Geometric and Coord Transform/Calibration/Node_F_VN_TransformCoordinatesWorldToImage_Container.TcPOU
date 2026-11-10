@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_TransformCoordinatesWorldToImage_Container" Id="{9adeb0fe-ebe7-4240-9517-f60b4ca4ed6a}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_TransformCoordinatesWorldToImage_Container EXTENDS VisionNode
+VAR
+    ipSrcPoints3D : _ITcVnContainer;
+    ipDestPoints2D : _ITcVnContainer;
+    aCameraMatrix : _TcVnMatrix3x3_LREAL;
+    aDistortionCoefficients : _TcVnArray8_LREAL;
+    aRotationMatrix : _TcVnMatrix3x3_LREAL;
+    aTranslationVector : _TcVnVector3_LREAL;
+    bInteger : _BOOL(FALSE);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{65f7cff9-7dc4-4f3d-91ad-e7d7c87c8648}" />
+    <Method Name="Clone" Id="{0d6ba2e4-ae13-466c-bb07-7e242c8a735a}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_TransformCoordinatesWorldToImage_Container;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_TransformCoordinatesWorldToImage_Container);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{3f4af51d-9817-4461-b2ab-00d75b3d2954}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('ipSrcPoints3D', ipSrcPoints3D);
+AddInput('aCameraMatrix', aCameraMatrix);
+AddInput('aDistortionCoefficients', aDistortionCoefficients);
+AddInput('aRotationMatrix', aRotationMatrix);
+AddInput('aTranslationVector', aTranslationVector);
+AddParameter('bInteger', bInteger);
+AddInput('hrPrev', hrPrev);
+AddOutput('ipDestPoints2D', ipDestPoints2D);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{7a3c6607-3007-49ea-9094-7ce38d59be34}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_TransformCoordinatesWorldToImage_Container(
+    ipSrcPoints3D := ipSrcPoints3D.Value,
+    ipDestPoints2D := ipDestPoints2D.Value,
+    aCameraMatrix := aCameraMatrix.Value,
+    aDistortionCoefficients := aDistortionCoefficients.Value,
+    aRotationMatrix := aRotationMatrix.Value,
+    aTranslationVector := aTranslationVector.Value,
+    bInteger := bInteger.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{b8493867-3226-4fea-94b0-ccea3cbb9dec}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(ipSrcPoints3D.IsValid, 'ipSrcPoints3D must be a valid container');
+Check.IsTrue(ipSrcPoints3D.IsType(TC_GLOBAL_CONST_LIST.ContainerType_Vector_TcVnPoint3_LREAL), 'ipSrcPoints3D contains incorrect type');
+Check.IsTrue((aCameraMatrix.Value[0, 0] > 0.0) AND (aCameraMatrix.Value[1, 1] > 0.0),
+             'aCameraMatrix must contain positive focal lengths fx and fy (connect a calibration result)');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

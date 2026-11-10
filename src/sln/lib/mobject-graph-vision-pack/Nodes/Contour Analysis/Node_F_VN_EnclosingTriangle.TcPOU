@@ -8,6 +8,7 @@ FUNCTION_BLOCK Node_F_VN_EnclosingTriangle EXTENDS VisionNode
 VAR
     ipPointSet : _ITcVnContainer;
     aTriangleVertices : _TcVnArray3_Point2_REAL;
+    fArea : _LREAL(0.0);
     hrPrev : _HRESULT(S_OK);
 	hresult : _HRESULT(S_OK);
 END_VAR
@@ -37,18 +38,27 @@ END_VAR
         <ST><![CDATA[AddInput('ipPointSet', ipPointSet);
 AddInput('hrPrev', hrPrev);
 AddOutput('aTriangleVertices', aTriangleVertices);
+AddOutput('fArea', fArea);
 AddOutput('hresult',hresult);
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecute" Id="{a579b5e4-6b47-00ea-3de1-cde018662825}">
       <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    area : LREAL;
+END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[hresult.Value := F_VN_EnclosingTriangle(
 	ipPointSet := ipPointSet.Value,
     aTriangleVertices := aTriangleVertices.Value,
-	hrPrev:= hrPrev.Value);
+	hrPrev:= hrPrev.Value,
+    fArea => area);
+
+IF SUCCEEDED(hresult.Value) THEN
+    fArea.Value := area;
+END_IF
 ]]></ST>
       </Implementation>
     </Method>

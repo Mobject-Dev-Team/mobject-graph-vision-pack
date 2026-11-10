@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_DecomposeHomography" Id="{fa2d62bc-9c7f-4fbd-81f7-b7429c3c6c2d}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_DecomposeHomography EXTENDS VisionNode
+VAR
+    aHomography : _TcVnMatrix3x3_LREAL;
+    aCameraMatrix : _TcVnMatrix3x3_LREAL;
+    aRotationMatrixA : _TcVnMatrix3x3_LREAL;
+    aTranslationVectorA : _TcVnVector3_LREAL;
+    aNormVectorA : _TcVnVector3_LREAL;
+    aRotationMatrixB : _TcVnMatrix3x3_LREAL;
+    aTranslationVectorB : _TcVnVector3_LREAL;
+    aNormVectorB : _TcVnVector3_LREAL;
+    nSolutions : _UDINT(0);
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{3b46abce-bdc9-4224-8270-d972ca3111c7}" />
+    <Method Name="Clone" Id="{05b4e0f6-d0a9-43b8-81d1-425357027668}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_DecomposeHomography;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_DecomposeHomography);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{fc196aa2-3d05-4c2c-9d87-d999ba0af711}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('aHomography', aHomography);
+AddInput('aCameraMatrix', aCameraMatrix);
+AddInput('hrPrev', hrPrev);
+AddOutput('aRotationMatrixA', aRotationMatrixA);
+AddOutput('aTranslationVectorA', aTranslationVectorA);
+AddOutput('aNormVectorA', aNormVectorA);
+AddOutput('aRotationMatrixB', aRotationMatrixB);
+AddOutput('aTranslationVectorB', aTranslationVectorB);
+AddOutput('aNormVectorB', aNormVectorB);
+AddOutput('nSolutions', nSolutions);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{0cbaf7b6-dd57-4ea2-b6aa-cd281ff22194}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+VAR
+    solutions : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_DecomposeHomography(
+    aHomography := aHomography.Value,
+    aCameraMatrix := aCameraMatrix.Value,
+    aRotationMatrixA := aRotationMatrixA.Value,
+    aTranslationVectorA := aTranslationVectorA.Value,
+    aNormVectorA := aNormVectorA.Value,
+    aRotationMatrixB := aRotationMatrixB.Value,
+    aTranslationVectorB := aTranslationVectorB.Value,
+    aNormVectorB := aNormVectorB.Value,
+    hrPrev := hrPrev.Value,
+    nSolutions => solutions);
+
+nSolutions.Value := solutions;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{7343bde2-bdc7-4f5a-8113-6827859e9eaa}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(aHomography.Value[2, 2] <> 0.0, 'aHomography must be a valid homography matrix');
+Check.IsTrue((aCameraMatrix.Value[0, 0] > 0.0) AND (aCameraMatrix.Value[1, 1] > 0.0),
+             'aCameraMatrix must contain positive focal lengths fx and fy (connect a calibration result)');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

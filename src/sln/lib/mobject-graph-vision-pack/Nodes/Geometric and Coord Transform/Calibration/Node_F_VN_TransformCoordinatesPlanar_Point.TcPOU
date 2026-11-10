@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Node_F_VN_TransformCoordinatesPlanar_Point" Id="{5b9fd172-dc91-4cf0-b90e-34adef22196f}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node_F_VN_TransformCoordinatesPlanar_Point EXTENDS VisionNode
+VAR
+    aSrcPoint : _TcVnPoint2_LREAL;
+    aDestPoint : _TcVnPoint2_LREAL;
+    aTransformationMatrix : _TcVnMatrix3x3_LREAL;
+    hrPrev : _HRESULT(S_OK);
+    hresult : _HRESULT(S_OK);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{5eb3e0c9-dba7-42ba-a52b-7fedf6c09a79}" />
+    <Method Name="Clone" Id="{c66362aa-bca4-492e-b22a-705d35f98692}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone : I_Node
+VAR
+    pNode : POINTER TO Node_F_VN_TransformCoordinatesPlanar_Point;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNode := __NEW(Node_F_VN_TransformCoordinatesPlanar_Point);
+Clone := pNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{1ab62d46-e4a5-4aeb-b3bc-bfcab95ac423}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL;
+    bInCopyCode : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddInput('aSrcPoint', aSrcPoint);
+AddInput('aTransformationMatrix', aTransformationMatrix);
+AddInput('hrPrev', hrPrev);
+AddOutput('aDestPoint', aDestPoint);
+AddOutput('hresult', hresult);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecute" Id="{d7cda93f-e293-4e1d-babd-25773c69999a}">
+      <Declaration><![CDATA[METHOD PROTECTED OnExecute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[hresult.Value := F_VN_TransformCoordinatesPlanar_Point(
+    aSrcPoint := aSrcPoint.Value,
+    aDestPoint := aDestPoint.Value,
+    aTransformationMatrix := aTransformationMatrix.Value,
+    hrPrev := hrPrev.Value);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreExecutionCheck" Id="{07593510-fbe5-47a4-8f18-ab616ee46e87}">
+      <Declaration><![CDATA[METHOD PUBLIC PreExecutionCheck
+VAR_INPUT
+    Check : I_PreExecutionChecks;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Check.IsTrue(aTransformationMatrix.Value[2, 2] <> 0.0, 'aTransformationMatrix must be a valid transformation matrix (connect a planar calibration result)');]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
