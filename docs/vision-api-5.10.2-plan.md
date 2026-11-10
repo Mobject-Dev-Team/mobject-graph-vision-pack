@@ -411,6 +411,44 @@ Both nodes now check for positive `fx`/`fy` and read the reference point count f
 `ipReferencePoints`, not `ipImagePoints`. The Exp node also checks that P3P, AP3P and
 IPPE_SQUARE get exactly 4 points. The list is now empty.
 
+## Implementation progress — ninth batch
+
+Added the 23 remaining Vision Base functions whose signatures need no new datatype, buffer or
+interface ownership work, released as 0.12.0 with three node fixes:
+
+- Under `Vision/Neural Network`: `F_VN_NonMaxSuppression`/`Exp`, `F_VN_ReshapeImage`,
+  `F_VN_ConvertDataLayout`.
+- Image operations: `F_VN_ApplyLut`, `F_VN_BlendImages`, `F_VN_FuseImagesArray`,
+  `F_VN_ReinterpretUnsupportedImage`, `F_VN_CopyIntoDisplayableImageExp`,
+  `F_VN_TransformIntoDisplayableImageExp2`.
+- Shape analysis: `F_VN_InnerCircle`/`Exp`, `F_VN_FourierDescriptors`, `F_VN_HoughLinesExp`,
+  `F_VN_GetAffineTransformation2DExp`.
+- Containers: `F_VN_ConvertContainerType`, `F_VN_SortContainer`/`Exp`, `F_VN_EraseFromContainer`,
+  `F_VN_MultiplyWithContainerElements1`–`4`.
+
+Ports follow the pack's convention: images, containers and `hrPrev` are inputs; scalars, enums,
+the destination type GUID, `aNewShape` and the `aValue` multipliers are parameters (a parameter
+can still be driven by a link). Sort, Erase and Multiply edit a copy, as `SortAxisAlignedPatternPoints`
+does, and output it as `ipSortedContainer` or `ipDestContainer`. `ReinterpretUnsupportedImage` acts
+on the connected image by design, and `HoughLinesExp` works in place like the other Hough nodes;
+both are counted in the in-place audit. `FuseImagesArray` exposes ten image inputs because no node
+produces `TcVnArray10_ITcVnImage`. `SortContainerExp` defaults `nLastIdx` to `16#FFFFFFFF` rather
+than the ULINT maximum, which a JSON number cannot carry exactly; the call crops it to the last
+element. `ConvertDataLayout` keeps its layouts as `ULINT` so custom layouts remain possible, the
+convention the seventh batch set for options masks. A new `GetContainerTypeDimensions` helper backs
+the element-index and dimension checks.
+
+Fixes: `F_VN_SortDetectedPatternPoints` now takes its reference pattern as an input and sorts a
+copy (closing the eighth-batch finding); `HomographyExp`'s confidence check always failed;
+`FilterGoodMatches`' knn-ratio check tested the wrong parameter.
+
+The batch reaches **905 API function nodes**, with **133 missing**: Vision Base 59, Metrology 2D 5,
+Machine Learning 58, Neural Network 11. Everything left in Vision Base needs the phase-2 buffer,
+iterator, callback or interface work, or the watchdog decision. This is the first batch built
+against a dev runtime: it compiled with 0 errors on TwinCAT 3.1.4026.27 and .28, loaded under
+GraphPlc on the dev UmRT, and all 23 nodes registered over `GetBlueprints`. Per-node runtime
+fixtures are still to be written.
+
 ## About box release notes
 
 Copy this entry into the About box release-notes array. It lists the 54 new nodes implemented across all seven batches. Keep this entry updated as further nodes are implemented. `v1.26.0 beta` is a proposed version following the supplied `v1.25.0 beta` example; adjust the version and date to match the eventual release. This is a draft while the latest source additions await TwinCAT build and runtime validation.

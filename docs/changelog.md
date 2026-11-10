@@ -1,6 +1,11 @@
 # Changelog
 
-## Unreleased — Vision 5.10.2 source work
+## v0.12.0-beta — Vision 5.10.2 source work
+
+- Added 23 TC3 Vision Base nodes that need no new datatypes: NonMaxSuppression/Exp, ReshapeImage, ConvertDataLayout, ApplyLut, BlendImages, FuseImagesArray, ReinterpretUnsupportedImage, CopyIntoDisplayableImageExp, TransformIntoDisplayableImageExp2, InnerCircle/Exp, FourierDescriptors, HoughLinesExp, GetAffineTransformation2DExp, ConvertContainerType, SortContainer/Exp, EraseFromContainer and MultiplyWithContainerElements1-4. Sort, Erase and Multiply work on a copy (ipSortedContainer / ipDestContainer), so the upstream container is only read. FuseImagesArray takes up to ten images as separate inputs.
+- SortDetectedPatternPoints now takes ipPatternPoints as an input (TcVnPoint3_REAL) and returns a sorted copy as ipSortedPoints. It previously registered the reference pattern only as an output and could never run. ipPatternPoints is still offered as an output so saved graphs load.
+- HomographyExp's fConfidence check always failed, so the node could never run; FilterGoodMatches' fMaxKnnRatio check tested fMaxDist and never fired. Both are fixed.
+- Built and runtime-checked on TwinCAT 3.1.4026.28 (dev UmRT): all 23 nodes register and the library loads under GraphPlc. Production's earlier 0.11.0 build (`d3dc717`) already contained the items below up to the SolvePnP change; this release supersedes it.
 
 - Added 15 value datatype wrappers and 41 enabled enum values from the Vision 5.10.2 reference. MONO14P remains disabled for the selected 5.10.3.0 build.
 - Added SalientFeatures, FindRois, and MergeRegions graph nodes.
@@ -23,7 +28,7 @@
 - The audit tool now exports `var-output-ports.csv`: every node output bound to a genuine VAR_OUTPUT parameter (48 ports on 33 nodes), keyed by graph path. ST binds these with `=>`, and blueprints can't say which parameters they are, so the ST codegen pack checks its hand-maintained override table against this file.
 - SolvePnP and SolvePnPExp now take aCameraMatrix and aDistortionCoefficients as inputs. They were registered only as outputs, so a calibration result couldn't be connected and the solve always ran on an all-zero camera matrix. Both are still echoed as outputs, so saved graphs still load. The reference point count check now reads ipReferencePoints (it compared ipImagePoints with itself), a camera matrix without positive focal lengths is rejected, and SolvePnPExp requires exactly 4 points for P3P, AP3P and IPPE_SQUARE.
 - The audit tool now reports input-as-output ports (`port-input-as-output.csv`, counted in `summary.json`): InOut parameters the call only reads that a node registers only as an output. It also recognises more result wordings ("Resulting ...", "Output parameter ...", "... filled by this function", plus a table for results only identifiable by name), which both port checks share.
-- The distributed `.library` was last rebuilt in `7d67de2`; the calibration nodes added since still need a TwinCAT build. Runtime validation and comprehensive tests remain pending.
+- Comprehensive runtime tests remain pending.
 
 ## v0.11.0-beta
 
