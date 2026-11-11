@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.12.1-beta — watershed size check
+
+- WatershedSegmentationExp now fails its pre-check when ipMarkers is not the same size as ipSrcImage. Without the check the call reached OpenCV's `src.size() == dst.size()` assertion, which raised a PLC exception and stopped PlcTask on production (9 Nov 2026).
+- CreateStructuringElement had an empty pre-check; it now requires nWidth and nHeight to be greater than 0.
+
 ## v0.12.0-beta — Vision 5.10.2 source work
 
 - Added 23 TC3 Vision Base nodes that need no new datatypes: NonMaxSuppression/Exp, ReshapeImage, ConvertDataLayout, ApplyLut, BlendImages, FuseImagesArray, ReinterpretUnsupportedImage, CopyIntoDisplayableImageExp, TransformIntoDisplayableImageExp2, InnerCircle/Exp, FourierDescriptors, HoughLinesExp, GetAffineTransformation2DExp, ConvertContainerType, SortContainer/Exp, EraseFromContainer and MultiplyWithContainerElements1-4. Sort, Erase and Multiply work on a copy (ipSortedContainer / ipDestContainer), so the upstream container is only read. FuseImagesArray takes up to ten images as separate inputs.

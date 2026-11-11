@@ -68,6 +68,7 @@ Check.IsTrue(ipSrcImage.IsPixelDepth(8), 'ipSrcImage must have 8 bit pixel depth
 Check.IsTrue(ipMarkers.IsValid, 'ipMarkers must contain an image');
 Check.IsTrue(ipMarkers.HasChannelCount(1), 'ipMarkers must have 1 channel');
 Check.IsTrue(ipMarkers.IsPixelDepth(32), 'ipMarkers must have DINT 32 bit pixel depth');
+Check.IsTrue(IsImage1SizeEqualToImage2Size(ipMarkers.Value, ipSrcImage.Value), 'ipMarkers must be the same size as ipSrcImage');
 ]]></ST>
       </Implementation>
     </Method>
