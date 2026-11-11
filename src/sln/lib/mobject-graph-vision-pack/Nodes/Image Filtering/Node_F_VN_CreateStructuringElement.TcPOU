@@ -63,7 +63,9 @@ VAR_INPUT
 	Check : I_PreExecutionChecks;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[Check.IsTrue(nWidth.Value > 0, 'nWidth must be greater than 0');
+Check.IsTrue(nHeight.Value > 0, 'nHeight must be greater than 0');
+]]></ST>
       </Implementation>
     </Method>
   </POU>
