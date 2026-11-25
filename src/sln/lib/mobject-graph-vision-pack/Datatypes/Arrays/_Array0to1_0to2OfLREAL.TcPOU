@@ -147,6 +147,7 @@ VAR_INPUT
 	Deserializer : I_Deserializer;
 	Feedback : I_DeserializerFeedback;
 END_VAR
+	failed : BOOL;
 VAR
 	enumeratorD1 : I_DeserializerArrayForwardEnumerator;
 	enumeratorD2 : I_DeserializerArrayForwardEnumerator;
@@ -156,14 +157,15 @@ END_VAR]]></Declaration>
         <ST><![CDATA[enumeratorD1 := Deserializer.GetArrayEnumerator();
 i := lBoundD1;
 
-WHILE enumeratorD1.MoveNext() AND i <= uBoundD1 DO
+WHILE enumeratorD1.MoveNext() AND i <= uBoundD1 AND NOT failed DO
 	
 	enumeratorD2 := enumeratorD1.Current.GetArrayEnumerator();
 	j := lBoundD2;
 	
-	WHILE enumeratorD2.MoveNext() AND j <= uBoundD2 DO
+	WHILE enumeratorD2.MoveNext() AND j <= uBoundD2 AND NOT failed DO
 	
 		IF NOT elements[i, j].TryDeserializeFrom(enumeratorD2.Current, Feedback) THEN
+			failed := TRUE;
 			EXIT;
 		END_IF
 		
@@ -175,7 +177,9 @@ WHILE enumeratorD1.MoveNext() AND i <= uBoundD1 DO
 	i := i + 1;
 
 END_WHILE
-enumeratorD1.Dispose();]]></ST>
+enumeratorD1.Dispose();
+
+TryDeserializeArrayValues := NOT failed;]]></ST>
       </Implementation>
     </Method>
     <Method Name="TryGetElementAsDatatypeByIndex" Id="{e47bcbbb-08a4-06f2-2732-5319d2f8876c}"
