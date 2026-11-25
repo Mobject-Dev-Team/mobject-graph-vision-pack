@@ -1,8 +1,8 @@
 # Changelog
 
-## v0.13.1-beta — array values reach the PLC
+## v0.13.1-beta — array deserialize result
 
-- All 29 array datatypes (points, vectors, matrices, `TcVnArray*`, `ARRAY [..] OF ...`) reported every deserialization as failed: `TryDeserializeArrayValues` never returned TRUE. A Literal of one of these types (for example `Literal/TcVnPoint2_REAL`, `Literal/TcVnMatrix3x3_LREAL`) therefore never passed the new value on (it arrived as zeros), with no alarm. It now returns TRUE when every element was read and stops at the first element that fails.
+- All 29 array datatypes (points, vectors, matrices, `TcVnArray*`, `ARRAY [..] OF ...`) reported every deserialization as failed: `TryDeserializeArrayValues` never returned TRUE. The elements were still read, so Literal values arrived (verified on hardware on v0.13.0), but the result was wrong. It now returns TRUE when every element was read and stops at the first element that fails.
 - Depends on mobject-graph-plc-pack v0.20.1 (the same fix).
 
 ## v0.13.0-beta — graph function blocks
