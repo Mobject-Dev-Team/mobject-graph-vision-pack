@@ -134,8 +134,8 @@ VAR_INPUT
 	Deserializer : I_Deserializer;
 	Feedback : I_DeserializerFeedback;
 END_VAR
-	failed : BOOL;
 VAR
+	failed : BOOL;
 	enumerator : I_DeserializerArrayForwardEnumerator;
 	i : DINT;
 END_VAR]]></Declaration>
