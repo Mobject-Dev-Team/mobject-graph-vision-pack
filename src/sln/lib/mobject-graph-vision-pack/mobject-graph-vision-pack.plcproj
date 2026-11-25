@@ -19,7 +19,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-graph-vision-pack</Title>
-    <ProjectVersion>0.12.1</ProjectVersion>
+    <ProjectVersion>0.13.0</ProjectVersion>
     <DefaultNamespace>mobject-graph-vision-pack</DefaultNamespace>
     <Placeholder>mobject-graph-vision-pack</Placeholder>
     <Author>mobject dev team</Author>
@@ -40,10 +40,10 @@
     <LibraryReference Include="mobject-core,0.10.0,mobject">
       <Namespace>mobject_core</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph,0.18.0,mobject">
+    <LibraryReference Include="mobject-graph,0.19.0,mobject">
       <Namespace>mobject_graph</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph-plc-pack,0.19.0,mobject">
+    <LibraryReference Include="mobject-graph-plc-pack,0.20.0,mobject">
       <Namespace>mobject_graph_plc_pack</Namespace>
     </LibraryReference>
   </ItemGroup>

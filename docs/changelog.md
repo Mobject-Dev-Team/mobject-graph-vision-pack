@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.13.0-beta — graph function blocks
+
+- Moved to mobject-graph v0.19.0 (graph function blocks) and mobject-graph-plc-pack v0.20.0. No node changes.
+
 ## v0.12.1-beta — watershed size check
 
 - WatershedSegmentationExp now fails its pre-check when ipMarkers is not the same size as ipSrcImage. Without the check the call reached OpenCV's `src.size() == dst.size()` assertion, which raised a PLC exception and stopped PlcTask on production (9 Nov 2026).
