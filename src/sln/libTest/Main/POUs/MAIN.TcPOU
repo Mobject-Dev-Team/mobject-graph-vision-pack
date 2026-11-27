@@ -80,6 +80,9 @@ VAR
     
     //structs
     _TcVnSize2_REAL_TestSuite : _TcVnSize2_REAL_TestSuite;
+
+    //aliases
+    _TcVnMatrix3x3_LREAL_TestSuite : _TcVnMatrix3x3_LREAL_TestSuite;
     
     //interfaces
 	_ITcVnContainer_TestSuite : _ITcVnContainer_TestSuite;

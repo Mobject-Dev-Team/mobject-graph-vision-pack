@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.13.2-beta — flat matrix values
+
+- TcVnMatrix3x3_LREAL and TcVnMatrix2x3_LREAL (and their `ARRAY [0..2, 0..2]` / `ARRAY [0..1, 0..2] OF LREAL` bases) now accept a flat row-major list such as `[1,2,3,4,5,6,7,8,9]` as well as nested rows `[[1,2,3],[4,5,6],[7,8,9]]`. A flat value used to be skipped without an error, so the matrix silently stayed all zeros. The first element decides the form; a value that mixes flat and nested elements now fails to deserialize.
+- libTest references the current library and adds `_TcVnMatrix3x3_LREAL_TestSuite` (nested, flat, flat 2x3, mixed and bad-element cases).
+
 ## v0.13.1-beta — array deserialize result
 
 - All 29 array datatypes (points, vectors, matrices, `TcVnArray*`, `ARRAY [..] OF ...`) reported every deserialization as failed: `TryDeserializeArrayValues` never returned TRUE. The elements were still read, so Literal values arrived (verified on hardware on v0.13.0), but the result was wrong. It now returns TRUE when every element was read and stops at the first element that fails.

@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="_TcVnMatrix3x3_LREAL_TestSuite" Id="{28e0044d-9112-403d-b424-4530a9577957}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK _TcVnMatrix3x3_LREAL_TestSuite EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TestTryDeserializeFromNested();
+TestTryDeserializeFromFlat();
+TestTryDeserializeFromMixedFails();
+TestTryDeserializeFromBadElementFails();
+TestTryDeserializeFromFlat2x3();
+]]></ST>
+    </Implementation>
+    <Method Name="TestTryDeserializeFromNested" Id="{7bb3d6a9-c7b6-49f1-bb00-c2b1f3e985dd}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryDeserializeFromNested
+VAR
+    deserializer : JsonDeserializer;
+    feedback : DeserializerFeedback;
+    json : STRING(255) := '[[1,2,3],[4,5,6],[7,8,9]]';
+    _type : _TcVnMatrix3x3_LREAL;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryDeserializeFromNested');
+
+deserializer.Reset();
+deserializer.TryLoad(json);
+result := _type.TryDeserializeFrom(deserializer, feedback);
+
+AssertTrue(Condition := result, Message := 'Deserialization reported failure.');
+AssertEquals_LREAL(Expected := 2, Actual := _type.Value[0, 1], Delta := 0.0, Message := 'Nested value: [0, 1] wrong (row-major order expected).');
+AssertEquals_LREAL(Expected := 4, Actual := _type.Value[1, 0], Delta := 0.0, Message := 'Nested value: [1, 0] wrong (row-major order expected).');
+AssertEquals_LREAL(Expected := 9, Actual := _type.Value[2, 2], Delta := 0.0, Message := 'Nested value: [2, 2] wrong.');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryDeserializeFromFlat" Id="{63ba3579-1d67-484e-ad4e-69a7a2e3d114}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryDeserializeFromFlat
+VAR
+    deserializer : JsonDeserializer;
+    feedback : DeserializerFeedback;
+    json : STRING(255) := '[1,2,3,4,5,6,7,8,9]';
+    _type : _TcVnMatrix3x3_LREAL;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryDeserializeFromFlat');
+
+deserializer.Reset();
+deserializer.TryLoad(json);
+result := _type.TryDeserializeFrom(deserializer, feedback);
+
+AssertTrue(Condition := result, Message := 'Deserialization reported failure.');
+AssertEquals_LREAL(Expected := 2, Actual := _type.Value[0, 1], Delta := 0.0, Message := 'Flat value: [0, 1] wrong (row-major order expected).');
+AssertEquals_LREAL(Expected := 4, Actual := _type.Value[1, 0], Delta := 0.0, Message := 'Flat value: [1, 0] wrong (row-major order expected).');
+AssertEquals_LREAL(Expected := 9, Actual := _type.Value[2, 2], Delta := 0.0, Message := 'Flat value: [2, 2] wrong.');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryDeserializeFromMixedFails" Id="{eb565c5a-4fe7-4921-af56-4257942cf242}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryDeserializeFromMixedFails
+VAR
+    deserializer : JsonDeserializer;
+    feedback : DeserializerFeedback;
+    json : STRING(255) := '[1,2,3,[4,5,6],7,8,9]';
+    _type : _TcVnMatrix3x3_LREAL;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryDeserializeFromMixedFails');
+
+deserializer.Reset();
+deserializer.TryLoad(json);
+result := _type.TryDeserializeFrom(deserializer, feedback);
+
+AssertFalse(Condition := result, Message := 'A mix of flat and nested elements must fail.');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryDeserializeFromBadElementFails" Id="{d1016fd6-c774-40e8-843c-91ee0cdcd04f}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryDeserializeFromBadElementFails
+VAR
+    deserializer : JsonDeserializer;
+    feedback : DeserializerFeedback;
+    json : STRING(255) := '[1,2,"x",4,5,6,7,8,9]';
+    _type : _TcVnMatrix3x3_LREAL;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryDeserializeFromBadElementFails');
+
+deserializer.Reset();
+deserializer.TryLoad(json);
+result := _type.TryDeserializeFrom(deserializer, feedback);
+
+AssertFalse(Condition := result, Message := 'A non-numeric element must fail.');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTryDeserializeFromFlat2x3" Id="{2c71a6fd-2958-44ae-9f1d-e2abff88f108}">
+      <Declaration><![CDATA[METHOD PUBLIC TestTryDeserializeFromFlat2x3
+VAR
+    deserializer : JsonDeserializer;
+    feedback : DeserializerFeedback;
+    json : STRING(255) := '[1,2,3,4,5,6]';
+    _type : _TcVnMatrix2x3_LREAL;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestTryDeserializeFromFlat2x3');
+
+deserializer.Reset();
+deserializer.TryLoad(json);
+result := _type.TryDeserializeFrom(deserializer, feedback);
+
+AssertTrue(Condition := result, Message := 'Deserialization reported failure.');
+AssertEquals_LREAL(Expected := 3, Actual := _type.Value[0, 2], Delta := 0.0, Message := 'Flat 2x3 value: [0, 2] wrong.');
+AssertEquals_LREAL(Expected := 4, Actual := _type.Value[1, 0], Delta := 0.0, Message := 'Flat 2x3 value: [1, 0] wrong (row-major order expected).');
+AssertEquals_LREAL(Expected := 6, Actual := _type.Value[1, 2], Delta := 0.0, Message := 'Flat 2x3 value: [1, 2] wrong.');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
