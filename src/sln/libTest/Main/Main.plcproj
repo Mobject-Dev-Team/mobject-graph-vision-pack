@@ -55,10 +55,14 @@
     <Compile Include="Tests\Structs\_TcVnSize2_REAL_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Aliases\_TcVnMatrix3x3_LREAL_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="POUs" />
     <Folder Include="Tests" />
+    <Folder Include="Tests\Aliases" />
     <Folder Include="Tests\Enums" />
     <Folder Include="Tests\Interfaces" />
     <Folder Include="Tests\Functions" />
@@ -104,7 +108,7 @@
     <LibraryReference Include="mobject-core,0.10.0,mobject">
       <Namespace>mobject_core</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-graph-vision-pack,0.13.1,mobject">
+    <LibraryReference Include="mobject-graph-vision-pack,0.13.2,mobject">
       <Namespace>mobject_graph_vision_pack</Namespace>
     </LibraryReference>
   </ItemGroup>

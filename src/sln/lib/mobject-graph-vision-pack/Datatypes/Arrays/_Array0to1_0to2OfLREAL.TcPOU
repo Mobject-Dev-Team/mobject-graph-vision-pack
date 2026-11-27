@@ -152,29 +152,51 @@ VAR
 	enumeratorD1 : I_DeserializerArrayForwardEnumerator;
 	enumeratorD2 : I_DeserializerArrayForwardEnumerator;
 	i, j : DINT;
+	first : BOOL := TRUE;
+	flat : BOOL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[enumeratorD1 := Deserializer.GetArrayEnumerator();
+        <ST><![CDATA[// Accepts nested rows [[a, b, c], [d, e, f]] or a flat row-major list
+// [a, b, c, d, e, f]. The first element decides which; mixing the two fails.
+enumeratorD1 := Deserializer.GetArrayEnumerator();
 i := lBoundD1;
+j := lBoundD2;
 
 WHILE enumeratorD1.MoveNext() AND i <= uBoundD1 AND NOT failed DO
-	
-	enumeratorD2 := enumeratorD1.Current.GetArrayEnumerator();
-	j := lBoundD2;
-	
-	WHILE enumeratorD2.MoveNext() AND j <= uBoundD2 AND NOT failed DO
-	
-		IF NOT elements[i, j].TryDeserializeFrom(enumeratorD2.Current, Feedback) THEN
-			failed := TRUE;
-			EXIT;
-		END_IF
-		
-		j := j + 1;
-	
-	END_WHILE
-	enumeratorD2.Dispose();
 
-	i := i + 1;
+	enumeratorD2 := enumeratorD1.Current.GetArrayEnumerator();
+
+	IF first THEN
+		flat := NOT enumeratorD2.IsValid;
+		first := FALSE;
+	ELSIF flat = enumeratorD2.IsValid THEN
+		failed := TRUE;
+	END_IF
+
+	IF failed THEN
+		;
+	ELSIF flat THEN
+		IF NOT elements[i, j].TryDeserializeFrom(enumeratorD1.Current, Feedback) THEN
+			failed := TRUE;
+		END_IF
+		j := j + 1;
+		IF j > uBoundD2 THEN
+			j := lBoundD2;
+			i := i + 1;
+		END_IF
+	ELSE
+		j := lBoundD2;
+		WHILE enumeratorD2.MoveNext() AND j <= uBoundD2 AND NOT failed DO
+			IF NOT elements[i, j].TryDeserializeFrom(enumeratorD2.Current, Feedback) THEN
+				failed := TRUE;
+				EXIT;
+			END_IF
+			j := j + 1;
+		END_WHILE
+		i := i + 1;
+	END_IF
+
+	enumeratorD2.Dispose();
 
 END_WHILE
 enumeratorD1.Dispose();
